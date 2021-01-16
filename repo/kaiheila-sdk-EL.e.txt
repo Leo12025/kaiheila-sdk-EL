@@ -6793,7 +6793,7 @@ loop”", 隐藏,
 
 .子程序 _启动子程序, 整数型, , 本子程序在程序启动后最先执行
  ' // 这个是 开黑啦 BOT 易语言版本 （WebHook）
-赋值 (Version, “v0.0.2 2020.1.14”)
+赋值 (Version, “v0.0.3 2020.1.16”)
 
  ' // 开黑啦后台配置：
  ' //  回调地址填写：http://{yourdomain}/khl/botv1?compress=0
@@ -6805,17 +6805,19 @@ loop”", 隐藏,
 
 赋值 (g_token, “”) ' 请在机器人后台获取
 
- ' 客户端_全局初始化 (真, , , , , )
- ' 客户端_全局绑定事件 (&Ws_Con, &Ws_ConClose, &Ws_Reco, &Ws_Heart)
 载入 (窗口1, , 假)
 返回 (0) ' 可以根据您的需要返回任意数值
 
 .子程序 VersionHistory, 空白型, , 
+ ' # kaiheila-sdk-EL (WebHook)
+ ' [v0.0.3 2020.1.16]
+ ' 1. 移除 WebSocket 模块并更新到 kaiheila-sdk-EL_ws.e
+ ' 2. 调整部分参数
+
  ' [v0.0.2 2020.1.15]
- ' 1. 接入 WebSocket *鱼刺WSS客户端
- ' 2. 取消多机器人兼容模式（有更好的想法可以自行修改并提交）
- ' 3. 合入 卡片消息 部分
- ' 4. 增加获取机器人所在服务器信息的接口
+ ' 1. 取消多机器人兼容模式（有更好的想法可以自行修改并提交）
+ ' 2. 合入 卡片消息 部分
+ ' 3. 增加获取机器人所在服务器信息的接口
 
 
 .窗口程序集 窗口程序集_窗口1, , , 
@@ -6870,7 +6872,7 @@ connectId.断开客户 ()
 .子程序 _窗口1_创建完毕, 空白型, , 
 未知支持库函数_0 (&QueueHeart, , )
  ' 下边是启动Ws的选项
-WsConnet ()
+未知支持库函数_0 ()
 
 .子程序 数组中查找, 逻辑型, , 
 .参数 数组, 文本型, 数组, 
@@ -21263,17 +21265,17 @@ WsConnet ()
 
 赋值 (url, 相加 (g_url, “/channel/message”))
 赋值 (header, 相加 (header, “Authorization: Bot ”, 选择 (等于 (token, “”), g_token, 读配置项 (相加 (取运行目录 (), “\bot.ini”), “token”, token, )), #换行符, “Content-Type: application/json”))
-.判断开始 (.未知函数_67186450 ())
-    “object_name”.未知函数_67186451 (10)
-    “content”.未知函数_67186452 (未知函数_67186453 (), )
-.判断 (不等于 (寻找文本 (“bilibili.com”, , 假), -1))
-    “object_name”.未知函数_67186451 (1)
-    “content”.未知函数_67186452 ()
-.判断 (不等于 (寻找文本 (“.png”, , 假), -1))
-    “object_name”.未知函数_67186451 (2)
-    “content”.未知函数_67186452 ()
+.判断开始 (cont.解析 (content, ))
+    json.置属性数值 (“object_name”, 10)
+    json.置属性 (“content”, cont.取数据文本 (), )
+.判断 (不等于 (寻找文本 (content, “bilibili.com”, , 假), -1))
+    json.置属性数值 (“object_name”, 1)
+    json.置属性 (“content”, content, )
+.判断 (不等于 (寻找文本 (content, “.png”, , 假), -1))
+    json.置属性数值 (“object_name”, 2)
+    json.置属性 (“content”, content, )
 .默认
-    “object_name”.未知函数_67186451 (9)
+    json.置属性数值 (“object_name”, 9)
     json.置属性 (“content”, content, )
 .判断结束
 json.置属性 (“channel_id”, channel_id, )
@@ -21354,37 +21356,37 @@ result.解析 (编码_utf8到gb2312 (到文本 (网页_访问 (url, 0, , , , hea
  ' {"code":0,"message":"操作成功","data":{"url":"wss://ws.kaiheila.cn/gateway?compress=0&token=1234="}
 
 .子程序 卡片测试, 空白型, , 
-.局部变量 content, 未知类型0x49012EEE, , , 消息.加成员(card)
-.局部变量 card, 未知类型0x49012EEF, , , 卡片<arr>.加成员(modules)
-.局部变量 modules, 未知类型0x49012EEE, , , 模块<arr>
-.局部变量 item, 未知类型0x49012EF0, , , 元素
-.局部变量 item2, 未知类型0x49012EEE, , , 
+.局部变量 content, 类_json, , , 消息.加成员(card)
+.局部变量 card, 类_json, , , 卡片<arr>.加成员(modules)
+.局部变量 modules, 类_json, , , 模块<arr>
+.局部变量 item, 类_json, , , 元素
+.局部变量 item2, 类_json, , , 
 
 
-card.未知函数_67186417 (“type”, “card”, )
-modules.未知函数_67186417 (“type”, “section”, ) ' image-group  把item加到modules的elements属性里
-“type”.未知函数_67186418 (“plain-text”, )
-item.未知函数_67186417 (“content”, “我是标题”, )
-modules.未知函数_67186417 (“text”, item.未知函数_67186419 (), 真)
-“type”.未知函数_67186420 (“image”, )
-item.未知函数_67186417 (“src”, “https://s3.ax1x.com/2021/01/05/sFStpt.png”, )
-item.未知函数_67186417 (“alt”, “123”, )
-item.未知函数_67186417 (“size”, “lg”, )
-item.未知函数_67186417 (“circle”, “true”, 真)
+card.置属性 (“type”, “card”, )
+modules.置属性 (“type”, “section”, ) ' image-group  把item加到modules的elements属性里
+item.置属性 (“type”, “plain-text”, )
+item.置属性 (“content”, “我是标题”, )
+modules.置属性 (“text”, item.取数据文本 (), 真)
+item.置属性 (“type”, “image”, )
+item.置属性 (“src”, “https://s3.ax1x.com/2021/01/05/sFStpt.png”, )
+item.置属性 (“alt”, “123”, )
+item.置属性 (“size”, “lg”, )
+item.置属性 (“circle”, “true”, 真)
 
-modules.未知函数_67186417 (“accessory”, item.未知函数_67186419 (), 真)
+modules.置属性 (“accessory”, item.取数据文本 (), 真)
 
-card.未知函数_67186421 (modules.未知函数_67186419 (), “modules”, 真, )
-content.未知函数_67186421 (card.未知函数_67186419 (), , 真, )
-调试输出 (content.未知函数_67186419 ())
+card.加成员 (modules.取数据文本 (), “modules”, 真, )
+content.加成员 (card.取数据文本 (), , 真, )
+调试输出 (content.取数据文本 ())
 
 
 .子程序 guild_index, 文本型, , /api/v3/guild/index
 .参数 token, 文本型, 可空, 
 
 .局部变量 header, 文本型, , , 
-.局部变量 json, 未知类型0x49012F02, , , 
-.局部变量 result, 未知类型0x49012F02, , , 
+.局部变量 json, 类_json, , , 
+.局部变量 result, 类_json, , , 
 .局部变量 url, 文本型, , , 
 
 赋值 (url, 相加 (g_url, “/intimacy/update”))
@@ -21394,7 +21396,7 @@ content.未知函数_67186421 (card.未知函数_67186419 (), , 真, )
 result.解析 (编码_utf8到gb2312 (到文本 (网页_访问 (url, 1, 编码_gb2312到utf8 (json.取数据文本 ()), , , header, , , , , , , ))), )
  ' SystemLog (, “获取服务器信息”, “kaiheila”)
  ' SystemLog (, “返回信息: ” ＋ result.取数据文本 (), “kaiheila”)
-返回 (result.未知函数_67186441 ())
+返回 (result.取数据文本 ())
 未知函数_37992 () ' *** 缩略程序块 ***
  ' {"code":0,"message":"操作成功","data":[{"id":"4674611826831570","name":"萌动の进击小队","topic":"","user_id":"374797264","is_master":false,"icon":"https://img.kaiheila.cn/icons/2020-07/lGtX0jyRsB0hs0hs.jpg/icon","invite_enabled":1,"notify_type":2,"region":"shanghai","enable_open":1,"open_id":43628314,"default_channel_id":"4920503065903445","default_channel_id_setting":"4920503065903445","welcome_channel_id":"7134649593688386","ws_type":1,"roles":[{"role_id":93153,"name":"屠尽群内欧狗","color":3447003,"position":1,"hoist":0,"mentionable":0,"permissions":143448584},{"role_id":28231,"name":"老家伙了","color":15277667,"position":2,"hoist":1,"mentionable":1,"permissions":198705150},{"role_id":28232,"name":"老权限了","color":15158332,"position":3,"hoist":1,"mentionable":1,"permissions":198180840},{"role_id":91402,"name":"萌动家的崽崽们","color":15158332,"position":4,"hoist":1,"mentionable":0,"permissions":143448584},{"role_id":70039,"name":"老队友了","color":3447003,"position":5,"hoist":0,"mentionable":0,"permissions":147642888},{"role_id":28423,"name":"老朋友了","color":3066993,"position":6,"hoist":0,"mentionable":0,"permissions":135043080},{"role_id":29953,"name":"天启队员","color":12541924,"position":7,"hoist":0,"mentionable":0,"permissions":147642888},{"role_id":77700,"name":"BMLive","color":0,"position":8,"hoist":0,"mentionable":0,"permissions":134217729},{"role_id":92668,"name":"开播啦","color":0,"position":9,"hoist":0,"mentionable":0,"permissions":134217728},{"role_id":0,"name":"@全体成员","color":0,"hoist":0,"mentionable":0,"permissions":143448584}],"channels":[{"id":"9201982985091207","name":"?? 欢迎","guild_id":"4674611826831570","is_category":1,"is_master":false,"level":1,"type":0,"permission_overwrites":[{"role_id":0,"allow":0,"deny":0}],"permission_users":[],"channels":[{"id":"7134649593688386","name":"?? 欢迎","user_id":"374797264","guild_id":"4674611826831570","voice_quality":"1","limit_amount":0,"is_category":0,"is_readonly":false,"parent_id":"9201982985091207","is_private":false,"server_type":1,"server_url":"ws-sh3.kaiheila.cn:443","level":1,"slow_mode":0,"topic":"","is_master":false,"type":1,"permission_overwrites":[{"role_id":0,"allow":0,"deny":266240}],"permission_users":[],"permission_sync":0},{"id":"4671426705846718","name":"?? 规则 & 信息","user_id":"374797264","guild_id":"4674611826831570","voice_quality":"1","limit_amount":0,"is_category":0,"is_readonly":false,"parent_id":"9201982985091207","is_private":false,"server_type":1,"server_url":"ws-sh3.kaiheila.cn:443","level":2,"slow_mode":0,"topic":"频道更新or变动日志","is_master":false,"type":1,"permission_overwrites":[{"role_id":28232,"allow":425000,"deny":0},{"role_id":28231,"allow":425000,"deny":0},{"role_id":0,"allow":2048,"deny":422952}],"permission_users":[],"permission_sync":0},{"id":"6439504774931802","name":"?? 权限 & 申请","user_id":"374797264","guild_id":"4674611826831570","voice_quality":"1","limit_amount":0,"is_category":0,"is_readonly":false,"parent_id":"9201982985091207","is_private":false,"server_type":1,"server_url":"ws-sh4.kaiheila.cn:443","level":3,"slow_mode":0,"topic":"","is_master":false,"type":1,"permission_overwrites":[{"role_id":28231,"allow":0,"deny":2048},{"role_id":28232,"allow":0,"deny":2048},{"role_id":70039,"allow":0,"deny":2048},{"role_id":29953,"allow":0,"deny":2048},{"role_id":28423,"allow":0,"deny":2048},{"role_id":0,"allow":6144,"deny":418856}],"permission_users":[],"permission_sync":0},{"id":"8946246843830026","name":"publicPush","user_id":"374797264","guild_id":"4674611826831570","voice_quality":"1","limit_amount":0,"is_category":0,"is_readonly":false,"parent_id":"9201982985091207","is_private":false,"server_type":1,"server_url":"ws-sh4.kaiheila.cn:443","level":4,"slow_mode":0,"topic":"8946246843830026","is_master":false,"type":1,"permission_overwrites":[{"role_id":0,"allow":0,"deny":4096}],"permission_users":[],"permission_sync":0},{"id":"8876187633547319","name":"privatePush","user_id":"374797264","guild_id":"4674611826831570","voice_quality":"1","limit_amount":0,"is_category":0,"is_readonly":false,"parent_id":"9201982985091207","is_private":false,"server_type":1,"server_url":"ws-sh3.kaiheila.cn:443","level":5,"slow_mode":0,"topic":"8876187633547319","is_master":false,"type":1,"permission_overwrites":[{"role_id":0,"allow":12615680,"deny":264192}],"permission_users":[{"user":{"id":"2279933469","username":"@野生的怪才君","identify_num":"6561","online":true,"os":"Websocket","status":1,"avatar":"https://img.kaiheila.cn/avatars/2021-01/YaJKS70ClV04g04g.png/icon","tag_info":{"color":"#6666CC","text":"开黑啦"},"mobile_verified":true,"nickname":"@野生的怪才君","roles":[28423,70039],"joined_at":1599030970000,"active_time":1609435303477},"allow":6144,"deny":0},{"user":{"id":"2898845865","username":"楚子御233","identify_num":"2398","online":false,"os":"Android","status":1,"avatar":"https://img.kaiheila.cn/avatars/2020-09/RwyDDjUOml0xc0xc.jpg/icon","mobile_verified":true,"nickname":"楚子御233","roles":[28232,91402],"joined_at":1595391577000,"active_time":1606399740765},"allow":2048,"deny":0}],"permission_sync":0}]},{"id":"2040082336289336","name":"?? 进击时刻","guild_id":"4674611826831570","is_category":1,"is_master":false,"level":2,"type":0,"permission_overwrites":[{"role_id":0,"allow":0,"deny":0}],"permission_users":[],"channels":[{"id":"4920503065903445","name":"?? 闲聊","user_id":"374797264","guild_id":"4674611826831570","voice_quality":"1","limit_amount":0,"is_category":0,"is_readonly":false,"parent_id":"2040082336289336","is_private":false,"server_type":1,"server_url":"ws-sh4.kaiheila.cn:443","level":1,"slow_mode":0,"topic":"都可以聊，没错，这边是真正的闲聊频道","is_master":false,"type":1,"permission_overwrites":[{"role_id":0,"allow":0,"deny":0}],"permission_users":[],"permission_sync":0},{"id":"3407099043767163","name":"?? 原神地铁站","user_id":"374797264","guild_id":"4674611826831570","voice_quality":"1","limit_amount":0,"is_category":0,"is_readonly":false,"parent_id":"2040082336289336","is_private":false,"server_type":1,"server_url":"ws-sh3.kaiheila.cn:443","level":2,"slow_mode":0,"topic":"","is_master":false,"type":1,"permission_overwrites":[{"role_id":0,"allow":0,"deny":0}],"permission_users":[],"permission_sync":1},{"id":"1074378324827907","name":"??圣诞节狂欢夜~","user_id":"374797264","guild_id":"4674611826831570","voice_quality":"1","limit_amount":0,"is_category":0,"is_readonly":false,"parent_id":"2040082336289336","is_private":false,"server_type":1,"server_url":"ws-sh4.kaiheila.cn:443","level":5,"slow_mode":0,"topic":"","is_master":false,"type":1,"permission_overwrites":[{"role_id":0,"allow":0,"deny":2048}],"permission_users":[],"permission_sync":0},{"id":"6923348389173964","name":"??圣诞节狂欢夜~","user_id":"374797264","guild_id":"4674611826831570","voice_quality":"2","limit_amount":50,"is_category":0,"is_readonly":false,"parent_id":"2040082336289336","is_private":false,"server_type":1,"server_url":"ws-sh3.kaiheila.cn:443","level":6,"slow_mode":0,"topic":"","is_master":false,"type":2,"permission_overwrites":[{"role_id":0,"allow":0,"deny":2048}],"permission_users":[],"permission_sync":0},{"id":"2602081638118679","name":"??? 闲聊","user_id":"374797264","guild_id":"4674611826831570","voice_quality":"2","limit_amount":50,"is_category":0,"is_readonly":false,"parent_id":"2040082336289336","is_private":false,"server_type":1,"server_url":"ws-sh4.kaiheila.cn:443","level":7,"slow_mode":0,"topic":"","is_master":false,"type":2,"permission_overwrites":[{"role_id":0,"allow":0,"deny":0}],"permission_users":[],"permission_sync":1}]},{"id":"3148240951158032","name":"??? 直播专区","guild_id":"4674611826831570","is_category":1,"is_master":false,"level":4,"type":0,"permission_overwrites":[{"role_id":28231,"allow":63437864,"deny":0},{"role_id":28232,"allow":63437864,"deny":0},{"role_id":70039,"allow":12621824,"deny":0},{"role_id":0,"allow":34816,"deny":64451624}],"permission_users":[],"channels":[{"id":"2213468576199940","name":"?? 萌动の天启小队","user_id":"374797264","guild_id":"4674611826831570","voice_quality":"3","limit_amount":10,"is_category":0,"is_readonly":false,"parent_id":"3148240951158032","is_private":false,"server_type":1,"server_url":"ws-sh3.kaiheila.cn:443","level":2,"slow_mode":0,"topic":"","is_master":false,"type":2,"permission_overwrites":[{"role_id":28231,"allow":63437864,"deny":0},{"role_id":28232,"allow":63437864,"deny":0},{"role_id":70039,"allow":12621824,"deny":0},{"role_id":0,"allow":34816,"deny":64451624}],"permission_users":[],"permission_sync":1,"users":[{"id":"374797264","username":"萌动众生","identify_num":"3507","online":true,"os":"Android","status":1,"avatar":"https://img.kaiheila.cn/avatars/2020-07/XkyJKsvalO2bc2bc.jpg/icon","mobile_verified":true,"nickname":"萌动众生"},{"id":"452244037","username":"BiliBili泽少","identify_num":"6583","online":true,"os":"Websocket","status":1,"avatar":"https://img.kaiheila.cn/avatars/2020-07/riBrofjkV902s02s.jpg/icon","mobile_verified":true,"nickname":"BiliBili泽少"}]},{"id":"9127567535107846","name":"? 阿泽的小队","user_id":"374797264","guild_id":"4674611826831570","voice_quality":"3","limit_amount":10,"is_category":0,"is_readonly":false,"parent_id":"3148240951158032","is_private":false,"server_type":1,"server_url":"ws-sh4.kaiheila.cn:443","level":3,"slow_mode":0,"topic":"","is_master":false,"type":2,"permission_overwrites":[{"role_id":28231,"allow":63437864,"deny":0},{"role_id":28232,"allow":63437864,"deny":0},{"role_id":70039,"allow":12621824,"deny":0},{"role_id":0,"allow":34816,"deny":64451624}],"permission_users":[],"permission_sync":1},{"id":"9336352446506648","name":"录制专用","user_id":"374797264","guild_id":"4674611826831570","voice_quality":"3","limit_amount":10,"is_category":0,"is_readonly":false,"parent_id":"3148240951158032","is_private":false,"server_type":1,"server_url":"ws-sh3.kaiheila.cn:443","level":4,"slow_mode":0,"topic":"","is_master":false,"type":2,"permission_overwrites":[{"role_id":28231,"allow":63437864,"deny":0},{"role_id":0,"allow":0,"deny":64486440}],"permission_users":[],"permission_sync":0}]},{"id":"4381278616673205","name":"???  开黑小队","guild_id":"4674611826831570","is_category":1,"is_master":false,"level":5,"type":0,"permission_overwrites":[{"role_id":28231,"allow":63437864,"deny":0},{"role_id":28232,"allow":63437864,"deny":0},{"role_id":0,"allow":12621824,"deny":51864616}],"permission_users":[],"channels":[{"id":"8204415661056837","name":"?? 我的世界·MOJANG","user_id":"374797264","guild_id":"4674611826831570","voice_quality":"2","limit_amount":25,"is_category":0,"is_readonly":false,"parent_id":"4381278616673205","is_private":false,"server_type":1,"server_url":"ws-sh3.kaiheila.cn:443","level":2,"slow_mode":0,"topic":"","is_master":false,"type":2,"permission_overwrites":[{"role_id":28231,"allow":63437864,"deny":0},{"role_id":28232,"allow":63437864,"deny":0},{"role_id":0,"allow":12621824,"deny":51864616}],"permission_users":[],"permission_sync":1},{"id":"3503268996803831","name":"?? 超级动物大逃杀","user_id":"374797264","guild_id":"4674611826831570","voice_quality":"2","limit_amount":25,"is_category":0,"is_readonly":false,"parent_id":"4381278616673205","is_private":false,"server_type":1,"server_url":"ws-sh4.kaiheila.cn:443","level":3,"slow_mode":0,"topic":"","is_master":false,"type":2,"permission_overwrites":[{"role_id":28231,"allow":63437864,"deny":0},{"role_id":28232,"allow":63437864,"deny":0},{"role_id":0,"allow":12621824,"deny":51864616}],"permission_users":[],"permission_sync":1},{"id":"9986841986701024","name":"? 原神","user_id":"374797264","guild_id":"4674611826831570","voice_quality":"2","limit_amount":50,"is_category":0,"is_readonly":false,"parent_id":"4381278616673205","is_private":false,"server_type":1,"server_url":"ws-sh3.kaiheila.cn:443","level":4,"slow_mode":0,"topic":"","is_master":false,"type":2,"permission_overwrites":[{"role_id":28231,"allow":63437864,"deny":0},{"role_id":28232,"allow":63437864,"deny":0},{"role_id":0,"allow":12621824,"deny":51864616}],"permission_users":[],"permission_sync":1},{"id":"7986733477113949","name":"?? 歌会","user_id":"374797264","guild_id":"4674611826831570","voice_quality":"3","limit_amount":50,"is_category":0,"is_readonly":false,"parent_id":"4381278616673205","is_private":false,"server_type":1,"server_url":"ws-sh3.kaiheila.cn:443","level":5,"slow_mode":0,"topic":"","is_master":false,"type":2,"permission_overwrites":[{"role_id":28231,"allow":63437864,"deny":0},{"role_id":28232,"allow":63437864,"deny":0},{"role_id":0,"allow":12621824,"deny":51864616}],"permission_users":[],"permission_sync":1},{"id":"5933403837754325","name":":-=-=-=-=-=-=-=-=-=-:","user_id":"374797264","guild_id":"4674611826831570","voice_quality":"2","limit_amount":0,"is_category":0,"is_readonly":false,"parent_id":"4381278616673205","is_private":false,"server_type":1,"server_url":"ws-sh3.kaiheila.cn:443","level":6,"slow_mode":0,"topic":"","is_master":false,"type":2,"permission_overwrites":[{"role_id":28231,"allow":63437864,"deny":0},{"role_id":28232,"allow":63437864,"deny":0},{"role_id":0,"allow":12621824,"deny":51864616}],"permission_users":[],"permission_sync":1},{"id":"8322595493063682","name":"??? 开黑小队Ⅰ","user_id":"374797264","guild_id":"4674611826831570","voice_quality":"2","limit_amount":25,"is_category":0,"is_readonly":false,"parent_id":"4381278616673205","is_private":false,"server_type":1,"server_url":"ws-sh3.kaiheila.cn:443","level":7,"slow_mode":0,"topic":"","is_master":false,"type":2,"permission_overwrites":[{"role_id":28231,"allow":63437864,"deny":0},{"role_id":28232,"allow":63437864,"deny":0},{"role_id":0,"allow":12621824,"deny":51864616}],"permission_users":[],"permission_sync":1},{"id":"9220366270536135","name":"??? 开黑小队Ⅱ","user_id":"374797264","guild_id":"4674611826831570","voice_quality":"2","limit_amount":25,"is_category":0,"is_readonly":false,"parent_id":"4381278616673205","is_private":false,"server_type":1,"server_url":"ws-sh3.kaiheila.cn:443","level":8,"slow_mode":0,"topic":"","is_master":false,"type":2,"permission_overwrites":[{"role_id":28231,"allow":63437864,"deny":0},{"role_id":28232,"allow":63437864,"deny":0},{"role_id":0,"allow":12621824,"deny":51864616}],"permission_users":[],"permission_sync":1},{"id":"9884518620168687","name":"??? 开黑小队Ⅲ","user_id":"374797264","guild_id":"4674611826831570","voice_quality":"2","limit_amount":25,"is_category":0,"is_readonly":false,"parent_id":"4381278616673205","is_private":false,"server_type":1,"server_url":"ws-sh4.kaiheila.cn:443","level":9,"slow_mode":0,"topic":"","is_master":false,"type":2,"permission_overwrites":[{"role_id":28231,"allow":63437864,"deny":0},{"role_id":28232,"allow":63437864,"deny":0},{"role_id":0,"allow":12621824,"deny":51864616}],"permission_users":[],"permission_sync":1},{"id":"9651308534877259","name":"??? 开黑小队Ⅳ","user_id":"374797264","guild_id":"4674611826831570","voice_quality":"2","limit_amount":25,"is_category":0,"is_readonly":false,"parent_id":"4381278616673205","is_private":false,"server_type":1,"server_url":"ws-sh4.kaiheila.cn:443","level":10,"slow_mode":0,"topic":"","is_master":false,"type":2,"permission_overwrites":[{"role_id":28231,"allow":63437864,"deny":0},{"role_id":28232,"allow":63437864,"deny":0},{"role_id":0,"allow":12621824,"deny":51864616}],"permission_users":[],"permission_sync":1},{"id":"2678692603936134","name":"??? 开黑小队Ⅴ","user_id":"374797264","guild_id":"4674611826831570","voice_quality":"2","limit_amount":25,"is_category":0,"is_readonly":false,"parent_id":"4381278616673205","is_private":false,"server_type":1,"server_url":"ws-sh4.kaiheila.cn:443","level":11,"slow_mode":0,"topic":"","is_master":false,"type":2,"permission_overwrites":[{"role_id":28231,"allow":63437864,"deny":0},{"role_id":28232,"allow":63437864,"deny":0},{"role_id":0,"allow":12621824,"deny":51864616}],"permission_users":[],"permission_sync":1},{"id":"9643802261257194","name":"??? 开黑小队Ⅵ","user_id":"374797264","guild_id":"4674611826831570","voice_quality":"2","limit_amount":25,"is_category":0,"is_readonly":false,"parent_id":"4381278616673205","is_private":false,"server_type":1,"server_url":"ws-sh4.kaiheila.cn:443","level":12,"slow_mode":0,"topic":"","is_master":false,"type":2,"permission_overwrites":[{"role_id":28231,"allow":63437864,"deny":0},{"role_id":28232,"allow":63437864,"deny":0},{"role_id":0,"allow":12621824,"deny":51864616}],"permission_users":[],"permission_sync":1},{"id":"4965167685249531","name":":-=-=-=-=-=-=-=-=-=-:","user_id":"374797264","guild_id":"4674611826831570","voice_quality":"2","limit_amount":0,"is_category":0,"is_readonly":false,"parent_id":"4381278616673205","is_private":false,"server_type":1,"server_url":"ws-sh4.kaiheila.cn:443","level":13,"slow_mode":0,"topic":"","is_master":false,"type":2,"permission_overwrites":[{"role_id":28231,"allow":63437864,"deny":0},{"role_id":28232,"allow":63437864,"deny":0},{"role_id":0,"allow":12621824,"deny":51864616}],"permission_users":[],"permission_sync":1},{"id":"3964949110027696","name":"??? 私聊Ⅰ","user_id":"374797264","guild_id":"4674611826831570","voice_quality":"2","limit_amount":4,"is_category":0,"is_readonly":false,"parent_id":"4381278616673205","is_private":false,"server_type":1,"server_url":"ws-sh3.kaiheila.cn:443","level":14,"slow_mode":0,"topic":"","is_master":false,"type":2,"permission_overwrites":[{"role_id":28231,"allow":63437864,"deny":0},{"role_id":28232,"allow":63437864,"deny":0},{"role_id":0,"allow":12621824,"deny":51864616}],"permission_users":[],"permission_sync":1},{"id":"8786161793548173","name":"??? 私聊Ⅱ","user_id":"374797264","guild_id":"4674611826831570","voice_quality":"2","limit_amount":4,"is_category":0,"is_readonly":false,"parent_id":"4381278616673205","is_private":false,"server_type":1,"server_url":"ws-sh3.kaiheila.cn:443","level":15,"slow_mode":0,"topic":"","is_master":false,"type":2,"permission_overwrites":[{"role_id":28231,"allow":63437864,"deny":0},{"role_id":28232,"allow":63437864,"deny":0},{"role_id":0,"allow":12621824,"deny":51864616}],"permission_users":[],"permission_sync":1},{"id":"8389819858077310","name":"??? 私聊Ⅲ","user_id":"374797264","guild_id":"4674611826831570","voice_quality":"2","limit_amount":4,"is_category":0,"is_readonly":false,"parent_id":"4381278616673205","is_private":false,"server_type":1,"server_url":"ws-sh4.kaiheila.cn:443","level":16,"slow_mode":0,"topic":"","is_master":false,"type":2,"permission_overwrites":[{"role_id":28231,"allow":63437864,"deny":0},{"role_id":28232,"allow":63437864,"deny":0},{"role_id":0,"allow":12621824,"deny":51864616}],"permission_users":[],"permission_sync":1}]},{"id":"5851911091434057","name":"?? 专属频道","guild_id":"4674611826831570","is_category":1,"is_master":false,"level":100,"type":0,"permission_overwrites":[{"role_id":0,"allow":12621824,"deny":0}],"permission_users":[],"channels":[{"id":"1613665896150746","name":"升君文化办公室聊天","user_id":"374797264","guild_id":"4674611826831570","voice_quality":"1","limit_amount":0,"is_category":0,"is_readonly":false,"parent_id":"5851911091434057","is_private":false,"server_type":1,"server_url":"ws-sh4.kaiheila.cn:443","level":1,"slow_mode":0,"topic":"","is_master":false,"type":1,"permission_overwrites":[{"role_id":0,"allow":12877824,"deny":6144}],"permission_users":[{"user":{"id":"1362466679","username":"老升","identify_num":"9090","online":false,"os":"Websocket","status":1,"avatar":"https://img.kaiheila.cn/assets/avatar_10.jpg/icon","mobile_verified":true,"nickname":"老升","roles":[28423,70039],"joined_at":1606816224000,"active_time":1607002162780},"allow":268288,"deny":0},{"user":{"id":"3655720641","username":"皮卡没有丘","identify_num":"0284","online":false,"os":"Websocket","status":1,"avatar":"https://img.kaiheila.cn/avatars/2020-12/c6n8y2mmMN02s02s.jpg/icon","mobile_verified":true,"nickname":"皮卡没有丘","roles":[28423,70039],"joined_at":1606816616000,"active_time":1606816616645},"allow":268288,"deny":0}],"permission_sync":0},{"id":"6438647694329361","name":"内鬼专用档案室","user_id":"374797264","guild_id":"4674611826831570","voice_quality":"1","limit_amount":0,"is_category":0,"is_readonly":false,"parent_id":"5851911091434057","is_private":false,"server_type":1,"server_url":"ws-sh3.kaiheila.cn:443","level":2,"slow_mode":0,"topic":"","is_master":false,"type":1,"permission_overwrites":[{"role_id":0,"allow":262144,"deny":2048}],"permission_users":[{"user":{"id":"3633010535","username":"Shugen","identify_num":"3438","online":true,"os":"Websocket","status":1,"avatar":"https://img.kaiheila.cn/avatars/2020-05/GVQi914BNL02s02s.jpg/icon","mobile_verified":true,"nickname":"Shugen","roles":[28231],"joined_at":1595499865000,"active_time":1610377998062},"allow":2048,"deny":0},{"user":{"id":"3966258738","username":"Il Harper","identify_num":"0735","online":true,"os":"Websocket","status":1,"avatar":"https://img.kaiheila.cn/avatars/2020-07/WoZ8T12JXq08c08c.jpg/icon","mobile_verified":true,"nickname":"Il Harper","roles":[28423,70039],"joined_at":1595562199000,"active_time":1610378112080},"allow":2048,"deny":0}],"permission_sync":0},{"id":"6887699588602185","name":"??B站三方对接","user_id":"374797264","guild_id":"4674611826831570","voice_quality":"1","limit_amount":0,"is_category":0,"is_readonly":false,"parent_id":"5851911091434057","is_private":false,"server_type":1,"server_url":"ws-sh4.kaiheila.cn:443","level":3,"slow_mode":0,"topic":"","is_master":false,"type":1,"permission_overwrites":[{"role_id":0,"allow":262144,"deny":2048}],"permission_users":[{"user":{"id":"3966258738","username":"Il Harper","identify_num":"0735","online":true,"os":"Websocket","status":1,"avatar":"https://img.kaiheila.cn/avatars/2020-07/WoZ8T12JXq08c08c.jpg/icon","mobile_verified":true,"nickname":"Il Harper","roles":[28423,70039],"joined_at":1595562199000,"active_time":1610378112080},"allow":2048,"deny":0},{"user":{"id":"3633010535","username":"Shugen","identify_num":"3438","online":true,"os":"Websocket","status":1,"avatar":"https://img.kaiheila.cn/avatars/2020-05/GVQi914BNL02s02s.jpg/icon","mobile_verified":true,"nickname":"Shugen","roles":[28231],"joined_at":1595499865000,"active_time":1610377998062},"allow":2048,"deny":0}],"permission_sync":0},{"id":"8711710822435428","name":"升君文化办公室","user_id":"374797264","guild_id":"4674611826831570","voice_quality":"2","limit_amount":10,"is_category":0,"is_readonly":false,"parent_id":"5851911091434057","is_private":false,"server_type":1,"server_url":"ws-sh3.kaiheila.cn:443","level":4,"slow_mode":0,"topic":"","is_master":false,"type":2,"permission_overwrites":[{"role_id":0,"allow":4096,"deny":12617728}],"permission_users":[{"user":{"id":"1362466679","username":"老升","identify_num":"9090","online":false,"os":"Websocket","status":1,"avatar":"https://img.kaiheila.cn/assets/avatar_10.jpg/icon","mobile_verified":true,"nickname":"老升","roles":[28423,70039],"joined_at":1606816224000,"active_time":1607002162780},"allow":13631488,"deny":0},{"user":{"id":"3655720641","username":"皮卡没有丘","identify_num":"0284","online":false,"os":"Websocket","status":1,"avatar":"https://img.kaiheila.cn/avatars/2020-12/c6n8y2mmMN02s02s.jpg/icon","mobile_verified":true,"nickname":"皮卡没有丘","roles":[28423,70039],"joined_at":1606816616000,"active_time":1606816616645},"allow":13664256,"deny":0}],"permission_sync":0},{"id":"6719874300234196","name":"??B站三方对接","user_id":"374797264","guild_id":"4674611826831570","voice_quality":"2","limit_amount":50,"is_category":0,"is_readonly":false,"parent_id":"5851911091434057","is_private":false,"server_type":1,"server_url":"ws-sh3.kaiheila.cn:443","level":5,"slow_mode":0,"topic":"","is_master":false,"type":2,"permission_overwrites":[{"role_id":0,"allow":0,"deny":2048}],"permission_users":[],"permission_sync":0},{"id":"7980903271743302","name":"楚子御233 ??","user_id":"374797264","guild_id":"4674611826831570","voice_quality":"2","limit_amount":10,"is_category":0,"is_readonly":false,"parent_id":"5851911091434057","is_private":false,"server_type":1,"server_url":"ws-sh3.kaiheila.cn:443","level":6,"slow_mode":0,"topic":"","is_master":false,"type":2,"permission_overwrites":[{"role_id":0,"allow":12621824,"deny":0}],"permission_users":[],"permission_sync":1},{"id":"9549600785206171","name":"shugen ??","user_id":"374797264","guild_id":"4674611826831570","voice_quality":"2","limit_amount":10,"is_category":0,"is_readonly":false,"parent_id":"5851911091434057","is_private":false,"server_type":1,"server_url":"ws-sh3.kaiheila.cn:443","level":7,"slow_mode":0,"topic":"","is_master":false,"type":2,"permission_overwrites":[{"role_id":0,"allow":12621824,"deny":0}],"permission_users":[{"user":{"id":"3633010535","username":"Shugen","identify_num":"3438","online":true,"os":"Websocket","status":1,"avatar":"https://img.kaiheila.cn/avatars/2020-05/GVQi914BNL02s02s.jpg/icon","mobile_verified":true,"nickname":"Shugen","roles":[28231],"joined_at":1595499865000,"active_time":1610377998062},"allow":1064,"deny":0}],"permission_sync":0}]}],"user_notify_type":0,"emojis":[],"my_roles":[77700,70039],"my_nickname":"BMLive","recommend_info":{"guild_id":"4674611826831570","open_id":"43628314","default_channel_id":"4920503065903445","name":"萌动の进击小队","icon":"https://img.kaiheila.cn/icons/2020-07/lGtX0jyRsB0hs0hs.jpg/icon","banner":"https://img.kaiheila.cn/assets/2020-07/WYZtaSAZPl0sg0go.png","desc":"B站主播萌动众生的进击小队语音","status":1,"tag":"我的世界  Minecraft"}},{"id":"3785158050166220","name":"机器人社区 - Bot Community","topic":"","user_id":"3966258738","is_master":false,"icon":"https://img.kaiheila.cn/icons/2020-11/fKIFpYdgfd0e80e8.png/icon","invite_enabled":1,"notify_type":1,"region":"shanghai","enable_open":1,"open_id":15862667,"default_channel_id":"2118926065513331","default_channel_id_setting":"2118926065513331","welcome_channel_id":"7399419909964325","ws_type":1,"roles":[{"role_id":62365,"name":"社区管理","color":3066993,"position":1,"hoist":1,"mentionable":0,"permissions":134217729},{"role_id":79691,"name":"机器人公约","color":15844367,"position":2,"hoist":0,"mentionable":0,"permissions":147642888},{"role_id":72119,"name":"Bot","color":15277667,"position":3,"hoist":1,"mentionable":0,"permissions":134742528},{"role_id":72508,"name":"开黑啦官方","color":15105570,"position":4,"hoist":1,"mentionable":0,"permissions":147642888},{"role_id":74884,"name":"蓝牌","color":3447003,"position":5,"hoist":1,"mentionable":0,"permissions":147642888},{"role_id":77641,"name":"Harper猫猫","color":0,"position":6,"hoist":0,"mentionable":0,"permissions":201326591},{"role_id":77643,"name":"Root","color":0,"position":7,"hoist":0,"mentionable":0,"permissions":199229143},{"role_id":77715,"name":"BMLive","color":0,"position":8,"hoist":0,"mentionable":0,"permissions":134217731},{"role_id":80055,"name":"四季酱","color":0,"position":9,"hoist":0,"mentionable":0,"permissions":134217959},{"role_id":83335,"name":"翻译/Translator","color":0,"position":10,"hoist":0,"mentionable":0,"permissions":134217728},{"role_id":93523,"name":"开播啦","color":0,"position":11,"hoist":0,"mentionable":0,"permissions":134221824},{"role_id":95322,"name":"检查/Inspector","color":0,"position":12,"hoist":0,"mentionable":0,"permissions":0},{"role_id":0,"name":"@全体成员","color":0,"hoist":0,"mentionable":0,"permissions":147642888}],"channels":[{"id":"9248381262346207","name":"欢迎","guild_id":"3785158050166220","is_category":1,"is_master":false,"level":1,"type":0,"permission_overwrites":[{"role_id":0,"allow":0,"deny":64221184}],"permission_users":[],"channels":[{"id":"2118926065513331","name":"公告","user_id":"3966258738","guild_id":"3785158050166220","voice_quality":"1","limit_amount":0,"is_category":0,"is_readonly":false,"parent_id":"9248381262346207","is_private":false,"server_type":1,"server_url":"ws-sh4.kaiheila.cn:443","level":1,"slow_mode":0,"topic":"","is_master":false,"type":1,"permission_overwrites":[{"role_id":0,"allow":0,"deny":64221184}],"permission_users":[],"permission_sync":1},{"id":"4311014847902427","name":"通知","user_id":"3966258738","guild_id":"3785158050166220","voice_quality":"1","limit_amount":0,"is_category":0,"is_readonly":false,"parent_id":"9248381262346207","is_private":false,"server_type":1,"server_url":"ws-sh4.kaiheila.cn:443","level":2,"slow_mode":0,"topic":"","is_master":false,"type":1,"permission_overwrites":[{"role_id":0,"allow":0,"deny":64221184}],"permission_users":[],"permission_sync":1},{"id":"7399419909964325","name":"欢迎","user_id":"3966258738","guild_id":"3785158050166220","voice_quality":"1","limit_amount":0,"is_category":0,"is_readonly":false,"parent_id":"9248381262346207","is_private":false,"server_type":1,"server_url":"ws-sh4.kaiheila.cn:443","level":3,"slow_mode":0,"topic":"","is_master":false,"type":1,"permission_overwrites":[{"role_id":0,"allow":0,"deny":64221184}],"permission_users":[],"permission_sync":1}]},{"id":"1700606945702051","name":"综合","guild_id":"3785158050166220","is_category":1,"is_master":false,"level":2,"type":0,"permission_overwrites":[{"role_id":0,"allow":0,"deny":0}],"permission_users":[],"channels":[{"id":"8316705894505670","name":"闲聊区","user_id":"3966258738","guild_id":"3785158050166220","voice_quality":"1","limit_amount":0,"is_category":0,"is_readonly":false,"parent_id":"1700606945702051","is_private":false,"server_type":0,"server_url":"ws1.kaiheila.cn:4443","level":1,"slow_mode":0,"topic":"","is_master":false,"type":1,"permission_overwrites":[{"role_id":0,"allow":0,"deny":0}],"permission_users":[],"permission_sync":1}]},{"id":"1742885831146235","name":"机器人公约","guild_id":"3785158050166220","is_category":1,"is_master":false,"level":3,"type":0,"permission_overwrites":[{"role_id":0,"allow":0,"deny":0}],"permission_users":[],"channels":[{"id":"3285459045056497","name":"介绍","user_id":"3966258738","guild_id":"3785158050166220","voice_quality":"1","limit_amount":0,"is_category":0,"is_readonly":false,"parent_id":"1742885831146235","is_private":false,"server_type":1,"server_url":"ws-sh4.kaiheila.cn:443","level":100,"slow_mode":0,"topic":"","is_master":false,"type":1,"permission_overwrites":[{"role_id":77641,"allow":423936,"deny":0},{"role_id":0,"allow":0,"deny":422944}],"permission_users":[],"permission_sync":0},{"id":"9155203584956320","name":"讨论","user_id":"3966258738","guild_id":"3785158050166220","voice_quality":"1","limit_amount":0,"is_category":0,"is_readonly":false,"parent_id":"1742885831146235","is_private":false,"server_type":1,"server_url":"ws-sh3.kaiheila.cn:443","level":100,"slow_mode":0,"topic":"","is_master":false,"type":1,"permission_overwrites":[{"role_id":0,"allow":0,"deny":0}],"permission_users":[],"permission_sync":1}]},{"id":"1123361744605908","name":"四季酱（测试）","guild_id":"3785158050166220","is_category":1,"is_master":false,"level":4,"type":0,"permission_overwrites":[{"role_id":0,"allow":0,"deny":0}],"permission_users":[{"user":{"id":"3854020099","username":"孤梦星影","identify_num":"5898","online":false,"os":"Websocket","status":1,"avatar":"https://img.kaiheila.cn/avatars/2020-07/XO1jU0Mlxk02s02s.jpg/icon","mobile_verified":true,"nickname":"孤梦星影","roles":[74884,62365],"joined_at":1606834660000,"active_time":1609738190950},"allow":3112,"deny":0}],"channels":[{"id":"9780593380130385","name":"介绍","user_id":"3966258738","guild_id":"3785158050166220","voice_quality":"1","limit_amount":0,"is_category":0,"is_readonly":false,"parent_id":"1123361744605908","is_private":false,"server_type":1,"server_url":"ws-sh3.kaiheila.cn:443","level":1,"slow_mode":0,"topic":"","is_master":false,"type":1,"permission_overwrites":[{"role_id":0,"allow":0,"deny":421888}],"permission_users":[{"user":{"id":"3854020099","username":"孤梦星影","identify_num":"5898","online":false,"os":"Websocket","status":1,"avatar":"https://img.kaiheila.cn/avatars/2020-07/XO1jU0Mlxk02s02s.jpg/icon","mobile_verified":true,"nickname":"孤梦星影","roles":[74884,62365],"joined_at":1606834660000,"active_time":1609738190950},"allow":3112,"deny":0}],"permission_sync":0},{"id":"6410201717804387","name":"告示板","user_id":"3854020099","guild_id":"3785158050166220","voice_quality":"1","limit_amount":0,"is_category":0,"is_readonly":false,"parent_id":"1123361744605908","is_private":false,"server_type":1,"server_url":"ws-sh3.kaiheila.cn:443","level":2,"slow_mode":0,"topic":"每日告示 / 精准卡池 / 首杀公告","is_master":false,"type":1,"permission_overwrites":[{"role_id":80055,"allow":14336,"deny":0},{"role_id":0,"allow":0,"deny":421888}],"permission_users":[{"user":{"id":"3854020099","username":"孤梦星影","identify_num":"5898","online":false,"os":"Websocket","status":1,"avatar":"https://img.kaiheila.cn/avatars/2020-07/XO1jU0Mlxk02s02s.jpg/icon","mobile_verified":true,"nickname":"孤梦星影","roles":[74884,62365],"joined_at":1606834660000,"active_time":1609738190950},"allow":3112,"deny":0}],"permission_sync":0},{"id":"6004165964684811","name":"讨论","user_id":"3966258738","guild_id":"3785158050166220","voice_quality":"1","limit_amount":0,"is_category":0,"is_readonly":false,"parent_id":"1123361744605908","is_private":false,"server_type":1,"server_url":"ws-sh3.kaiheila.cn:443","level":3,"slow_mode":0,"topic":"","is_master":false,"type":1,"permission_overwrites":[{"role_id":0,"allow":0,"deny":0}],"permission_users":[{"user":{"id":"3854020099","username":"孤梦星影","identify_num":"5898","online":false,"os":"Websocket","status":1,"avatar":"https://img.kaiheila.cn/avatars/2020-07/XO1jU0Mlxk02s02s.jpg/icon","mobile_verified":true,"nickname":"孤梦星影","roles":[74884,62365],"joined_at":1606834660000,"active_time":1609738190950},"allow":3112,"deny":0}],"permission_sync":1}]},{"id":"9378025328687596","name":"翻译/Translator（测试）","guild_id":"3785158050166220","is_category":1,"is_master":false,"level":5,"type":0,"permission_overwrites":[{"role_id":0,"allow":0,"deny":0}],"permission_users":[],"channels":[{"id":"7889264829456748","name":"介绍","user_id":"3966258738","guild_id":"3785158050166220","voice_quality":"1","limit_amount":0,"is_category":0,"is_readonly":false,"parent_id":"9378025328687596","is_private":false,"server_type":1,"server_url":"ws-sh4.kaiheila.cn:443","level":1,"slow_mode":0,"topic":"","is_master":false,"type":1,"permission_overwrites":[{"role_id":83335,"allow":421888,"deny":0},{"role_id":0,"allow":0,"deny":421888}],"permission_users":[],"permission_sync":0},{"id":"5381478316780071","name":"通知","user_id":"3966258738","guild_id":"3785158050166220","voice_quality":"1","limit_amount":0,"is_category":0,"is_readonly":false,"parent_id":"9378025328687596","is_private":false,"server_type":1,"server_url":"ws-sh3.kaiheila.cn:443","level":2,"slow_mode":0,"topic":"","is_master":false,"type":1,"permission_overwrites":[{"role_id":0,"allow":0,"deny":421888}],"permission_users":[],"permission_sync":0},{"id":"8358660539431182","name":"报名申请","user_id":"3966258738","guild_id":"3785158050166220","voice_quality":"1","limit_amount":0,"is_category":0,"is_readonly":false,"parent_id":"9378025328687596","is_private":false,"server_type":1,"server_url":"ws-sh3.kaiheila.cn:443","level":3,"slow_mode":0,"topic":"","is_master":false,"type":1,"permission_overwrites":[{"role_id":0,"allow":0,"deny":0}],"permission_users":[],"permission_sync":1},{"id":"3780971593907556","name":"讨论","user_id":"3966258738","guild_id":"3785158050166220","voice_quality":"1","limit_amount":0,"is_category":0,"is_readonly":false,"parent_id":"9378025328687596","is_private":false,"server_type":1,"server_url":"ws-sh4.kaiheila.cn:443","level":4,"slow_mode":0,"topic":"","is_master":false,"type":1,"permission_overwrites":[{"role_id":0,"allow":0,"deny":0}],"permission_users":[],"permission_sync":1}]},{"id":"2312446683923812","name":"开播啦（Beta）&BMLive","guild_id":"3785158050166220","is_category":1,"is_master":false,"level":100,"type":0,"permission_overwrites":[{"role_id":0,"allow":0,"deny":0}],"permission_users":[],"channels":[{"id":"1519238947373450","name":"介绍","user_id":"374797264","guild_id":"3785158050166220","voice_quality":"1","limit_amount":0,"is_category":0,"is_readonly":false,"parent_id":"2312446683923812","is_private":false,"server_type":1,"server_url":"ws-sh4.kaiheila.cn:443","level":1,"slow_mode":0,"topic":"","is_master":false,"type":1,"permission_overwrites":[{"role_id":0,"allow":0,"deny":4096}],"permission_users":[],"permission_sync":0},{"id":"1228002058500804","name":"通知","user_id":"374797264","guild_id":"3785158050166220","voice_quality":"1","limit_amount":0,"is_category":0,"is_readonly":false,"parent_id":"2312446683923812","is_private":false,"server_type":1,"server_url":"ws-sh4.kaiheila.cn:443","level":2,"slow_mode":0,"topic":"","is_master":false,"type":1,"permission_overwrites":[{"role_id":0,"allow":0,"deny":4096}],"permission_users":[],"permission_sync":0},{"id":"2183078874313786","name":"讨论","user_id":"374797264","guild_id":"3785158050166220","voice_quality":"1","limit_amount":0,"is_category":0,"is_readonly":false,"parent_id":"2312446683923812","is_private":false,"server_type":1,"server_url":"ws-sh3.kaiheila.cn:443","level":3,"slow_mode":0,"topic":"","is_master":false,"type":1,"permission_overwrites":[{"role_id":0,"allow":0,"deny":0}],"permission_users":[],"permission_sync":1},{"id":"2784279851707867","name":"测试（2021）","user_id":"374797264","guild_id":"3785158050166220","voice_quality":"1","limit_amount":0,"is_category":0,"is_readonly":false,"parent_id":"2312446683923812","is_private":false,"server_type":1,"server_url":"ws-sh4.kaiheila.cn:443","level":4,"slow_mode":0,"topic":"","is_master":false,"type":1,"permission_overwrites":[{"role_id":0,"allow":0,"deny":0}],"permission_users":[],"permission_sync":1}]}],"user_notify_type":0,"emojis":[],"my_roles":[77715,74884,72119],"my_nickname":"BMLive","recommend_info":{"guild_id":"3785158050166220","open_id":"15862667","default_channel_id":"2118926065513331","name":"机器人社区 - Bot Community","icon":"https://img.kaiheila.cn/icons/2020-11/fKIFpYdgfd0e80e8.png/icon","banner":"https://img.kaiheila.cn/assets/2020-12/KbxIqit3xG0sg0go.png","desc":"开黑啦Bot讨论与测试的集中社区，在这里找到你需要的Bot吧。","status":1,"tag":"其他社群"}}]}
 
@@ -21438,7 +21440,7 @@ result.解析 (编码_utf8到gb2312 (到文本 (网页_访问 (url, 1, 编码_gb
         到循环尾 ()
     .如果真结束
     
-     ' 01-01 01:18:05 {"s":0,"d":{"type":1,"channel_type":"GROUP","target_id":"8876187633547319","author_id":"374797264","content":"@@野生的怪才君#2279933469 ","msg_id":"2b1ce912-6b55-47e1-a42b-918c154d3c9b","msg_timestamp":1609435085214,"nonce":"","extra":{"local_id":"5PlkQi5wEyXufD7vVwWNPblq","type":"1","guild_id":"4674611826831570","channel_name":"privatePush","mention":["2279933469"],"mention_all":false,"mention_roles":[],"mention_here":false,"code":"","author":{"identify_num":"3507","avatar":"https://img.kaiheila.cn/avatars/2020-07/XkyJKsvalO2bc2bc.jpg/icon","username":"萌动众生","id":"374797264","nickname":"萌动众生","roles":[29953,28231]}},"verify_token":"MH8mwofWFrtQRBtH"},"sn":719}
+    ' 01-01 01:18:05 {"s":0,"d":{"type":1,"channel_type":"GROUP","target_id":"8876187633547319","author_id":"374797264","content":"@@野生的怪才君#2279933469 ","msg_id":"2b1ce912-6b55-47e1-a42b-918c154d3c9b","msg_timestamp":1609435085214,"nonce":"","extra":{"local_id":"5PlkQi5wEyXufD7vVwWNPblq","type":"1","guild_id":"4674611826831570","channel_name":"privatePush","mention":["2279933469"],"mention_all":false,"mention_roles":[],"mention_here":false,"code":"","author":{"identify_num":"3507","avatar":"https://img.kaiheila.cn/avatars/2020-07/XkyJKsvalO2bc2bc.jpg/icon","username":"萌动众生","id":"374797264","nickname":"萌动众生","roles":[29953,28231]}},"verify_token":""},"sn":719}
     赋值 (channel_type, msgJson.取通用属性 (“channel_type”, )) ' GROUP
     赋值 (target_id, msgJson.取通用属性 (“target_id”, ))
     赋值 (msg_id, msgJson.取通用属性 (“msg_id”, ))
@@ -21449,7 +21451,7 @@ result.解析 (编码_utf8到gb2312 (到文本 (网页_访问 (url, 1, 编码_gb
     赋值 (sendernickname, msgJson.取通用属性 (“extra.author.nickname”, ))
     赋值 (verify_token, msgJson.取通用属性 (“verify_token”, ))
     
-     ' {"s":0,"d":{"type":1,"channel_type":"GROUP","target_id":"7873127691138410","author_id":"374797264","content":"@萌动众生#374797264 @易语言模板测试#1698900299 @role:95455; ","msg_id":"b34464da-da9c-473c-bc1a-d0eb0631d269","msg_timestamp":1610603734178,"nonce":"","extra":{"local_id":"lp3JfeNPUrpBcNdlYYI7Odpv","type":1,"guild_id":"6277101564729879","channel_name":"文字频道","mention":["374797264","1698900299"],"mention_all":false,"mention_roles":[95455],"mention_here":false,"code":"","author":{"identify_num":"3507","avatar":"https://img.kaiheila.cn/avatars/2020-07/XkyJKsvalO2bc2bc.jpg/icon","username":"萌动众生","id":"374797264","nickname":"萌动众生","roles":[]},"quote":{"local_id":"o5WoZqKQU5I6qT5rWDQCxCnw","type":1,"guild_id":"6277101564729879","channel_name":"文字频道","mention":[],"mention_all":false,"mention_roles":[],"mention_here":false,"code":"","author":{"identify_num":"3507","avatar":"https://img.kaiheila.cn/avatars/2020-07/XkyJKsvalO2bc2bc.jpg/icon","username":"萌动众生","id":"374797264","nickname":"萌动众生","roles":[]},"id":"bb891959-6381-4313-a07c-8e8cf31daebc","content":".test-tools","create_at":1610603600673,"notCount":true,"status":"SEND_SUCCESS","timeStr":"今天 下午 01:53","showTime":false,"gather_id":"5a2d7d94-4f09-44e0-b6f8-5fab80eada69","in_group":true,"rong_id":"bb891959-6381-4313-a07c-8e8cf31daebc","errorInfo":null,"pb0":true}},"verify_token":"B9sce5qr38MzlB3t"},"sn":4}
+     ' {"s":0,"d":{"type":1,"channel_type":"GROUP","target_id":"7873127691138410","author_id":"374797264","content":"@萌动众生#374797264 @易语言模板测试#1698900299 @role:95455; ","msg_id":"b34464da-da9c-473c-bc1a-d0eb0631d269","msg_timestamp":1610603734178,"nonce":"","extra":{"local_id":"lp3JfeNPUrpBcNdlYYI7Odpv","type":1,"guild_id":"6277101564729879","channel_name":"文字频道","mention":["374797264","1698900299"],"mention_all":false,"mention_roles":[95455],"mention_here":false,"code":"","author":{"identify_num":"3507","avatar":"https://img.kaiheila.cn/avatars/2020-07/XkyJKsvalO2bc2bc.jpg/icon","username":"萌动众生","id":"374797264","nickname":"萌动众生","roles":[]},"quote":{"local_id":"o5WoZqKQU5I6qT5rWDQCxCnw","type":1,"guild_id":"6277101564729879","channel_name":"文字频道","mention":[],"mention_all":false,"mention_roles":[],"mention_here":false,"code":"","author":{"identify_num":"3507","avatar":"https://img.kaiheila.cn/avatars/2020-07/XkyJKsvalO2bc2bc.jpg/icon","username":"萌动众生","id":"374797264","nickname":"萌动众生","roles":[]},"id":"bb891959-6381-4313-a07c-8e8cf31daebc","content":".test-tools","create_at":1610603600673,"notCount":true,"status":"SEND_SUCCESS","timeStr":"今天 下午 01:53","showTime":false,"gather_id":"5a2d7d94-4f09-44e0-b6f8-5fab80eada69","in_group":true,"rong_id":"bb891959-6381-4313-a07c-8e8cf31daebc","errorInfo":null,"pb0":true}},"verify_token":""},"sn":4}
     .判断开始 (等于 (channel_type, “GROUP”)) ' 频道消息
         
         .判断开始 (不等于 (寻找文本 (content, “@易语言模板测试#1698900299”, , 假), -1)) ' 艾特了机器人
@@ -21508,137 +21510,6 @@ result.解析 (编码_utf8到gb2312 (到文本 (网页_访问 (url, 1, 编码_gb
     
 .计次循环尾 ()
 返回 (uid)
-
-.程序集 WebSocket, , , 
-
-.子程序 WsConnet, 空白型, , 
-.局部变量 header, 文本型, , , 
-.局部变量 token, 文本型, , , 
-.局部变量 id, 整数型, , , 
-
-赋值 (header, 相加 (“Authorization: Bot ”, 选择 (等于 (token, “”), g_token, 读配置项 (相加 (取运行目录 (), “\bot.ini”), “token”, token, ))))
- ' id ＝ 客户端_连接 (gateway_index (, 0), header, , , , , , , , , , , , , , )
-.如果真 (不等于 (id, 0))
-    未知支持库函数_0 (&Ws_first, id, )
-     ' 客户端_设置心跳 (id, 30 × 1000)
-    赋值 (g_conID, id)
-.如果真结束
-调试输出 (g_conID)
- ' g_MsgID ＝ 0
-
-.子程序 Ws_first, 空白型, , 
-.参数 id, 空白型, , 
-
-程序_延时 (2, 1)
-.如果真 (等于 (id, g_conID))
-    Ws_Heart (id)
-.如果真结束
-程序_延时 (2, 1)
-.如果真 (等于 (id, g_conID))
-    Ws_Heart (id)
-.如果真结束
-
-
-.子程序 Ws_Con, 空白型, , 
-.参数 id, 空白型, , 
-
-调试输出 (“Ws_Con”, id)
-
-
-.子程序 Ws_ConClose, 空白型, , 
-.参数 id, 空白型, , 
-.参数 enOperation, 空白型, , 
-.参数 iErrorCode_错误代码, 空白型, , 
-
-调试输出 (“Ws_Close”, id, enOperation, iErrorCode_错误代码)
- ' 客户端_设置心跳 (id, 0)
-赋值 (g_conID, 0)
-程序_延时 (5, 1)
-WsConnet ()
-
-.子程序 Ws_Reco, 空白型, , 
-.参数 id, 空白型, , 
-.参数 pData_数据指针, 空白型, , 
-.参数 iLength_数据长度, 空白型, , 
-
-.局部变量 text, 文本型, , , 
-.局部变量 json, 类_json, , , 
-.局部变量 操作码, 字节型, , , 
-
-调试输出 (“Ws_Reco”, id, pData_数据指针, iLength_数据长度)
- ' 客户端_取回消息状态 (id, , , 操作码, , , )
-.判断开始 (等于 (操作码, 1)) ' 文本
-     ' text ＝ 客户端_取回文本 (pData_数据指针, iLength_数据长度)
-    .如果真 (不等于 (text, “”))
-        调试输出 (json.解析 (编码_utf8到gb2312 (text), ))
-        调试输出 (json.取数据文本 ())
-        .判断开始 (等于 (json.取属性数值 (“s”), 1))
-             ' 方向： server->client
-             ' 说明： 当我们成功连接websocket后，客户端应该在6s内收到该包，否则认为连接超时。
-             ' {"s":1,"d":{"code":0,"sessionId":"d52751ae-f50a-4d9c-9056-74d61371fa58"}}
-            
-        .判断 (等于 (json.取属性数值 (“s”), 0))
-             ' 方向： server->client
-             ' 说明： 在正常连接状态下，收到的消息事件等。
-             ' {"s":0,"d":{"type":1,"channel_type":"GROUP","target_id":"7873127691138410","author_id":"374797264","content":"0.0","msg_id":"0bc55831-2da0-4ecd-b181-a35030b9a202","msg_timestamp":1610607613193,"nonce":"","extra":{"local_id":"qEe2BFfRXKpT6Ovyg1b9mEHN","type":1,"guild_id":"6277101564729879","channel_name":"\u6587\u5b57\u9891\u9053","mention":[],"mention_all":false,"mention_roles":[],"mention_here":false,"code":"","author":{"identify_num":"3507","avatar":"https:\/\/img.kaiheila.cn\/avatars\/2020-07\/XkyJKsvalO2bc2bc.jpg\/icon","username":"\u840c\u52a8\u4f17\u751f","id":"374797264","nickname":"\u840c\u52a8\u4f17\u751f","roles":[]}}},"extra":{"verifyToken":"","encryptKey":"","callbackUrl":"},"sn":1}
-            日志_输出 (“↓”, json.取数据文本 ())
-            加入成员 (g_msgList, json.取数据文本 ())
-            赋值 (g_MsgID, json.取属性数值 (“sn”))
-            
-        .判断 (等于 (json.取属性数值 (“s”), 2))
-             ' 方向： client -> server
-             ' 说明： 每隔30s(随机-5，+5),将当前的最大 sn 传给服务端,客户端应该在6s内收到PONG, 否则心跳超时。
-             ' {"s": 2,"sn": 6}
-            
-        .判断 (等于 (json.取属性数值 (“s”), 3))
-             ' 方向： server -> client
-             ' 说明： 回应客户端发出的ping
-             ' {"s": 3}
-            
-        .判断 (等于 (json.取属性数值 (“s”), 4))
-            
-        .判断 (等于 (json.取属性数值 (“s”), 5))
-             ' 方向： server->client
-             ' 说明： 服务端通知客户端, 代表该连接已失效, 请重新连接。客户端收到后应该主动断开当前连接。
-             ' 注意： 客户端收到该信令代表因为某些原因导致当前连接已失效, 需要进行以下操作以避免消息丢失.
-             ' 重新获取 gateway;  √
-             ' 清空本地的 sn 计数;  √
-             ' 清空本地消息队列.  √（需要做处理）
-            
-        .判断 (等于 (json.取属性数值 (“s”), 6))
-             ' 方向： server->client
-             ' 说明： 服务端通知客户端 resume 动作成功，中间所有离线消息已经全部发送成功
-            
-             ' {"s": 6"d": {"sessionId": "xxxx-xxxxxx-xxx-xxx"}}
-            
-        .默认
-            
-        .判断结束
-        
-        
-    .如果真结束
-    
-.默认
-    
-.判断结束
-
-
-
-.子程序 Ws_Heart, 空白型, , 
-.参数 id, 空白型, , 
-
-.局部变量 json, 类_json, , , 
-
-调试输出 (“Ws_Heart”, id)
-json.置属性数值 (“s”, 2)
-json.置属性数值 (“sn”, g_MsgID)
- ' 客户端_发送消息体文本 (id, json.取数据文本 (), , , , , )
-
-
-.子程序 Ws_SendSn, 空白型, , 
-.参数 id, 空白型, , 
-
-
 
 
  ' 不属于任何一个程序集、类模块的函数：
