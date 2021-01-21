@@ -1,1 +1,9 @@
-debug/kaiheila-sdk-EL_ws.e
+# Compiled source #
+###################
+*.bak
+
+# Debug dir #
+debug/
+
+# Debug dir #
+bot_token.ini

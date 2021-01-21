@@ -3416,6 +3416,11 @@ loop”", 隐藏,
     .成员 ptMaxPosition, POINT, , , 窗口最大化时窗口左上角的坐标
     .成员 rcNormalPosition, RECT, , , 当窗口处于恢复位置时窗口的坐标
 
+数据类型 botMsg, , 
+    .成员 username, 文本型, , , 
+    .成员 id, 文本型, , , 
+    .成员 quard, 文本型, , , 
+
 .全局变量 g_baseUrl, 文本型, , , 
 .全局变量 g_apiVer, 文本型, , , 
 .全局变量 g_token, 文本型, , , 
@@ -3427,6 +3432,7 @@ loop”", 隐藏,
 .全局变量 g_msgList_id, 空白型, , , 
 .全局变量 g_MsgID, 整数型, , , 
 .全局变量 g_conID, 整数型, , , 
+.全局变量 g_bot, botMsg, , , 
 
 .DLL命令 HeapSize, 整数型, "kernel32.dll", "HeapSize", 公开, 返回堆对象的大小
     .参数 hHeap, 整数型, , 
@@ -6793,7 +6799,7 @@ loop”", 隐藏,
 
 .子程序 _启动子程序, 整数型, , 本子程序在程序启动后最先执行
  ' // 这个是 开黑啦 BOT 易语言版本 （WebHook）
-赋值 (Version, “v0.0.3 2020.1.16”)
+赋值 (Version, “v0.0.4”)
 
  ' // 开黑啦后台配置：
  ' //  回调地址填写：http://{yourdomain}/khl/botv1?compress=0
@@ -6803,22 +6809,20 @@ loop”", 隐藏,
 赋值 (g_apiVer, “3”)
 赋值 (g_url, 相加 (g_baseUrl, “/v”, g_apiVer))
 
-赋值 (g_token, “”) ' 请在机器人后台获取
-
+赋值 (g_token, 读配置项 (相加 (取运行目录 (), “\bot_token.ini”), “def”, “token”, )) ' 请在机器人后台获取)
+ ' 初始化（）
+init ()
+ ' 卡片测试 ()
 载入 (窗口1, , 假)
 返回 (0) ' 可以根据您的需要返回任意数值
 
-.子程序 VersionHistory, 空白型, , 
- ' # kaiheila-sdk-EL (WebHook)
- ' [v0.0.3 2020.1.16]
- ' 1. 移除 WebSocket 模块并更新到 kaiheila-sdk-EL_ws.e
- ' 2. 调整部分参数
+.子程序 init, 空白型, , 
+.局部变量 json, 类_json, , , 
 
- ' [v0.0.2 2020.1.15]
- ' 1. 取消多机器人兼容模式（有更好的想法可以自行修改并提交）
- ' 2. 合入 卡片消息 部分
- ' 3. 增加获取机器人所在服务器信息的接口
-
+json.解析 (user_me (), )
+赋值 (g_bot.username, json.取通用属性 (“data.username”, ))
+赋值 (g_bot.id, json.取通用属性 (“data.id”, ))
+赋值 (g_bot.quard, 相加 (g_bot.username, “#”, g_bot.id))
 
 .窗口程序集 窗口程序集_窗口1, , , 
 
@@ -6872,7 +6876,7 @@ connectId.断开客户 ()
 .子程序 _窗口1_创建完毕, 空白型, , 
 未知支持库函数_0 (&QueueHeart, , )
  ' 下边是启动Ws的选项
-未知支持库函数_0 ()
+ ' 启动线程 (&WsConnet, , )
 
 .子程序 数组中查找, 逻辑型, , 
 .参数 数组, 文本型, 数组, 
@@ -21264,7 +21268,7 @@ connectId.断开客户 ()
 .局部变量 cont, 类_json, , , 
 
 赋值 (url, 相加 (g_url, “/channel/message”))
-赋值 (header, 相加 (header, “Authorization: Bot ”, 选择 (等于 (token, “”), g_token, 读配置项 (相加 (取运行目录 (), “\bot.ini”), “token”, token, )), #换行符, “Content-Type: application/json”))
+赋值 (header, 相加 (header, “Authorization: Bot ”, 选择 (等于 (token, “”), g_token, 读配置项 (相加 (取运行目录 (), “\bot_token.ini”), “token”, token, )), #换行符, “Content-Type: application/json”))
 .判断开始 (cont.解析 (content, ))
     json.置属性数值 (“object_name”, 10)
     json.置属性 (“content”, cont.取数据文本 (), )
@@ -21302,7 +21306,7 @@ result.解析 (编码_utf8到gb2312 (到文本 (网页_访问 (url, 1, 编码_gb
 .局部变量 result, 类_json, , , 
 
 赋值 (url, 相加 (g_url, “/intimacy/index”))
-赋值 (header, 相加 (“Authorization: Bot ”, 选择 (等于 (token, “”), g_token, 读配置项 (相加 (取运行目录 (), “\bot.ini”), “token”, token, )), #换行符, “Content-type: application/json”))
+赋值 (header, 相加 (“Authorization: Bot ”, 选择 (等于 (token, “”), g_token, 读配置项 (相加 (取运行目录 (), “\bot_token.ini”), “token”, token, )), #换行符, “Content-type: application/json”))
 json.置属性 (“user_id”, userId, )
 调试输出 (url, header, json.取数据文本 ())
 result.解析 (编码_utf8到gb2312 (到文本 (网页_访问 (url, 1, 编码_gb2312到utf8 (json.取数据文本 ()), , , header, , , , , , , ))), )
@@ -21323,7 +21327,7 @@ result.解析 (编码_utf8到gb2312 (到文本 (网页_访问 (url, 1, 编码_gb
 .局部变量 result, 类_json, , , 
 
 赋值 (url, 相加 (g_url, “/intimacy/update”))
-赋值 (header, 相加 (“Authorization: Bot ”, 选择 (等于 (token, “”), g_token, 读配置项 (相加 (取运行目录 (), “\bot.ini”), “token”, token, )), #换行符, “Content-type: application/json”))
+赋值 (header, 相加 (“Authorization: Bot ”, 选择 (等于 (token, “”), g_token, 读配置项 (相加 (取运行目录 (), “\bot_token.ini”), “token”, token, )), #换行符, “Content-type: application/json”))
 json.置属性 (“user_id”, userId, )
 json.置属性数值 (“score”, score)
 json.置属性 (“social_info”, social_info, )
@@ -21344,7 +21348,7 @@ result.解析 (编码_utf8到gb2312 (到文本 (网页_访问 (url, 1, 编码_gb
 .局部变量 result, 类_json, , , 
 
 赋值 (url, 相加 (g_url, “/gateway/index”))
-赋值 (header, 相加 (“Authorization: Bot ”, 选择 (等于 (token, “”), g_token, 读配置项 (相加 (取运行目录 (), “\bot.ini”), “token”, token, ))))
+赋值 (header, 相加 (“Authorization: Bot ”, 选择 (等于 (token, “”), g_token, 读配置项 (相加 (取运行目录 (), “\bot_token.ini”), “token”, token, ))))
 .如果真 (是否为空 (compress))
     赋值 (compress, 1)
 .如果真结束
@@ -21390,7 +21394,7 @@ content.加成员 (card.取数据文本 (), , 真, )
 .局部变量 url, 文本型, , , 
 
 赋值 (url, 相加 (g_url, “/intimacy/update”))
-赋值 (header, 相加 (“Authorization: Bot ”, 选择 (等于 (token, “”), g_token, 读配置项 (相加 (取运行目录 (), “\bot.ini”), “token”, token, )), #换行符, “Content-type: application/json”))
+赋值 (header, 相加 (“Authorization: Bot ”, 选择 (等于 (token, “”), g_token, 读配置项 (相加 (取运行目录 (), “\bot_token.ini”), “token”, token, )), #换行符, “Content-type: application/json”))
  ' json.置属性 (“guild_id”, GuildId, )
  ' 调试输出 (baseUrl, header, json.取数据文本 ())
 result.解析 (编码_utf8到gb2312 (到文本 (网页_访问 (url, 1, 编码_gb2312到utf8 (json.取数据文本 ()), , , header, , , , , , , ))), )
@@ -21402,6 +21406,24 @@ result.解析 (编码_utf8到gb2312 (到文本 (网页_访问 (url, 1, 编码_gb
 
  ' 频道数组:
 
+
+
+.子程序 user_me, 文本型, , 
+.参数 token, 文本型, 可空, 多机器人预留位置 采用文件对应 token=token
+
+.局部变量 url, 文本型, , , 
+.局部变量 header, 文本型, , , 
+.局部变量 result, 类_json, , , 
+
+赋值 (url, 相加 (g_url, “/user/me”))
+赋值 (header, 相加 (“Authorization: Bot ”, 选择 (等于 (token, “”), g_token, 读配置项 (相加 (取运行目录 (), “\bot_token.ini”), “token”, token, )), #换行符, “Content-type: application/json”))
+ ' json.置属性 (“guild_id”, GuildId, )
+ ' 调试输出 (baseUrl, header, json.取数据文本 ())
+result.解析 (编码_utf8到gb2312 (到文本 (网页_访问 (url, 0, , , , header, , , , , , , ))), )
+ ' 调试输出 (, “获取服务器信息”, “kaiheila”)
+ ' 调试输出 (, “返回信息: ” ＋ result.取数据文本 (), “kaiheila”)
+ ' {"code":0,"message":"操作成功","data":{"id":"*****","username":"****","identify_num":"9028","online":true,"os":"Websocket","status":0,"avatar":"https://img.kaiheila.cn/assets/2021-01/OQlgu5UiGJ0e80e8.jpeg/icon","bot":true,"tag_info":{"color":"#34A853","text":"机器人"},"mobile_verified":true,"client_id":"********","mobile_prefix":"86","mobile":"****","privacy_game_activity":0,"privacy_music_activity":0,"enable_desktop_notification":true,"audio_setting":"","auto_exit_audio_channel":false,"invited_count":"0","need_guide":false,"friend_setting":{"all":true},"chat_setting":"1","auth_info":[]}}'
+返回 (result.取数据文本 ())
 
 
 .程序集 Queue, , , 
@@ -21440,7 +21462,7 @@ result.解析 (编码_utf8到gb2312 (到文本 (网页_访问 (url, 1, 编码_gb
         到循环尾 ()
     .如果真结束
     
-    ' 01-01 01:18:05 {"s":0,"d":{"type":1,"channel_type":"GROUP","target_id":"8876187633547319","author_id":"374797264","content":"@@野生的怪才君#2279933469 ","msg_id":"2b1ce912-6b55-47e1-a42b-918c154d3c9b","msg_timestamp":1609435085214,"nonce":"","extra":{"local_id":"5PlkQi5wEyXufD7vVwWNPblq","type":"1","guild_id":"4674611826831570","channel_name":"privatePush","mention":["2279933469"],"mention_all":false,"mention_roles":[],"mention_here":false,"code":"","author":{"identify_num":"3507","avatar":"https://img.kaiheila.cn/avatars/2020-07/XkyJKsvalO2bc2bc.jpg/icon","username":"萌动众生","id":"374797264","nickname":"萌动众生","roles":[29953,28231]}},"verify_token":""},"sn":719}
+     ' 01-01 01:18:05 {"s":0,"d":{"type":1,"channel_type":"GROUP","target_id":"8876187633547319","author_id":"374797264","content":"@@野生的怪才君#2279933469 ","msg_id":"2b1ce912-6b55-47e1-a42b-918c154d3c9b","msg_timestamp":1609435085214,"nonce":"","extra":{"local_id":"5PlkQi5wEyXufD7vVwWNPblq","type":"1","guild_id":"4674611826831570","channel_name":"privatePush","mention":["2279933469"],"mention_all":false,"mention_roles":[],"mention_here":false,"code":"","author":{"identify_num":"3507","avatar":"https://img.kaiheila.cn/avatars/2020-07/XkyJKsvalO2bc2bc.jpg/icon","username":"萌动众生","id":"374797264","nickname":"萌动众生","roles":[29953,28231]}},"verify_token":""},"sn":719}
     赋值 (channel_type, msgJson.取通用属性 (“channel_type”, )) ' GROUP
     赋值 (target_id, msgJson.取通用属性 (“target_id”, ))
     赋值 (msg_id, msgJson.取通用属性 (“msg_id”, ))
@@ -21454,7 +21476,7 @@ result.解析 (编码_utf8到gb2312 (到文本 (网页_访问 (url, 1, 编码_gb
      ' {"s":0,"d":{"type":1,"channel_type":"GROUP","target_id":"7873127691138410","author_id":"374797264","content":"@萌动众生#374797264 @易语言模板测试#1698900299 @role:95455; ","msg_id":"b34464da-da9c-473c-bc1a-d0eb0631d269","msg_timestamp":1610603734178,"nonce":"","extra":{"local_id":"lp3JfeNPUrpBcNdlYYI7Odpv","type":1,"guild_id":"6277101564729879","channel_name":"文字频道","mention":["374797264","1698900299"],"mention_all":false,"mention_roles":[95455],"mention_here":false,"code":"","author":{"identify_num":"3507","avatar":"https://img.kaiheila.cn/avatars/2020-07/XkyJKsvalO2bc2bc.jpg/icon","username":"萌动众生","id":"374797264","nickname":"萌动众生","roles":[]},"quote":{"local_id":"o5WoZqKQU5I6qT5rWDQCxCnw","type":1,"guild_id":"6277101564729879","channel_name":"文字频道","mention":[],"mention_all":false,"mention_roles":[],"mention_here":false,"code":"","author":{"identify_num":"3507","avatar":"https://img.kaiheila.cn/avatars/2020-07/XkyJKsvalO2bc2bc.jpg/icon","username":"萌动众生","id":"374797264","nickname":"萌动众生","roles":[]},"id":"bb891959-6381-4313-a07c-8e8cf31daebc","content":".test-tools","create_at":1610603600673,"notCount":true,"status":"SEND_SUCCESS","timeStr":"今天 下午 01:53","showTime":false,"gather_id":"5a2d7d94-4f09-44e0-b6f8-5fab80eada69","in_group":true,"rong_id":"bb891959-6381-4313-a07c-8e8cf31daebc","errorInfo":null,"pb0":true}},"verify_token":""},"sn":4}
     .判断开始 (等于 (channel_type, “GROUP”)) ' 频道消息
         
-        .判断开始 (不等于 (寻找文本 (content, “@易语言模板测试#1698900299”, , 假), -1)) ' 艾特了机器人
+        .判断开始 (不等于 (寻找文本 (content, 相加 (“@”, g_bot.quard), , 假), -1)) ' 艾特了机器人
             赋值 (result, 相加 (“消息类型: ”, 选择 (等于 (msgJson.取通用属性 (“type”, ), “1”), “文字消息”, “其他”)))
             赋值 (result, 相加 (result, #换行符, “消息ID: ”, msg_id))
             赋值 (result, 相加 (result, #换行符, “发送人: ”, sendernickname, “#”, senderid))
