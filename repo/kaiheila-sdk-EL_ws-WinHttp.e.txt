@@ -2942,15 +2942,6 @@ loop”", 隐藏,
 .常量 CF_ENHMETAFILE, "14", 隐藏, 增强图元文件的句柄（HENHMETAFILE）。
 .常量 CF_HDROP, "15", 隐藏, 类型为HDROP的句柄，用于标识文件列表。应用程序可以通过将句柄传递给DragQueryFile函数来检索有关文件的信息。
 .常量 MAX_PATH, "260", 隐藏, 编译器所支持的最长全路径名的长度
-.常量 SO_UNKNOWN, "0", 隐藏, 未知
-.常量 SO_ACCEPT, "1", 隐藏, 接受
-.常量 SO_CONNECT, "2", 隐藏, 连接
-.常量 SO_SEND, "3", 隐藏, 发送
-.常量 SO_RECEIVE, "4", 隐藏, 接收
-.常量 SO_CLOSE, "5", 隐藏, 关闭
-.常量 HR_OK, "0", 隐藏, 成功
-.常量 HR_IGNORE, "1", 隐藏, 忽略
-.常量 HR_ERROR, "2", 隐藏, 错误
 .图片 DefaultUserAgentW, " ' 已保存到：C:\Users\asus\Desktop\kaiheila_EL_bot\repo\kaiheila-sdk-EL_ws-WinHttp.e\DefaultUserAgentW", , Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.2)
 
 
@@ -2965,7 +2956,6 @@ loop”", 隐藏,
  ' 所需要的模块
  ' 菜鸟开发模块 C:\Users\asus\OneDrive\项目组-FXSLB2020\公用模块组\菜鸟开发模块.ec
  ' 精易模块 C:\Users\asus\OneDrive\项目组-FXSLB2020\公用模块组\精易模块[v8.4.5].ec
- ' 鱼刺WSS客户端.中级（HPSocket.Agent.WebSocketSSL） C:\Users\asus\OneDrive\项目组-FXSLB2020\公用模块组\鱼刺.WSS.中级.ec
 
 
 数据类型 精易_表头样式, 公开, 
@@ -3437,16 +3427,6 @@ loop”", 隐藏,
     .成员 ptMaxPosition, POINT, , , 窗口最大化时窗口左上角的坐标
     .成员 rcNormalPosition, RECT, , , 当窗口处于恢复位置时窗口的坐标
 
-数据类型 同步消息体数据, 公开, 同步接收专用
-    .成员 WSMessageBody, 字节集, , , 消息体数据 字节集
-    .成员 WSMessageText, 文本型, , , 消息体数据 文本
-    .成员 lpbFinal, 逻辑型, , ,  是否结束帧
-    .成员 lpiReserved, 字节型, , ,  RSV1/RSV2/RSV3 各 1 位
-    .成员 lpiOperationCode, 字节型, , ,  操作码：0x0 - 0xF  (0=连续消息分片 1=文本消息分片 2=二进制消息分片 8=连接关闭 9=心跳Ping 10=心跳Pong)
-    .成员 lpszMask, 字节集, , ,  掩码：长度=4
-    .成员 lpullBodyLen, 长整数型, , ,  消息总长度
-    .成员 lpullBodyRemain, 长整数型, , , 
-
 数据类型 URL_COMPONENTS, , 连接类型
     .成员 dwStructSize, 整数型, , , 结构大小 注:60（15*4）
     .成员 lpszScheme, 整数型, , , 协议类型
@@ -3480,7 +3460,7 @@ loop”", 隐藏,
 .全局变量 g_msgList_id, 空白型, , , 
 .全局变量 g_MsgID, 整数型, , , 
 .全局变量 g_conID, 整数型, , , 
-.全局变量 g_bot, 未知类型0x4101324D, , , 
+.全局变量 g_bot, botMsg, , , 
 .全局变量 匿名全局变量_12875, 空白型, , , 
 
 .DLL命令 HeapSize, 整数型, "kernel32.dll", "HeapSize", 公开, 返回堆对象的大小
@@ -6962,19 +6942,19 @@ loop”", 隐藏,
 赋值 (g_apiVer, “3”)
 赋值 (g_url, 相加 (g_baseUrl, “/v”, g_apiVer))
 
-赋值 (读配置项 (相加 (取运行目录 (), “\bot_token.ini”), “def”, “token”, )) ' 请在机器人后台获取)
-未知函数_67187259 ()
+赋值 (g_token, 读配置项 (相加 (取运行目录 (), “\bot_token.ini”), “def”, “token”, )) ' 请在机器人后台获取)
+init ()
 
 载入 (窗口1, , 假)
 返回 (0) ' 可以根据您的需要返回任意数值
 
 .子程序 init, 空白型, , 
-.局部变量 json, 未知类型0x4901323E, , , 
+.局部变量 json, 类_json, , , 
 
-json.未知函数_67187263 (未知函数_67187264 (), )
-赋值 (., json.未知函数_67187265 (“data.username”, ))
-赋值 (., json.未知函数_67187265 (“data.id”, ))
-赋值 (., 相加 (., “#”, .))
+json.解析 (user_me (), )
+赋值 (g_bot.username, json.取通用属性 (“data.username”, ))
+赋值 (g_bot.id, json.取通用属性 (“data.id”, ))
+赋值 (g_bot.quard, 相加 (g_bot.username, “#”, g_bot.id))
 
 .窗口程序集 窗口程序集_窗口1, , , 
 
@@ -21565,17 +21545,17 @@ result.解析 (编码_utf8到gb2312 (到文本 (网页_访问 (url, 1, 编码_gb
 
 .局部变量 url, 文本型, , , 
 .局部变量 header, 文本型, , , 
-.局部变量 result, 未知类型0x49013233, , , 
+.局部变量 result, 类_json, , , 
 
-赋值 (url, 相加 (“/user/me”))
-赋值 (header, 相加 (“Authorization: Bot ”, 选择 (等于 (token, “”), , 读配置项 (相加 (取运行目录 (), “\bot_token.ini”), “token”, token, )), #换行符, “Content-type: application/json”))
+赋值 (url, 相加 (g_url, “/user/me”))
+赋值 (header, 相加 (“Authorization: Bot ”, 选择 (等于 (token, “”), g_token, 读配置项 (相加 (取运行目录 (), “\bot_token.ini”), “token”, token, )), #换行符, “Content-type: application/json”))
  ' json.置属性 (“guild_id”, GuildId, )
  ' 调试输出 (baseUrl, header, json.取数据文本 ())
-result.未知函数_67187252 (未知函数_67187253 (到文本 (未知函数_67187254 (url, 0, , , , header, , , , , , , ))), )
+result.解析 (编码_utf8到gb2312 (到文本 (网页_访问 (url, 0, , , , header, , , , , , , ))), )
  ' 调试输出 (, “获取服务器信息”, “kaiheila”)
  ' 调试输出 (, “返回信息: ” ＋ result.取数据文本 (), “kaiheila”)
  ' {"code":0,"message":"操作成功","data":{"id":"*****","username":"****","identify_num":"9028","online":true,"os":"Websocket","status":0,"avatar":"https://img.kaiheila.cn/assets/2021-01/OQlgu5UiGJ0e80e8.jpeg/icon","bot":true,"tag_info":{"color":"#34A853","text":"机器人"},"mobile_verified":true,"client_id":"********","mobile_prefix":"86","mobile":"****","privacy_game_activity":0,"privacy_music_activity":0,"enable_desktop_notification":true,"audio_setting":"","auto_exit_audio_channel":false,"invited_count":"0","need_guide":false,"friend_setting":{"all":true},"chat_setting":"1","auth_info":[]}}'
-返回 (result.未知函数_67187255 ())
+返回 (result.取数据文本 ())
 
 
 .程序集 Queue, , , 
@@ -21876,155 +21856,6 @@ json.置属性数值 (“s”, 2)
 json.置属性数值 (“sn”, g_MsgID)
  ' 客户端_发送消息体文本 (id, json.取数据文本 (), , , , , )
 WS_Send (json.取数据文本 (), 2)
-
-.程序集 __HIDDEN_TEMP_MOD__, , , 
-
-.子程序 客户端_全局初始化, 逻辑型, , 只需要执行一次
-.参数 bSSL, 逻辑型, , 真=WSS 假=WS
-.参数 bAsyncConnect, 逻辑型, 可空, 是否采用异步 (默认: 假 同步)
-.参数 dwWorkerThreadCount, 整数型, 可空, 设置工作线程数量 (默认设置为 2 * CPU核心数 + 2)
-.参数 lpszBindAddress, 文本型, 可空, 【可选】绑定地址（默认：nullptr，【可选】绑定 0.0.0.0）
-.参数 收包缓冲区初始预留大小, 整数型, 可空, 【可选】设置预留缓冲区长度 减少内存申放加快接收数据 （默认：0不启用）
-.参数 自动合并非结束帧, 逻辑型, 可空, 【可选】自动合并非结束帧的消息 直到收到结束帧后再触发接收事件
-
-
-
-.子程序 客户端_全局销毁, 空白型, , 销毁
-
-
-.子程序 客户端_全局绑定事件, 空白型, , 绑定 连接成功 数据到达 连接断开 主动心跳 等事件
-.参数 Connect_fn, 子程序指针, 可空, 连接事件。整数返回值：#HR_ 开头常量(0成功 1忽略 2错误) , 1个整数参数(dwConnID_连接ID 整数型 )。
-.参数 Close_fn, 子程序指针, 可空, 断开事件。整数返回值：#HR_ 开头常量(0成功 1忽略 2错误) , 3个整数参数(dwConnID_连接ID 整数型 , enOperation(#SO_ 开头常量) 整数型 , iErrorCode_错误代码 整数型)。
-.参数 ReceiveWS_fn, 子程序指针, 可空, 接收事件。整数返回值：#HR_ 开头常量(0成功 1忽略 2错误) , 3个整数参数(dwConnID_连接ID 整数型 , pData_数据指针 整数型 , iLength_数据长度 整数型)。
-.参数 KeepAlive_fn, 子程序指针, 可空, 主动心跳事件。整数返回值：#HR_ 开头常量(0成功 1忽略 2错误) , 1个整数参数(dwConnID_连接ID 整数型)。
-
-
-
-.子程序 客户端_连接, 整数型, , 成功返回连接ID 失败返回0
-.参数 要连接的URL地址, 文本型, , 要连接的WS/WSS地址(URL) 如：wss://echo.websocket.org/websocket/?id=123&wskey=456
-.参数 附加协议头, 文本型, 可空, 要附加的协议头 一行一个  (name1:value1#换行符name2:value2)
-.参数 附加数据, 整数型, 可空, 
-.参数 连接超时, 整数型, 可空, 默认=15000ms (15秒)
-.参数 代理类型, 整数型, 可空, (高级订阅版)  默认0=不使用代理  1=HTTP/HTTPS代理  2=SOCKS5代理
-.参数 代理地址, 文本型, 可空, (高级订阅版)  要连接的代理地址
-.参数 代理端口, 整数型, 可空, (高级订阅版)  要连接的代理端口
-.参数 代理帐号, 文本型, 可空, (高级订阅版)  要连接的代理账号 无账号请留空或空文本
-.参数 代理密码, 文本型, 可空, (高级订阅版)  要连接的代理密码 无密码请留空或空文本
-.参数 指定本地出口地址, 文本型, 可空, (高级订阅版)  指定本地出口地址(多IP出口才用到) （默认：0.0.0.0 ）
-.参数 指定本地端口, 整数型, 可空, (高级订阅版)  本地端口（默认：0 自动）
-.参数 自绑定_连接事件, 整数型, 可空, 给这个连接单独绑定 `连接成功`事件  到整数(&子程序指针)
-.参数 自绑定_断开事件, 整数型, 可空, 给这个连接单独绑定 `断开连接`事件  到整数(&子程序指针)
-.参数 自绑定_数据到达事件, 整数型, 可空, 给这个连接单独绑定 `数据接收`事件  到整数(&子程序指针)
-.参数 自绑定_主动心跳事件, 整数型, 可空, 给这个连接单独绑定 `主动心跳`事件  到整数(&子程序指针)
-.参数 启用同步接收模式, 逻辑型, 可空, 默认=假 启用此模式后 可以调用 `客户端_同步接收消息体数据()`进行同步数据接收 （优点在于不会漏包)
-
-
-
-.子程序 客户端_断开, 逻辑型, , 主动断开连接
-.参数 dwConnID, 整数型, , 连接成功后返回的 连接ID
-
-
-
-.子程序 客户端_发送消息体文本, 逻辑型, , 发送WebSocket文本数据 成功返回真 失败或连接ID无效返回假
-.参数 dwConnID, 整数型, , 客户端_连接() 返回的连接ID
-.参数 pData, 文本型, , 消息体数据缓冲区
-.参数 bFinal, 逻辑型, 可空, 是否结束帧 (默认：真)
-.参数 iReserved, 字节型, 可空, RSV1/RSV2/RSV3 各 1 位 (默认：0)
-.参数 iOperationCode, 字节型, 可空, 操作码：0x0 - 0xF (默认：1)  (0=连续消息分片 1=文本消息分片 2=二进制消息分片 8=连接关闭 9=心跳Ping 10=心跳Pong)
-.参数 lpszMask, 字节集, 可空, 掩码（nullptr 或 4 字节掩码，如果为 nullptr 则没有掩码） (默认：{1,2,3,4})
-.参数 ullBodyLen, 长整数型, 可空, 消息总长度 
-
-
-
-.子程序 客户端_取回数据, 字节集, , 获取OnReceive(数据到达)接收事件里的数据  其实就是  指针到字节集()
-.参数 pData, 整数型, , OnReceive回调事件里的 数据指针
-.参数 iLength, 整数型, , OnReceive回调事件里的 数据长度
-
-
-
-.子程序 客户端_取回文本, 文本型, , 获取OnReceivec(数据到达)接收事件里的数据  其实就是  指针到字节集() 再 到文本()
-.参数 pData, 整数型, , OnReceive回调事件里的 数据指针
-.参数 iLength, 整数型, , OnReceive回调事件里的 数据长度
-
-
-
-.子程序 客户端_发送消息体数据, 逻辑型, , 发送WebSocket数据 成功返回真 失败或连接ID无效返回假
-.参数 dwConnID, 整数型, , 客户端_连接() 返回的连接ID
-.参数 pData, 字节集, , 消息体数据缓冲区
-.参数 bFinal, 逻辑型, 可空, 是否结束帧 (默认：真)
-.参数 iReserved, 字节型, 可空, RSV1/RSV2/RSV3 各 1 位 (默认：0)
-.参数 iOperationCode, 字节型, 可空, 操作码：0x0 - 0xF (默认：2)  (0=连续消息分片 1=文本消息分片 2=二进制消息分片 8=连接关闭 9=心跳Ping 10=心跳Pong)
-.参数 lpszMask, 字节集, 可空, 掩码（nullptr 或 4 字节掩码，如果为 nullptr 则没有掩码）(默认：{1,2,3,4})
-.参数 ullBodyLen, 长整数型, 可空, 消息总长度
-
-
-
-.子程序 客户端_取连接状态, 逻辑型, , 判断指定连接是否有效
-.参数 dwConnID, 整数型, , 连接成功后返回的 连接ID
-
-
-
-.子程序 客户端_设置心跳, 逻辑型, , 给指定连接设置心跳周期 到达周期时会触发心跳事件 （对同一个连接再次使用`客户端_设置心跳()`即为调整心跳周期）（可通过`客户端_全局绑定事件()`或`客户端_全局绑定事件_心跳()`来设置回调子程序）
-.参数 dwConnID, 整数型, , 客户端_连接() 返回的连接ID
-.参数 Period, 整数型, , 心跳周期  单位为:毫秒  
-
-
-
-.子程序 客户端_移除心跳, 逻辑型, , 取消指定连接的心跳周期事件
-.参数 dwConnID, 整数型, , 客户端_连接() 返回的连接ID
-
-
-
-.子程序 客户端_取附加数据, 逻辑型, , 获取连接的附加数据 成功返回真 失败或连接ID无效返回假
-.参数 dwConnID, 整数型, , 连接成功后返回的 连接ID
-.参数 pExtra, 整数型, 参考 可空, 
-
-
-
-.子程序 客户端_置附加数据, 逻辑型, , 设置连接的附加数据 成功返回真 失败或连接ID无效返回假
-.参数 dwConnID, 整数型, , 连接成功后返回的 连接ID
-.参数 pExtra, 整数型, , 
-
-
-
-.子程序 客户端_接收消息体数据, 逻辑型, , 同步接收WS返回数据 成功返回真 失败或连接ID无效返回假
-.参数 dwConnID, 整数型, , 客户端_连接() 返回的连接ID
-.参数 RetData, 字节集, 参考, 用来接收返回数据的字节集变量
-.参数 dwMilliseconds, 整数型, 可空, 同步等待超时值(毫秒) (默认：15000 (15秒))
-
-
-
-.子程序 客户端_接收消息体文本, 逻辑型, , 同步接收WS返回数据 成功返回真 失败或连接ID无效返回假
-.参数 dwConnID, 整数型, , 客户端_连接() 返回的连接ID
-.参数 RetData, 文本型, 参考, 用来接收返回数据的文本变量
-.参数 dwMilliseconds, 整数型, 可空, 同步等待超时值(毫秒) (默认：15000 (15秒))
-
-
-
-.子程序 客户端_取回消息状态, 逻辑型, , 获取当前 WebSocket 消息状态，传入 nullptr 则不获取相应字段
-.参数 dwConnID, 整数型, , 客户端_连接() 返回的连接ID
-.参数 lpbFinal, 逻辑型, 参考 可空, 请提供变量来接收  是否结束帧
-.参数 lpiReserved, 字节型, 参考 可空, 请提供变量来接收  RSV1/RSV2/RSV3 各 1 位
-.参数 lpiOperationCode, 字节型, 参考 可空, 请提供变量来接收  操作码：0x0 - 0xF  (0=连续消息分片 1=文本消息分片 2=二进制消息分片 8=连接关闭 9=心跳Ping 10=心跳Pong)
-.参数 lpszMask, 整数型, 参考 可空, 请提供变量来接收  掩码：指针到字节集，长度=4
-.参数 lpullBodyLen, 长整数型, 参考 可空, 请提供变量来接收  消息总长度
-.参数 lpullBodyRemain, 长整数型, 参考 可空, 请提供变量来接收  
-
-
-
-.子程序 客户端_同步接收消息体数据, 逻辑型, , （同步版）同步接收服务器返回的包体并且不漏包 （此功能类似`网络客户端`的`接收()`）
-.参数 dwConnID, 整数型, , 客户端_连接() 返回的连接ID
-.参数 RetWSMessage, 同步消息体数据, 参考 可空 数组, 用来接收同步回来的数组变量（因为可能有多个包过来 所以是数组）
-.参数 dwMilliseconds, 整数型, 可空, 指定以ms(毫秒)为单位的超时时间。0为立即返回，-1为无限等待
-
-
-
-.子程序 客户端_同步接收消息体数据二, 逻辑型, , （同步版）同步接收服务器返回的包体并且不漏包 （此功能类似`网络客户端`的`接收()`）
-.参数 dwConnID, 整数型, , 客户端_连接() 返回的连接ID
-.参数 RetWSMessage, 同步消息体数据, 参考 可空, 用来接收同步回来的数组变量（一次只接收单个包体 所以不是数组）
-.参数 dwMilliseconds, 整数型, 可空, 指定以ms(毫秒)为单位的超时时间。0为立即返回，-1为无限等待
-
-
 
 .程序集 WinHttp1, , , 
 
