@@ -3421,6 +3421,44 @@ loop”", 隐藏,
     .成员 id, 文本型, , , 
     .成员 quard, 文本型, , , 
 
+数据类型 role, , 
+    .成员 permissions, 整数型, , "32", 
+
+数据类型 role_new, , 
+    .成员 _0, 整数型, , , 1 管理员 拥有此权限会获得完整的管理权，包括绕开所有其他权限（包括频道权限）限制，属于危险权限。
+    .成员 _1, 整数型, , , 2 管理服务器 拥有此权限的成员可以修改服务器名称和更换区域。
+    .成员 _2, 整数型, , , 4 查看管理日志 拥有此权限的成员可以查看服务器的管理日志。
+    .成员 _3, 整数型, , , 8 创建服务器邀请 能否创建服务器邀请链接
+    .成员 _4, 整数型, , , 16 管理邀请 拥有该权限可以管理服务器的邀请
+    .成员 _5, 整数型, , , 32 频道管理 拥有此权限的成员可以创建新的频道以及编辑或删除已存在的频道。
+    .成员 _6, 整数型, , , 64 踢出用户
+    .成员 _7, 整数型, , , 128 封禁用户
+    .成员 _8, 整数型, , , 256 管理自定义表情
+    .成员 _9, 整数型, , , 512 修改服务器昵称 拥有此权限的用户可以更改他们的昵称。
+    .成员 _10, 整数型, , , 1024 管理角色权限 拥有此权限成员可以创建新的角色和编辑删除低于该角色的身份。
+    .成员 _11, 整数型, , , 2048 查看文字、语音频道 
+    .成员 _12, 整数型, , , 4096 发布消息
+    .成员 _13, 整数型, , , 8192 管理消息 拥有此权限的成员可以删除其他成员发出的消息和置顶消息。
+    .成员 _14, 整数型, , , 16384 上传文件
+    .成员 _15, 整数型, , , 32768 语音链接
+    .成员 _16, 整数型, , , 65536 语音管理 拥有此权限的成员可以把其他成员移动和踢出频道；但此类移动仅限于在该成员和被移动成员均有权限的频道之间进行。
+    .成员 _17, 整数型, , , 131072 提及@全体成员 拥有此权限的成员可使用@全体成员以提及该频道中所有成员。
+    .成员 _18, 整数型, , , 262144 添加反应 拥有此权限的成员可以对消息添加新的反应。
+    .成员 _19, 整数型, , , 524288 跟随添加反应 拥有此权限的成员可以跟随使用已经添加的反应。
+    .成员 _20, 整数型, , , 1048576 被动连接语音频道 拥有此限制的成员无法主动连接语音频道，只能在被动邀请或被人移动时，才可以进入语音频道。
+    .成员 _21, 整数型, , , 2097152 仅使用按键说话 拥有此限制的成员加入语音频道后，只能使用按键说话。
+    .成员 _22, 整数型, , , 4194304 使用自由麦 没有此权限的成员，必须在频道内使用按键说话。
+    .成员 _23, 整数型, , , 8388608 说话
+    .成员 _24, 整数型, , , 16777216 服务器静音
+    .成员 _25, 整数型, , , 33554432 服务器闭麦
+    .成员 _26, 整数型, , , 108864 修改他人昵称 拥有此权限的用户可以更改他人的昵称
+    .成员 _27, 整数型, , , 134217728 播放伴奏 拥有此权限的成员可在语音频道中播放音乐伴奏
+    .成员 _28, 整数型, , , 
+    .成员 _29, 整数型, , , 
+    .成员 _30, 整数型, , , 
+    .成员 _31, 整数型, , , 
+    .成员 _32, 整数型, , , 
+
 .全局变量 g_baseUrl, 文本型, , , 
 .全局变量 g_apiVer, 文本型, , , 
 .全局变量 g_token, 文本型, , , 
@@ -6810,6 +6848,8 @@ loop”", 隐藏,
 赋值 (g_url, 相加 (g_baseUrl, “/v”, g_apiVer))
 
 赋值 (g_token, 读配置项 (相加 (取运行目录 (), “\bot_token.ini”), “def”, “token”, )) ' 请在机器人后台获取)
+
+未知函数_67186826 (524288)
  ' 初始化（）
 init ()
  ' 卡片测试 ()
@@ -21359,32 +21399,6 @@ result.解析 (编码_utf8到gb2312 (到文本 (网页_访问 (url, 0, , , , hea
  ' {"code": 0,"message": "操作成功","data": {"url": "wss://xxxx"}}
  ' {"code":0,"message":"操作成功","data":{"url":"wss://ws.kaiheila.cn/gateway?compress=0&token=1234="}
 
-.子程序 卡片测试, 空白型, , 
-.局部变量 content, 类_json, , , 消息.加成员(card)
-.局部变量 card, 类_json, , , 卡片<arr>.加成员(modules)
-.局部变量 modules, 类_json, , , 模块<arr>
-.局部变量 item, 类_json, , , 元素
-.局部变量 item2, 类_json, , , 
-
-
-card.置属性 (“type”, “card”, )
-modules.置属性 (“type”, “section”, ) ' image-group  把item加到modules的elements属性里
-item.置属性 (“type”, “plain-text”, )
-item.置属性 (“content”, “我是标题”, )
-modules.置属性 (“text”, item.取数据文本 (), 真)
-item.置属性 (“type”, “image”, )
-item.置属性 (“src”, “https://s3.ax1x.com/2021/01/05/sFStpt.png”, )
-item.置属性 (“alt”, “123”, )
-item.置属性 (“size”, “lg”, )
-item.置属性 (“circle”, “true”, 真)
-
-modules.置属性 (“accessory”, item.取数据文本 (), 真)
-
-card.加成员 (modules.取数据文本 (), “modules”, 真, )
-content.加成员 (card.取数据文本 (), , 真, )
-调试输出 (content.取数据文本 ())
-
-
 .子程序 guild_index, 文本型, , /api/v3/guild/index
 .参数 token, 文本型, 可空, 
 
@@ -21435,28 +21449,196 @@ result.解析 (编码_utf8到gb2312 (到文本 (网页_访问 (url, 0, , , , hea
 .局部变量 type, 文本型, , , 
 .局部变量 header, 文本型, , , 
 .局部变量 Playload, 字节集, , , 
-.局部变量 json, 未知类型0x4901307F, , , 
+.局部变量 json, 类_json, , , 
 
-赋值 (url, 相加 (“/asset/create”))
-赋值 (uuid, 未知函数_67186816 (10, ))
-赋值 (type, 未知函数_67186817 (本地资源路径))
+赋值 (url, 相加 (g_url, “/asset/create”))
+赋值 (uuid, 文本_取随机数字 (10, ))
+赋值 (type, 文件_取扩展名 (本地资源路径))
 .判断开始 (等于 (type, “.png”))
-    赋值 (“image/png”)
+    赋值 (type, “image/png”)
 .默认
     赋值 (type, “image/png”)
 .判断结束
 赋值 (header, 相加 (“Content-Type: multipart/form-data; boundary=--------------------------”, uuid))
-赋值 (header, 相加 (header, #换行符, “Authorization: Bot ”, 选择 (等于 (token, “”), , 读配置项 (相加 (取运行目录 (), “\bot_token.ini”), “token”, token, ))))
+赋值 (header, 相加 (header, #换行符, “Authorization: Bot ”, 选择 (等于 (token, “”), g_token, 读配置项 (相加 (取运行目录 (), “\bot_token.ini”), “token”, token, ))))
 赋值 (Playload, 到字节集 (相加 (“----------------------------”, uuid, #换行符)))
-赋值 (Playload, 相加 (Playload, 到字节集 (相加 (“Content-Disposition: form-data; name=”, #引号, “file”, #引号, “; filename=”, #引号, “temp”, 未知函数_67186818 (本地资源路径, ), #引号, #换行符))))
+赋值 (Playload, 相加 (Playload, 到字节集 (相加 (“Content-Disposition: form-data; name=”, #引号, “file”, #引号, “; filename=”, #引号, “temp”, 文件_取文件名 (本地资源路径, ), #引号, #换行符))))
 赋值 (Playload, 相加 (Playload, 到字节集 (相加 (“Content-Type: ”, type, #换行符))))
 赋值 (Playload, 相加 (Playload, 到字节集 (#换行符)))
 赋值 (Playload, 相加 (Playload, 读入文件 (本地资源路径), 到字节集 (#换行符)))
 赋值 (Playload, 相加 (Playload, 到字节集 (相加 (“----------------------------”, uuid, “--”))))
  ' 调试输出 (url, header, 到文本 (Playload))
-json.未知函数_67186819 (未知函数_67186820 (到文本 (未知函数_67186821 (url, 1, , , , header, , , Playload, , , , ))), )
+json.解析 (编码_utf8到gb2312 (到文本 (网页_访问 (url, 1, , , , header, , , Playload, , , , ))), )
  ' {"code":0,"message":"操作成功","data":{"url":"https://img.kaiheila.cn/assets/2021-01/22/zV8yikTGJf0la0k5.png"}}
-返回 (json.未知函数_67186822 ())
+返回 (json.取数据文本 ())
+
+.子程序 guild_role_index, 空白型, , 获取服务器角色列表
+.参数 token, 文本型, 可空, 多机器人预留位置 采用文件对应 token=token
+.参数 guild_id, 文本型, , 
+
+.局部变量 url, 文本型, , , 
+.局部变量 header, 文本型, , , 
+.局部变量 result, 未知类型0x4901329E, , , 
+
+赋值 (url, 相加 (g_url, “/guild-role/index”))
+赋值 (url, 相加 (url, “?guild_id=”, guild_id))
+赋值 (相加 (“Authorization: Bot ”, 选择 (等于 (token, “”), , 读配置项 (相加 (取运行目录 (), “\bot_token.ini”), “token”, token, )), #换行符, “Content-type: application/json”))
+result.解析 (编码_utf8到gb2312 (到文本 (网页_访问 (url, 0, , , , header, , , , , , , ))), )
+ ' 调试输出 (, “获取服务器信息”, “kaiheila”)
+ ' 调试输出 (, “返回信息: ” ＋ result.取数据文本 (), “kaiheila”)
+ ' role_id unsigned int 角色的id
+ ' name string 角色的名称
+ ' color unsigned int 角色的色值0x000000 - 0xFFFFFF
+ ' position unsigned int 顺序，值越小载靠前
+ ' hoist unsigned int 只能为0或者1，是否把该角色的用户在用户列表排到前面
+ ' mentionable unsigned int 只能为0或者1，该角色是否可以被提及
+ ' permissions unsigned int 权限,参见权限说明
+ ' {"code":0,"message":"操作成功","data":[{"role_id":5712,"name":"新角色1","color":3066993,"position":1,"hoist":0,"mentionable":0,"permissions":147643914},{"role_id":0,"name":"@全体成员","color":0,"position":999,"hoist":0,"mentionable":0,"permissions":147642888}],}
+返回 (未知函数_67187355 ())
+
+
+.子程序 guild_role_create, 空白型, , 创建服务器角色
+.参数 token, 文本型, 可空, 多机器人预留位置 采用文件对应 token=token
+.参数 name, 文本型, 可空, 
+.参数 guild_id, 文本型, , 
+
+.局部变量 url, 文本型, , , 
+.局部变量 header, 文本型, , , 
+.局部变量 json, 类_json, , , 
+.局部变量 result, 未知类型0x490132AC, , , 
+
+赋值 (url, 相加 (g_url, “/guild-role/create”))
+赋值 (header, 相加 (“Authorization: Bot ”, 选择 (等于 (token, “”), g_token, 读配置项 (相加 (取运行目录 (), “\bot_token.ini”), “token”, token, )), #换行符, “Content-type: application/json”))
+.如果真 (不等于 (name, “”))
+    json.置属性 (“name”, name, )
+.如果真结束
+json.置属性 (“guild_id”, guild_id, )
+result.解析 (编码_utf8到gb2312 (到文本 (网页_访问 (url, 1, 编码_URL编码 (json.取数据文本 (), , 真), , , header, , , , , , , ))), )
+ ' 调试输出 (, “获取服务器信息”, “kaiheila”)
+ ' 调试输出 (, “返回信息: ” ＋ result.取数据文本 (), “kaiheila”)
+ ' role_id unsigned int 角色的id
+ ' name string 角色的名称
+ ' color unsigned int 角色的色值0x000000 - 0xFFFFFF
+ ' position unsigned int 顺序，值越小载靠前
+ ' hoist unsigned int 只能为0或者1，是否把该角色的用户在用户列表排到前面
+ ' mentionable unsigned int 只能为0或者1，该角色是否可以被提及
+ ' permissions unsigned int 权限,参见权限说明
+ ' {"code":0,"message":"操作成功","data":[{"role_id":5712,"name":"新角色1","color":3066993,"position":1,"hoist":0,"mentionable":0,"permissions":147643914}],}
+返回 (未知函数_67187373 ())
+
+
+.子程序 guild_role_update, 空白型, , 更新服务器角色
+.参数 token, 文本型, 可空, 多机器人预留位置 采用文件对应 token=token
+.参数 guild_id, 文本型, , 
+.参数 role_id, 整数型, , 
+.参数 hoist, 整数型, 可空, 
+.参数 mentionable, 整数型, 可空, 
+.参数 permissions, 整数型, 可空, 
+
+.局部变量 url, 文本型, , , 
+.局部变量 header, 文本型, , , 
+.局部变量 result, 未知类型0x490132B8, , , 
+.局部变量 json, 类_json, , , 
+
+赋值 (url, 相加 (g_url, “/guild-role/update”))
+json.置属性 (“guild_id”, guild_id, )
+json.置属性数值 (“role_id”, role_id)
+.如果真 (等于 (是否为空 (hoist), 假))
+    json.置属性数值 (“hoist”, 选择 (等于 (hoist, 1), 1, 2), )
+.如果真结束
+.如果真 (等于 (是否为空 (mentionable), 假))
+    json.置属性数值 (“mentionable”, 选择 (等于 (mentionable, 1), 1, 2), )
+.如果真结束
+.如果真 (等于 (是否为空 (permissions), 假))
+    json.置属性数值 (“permissions”, permissions, )
+.如果真结束
+赋值 (相加 (“Authorization: Bot ”, 选择 (等于 (token, “”), , 读配置项 (相加 (取运行目录 (), “\bot_token.ini”), “token”, token, )), #换行符, “Content-type: application/json”))
+result.解析 (编码_utf8到gb2312 (到文本 (网页_访问 (url, 1, 编码_URL编码 (json.取数据文本 (), 真, ), , , header, , , , , , , ))), )
+ ' 调试输出 (, “获取服务器信息”, “kaiheila”)
+ ' 调试输出 (, “返回信息: ” ＋ result.取数据文本 (), “kaiheila”)
+ ' role_id unsigned int 角色的id
+ ' name string 角色的名称
+ ' color unsigned int 角色的色值0x000000 - 0xFFFFFF
+ ' position unsigned int 顺序，值越小载靠前
+ ' hoist unsigned int 只能为0或者1，是否把该角色的用户在用户列表排到前面
+ ' mentionable unsigned int 只能为0或者1，该角色是否可以被提及
+ ' permissions unsigned int 权限,参见权限说明
+ ' {"code":0,"message":"操作成功","data":[{"role_id":5712,"name":"新角色1","color":3066993,"position":1,"hoist":0,"mentionable":0,"permissions":147643914}],}
+返回 (未知函数_67187385 ())
+
+
+.子程序 guild_role_delete, 空白型, , 删除服务器角色
+.参数 token, 文本型, 可空, 多机器人预留位置 采用文件对应 token=token
+.参数 guild_id, 文本型, , 
+.参数 role_id, 整数型, , 
+
+.局部变量 url, 文本型, , , 
+.局部变量 header, 文本型, , , 
+.局部变量 result, 未知类型0x490132C4, , , 
+.局部变量 json, 类_json, , , 
+
+赋值 (url, 相加 (g_url, “/guild-role/delete”))
+赋值 (header, 相加 (“Authorization: Bot ”, 选择 (等于 (token, “”), g_token, 读配置项 (相加 (取运行目录 (), “\bot_token.ini”), “token”, token, )), #换行符, “Content-type: application/json”))
+json.置属性 (“guild_id”, guild_id, )
+json.置属性数值 (“role_id”, role_id, )
+result.解析 (编码_utf8到gb2312 (到文本 (网页_访问 (url, 1, 编码_URL编码 (json.取数据文本 (), 真, ), , , header, , , , , , , ))), )
+ ' 调试输出 (, “获取服务器信息”, “kaiheila”)
+ ' 调试输出 (, “返回信息: ” ＋ result.取数据文本 (), “kaiheila”)
+ ' {"code":0,"message":"操作成功","data":[]}
+返回 (未知函数_67187397 ())
+
+
+.子程序 guild_role_grant, 空白型, , 赋予用户角色
+.参数 token, 文本型, 可空, 多机器人预留位置 采用文件对应 token=token
+.参数 guild_id, 文本型, , 
+.参数 user_id, 文本型, , 
+.参数 role_id, 整数型, , 
+
+.局部变量 url, 文本型, , , 
+.局部变量 header, 文本型, , , 
+.局部变量 result, 未知类型0x490132D0, , , 
+.局部变量 json, 类_json, , , 
+
+赋值 (url, 相加 (g_url, “/guild-role/grant”))
+赋值 (header, 相加 (“Authorization: Bot ”, 选择 (等于 (token, “”), g_token, 读配置项 (相加 (取运行目录 (), “\bot_token.ini”), “token”, token, )), #换行符, “Content-type: application/json”))
+json.置属性 (“guild_id”, guild_id, )
+json.置属性 (“user_id”, user_id, )
+json.置属性数值 (“role_id”, role_id)
+result.解析 (编码_utf8到gb2312 (到文本 (网页_访问 (url, 1, 编码_URL编码 (json.取数据文本 (), 真, ), , , header, , , , , , , ))), )
+ ' user_id string 用户id
+ ' guild_id string 服务器id
+ ' roles Array 角色id的列表
+ ' 调试输出 (, “获取服务器信息”, “kaiheila”)
+ ' 调试输出 (, “返回信息: ” ＋ result.取数据文本 (), “kaiheila”)
+ ' {"code":0,"message":"操作成功","data":{"user_id":"xxxx","guild_id":"xxxx","roles":[1,2]}}
+返回 (未知函数_67187409 ())
+
+
+.子程序 guild_role_revoke, 空白型, , 删除用户角色
+.参数 token, 文本型, 可空, 多机器人预留位置 采用文件对应 token=token
+.参数 guild_id, 文本型, , 
+.参数 role_id, 整数型, , 
+.参数 user_id, 文本型, , 
+
+.局部变量 url, 文本型, , , 
+.局部变量 header, 文本型, , , 
+.局部变量 result, 未知类型0x490132DC, , , 
+.局部变量 json, 类_json, , , 
+
+赋值 (url, 相加 (g_url, “/guild-role/revoke”))
+赋值 (header, 相加 (“Authorization: Bot ”, 选择 (等于 (token, “”), g_token, 读配置项 (相加 (取运行目录 (), “\bot_token.ini”), “token”, token, )), #换行符, “Content-type: application/json”))
+json.置属性 (“guild_id”, guild_id, )
+json.置属性数值 (“role_id”, role_id)
+json.置属性 (“user_id”, user_id, )
+result.解析 (编码_utf8到gb2312 (到文本 (网页_访问 (url, 1, 编码_URL编码 (json.取数据文本 (), 真, ), , , header, , , , , , , ))), )
+ ' 调试输出 (, “获取服务器信息”, “kaiheila”)
+ ' 调试输出 (, “返回信息: ” ＋ result.取数据文本 (), “kaiheila”)
+ ' guild_id string 服务器id
+ ' user_id string 角色id
+ ' roles Array 角色id的列表
+ ' {"code":0,"message":"操作成功","data":{"user_id":"xxxx","guild_id":"xxxx","roles":[9]}}
+返回 (未知函数_67187421 ())
+
 
 .程序集 Queue, , , 
 
@@ -21564,6 +21746,207 @@ json.未知函数_67186819 (未知函数_67186820 (到文本 (未知函数_67186
     
 .计次循环尾 ()
 返回 (uid)
+
+.程序集 tools, , , 
+
+.子程序 rolevalueTorole, 未知类型0x41013264, , 
+.参数 roleValue, 整数型, , 
+
+.局部变量 temp, 未知类型0x41013264, , , 
+
+ ' 数据位的说明如下：
+ ' 0 1 管理员 拥有此权限会获得完整的管理权，包括绕开所有其他权限（包括频道权限）限制，属于危险权限。
+赋值 (temp._0, 选择 (__query_bit (roleValue, 0), 0, 1))
+ ' 1 2 管理服务器 拥有此权限的成员可以修改服务器名称和更换区域。
+赋值 (temp._1, 选择 (__query_bit (roleValue, 1), 0, 1))
+ ' 2 4 查看管理日志 拥有此权限的成员可以查看服务器的管理日志。
+赋值 (temp._2, 选择 (__query_bit (roleValue, 2), 0, 1))
+ ' 3 8 创建服务器邀请 能否创建服务器邀请链接
+赋值 (temp._3, 选择 (__query_bit (roleValue, 3), 0, 1))
+ ' 4 16 管理邀请 拥有该权限可以管理服务器的邀请
+赋值 (temp._4, 选择 (__query_bit (roleValue, 4), 0, 1))
+ ' 5 32 频道管理 拥有此权限的成员可以创建新的频道以及编辑或删除已存在的频道。
+赋值 (temp._5, 选择 (__query_bit (roleValue, 5), 0, 1))
+ ' 6 64 踢出用户
+赋值 (temp._6, 选择 (__query_bit (roleValue, 6), 0, 1))
+ ' 7 128 封禁用户
+赋值 (temp._7, 选择 (__query_bit (roleValue, 7), 0, 1))
+ ' 8 256 管理自定义表情
+赋值 (temp._8, 选择 (__query_bit (roleValue, 8), 0, 1))
+ ' 9 512 修改服务器昵称 拥有此权限的用户可以更改他们的昵称。
+赋值 (temp._9, 选择 (__query_bit (roleValue, 9), 0, 1))
+ ' 10 1024 管理角色权限 拥有此权限成员可以创建新的角色和编辑删除低于该角色的身份。
+赋值 (temp._10, 选择 (__query_bit (roleValue, 10), 0, 1))
+ ' 11 2048 查看文字、语音频道
+赋值 (temp._11, 选择 (__query_bit (roleValue, 11), 0, 1))
+ ' 12 4096 发布消息
+赋值 (temp._12, 选择 (__query_bit (roleValue, 12), 0, 1))
+ ' 13 8192 管理消息 拥有此权限的成员可以删除其他成员发出的消息和置顶消息。
+赋值 (temp._13, 选择 (__query_bit (roleValue, 13), 0, 1))
+ ' 14 16384 上传文件
+赋值 (temp._14, 选择 (__query_bit (roleValue, 14), 0, 1))
+ ' 15 32768 语音链接
+赋值 (temp._15, 选择 (__query_bit (roleValue, 15), 0, 1))
+ ' 16 65536 语音管理 拥有此权限的成员可以把其他成员移动和踢出频道；但此类移动仅限于在该成员和被移动成员均有权限的频道之间进行。
+赋值 (temp._16, 选择 (__query_bit (roleValue, 16), 0, 1))
+ ' 17 131072 提及@全体成员 拥有此权限的成员可使用@全体成员以提及该频道中所有成员。
+赋值 (temp._17, 选择 (__query_bit (roleValue, 17), 0, 1))
+ ' 18 262144 添加反应 拥有此权限的成员可以对消息添加新的反应。
+赋值 (temp._18, 选择 (__query_bit (roleValue, 18), 0, 1))
+ ' 19 524288 跟随添加反应 拥有此权限的成员可以跟随使用已经添加的反应。
+赋值 (temp._19, 选择 (__query_bit (roleValue, 19), 0, 1))
+ ' 20 1048576 被动连接语音频道 拥有此限制的成员无法主动连接语音频道，只能在被动邀请或被人移动时，才可以进入语音频道。
+赋值 (temp._20, 选择 (__query_bit (roleValue, 20), 0, 1))
+ ' 21 2097152 仅使用按键说话 拥有此限制的成员加入语音频道后，只能使用按键说话。
+赋值 (temp._21, 选择 (__query_bit (roleValue, 21), 0, 1))
+ ' 22 4194304 使用自由麦 没有此权限的成员，必须在频道内使用按键说话。
+赋值 (temp._22, 选择 (__query_bit (roleValue, 22), 0, 1))
+ ' 23 8388608 说话
+赋值 (temp._23, 选择 (__query_bit (roleValue, 23), 0, 1))
+ ' 24 16777216 服务器静音
+赋值 (temp._24, 选择 (__query_bit (roleValue, 24), 0, 1))
+ ' 25 33554432 服务器闭麦
+赋值 (temp._25, 选择 (__query_bit (roleValue, 25), 0, 1))
+ ' 26 67108864 修改他人昵称 拥有此权限的用户可以更改他人的昵称
+赋值 (temp._26, 选择 (__query_bit (roleValue, 26), 0, 1))
+ ' 27 134217728 播放伴奏 拥有此权限的成员可在语音频道中播放音乐伴奏
+赋值 (temp._27, 选择 (__query_bit (roleValue, 27), 0, 1))
+赋值 (temp._28, 选择 (__query_bit (roleValue, 28), 0, 1))
+赋值 (temp._29, 选择 (__query_bit (roleValue, 29), 0, 1))
+赋值 (temp._30, 选择 (__query_bit (roleValue, 30), 0, 1))
+赋值 (temp._31, 选择 (__query_bit (roleValue, 31), 0, 1))
+返回 (temp)
+ ' 比特位 值 权限 说明
+
+
+.子程序 roleTorolevalue, 整数型, , 
+.参数 role, 未知类型0x41013264, , 
+
+.局部变量 value, 整数型, , , 
+
+赋值 (value, 选择 (等于 (role., 1), 未知函数_67187339 (value, 0), 未知函数_67187340 (value, 0)))
+赋值 (value, 选择 (等于 (role., 1), 未知函数_67187339 (value, 1), 未知函数_67187340 (value, 1)))
+赋值 (value, 选择 (等于 (role., 1), 未知函数_67187339 (value, 2), 未知函数_67187340 (value, 2)))
+赋值 (value, 选择 (等于 (role., 1), 未知函数_67187339 (value, 3), 未知函数_67187340 (value, 3)))
+赋值 (value, 选择 (等于 (role., 1), 未知函数_67187339 (value, 4), 未知函数_67187340 (value, 4)))
+赋值 (value, 选择 (等于 (role., 1), 未知函数_67187339 (value, 5), 未知函数_67187340 (value, 5)))
+赋值 (value, 选择 (等于 (role., 1), 未知函数_67187339 (value, 6), 未知函数_67187340 (value, 6)))
+赋值 (value, 选择 (等于 (role., 1), 未知函数_67187339 (value, 7), 未知函数_67187340 (value, 7)))
+赋值 (value, 选择 (等于 (role., 1), 未知函数_67187339 (value, 8), 未知函数_67187340 (value, 8)))
+赋值 (value, 选择 (等于 (role., 1), 未知函数_67187339 (value, 9), 未知函数_67187340 (value, 9)))
+赋值 (value, 选择 (等于 (role., 1), 未知函数_67187339 (value, 10), 未知函数_67187340 (value, 10)))
+赋值 (value, 选择 (等于 (role., 1), 未知函数_67187339 (value, 11), 未知函数_67187340 (value, 11)))
+赋值 (value, 选择 (等于 (role., 1), 未知函数_67187339 (value, 12), 未知函数_67187340 (value, 12)))
+赋值 (value, 选择 (等于 (role., 1), 未知函数_67187339 (value, 13), 未知函数_67187340 (value, 13)))
+赋值 (value, 选择 (等于 (role., 1), 未知函数_67187339 (value, 14), 未知函数_67187340 (value, 14)))
+赋值 (value, 选择 (等于 (role., 1), 未知函数_67187339 (value, 15), 未知函数_67187340 (value, 15)))
+赋值 (value, 选择 (等于 (role., 1), 未知函数_67187339 (value, 16), 未知函数_67187340 (value, 16)))
+赋值 (value, 选择 (等于 (role., 1), 未知函数_67187339 (value, 17), 未知函数_67187340 (value, 17)))
+赋值 (value, 选择 (等于 (role., 1), 未知函数_67187339 (value, 18), 未知函数_67187340 (value, 18)))
+赋值 (value, 选择 (等于 (role., 1), 未知函数_67187339 (value, 19), 未知函数_67187340 (value, 19)))
+赋值 (value, 选择 (等于 (role., 1), 未知函数_67187339 (value, 20), 未知函数_67187340 (value, 20)))
+赋值 (value, 选择 (等于 (role., 1), 未知函数_67187339 (value, 21), 未知函数_67187340 (value, 21)))
+赋值 (value, 选择 (等于 (role., 1), 未知函数_67187339 (value, 22), 未知函数_67187340 (value, 22)))
+赋值 (value, 选择 (等于 (role., 1), 未知函数_67187339 (value, 23), 未知函数_67187340 (value, 23)))
+赋值 (value, 选择 (等于 (role., 1), 未知函数_67187339 (value, 24), 未知函数_67187340 (value, 24)))
+赋值 (value, 选择 (等于 (role., 1), 未知函数_67187339 (value, 25), 未知函数_67187340 (value, 25)))
+赋值 (value, 选择 (等于 (role., 1), 未知函数_67187339 (value, 26), 未知函数_67187340 (value, 26)))
+赋值 (value, 选择 (等于 (role., 1), 未知函数_67187339 (value, 27), 未知函数_67187340 (value, 27)))
+赋值 (value, 选择 (等于 (role., 1), 未知函数_67187339 (value, 28), 未知函数_67187340 (value, 28)))
+赋值 (value, 选择 (等于 (role., 1), 未知函数_67187339 (value, 29), 未知函数_67187340 (value, 29)))
+赋值 (value, 选择 (等于 (role., 1), 未知函数_67187339 (value, 30), 未知函数_67187340 (value, 30)))
+赋值 (value, 选择 (等于 (role., 1), 未知函数_67187339 (value, 31), 未知函数_67187340 (value, 31)))
+返回 (value)
+
+.子程序 roleCrraftNull, 未知类型0x41013264, , 
+.局部变量 i, 整数型, , , 
+.局部变量 value, 整数型, , , 
+
+ ' 数据位的说明如下：
+返回 (rolevalueTorole (0))
+ ' 比特位 值 权限 说明
+ ' 0 1 管理员 拥有此权限会获得完整的管理权，包括绕开所有其他权限（包括频道权限）限制，属于危险权限。
+ ' 1 2 管理服务器 拥有此权限的成员可以修改服务器名称和更换区域。
+ ' 2 4 查看管理日志 拥有此权限的成员可以查看服务器的管理日志。
+ ' 3 8 创建服务器邀请 能否创建服务器邀请链接
+ ' 4 16 管理邀请 拥有该权限可以管理服务器的邀请
+ ' 5 32 频道管理 拥有此权限的成员可以创建新的频道以及编辑或删除已存在的频道。
+ ' 6 64 踢出用户
+ ' 7 128 封禁用户
+ ' 8 256 管理自定义表情
+ ' 9 512 修改服务器昵称 拥有此权限的用户可以更改他们的昵称。
+ ' 10 1024 管理角色权限 拥有此权限成员可以创建新的角色和编辑删除低于该角色的身份。
+ ' 11 2048 查看文字、语音频道
+ ' 12 4096 发布消息
+ ' 13 8192 管理消息 拥有此权限的成员可以删除其他成员发出的消息和置顶消息。
+ ' 14 16384 上传文件
+ ' 15 32768 语音链接
+ ' 16 65536 语音管理 拥有此权限的成员可以把其他成员移动和踢出频道；但此类移动仅限于在该成员和被移动成员均有权限的频道之间进行。
+ ' 17 131072 提及@全体成员 拥有此权限的成员可使用@全体成员以提及该频道中所有成员。
+ ' 18 262144 添加反应 拥有此权限的成员可以对消息添加新的反应。
+ ' 19 524288 跟随添加反应 拥有此权限的成员可以跟随使用已经添加的反应。
+ ' 20 1048576 被动连接语音频道 拥有此限制的成员无法主动连接语音频道，只能在被动邀请或被人移动时，才可以进入语音频道。
+ ' 21 2097152 仅使用按键说话 拥有此限制的成员加入语音频道后，只能使用按键说话。
+ ' 22 4194304 使用自由麦 没有此权限的成员，必须在频道内使用按键说话。
+ ' 23 8388608 说话
+ ' 24 16777216 服务器静音
+ ' 25 33554432 服务器闭麦
+ ' 26 67108864 修改他人昵称 拥有此权限的用户可以更改他人的昵称
+ ' 27 134217728 播放伴奏 拥有此权限的成员可在语音频道中播放音乐伴奏
+
+
+.子程序 卡片测试, 空白型, , 
+.局部变量 content, 未知类型0x4901328E, , , 消息.加成员(card)
+.局部变量 card, 未知类型0x4901328E, , , 卡片<arr>.加成员(modules)
+.局部变量 modules, 未知类型0x4901328E, , , 模块<arr>
+.局部变量 item, 未知类型0x4901328E, , , 元素
+.局部变量 item2, 未知类型0x4901328E, , , 
+
+
+card.未知函数_67187343 (“type”, “card”, )
+modules.未知函数_67187343 (“type”, “section”, ) ' image-group  把item加到modules的elements属性里
+item.未知函数_67187343 (“type”, “plain-text”, )
+item.未知函数_67187343 (“content”, “我是标题”, )
+modules.未知函数_67187343 (“text”, item.未知函数_67187344 (), 真)
+item.未知函数_67187343 (“type”, “image”, )
+item.未知函数_67187343 (“src”, “https://s3.ax1x.com/2021/01/05/sFStpt.png”, )
+item.未知函数_67187343 (“alt”, “123”, )
+item.未知函数_67187343 (“size”, “lg”, )
+item.未知函数_67187343 (“circle”, “true”, 真)
+
+modules.未知函数_67187343 (“accessory”, item.未知函数_67187344 (), 真)
+
+card.未知函数_67187345 (modules.未知函数_67187344 (), “modules”, 真, )
+content.未知函数_67187345 (card.未知函数_67187344 (), , 真, )
+调试输出 (content.未知函数_67187344 ())
+
+
+.子程序 rolevalueTorole_fase, role, , 
+.参数 roleValue, 整数型, , 
+
+.局部变量 role, role, , , 
+.局部变量 i, 整数型, , , 
+
+.计次循环首 (32, i)
+    赋值 (role [i], __query_bit (roleValue, 相减 (i, 1)))
+.计次循环尾 ()
+
+
+.子程序 roleTorolevalue_fase, 整数型, , 
+.参数 role, role, , 
+
+.局部变量 i, 整数型, , , 
+.局部变量 rolevalue, 整数型, , , 
+
+.计次循环首 (32, i)
+    赋值 (rolevalue, 选择 (等于 (role [i], 0), __set_bit_off (rolevalue, 相减 (i, 1)), __set_bit_on (rolevalue, 相减 (i, 1))))
+.计次循环尾 ()
+返回 (rolevalue)
+
+.子程序 roleCrraftNull_fase, role, , 
+.局部变量 value, role, , , 
+
+返回 (value)
 
 
  ' 不属于任何一个程序集、类模块的函数：
