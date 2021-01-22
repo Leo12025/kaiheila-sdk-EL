@@ -21426,6 +21426,38 @@ result.解析 (编码_utf8到gb2312 (到文本 (网页_访问 (url, 0, , , , hea
 返回 (result.取数据文本 ())
 
 
+.子程序 asset_create, 文本型, , 
+.参数 token, 文本型, 可空, 
+.参数 本地资源路径, 文本型, , 
+
+.局部变量 url, 文本型, , , 
+.局部变量 uuid, 文本型, , , 
+.局部变量 type, 文本型, , , 
+.局部变量 header, 文本型, , , 
+.局部变量 Playload, 字节集, , , 
+.局部变量 json, 未知类型0x4901307F, , , 
+
+赋值 (url, 相加 (“/asset/create”))
+赋值 (uuid, 未知函数_67186816 (10, ))
+赋值 (type, 未知函数_67186817 (本地资源路径))
+.判断开始 (等于 (type, “.png”))
+    赋值 (“image/png”)
+.默认
+    赋值 (type, “image/png”)
+.判断结束
+赋值 (header, 相加 (“Content-Type: multipart/form-data; boundary=--------------------------”, uuid))
+赋值 (header, 相加 (header, #换行符, “Authorization: Bot ”, 选择 (等于 (token, “”), , 读配置项 (相加 (取运行目录 (), “\bot_token.ini”), “token”, token, ))))
+赋值 (Playload, 到字节集 (相加 (“----------------------------”, uuid, #换行符)))
+赋值 (Playload, 相加 (Playload, 到字节集 (相加 (“Content-Disposition: form-data; name=”, #引号, “file”, #引号, “; filename=”, #引号, “temp”, 未知函数_67186818 (本地资源路径, ), #引号, #换行符))))
+赋值 (Playload, 相加 (Playload, 到字节集 (相加 (“Content-Type: ”, type, #换行符))))
+赋值 (Playload, 相加 (Playload, 到字节集 (#换行符)))
+赋值 (Playload, 相加 (Playload, 读入文件 (本地资源路径), 到字节集 (#换行符)))
+赋值 (Playload, 相加 (Playload, 到字节集 (相加 (“----------------------------”, uuid, “--”))))
+ ' 调试输出 (url, header, 到文本 (Playload))
+json.未知函数_67186819 (未知函数_67186820 (到文本 (未知函数_67186821 (url, 1, , , , header, , , Playload, , , , ))), )
+ ' {"code":0,"message":"操作成功","data":{"url":"https://img.kaiheila.cn/assets/2021-01/22/zV8yikTGJf0la0k5.png"}}
+返回 (json.未知函数_67186822 ())
+
 .程序集 Queue, , , 
 
 .子程序 QueueHeart, 空白型, , 

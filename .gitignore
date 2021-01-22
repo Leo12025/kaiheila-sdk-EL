@@ -1,6 +1,7 @@
 # Compiled source #
 ###################
 *.bak
+*.exe
 
 # Debug dir #
 debug/
