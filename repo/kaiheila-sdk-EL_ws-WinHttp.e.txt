@@ -6989,7 +6989,7 @@ init ()
 赋值 (g_url, 相加 (g_baseUrl, “/v”, g_apiVer))
 
 赋值 (g_token, 读配置项 (相加 (取运行目录 (), “\bot_token.ini”), “def”, “token”, )) ' 请在机器人后台获取)
-json.解析 (未知函数_67187246 (), )
+json.解析 (user_me (), )
 赋值 (g_bot.username, json.取通用属性 (“data.username”, ))
 赋值 (g_bot.id, json.取通用属性 (“data.id”, ))
 赋值 (g_bot.quard, 相加 (g_bot.username, “#”, g_bot.id))
@@ -21433,37 +21433,37 @@ connectId.断开客户 ()
 
 .局部变量 url, 文本型, , , 
 .局部变量 header, 文本型, , , 
-.局部变量 json, 未知类型0x490132F6, , , 
-.局部变量 result, 未知类型0x490132F6, , , 
-.局部变量 cont, 未知类型0x490132F6, , , 
+.局部变量 json, 类_json, , , 
+.局部变量 result, 类_json, , , 
+.局部变量 cont, 类_json, , , 
 
-赋值 (url, 相加 (“/channel/message”))
-赋值 (header, 相加 (header, “Authorization: Bot ”, 选择 (等于 (token, “”), , 读配置项 (相加 (取运行目录 (), “\bot_token.ini”), “token”, token, )), #换行符, “Content-Type: application/json”))
-.判断开始 (cont.未知函数_67187447 (content, ))
-    json.未知函数_67187448 (“object_name”, 10)
-    json.未知函数_67187449 (“content”, cont.未知函数_67187450 (), )
+赋值 (url, 相加 (g_url, “/channel/message”))
+赋值 (header, 相加 (header, “Authorization: Bot ”, 选择 (等于 (token, “”), g_token, 读配置项 (相加 (取运行目录 (), “\bot_token.ini”), “token”, token, )), #换行符, “Content-Type: application/json”))
+.判断开始 (cont.解析 (content, ))
+    json.置属性数值 (“object_name”, 10)
+    json.置属性 (“content”, cont.取数据文本 (), )
 .判断 (不等于 (寻找文本 (content, “bilibili.com”, , 假), -1))
-    json.未知函数_67187448 (“object_name”, 1)
-    json.未知函数_67187449 (“content”, content, )
+    json.置属性数值 (“object_name”, 1)
+    json.置属性 (“content”, content, )
 .判断 (不等于 (寻找文本 (content, “.png”, , 假), -1))
-    json.未知函数_67187448 (“object_name”, 2)
-    json.未知函数_67187449 (“content”, content, )
+    json.置属性数值 (“object_name”, 2)
+    json.置属性 (“content”, content, )
 .默认
-    json.未知函数_67187448 (“object_name”, 9)
-    json.未知函数_67187449 (“content”, content, )
+    json.置属性数值 (“object_name”, 9)
+    json.置属性 (“content”, content, )
 .判断结束
-json.未知函数_67187449 (“channel_id”, channel_id, )
-json.未知函数_67187449 (“content”, content, )
+json.置属性 (“channel_id”, channel_id, )
+json.置属性 (“content”, content, )
 .如果真 (不等于 (quote, “”))
-    json.未知函数_67187449 (“quote”, quote, )
+    json.置属性 (“quote”, quote, )
 .如果真结束
  ' 调试输出 (url, header, json.取数据文本 ())
-result.未知函数_67187447 (未知函数_67187451 (到文本 (未知函数_67187452 (url, 1, 未知函数_67187453 (json.未知函数_67187450 ()), , , header, , , , , , , ))), )
+result.解析 (编码_utf8到gb2312 (到文本 (网页_访问 (url, 1, 编码_gb2312到utf8 (json.取数据文本 ()), , , header, , , , , , , ))), )
  ' SystemLog (, “向” ＋ channelId ＋ “推送信息: ” ＋ content, “kaiheila”)
  ' SystemLog (, “返回信息: ” ＋ result.取数据文本 (), “kaiheila”)
-未知函数_67187454 (“↑”, 相加 (“向”, channel_id, “推送信息: ”, content))
-未知函数_67187454 (“↑”, 相加 (“返回信息: ”, result.未知函数_67187450 ()))
-返回 (result.未知函数_67187455 (“data['msg_id']”, ))
+日志_输出 (“↑”, 相加 (“向”, channel_id, “推送信息: ”, content))
+日志_输出 (“↑”, 相加 (“返回信息: ”, result.取数据文本 ()))
+返回 (result.取通用属性 (“data['msg_id']”, ))
 
 
 .子程序 intimacy_index, 空白型, , 
@@ -21472,14 +21472,14 @@ result.未知函数_67187447 (未知函数_67187451 (到文本 (未知函数_671
 
 .局部变量 url, 文本型, , , 
 .局部变量 header, 文本型, , , 
-.局部变量 json, 未知类型0x490132F6, , , 
-.局部变量 result, 未知类型0x490132F6, , , 
+.局部变量 json, 类_json, , , 
+.局部变量 result, 类_json, , , 
 
-赋值 (url, 相加 (“/intimacy/index”))
-赋值 (header, 相加 (“Authorization: Bot ”, 选择 (等于 (token, “”), , 读配置项 (相加 (取运行目录 (), “\bot_token.ini”), “token”, token, )), #换行符, “Content-type: application/json”))
-json.未知函数_67187449 (“user_id”, userId, )
-调试输出 (url, header, json.未知函数_67187450 ())
-result.未知函数_67187447 (未知函数_67187451 (到文本 (未知函数_67187452 (url, 1, 未知函数_67187453 (json.未知函数_67187450 ()), , , header, , , , , , , ))), )
+赋值 (url, 相加 (g_url, “/intimacy/index”))
+赋值 (header, 相加 (“Authorization: Bot ”, 选择 (等于 (token, “”), g_token, 读配置项 (相加 (取运行目录 (), “\bot_token.ini”), “token”, token, )), #换行符, “Content-type: application/json”))
+json.置属性 (“user_id”, userId, )
+调试输出 (url, header, json.取数据文本 ())
+result.解析 (编码_utf8到gb2312 (到文本 (网页_访问 (url, 1, 编码_gb2312到utf8 (json.取数据文本 ()), , , header, , , , , , , ))), )
  ' SystemLog (, “获取用户” ＋ userId ＋ “亲密信息”, “kaiheila”)
  ' SystemLog (, “返回信息: ” ＋ result.取数据文本 (), “kaiheila”)
 
@@ -21493,18 +21493,18 @@ result.未知函数_67187447 (未知函数_67187451 (到文本 (未知函数_671
 
 .局部变量 url, 文本型, , , 
 .局部变量 header, 文本型, , , 
-.局部变量 json, 未知类型0x490132F6, , , 
-.局部变量 result, 未知类型0x490132F6, , , 
+.局部变量 json, 类_json, , , 
+.局部变量 result, 类_json, , , 
 
-赋值 (url, 相加 (“/intimacy/update”))
-赋值 (header, 相加 (“Authorization: Bot ”, 选择 (等于 (token, “”), , 读配置项 (相加 (取运行目录 (), “\bot_token.ini”), “token”, token, )), #换行符, “Content-type: application/json”))
-json.未知函数_67187449 (“user_id”, userId, )
-json.未知函数_67187448 (“score”, score)
-json.未知函数_67187449 (“social_info”, social_info, )
-json.未知函数_67187448 (“img_id”, img_id)
+赋值 (url, 相加 (g_url, “/intimacy/update”))
+赋值 (header, 相加 (“Authorization: Bot ”, 选择 (等于 (token, “”), g_token, 读配置项 (相加 (取运行目录 (), “\bot_token.ini”), “token”, token, )), #换行符, “Content-type: application/json”))
+json.置属性 (“user_id”, userId, )
+json.置属性数值 (“score”, score)
+json.置属性 (“social_info”, social_info, )
+json.置属性数值 (“img_id”, img_id)
 
  ' 调试输出 (baseUrl, header, json.取数据文本 ())
-result.未知函数_67187447 (未知函数_67187451 (到文本 (未知函数_67187452 (url, 1, 未知函数_67187453 (json.未知函数_67187450 ()), , , header, , , , , , , ))), )
+result.解析 (编码_utf8到gb2312 (到文本 (网页_访问 (url, 1, 编码_gb2312到utf8 (json.取数据文本 ()), , , header, , , , , , , ))), )
  ' SystemLog (, “修改” ＋ userId ＋ “亲密度信息”, “kaiheila”)
  ' SystemLog (, “返回信息: ” ＋ result.取数据文本 (), “kaiheila”)
 
@@ -21515,17 +21515,17 @@ result.未知函数_67187447 (未知函数_67187451 (到文本 (未知函数_671
 
 .局部变量 url, 文本型, , , 
 .局部变量 header, 文本型, , , 
-.局部变量 result, 未知类型0x490132F6, , , 
+.局部变量 result, 类_json, , , 
 
-赋值 (url, 相加 (“/gateway/index”))
-赋值 (header, 相加 (“Authorization: Bot ”, 选择 (等于 (token, “”), , 读配置项 (相加 (取运行目录 (), “\bot_token.ini”), “token”, token, ))))
+赋值 (url, 相加 (g_url, “/gateway/index”))
+赋值 (header, 相加 (“Authorization: Bot ”, 选择 (等于 (token, “”), g_token, 读配置项 (相加 (取运行目录 (), “\bot_token.ini”), “token”, token, ))))
 .如果真 (是否为空 (compress))
     赋值 (compress, 1)
 .如果真结束
 赋值 (url, 相加 (url, “?compress=”, 到文本 (compress)))
-result.未知函数_67187447 (未知函数_67187451 (到文本 (未知函数_67187452 (url, 0, , , , header, , , , , , , ))), )
-调试输出 (url, result.未知函数_67187450 ())
-返回 (result.未知函数_67187455 (“data.url”, ))
+result.解析 (编码_utf8到gb2312 (到文本 (网页_访问 (url, 0, , , , header, , , , , , , ))), )
+调试输出 (url, result.取数据文本 ())
+返回 (result.取通用属性 (“data.url”, ))
  ' {"code": 0,"message": "操作成功","data": {"url": "wss://xxxx"}}
  ' {"code":0,"message":"操作成功","data":{"url":"wss://ws.kaiheila.cn/gateway?compress=0&token=1234="}
 
@@ -21533,18 +21533,18 @@ result.未知函数_67187447 (未知函数_67187451 (到文本 (未知函数_671
 .参数 token, 文本型, 可空, 
 
 .局部变量 header, 文本型, , , 
-.局部变量 json, 未知类型0x490132F6, , , 
-.局部变量 result, 未知类型0x490132F6, , , 
+.局部变量 json, 类_json, , , 
+.局部变量 result, 类_json, , , 
 .局部变量 url, 文本型, , , 
 
-赋值 (url, 相加 (“/intimacy/update”))
-赋值 (header, 相加 (“Authorization: Bot ”, 选择 (等于 (token, “”), , 读配置项 (相加 (取运行目录 (), “\bot_token.ini”), “token”, token, )), #换行符, “Content-type: application/json”))
+赋值 (url, 相加 (g_url, “/intimacy/update”))
+赋值 (header, 相加 (“Authorization: Bot ”, 选择 (等于 (token, “”), g_token, 读配置项 (相加 (取运行目录 (), “\bot_token.ini”), “token”, token, )), #换行符, “Content-type: application/json”))
  ' json.置属性 (“guild_id”, GuildId, )
  ' 调试输出 (baseUrl, header, json.取数据文本 ())
-result.未知函数_67187447 (未知函数_67187451 (到文本 (未知函数_67187452 (url, 1, 未知函数_67187453 (json.未知函数_67187450 ()), , , header, , , , , , , ))), )
+result.解析 (编码_utf8到gb2312 (到文本 (网页_访问 (url, 1, 编码_gb2312到utf8 (json.取数据文本 ()), , , header, , , , , , , ))), )
  ' SystemLog (, “获取服务器信息”, “kaiheila”)
  ' SystemLog (, “返回信息: ” ＋ result.取数据文本 (), “kaiheila”)
-返回 (result.未知函数_67187450 ())
+返回 (result.取数据文本 ())
 未知函数_37992 () ' *** 缩略程序块 ***
  ' {"code":0,"message":"操作成功","data":[{"id":"4674611826831570","name":"萌动の进击小队","topic":"","user_id":"374797264","is_master":false,"icon":"https://img.kaiheila.cn/icons/2020-07/lGtX0jyRsB0hs0hs.jpg/icon","invite_enabled":1,"notify_type":2,"region":"shanghai","enable_open":1,"open_id":43628314,"default_channel_id":"4920503065903445","default_channel_id_setting":"4920503065903445","welcome_channel_id":"7134649593688386","ws_type":1,"roles":[{"role_id":93153,"name":"屠尽群内欧狗","color":3447003,"position":1,"hoist":0,"mentionable":0,"permissions":143448584},{"role_id":28231,"name":"老家伙了","color":15277667,"position":2,"hoist":1,"mentionable":1,"permissions":198705150},{"role_id":28232,"name":"老权限了","color":15158332,"position":3,"hoist":1,"mentionable":1,"permissions":198180840},{"role_id":91402,"name":"萌动家的崽崽们","color":15158332,"position":4,"hoist":1,"mentionable":0,"permissions":143448584},{"role_id":70039,"name":"老队友了","color":3447003,"position":5,"hoist":0,"mentionable":0,"permissions":147642888},{"role_id":28423,"name":"老朋友了","color":3066993,"position":6,"hoist":0,"mentionable":0,"permissions":135043080},{"role_id":29953,"name":"天启队员","color":12541924,"position":7,"hoist":0,"mentionable":0,"permissions":147642888},{"role_id":77700,"name":"BMLive","color":0,"position":8,"hoist":0,"mentionable":0,"permissions":134217729},{"role_id":92668,"name":"开播啦","color":0,"position":9,"hoist":0,"mentionable":0,"permissions":134217728},{"role_id":0,"name":"@全体成员","color":0,"hoist":0,"mentionable":0,"permissions":143448584}],"channels":[{"id":"9201982985091207","name":"?? 欢迎","guild_id":"4674611826831570","is_category":1,"is_master":false,"level":1,"type":0,"permission_overwrites":[{"role_id":0,"allow":0,"deny":0}],"permission_users":[],"channels":[{"id":"7134649593688386","name":"?? 欢迎","user_id":"374797264","guild_id":"4674611826831570","voice_quality":"1","limit_amount":0,"is_category":0,"is_readonly":false,"parent_id":"9201982985091207","is_private":false,"server_type":1,"server_url":"ws-sh3.kaiheila.cn:443","level":1,"slow_mode":0,"topic":"","is_master":false,"type":1,"permission_overwrites":[{"role_id":0,"allow":0,"deny":266240}],"permission_users":[],"permission_sync":0},{"id":"4671426705846718","name":"?? 规则 & 信息","user_id":"374797264","guild_id":"4674611826831570","voice_quality":"1","limit_amount":0,"is_category":0,"is_readonly":false,"parent_id":"9201982985091207","is_private":false,"server_type":1,"server_url":"ws-sh3.kaiheila.cn:443","level":2,"slow_mode":0,"topic":"频道更新or变动日志","is_master":false,"type":1,"permission_overwrites":[{"role_id":28232,"allow":425000,"deny":0},{"role_id":28231,"allow":425000,"deny":0},{"role_id":0,"allow":2048,"deny":422952}],"permission_users":[],"permission_sync":0},{"id":"6439504774931802","name":"?? 权限 & 申请","user_id":"374797264","guild_id":"4674611826831570","voice_quality":"1","limit_amount":0,"is_category":0,"is_readonly":false,"parent_id":"9201982985091207","is_private":false,"server_type":1,"server_url":"ws-sh4.kaiheila.cn:443","level":3,"slow_mode":0,"topic":"","is_master":false,"type":1,"permission_overwrites":[{"role_id":28231,"allow":0,"deny":2048},{"role_id":28232,"allow":0,"deny":2048},{"role_id":70039,"allow":0,"deny":2048},{"role_id":29953,"allow":0,"deny":2048},{"role_id":28423,"allow":0,"deny":2048},{"role_id":0,"allow":6144,"deny":418856}],"permission_users":[],"permission_sync":0},{"id":"8946246843830026","name":"publicPush","user_id":"374797264","guild_id":"4674611826831570","voice_quality":"1","limit_amount":0,"is_category":0,"is_readonly":false,"parent_id":"9201982985091207","is_private":false,"server_type":1,"server_url":"ws-sh4.kaiheila.cn:443","level":4,"slow_mode":0,"topic":"8946246843830026","is_master":false,"type":1,"permission_overwrites":[{"role_id":0,"allow":0,"deny":4096}],"permission_users":[],"permission_sync":0},{"id":"8876187633547319","name":"privatePush","user_id":"374797264","guild_id":"4674611826831570","voice_quality":"1","limit_amount":0,"is_category":0,"is_readonly":false,"parent_id":"9201982985091207","is_private":false,"server_type":1,"server_url":"ws-sh3.kaiheila.cn:443","level":5,"slow_mode":0,"topic":"8876187633547319","is_master":false,"type":1,"permission_overwrites":[{"role_id":0,"allow":12615680,"deny":264192}],"permission_users":[{"user":{"id":"2279933469","username":"@野生的怪才君","identify_num":"6561","online":true,"os":"Websocket","status":1,"avatar":"https://img.kaiheila.cn/avatars/2021-01/YaJKS70ClV04g04g.png/icon","tag_info":{"color":"#6666CC","text":"开黑啦"},"mobile_verified":true,"nickname":"@野生的怪才君","roles":[28423,70039],"joined_at":1599030970000,"active_time":1609435303477},"allow":6144,"deny":0},{"user":{"id":"2898845865","username":"楚子御233","identify_num":"2398","online":false,"os":"Android","status":1,"avatar":"https://img.kaiheila.cn/avatars/2020-09/RwyDDjUOml0xc0xc.jpg/icon","mobile_verified":true,"nickname":"楚子御233","roles":[28232,91402],"joined_at":1595391577000,"active_time":1606399740765},"allow":2048,"deny":0}],"permission_sync":0}]},{"id":"2040082336289336","name":"?? 进击时刻","guild_id":"4674611826831570","is_category":1,"is_master":false,"level":2,"type":0,"permission_overwrites":[{"role_id":0,"allow":0,"deny":0}],"permission_users":[],"channels":[{"id":"4920503065903445","name":"?? 闲聊","user_id":"374797264","guild_id":"4674611826831570","voice_quality":"1","limit_amount":0,"is_category":0,"is_readonly":false,"parent_id":"2040082336289336","is_private":false,"server_type":1,"server_url":"ws-sh4.kaiheila.cn:443","level":1,"slow_mode":0,"topic":"都可以聊，没错，这边是真正的闲聊频道","is_master":false,"type":1,"permission_overwrites":[{"role_id":0,"allow":0,"deny":0}],"permission_users":[],"permission_sync":0},{"id":"3407099043767163","name":"?? 原神地铁站","user_id":"374797264","guild_id":"4674611826831570","voice_quality":"1","limit_amount":0,"is_category":0,"is_readonly":false,"parent_id":"2040082336289336","is_private":false,"server_type":1,"server_url":"ws-sh3.kaiheila.cn:443","level":2,"slow_mode":0,"topic":"","is_master":false,"type":1,"permission_overwrites":[{"role_id":0,"allow":0,"deny":0}],"permission_users":[],"permission_sync":1},{"id":"1074378324827907","name":"??圣诞节狂欢夜~","user_id":"374797264","guild_id":"4674611826831570","voice_quality":"1","limit_amount":0,"is_category":0,"is_readonly":false,"parent_id":"2040082336289336","is_private":false,"server_type":1,"server_url":"ws-sh4.kaiheila.cn:443","level":5,"slow_mode":0,"topic":"","is_master":false,"type":1,"permission_overwrites":[{"role_id":0,"allow":0,"deny":2048}],"permission_users":[],"permission_sync":0},{"id":"6923348389173964","name":"??圣诞节狂欢夜~","user_id":"374797264","guild_id":"4674611826831570","voice_quality":"2","limit_amount":50,"is_category":0,"is_readonly":false,"parent_id":"2040082336289336","is_private":false,"server_type":1,"server_url":"ws-sh3.kaiheila.cn:443","level":6,"slow_mode":0,"topic":"","is_master":false,"type":2,"permission_overwrites":[{"role_id":0,"allow":0,"deny":2048}],"permission_users":[],"permission_sync":0},{"id":"2602081638118679","name":"??? 闲聊","user_id":"374797264","guild_id":"4674611826831570","voice_quality":"2","limit_amount":50,"is_category":0,"is_readonly":false,"parent_id":"2040082336289336","is_private":false,"server_type":1,"server_url":"ws-sh4.kaiheila.cn:443","level":7,"slow_mode":0,"topic":"","is_master":false,"type":2,"permission_overwrites":[{"role_id":0,"allow":0,"deny":0}],"permission_users":[],"permission_sync":1}]},{"id":"3148240951158032","name":"??? 直播专区","guild_id":"4674611826831570","is_category":1,"is_master":false,"level":4,"type":0,"permission_overwrites":[{"role_id":28231,"allow":63437864,"deny":0},{"role_id":28232,"allow":63437864,"deny":0},{"role_id":70039,"allow":12621824,"deny":0},{"role_id":0,"allow":34816,"deny":64451624}],"permission_users":[],"channels":[{"id":"2213468576199940","name":"?? 萌动の天启小队","user_id":"374797264","guild_id":"4674611826831570","voice_quality":"3","limit_amount":10,"is_category":0,"is_readonly":false,"parent_id":"3148240951158032","is_private":false,"server_type":1,"server_url":"ws-sh3.kaiheila.cn:443","level":2,"slow_mode":0,"topic":"","is_master":false,"type":2,"permission_overwrites":[{"role_id":28231,"allow":63437864,"deny":0},{"role_id":28232,"allow":63437864,"deny":0},{"role_id":70039,"allow":12621824,"deny":0},{"role_id":0,"allow":34816,"deny":64451624}],"permission_users":[],"permission_sync":1,"users":[{"id":"374797264","username":"萌动众生","identify_num":"3507","online":true,"os":"Android","status":1,"avatar":"https://img.kaiheila.cn/avatars/2020-07/XkyJKsvalO2bc2bc.jpg/icon","mobile_verified":true,"nickname":"萌动众生"},{"id":"452244037","username":"BiliBili泽少","identify_num":"6583","online":true,"os":"Websocket","status":1,"avatar":"https://img.kaiheila.cn/avatars/2020-07/riBrofjkV902s02s.jpg/icon","mobile_verified":true,"nickname":"BiliBili泽少"}]},{"id":"9127567535107846","name":"? 阿泽的小队","user_id":"374797264","guild_id":"4674611826831570","voice_quality":"3","limit_amount":10,"is_category":0,"is_readonly":false,"parent_id":"3148240951158032","is_private":false,"server_type":1,"server_url":"ws-sh4.kaiheila.cn:443","level":3,"slow_mode":0,"topic":"","is_master":false,"type":2,"permission_overwrites":[{"role_id":28231,"allow":63437864,"deny":0},{"role_id":28232,"allow":63437864,"deny":0},{"role_id":70039,"allow":12621824,"deny":0},{"role_id":0,"allow":34816,"deny":64451624}],"permission_users":[],"permission_sync":1},{"id":"9336352446506648","name":"录制专用","user_id":"374797264","guild_id":"4674611826831570","voice_quality":"3","limit_amount":10,"is_category":0,"is_readonly":false,"parent_id":"3148240951158032","is_private":false,"server_type":1,"server_url":"ws-sh3.kaiheila.cn:443","level":4,"slow_mode":0,"topic":"","is_master":false,"type":2,"permission_overwrites":[{"role_id":28231,"allow":63437864,"deny":0},{"role_id":0,"allow":0,"deny":64486440}],"permission_users":[],"permission_sync":0}]},{"id":"4381278616673205","name":"???  开黑小队","guild_id":"4674611826831570","is_category":1,"is_master":false,"level":5,"type":0,"permission_overwrites":[{"role_id":28231,"allow":63437864,"deny":0},{"role_id":28232,"allow":63437864,"deny":0},{"role_id":0,"allow":12621824,"deny":51864616}],"permission_users":[],"channels":[{"id":"8204415661056837","name":"?? 我的世界·MOJANG","user_id":"374797264","guild_id":"4674611826831570","voice_quality":"2","limit_amount":25,"is_category":0,"is_readonly":false,"parent_id":"4381278616673205","is_private":false,"server_type":1,"server_url":"ws-sh3.kaiheila.cn:443","level":2,"slow_mode":0,"topic":"","is_master":false,"type":2,"permission_overwrites":[{"role_id":28231,"allow":63437864,"deny":0},{"role_id":28232,"allow":63437864,"deny":0},{"role_id":0,"allow":12621824,"deny":51864616}],"permission_users":[],"permission_sync":1},{"id":"3503268996803831","name":"?? 超级动物大逃杀","user_id":"374797264","guild_id":"4674611826831570","voice_quality":"2","limit_amount":25,"is_category":0,"is_readonly":false,"parent_id":"4381278616673205","is_private":false,"server_type":1,"server_url":"ws-sh4.kaiheila.cn:443","level":3,"slow_mode":0,"topic":"","is_master":false,"type":2,"permission_overwrites":[{"role_id":28231,"allow":63437864,"deny":0},{"role_id":28232,"allow":63437864,"deny":0},{"role_id":0,"allow":12621824,"deny":51864616}],"permission_users":[],"permission_sync":1},{"id":"9986841986701024","name":"? 原神","user_id":"374797264","guild_id":"4674611826831570","voice_quality":"2","limit_amount":50,"is_category":0,"is_readonly":false,"parent_id":"4381278616673205","is_private":false,"server_type":1,"server_url":"ws-sh3.kaiheila.cn:443","level":4,"slow_mode":0,"topic":"","is_master":false,"type":2,"permission_overwrites":[{"role_id":28231,"allow":63437864,"deny":0},{"role_id":28232,"allow":63437864,"deny":0},{"role_id":0,"allow":12621824,"deny":51864616}],"permission_users":[],"permission_sync":1},{"id":"7986733477113949","name":"?? 歌会","user_id":"374797264","guild_id":"4674611826831570","voice_quality":"3","limit_amount":50,"is_category":0,"is_readonly":false,"parent_id":"4381278616673205","is_private":false,"server_type":1,"server_url":"ws-sh3.kaiheila.cn:443","level":5,"slow_mode":0,"topic":"","is_master":false,"type":2,"permission_overwrites":[{"role_id":28231,"allow":63437864,"deny":0},{"role_id":28232,"allow":63437864,"deny":0},{"role_id":0,"allow":12621824,"deny":51864616}],"permission_users":[],"permission_sync":1},{"id":"5933403837754325","name":":-=-=-=-=-=-=-=-=-=-:","user_id":"374797264","guild_id":"4674611826831570","voice_quality":"2","limit_amount":0,"is_category":0,"is_readonly":false,"parent_id":"4381278616673205","is_private":false,"server_type":1,"server_url":"ws-sh3.kaiheila.cn:443","level":6,"slow_mode":0,"topic":"","is_master":false,"type":2,"permission_overwrites":[{"role_id":28231,"allow":63437864,"deny":0},{"role_id":28232,"allow":63437864,"deny":0},{"role_id":0,"allow":12621824,"deny":51864616}],"permission_users":[],"permission_sync":1},{"id":"8322595493063682","name":"??? 开黑小队Ⅰ","user_id":"374797264","guild_id":"4674611826831570","voice_quality":"2","limit_amount":25,"is_category":0,"is_readonly":false,"parent_id":"4381278616673205","is_private":false,"server_type":1,"server_url":"ws-sh3.kaiheila.cn:443","level":7,"slow_mode":0,"topic":"","is_master":false,"type":2,"permission_overwrites":[{"role_id":28231,"allow":63437864,"deny":0},{"role_id":28232,"allow":63437864,"deny":0},{"role_id":0,"allow":12621824,"deny":51864616}],"permission_users":[],"permission_sync":1},{"id":"9220366270536135","name":"??? 开黑小队Ⅱ","user_id":"374797264","guild_id":"4674611826831570","voice_quality":"2","limit_amount":25,"is_category":0,"is_readonly":false,"parent_id":"4381278616673205","is_private":false,"server_type":1,"server_url":"ws-sh3.kaiheila.cn:443","level":8,"slow_mode":0,"topic":"","is_master":false,"type":2,"permission_overwrites":[{"role_id":28231,"allow":63437864,"deny":0},{"role_id":28232,"allow":63437864,"deny":0},{"role_id":0,"allow":12621824,"deny":51864616}],"permission_users":[],"permission_sync":1},{"id":"9884518620168687","name":"??? 开黑小队Ⅲ","user_id":"374797264","guild_id":"4674611826831570","voice_quality":"2","limit_amount":25,"is_category":0,"is_readonly":false,"parent_id":"4381278616673205","is_private":false,"server_type":1,"server_url":"ws-sh4.kaiheila.cn:443","level":9,"slow_mode":0,"topic":"","is_master":false,"type":2,"permission_overwrites":[{"role_id":28231,"allow":63437864,"deny":0},{"role_id":28232,"allow":63437864,"deny":0},{"role_id":0,"allow":12621824,"deny":51864616}],"permission_users":[],"permission_sync":1},{"id":"9651308534877259","name":"??? 开黑小队Ⅳ","user_id":"374797264","guild_id":"4674611826831570","voice_quality":"2","limit_amount":25,"is_category":0,"is_readonly":false,"parent_id":"4381278616673205","is_private":false,"server_type":1,"server_url":"ws-sh4.kaiheila.cn:443","level":10,"slow_mode":0,"topic":"","is_master":false,"type":2,"permission_overwrites":[{"role_id":28231,"allow":63437864,"deny":0},{"role_id":28232,"allow":63437864,"deny":0},{"role_id":0,"allow":12621824,"deny":51864616}],"permission_users":[],"permission_sync":1},{"id":"2678692603936134","name":"??? 开黑小队Ⅴ","user_id":"374797264","guild_id":"4674611826831570","voice_quality":"2","limit_amount":25,"is_category":0,"is_readonly":false,"parent_id":"4381278616673205","is_private":false,"server_type":1,"server_url":"ws-sh4.kaiheila.cn:443","level":11,"slow_mode":0,"topic":"","is_master":false,"type":2,"permission_overwrites":[{"role_id":28231,"allow":63437864,"deny":0},{"role_id":28232,"allow":63437864,"deny":0},{"role_id":0,"allow":12621824,"deny":51864616}],"permission_users":[],"permission_sync":1},{"id":"9643802261257194","name":"??? 开黑小队Ⅵ","user_id":"374797264","guild_id":"4674611826831570","voice_quality":"2","limit_amount":25,"is_category":0,"is_readonly":false,"parent_id":"4381278616673205","is_private":false,"server_type":1,"server_url":"ws-sh4.kaiheila.cn:443","level":12,"slow_mode":0,"topic":"","is_master":false,"type":2,"permission_overwrites":[{"role_id":28231,"allow":63437864,"deny":0},{"role_id":28232,"allow":63437864,"deny":0},{"role_id":0,"allow":12621824,"deny":51864616}],"permission_users":[],"permission_sync":1},{"id":"4965167685249531","name":":-=-=-=-=-=-=-=-=-=-:","user_id":"374797264","guild_id":"4674611826831570","voice_quality":"2","limit_amount":0,"is_category":0,"is_readonly":false,"parent_id":"4381278616673205","is_private":false,"server_type":1,"server_url":"ws-sh4.kaiheila.cn:443","level":13,"slow_mode":0,"topic":"","is_master":false,"type":2,"permission_overwrites":[{"role_id":28231,"allow":63437864,"deny":0},{"role_id":28232,"allow":63437864,"deny":0},{"role_id":0,"allow":12621824,"deny":51864616}],"permission_users":[],"permission_sync":1},{"id":"3964949110027696","name":"??? 私聊Ⅰ","user_id":"374797264","guild_id":"4674611826831570","voice_quality":"2","limit_amount":4,"is_category":0,"is_readonly":false,"parent_id":"4381278616673205","is_private":false,"server_type":1,"server_url":"ws-sh3.kaiheila.cn:443","level":14,"slow_mode":0,"topic":"","is_master":false,"type":2,"permission_overwrites":[{"role_id":28231,"allow":63437864,"deny":0},{"role_id":28232,"allow":63437864,"deny":0},{"role_id":0,"allow":12621824,"deny":51864616}],"permission_users":[],"permission_sync":1},{"id":"8786161793548173","name":"??? 私聊Ⅱ","user_id":"374797264","guild_id":"4674611826831570","voice_quality":"2","limit_amount":4,"is_category":0,"is_readonly":false,"parent_id":"4381278616673205","is_private":false,"server_type":1,"server_url":"ws-sh3.kaiheila.cn:443","level":15,"slow_mode":0,"topic":"","is_master":false,"type":2,"permission_overwrites":[{"role_id":28231,"allow":63437864,"deny":0},{"role_id":28232,"allow":63437864,"deny":0},{"role_id":0,"allow":12621824,"deny":51864616}],"permission_users":[],"permission_sync":1},{"id":"8389819858077310","name":"??? 私聊Ⅲ","user_id":"374797264","guild_id":"4674611826831570","voice_quality":"2","limit_amount":4,"is_category":0,"is_readonly":false,"parent_id":"4381278616673205","is_private":false,"server_type":1,"server_url":"ws-sh4.kaiheila.cn:443","level":16,"slow_mode":0,"topic":"","is_master":false,"type":2,"permission_overwrites":[{"role_id":28231,"allow":63437864,"deny":0},{"role_id":28232,"allow":63437864,"deny":0},{"role_id":0,"allow":12621824,"deny":51864616}],"permission_users":[],"permission_sync":1}]},{"id":"5851911091434057","name":"?? 专属频道","guild_id":"4674611826831570","is_category":1,"is_master":false,"level":100,"type":0,"permission_overwrites":[{"role_id":0,"allow":12621824,"deny":0}],"permission_users":[],"channels":[{"id":"1613665896150746","name":"升君文化办公室聊天","user_id":"374797264","guild_id":"4674611826831570","voice_quality":"1","limit_amount":0,"is_category":0,"is_readonly":false,"parent_id":"5851911091434057","is_private":false,"server_type":1,"server_url":"ws-sh4.kaiheila.cn:443","level":1,"slow_mode":0,"topic":"","is_master":false,"type":1,"permission_overwrites":[{"role_id":0,"allow":12877824,"deny":6144}],"permission_users":[{"user":{"id":"1362466679","username":"老升","identify_num":"9090","online":false,"os":"Websocket","status":1,"avatar":"https://img.kaiheila.cn/assets/avatar_10.jpg/icon","mobile_verified":true,"nickname":"老升","roles":[28423,70039],"joined_at":1606816224000,"active_time":1607002162780},"allow":268288,"deny":0},{"user":{"id":"3655720641","username":"皮卡没有丘","identify_num":"0284","online":false,"os":"Websocket","status":1,"avatar":"https://img.kaiheila.cn/avatars/2020-12/c6n8y2mmMN02s02s.jpg/icon","mobile_verified":true,"nickname":"皮卡没有丘","roles":[28423,70039],"joined_at":1606816616000,"active_time":1606816616645},"allow":268288,"deny":0}],"permission_sync":0},{"id":"6438647694329361","name":"内鬼专用档案室","user_id":"374797264","guild_id":"4674611826831570","voice_quality":"1","limit_amount":0,"is_category":0,"is_readonly":false,"parent_id":"5851911091434057","is_private":false,"server_type":1,"server_url":"ws-sh3.kaiheila.cn:443","level":2,"slow_mode":0,"topic":"","is_master":false,"type":1,"permission_overwrites":[{"role_id":0,"allow":262144,"deny":2048}],"permission_users":[{"user":{"id":"3633010535","username":"Shugen","identify_num":"3438","online":true,"os":"Websocket","status":1,"avatar":"https://img.kaiheila.cn/avatars/2020-05/GVQi914BNL02s02s.jpg/icon","mobile_verified":true,"nickname":"Shugen","roles":[28231],"joined_at":1595499865000,"active_time":1610377998062},"allow":2048,"deny":0},{"user":{"id":"3966258738","username":"Il Harper","identify_num":"0735","online":true,"os":"Websocket","status":1,"avatar":"https://img.kaiheila.cn/avatars/2020-07/WoZ8T12JXq08c08c.jpg/icon","mobile_verified":true,"nickname":"Il Harper","roles":[28423,70039],"joined_at":1595562199000,"active_time":1610378112080},"allow":2048,"deny":0}],"permission_sync":0},{"id":"6887699588602185","name":"??B站三方对接","user_id":"374797264","guild_id":"4674611826831570","voice_quality":"1","limit_amount":0,"is_category":0,"is_readonly":false,"parent_id":"5851911091434057","is_private":false,"server_type":1,"server_url":"ws-sh4.kaiheila.cn:443","level":3,"slow_mode":0,"topic":"","is_master":false,"type":1,"permission_overwrites":[{"role_id":0,"allow":262144,"deny":2048}],"permission_users":[{"user":{"id":"3966258738","username":"Il Harper","identify_num":"0735","online":true,"os":"Websocket","status":1,"avatar":"https://img.kaiheila.cn/avatars/2020-07/WoZ8T12JXq08c08c.jpg/icon","mobile_verified":true,"nickname":"Il Harper","roles":[28423,70039],"joined_at":1595562199000,"active_time":1610378112080},"allow":2048,"deny":0},{"user":{"id":"3633010535","username":"Shugen","identify_num":"3438","online":true,"os":"Websocket","status":1,"avatar":"https://img.kaiheila.cn/avatars/2020-05/GVQi914BNL02s02s.jpg/icon","mobile_verified":true,"nickname":"Shugen","roles":[28231],"joined_at":1595499865000,"active_time":1610377998062},"allow":2048,"deny":0}],"permission_sync":0},{"id":"8711710822435428","name":"升君文化办公室","user_id":"374797264","guild_id":"4674611826831570","voice_quality":"2","limit_amount":10,"is_category":0,"is_readonly":false,"parent_id":"5851911091434057","is_private":false,"server_type":1,"server_url":"ws-sh3.kaiheila.cn:443","level":4,"slow_mode":0,"topic":"","is_master":false,"type":2,"permission_overwrites":[{"role_id":0,"allow":4096,"deny":12617728}],"permission_users":[{"user":{"id":"1362466679","username":"老升","identify_num":"9090","online":false,"os":"Websocket","status":1,"avatar":"https://img.kaiheila.cn/assets/avatar_10.jpg/icon","mobile_verified":true,"nickname":"老升","roles":[28423,70039],"joined_at":1606816224000,"active_time":1607002162780},"allow":13631488,"deny":0},{"user":{"id":"3655720641","username":"皮卡没有丘","identify_num":"0284","online":false,"os":"Websocket","status":1,"avatar":"https://img.kaiheila.cn/avatars/2020-12/c6n8y2mmMN02s02s.jpg/icon","mobile_verified":true,"nickname":"皮卡没有丘","roles":[28423,70039],"joined_at":1606816616000,"active_time":1606816616645},"allow":13664256,"deny":0}],"permission_sync":0},{"id":"6719874300234196","name":"??B站三方对接","user_id":"374797264","guild_id":"4674611826831570","voice_quality":"2","limit_amount":50,"is_category":0,"is_readonly":false,"parent_id":"5851911091434057","is_private":false,"server_type":1,"server_url":"ws-sh3.kaiheila.cn:443","level":5,"slow_mode":0,"topic":"","is_master":false,"type":2,"permission_overwrites":[{"role_id":0,"allow":0,"deny":2048}],"permission_users":[],"permission_sync":0},{"id":"7980903271743302","name":"楚子御233 ??","user_id":"374797264","guild_id":"4674611826831570","voice_quality":"2","limit_amount":10,"is_category":0,"is_readonly":false,"parent_id":"5851911091434057","is_private":false,"server_type":1,"server_url":"ws-sh3.kaiheila.cn:443","level":6,"slow_mode":0,"topic":"","is_master":false,"type":2,"permission_overwrites":[{"role_id":0,"allow":12621824,"deny":0}],"permission_users":[],"permission_sync":1},{"id":"9549600785206171","name":"shugen ??","user_id":"374797264","guild_id":"4674611826831570","voice_quality":"2","limit_amount":10,"is_category":0,"is_readonly":false,"parent_id":"5851911091434057","is_private":false,"server_type":1,"server_url":"ws-sh3.kaiheila.cn:443","level":7,"slow_mode":0,"topic":"","is_master":false,"type":2,"permission_overwrites":[{"role_id":0,"allow":12621824,"deny":0}],"permission_users":[{"user":{"id":"3633010535","username":"Shugen","identify_num":"3438","online":true,"os":"Websocket","status":1,"avatar":"https://img.kaiheila.cn/avatars/2020-05/GVQi914BNL02s02s.jpg/icon","mobile_verified":true,"nickname":"Shugen","roles":[28231],"joined_at":1595499865000,"active_time":1610377998062},"allow":1064,"deny":0}],"permission_sync":0}]}],"user_notify_type":0,"emojis":[],"my_roles":[77700,70039],"my_nickname":"BMLive","recommend_info":{"guild_id":"4674611826831570","open_id":"43628314","default_channel_id":"4920503065903445","name":"萌动の进击小队","icon":"https://img.kaiheila.cn/icons/2020-07/lGtX0jyRsB0hs0hs.jpg/icon","banner":"https://img.kaiheila.cn/assets/2020-07/WYZtaSAZPl0sg0go.png","desc":"B站主播萌动众生的进击小队语音","status":1,"tag":"我的世界  Minecraft"}},{"id":"3785158050166220","name":"机器人社区 - Bot Community","topic":"","user_id":"3966258738","is_master":false,"icon":"https://img.kaiheila.cn/icons/2020-11/fKIFpYdgfd0e80e8.png/icon","invite_enabled":1,"notify_type":1,"region":"shanghai","enable_open":1,"open_id":15862667,"default_channel_id":"2118926065513331","default_channel_id_setting":"2118926065513331","welcome_channel_id":"7399419909964325","ws_type":1,"roles":[{"role_id":62365,"name":"社区管理","color":3066993,"position":1,"hoist":1,"mentionable":0,"permissions":134217729},{"role_id":79691,"name":"机器人公约","color":15844367,"position":2,"hoist":0,"mentionable":0,"permissions":147642888},{"role_id":72119,"name":"Bot","color":15277667,"position":3,"hoist":1,"mentionable":0,"permissions":134742528},{"role_id":72508,"name":"开黑啦官方","color":15105570,"position":4,"hoist":1,"mentionable":0,"permissions":147642888},{"role_id":74884,"name":"蓝牌","color":3447003,"position":5,"hoist":1,"mentionable":0,"permissions":147642888},{"role_id":77641,"name":"Harper猫猫","color":0,"position":6,"hoist":0,"mentionable":0,"permissions":201326591},{"role_id":77643,"name":"Root","color":0,"position":7,"hoist":0,"mentionable":0,"permissions":199229143},{"role_id":77715,"name":"BMLive","color":0,"position":8,"hoist":0,"mentionable":0,"permissions":134217731},{"role_id":80055,"name":"四季酱","color":0,"position":9,"hoist":0,"mentionable":0,"permissions":134217959},{"role_id":83335,"name":"翻译/Translator","color":0,"position":10,"hoist":0,"mentionable":0,"permissions":134217728},{"role_id":93523,"name":"开播啦","color":0,"position":11,"hoist":0,"mentionable":0,"permissions":134221824},{"role_id":95322,"name":"检查/Inspector","color":0,"position":12,"hoist":0,"mentionable":0,"permissions":0},{"role_id":0,"name":"@全体成员","color":0,"hoist":0,"mentionable":0,"permissions":147642888}],"channels":[{"id":"9248381262346207","name":"欢迎","guild_id":"3785158050166220","is_category":1,"is_master":false,"level":1,"type":0,"permission_overwrites":[{"role_id":0,"allow":0,"deny":64221184}],"permission_users":[],"channels":[{"id":"2118926065513331","name":"公告","user_id":"3966258738","guild_id":"3785158050166220","voice_quality":"1","limit_amount":0,"is_category":0,"is_readonly":false,"parent_id":"9248381262346207","is_private":false,"server_type":1,"server_url":"ws-sh4.kaiheila.cn:443","level":1,"slow_mode":0,"topic":"","is_master":false,"type":1,"permission_overwrites":[{"role_id":0,"allow":0,"deny":64221184}],"permission_users":[],"permission_sync":1},{"id":"4311014847902427","name":"通知","user_id":"3966258738","guild_id":"3785158050166220","voice_quality":"1","limit_amount":0,"is_category":0,"is_readonly":false,"parent_id":"9248381262346207","is_private":false,"server_type":1,"server_url":"ws-sh4.kaiheila.cn:443","level":2,"slow_mode":0,"topic":"","is_master":false,"type":1,"permission_overwrites":[{"role_id":0,"allow":0,"deny":64221184}],"permission_users":[],"permission_sync":1},{"id":"7399419909964325","name":"欢迎","user_id":"3966258738","guild_id":"3785158050166220","voice_quality":"1","limit_amount":0,"is_category":0,"is_readonly":false,"parent_id":"9248381262346207","is_private":false,"server_type":1,"server_url":"ws-sh4.kaiheila.cn:443","level":3,"slow_mode":0,"topic":"","is_master":false,"type":1,"permission_overwrites":[{"role_id":0,"allow":0,"deny":64221184}],"permission_users":[],"permission_sync":1}]},{"id":"1700606945702051","name":"综合","guild_id":"3785158050166220","is_category":1,"is_master":false,"level":2,"type":0,"permission_overwrites":[{"role_id":0,"allow":0,"deny":0}],"permission_users":[],"channels":[{"id":"8316705894505670","name":"闲聊区","user_id":"3966258738","guild_id":"3785158050166220","voice_quality":"1","limit_amount":0,"is_category":0,"is_readonly":false,"parent_id":"1700606945702051","is_private":false,"server_type":0,"server_url":"ws1.kaiheila.cn:4443","level":1,"slow_mode":0,"topic":"","is_master":false,"type":1,"permission_overwrites":[{"role_id":0,"allow":0,"deny":0}],"permission_users":[],"permission_sync":1}]},{"id":"1742885831146235","name":"机器人公约","guild_id":"3785158050166220","is_category":1,"is_master":false,"level":3,"type":0,"permission_overwrites":[{"role_id":0,"allow":0,"deny":0}],"permission_users":[],"channels":[{"id":"3285459045056497","name":"介绍","user_id":"3966258738","guild_id":"3785158050166220","voice_quality":"1","limit_amount":0,"is_category":0,"is_readonly":false,"parent_id":"1742885831146235","is_private":false,"server_type":1,"server_url":"ws-sh4.kaiheila.cn:443","level":100,"slow_mode":0,"topic":"","is_master":false,"type":1,"permission_overwrites":[{"role_id":77641,"allow":423936,"deny":0},{"role_id":0,"allow":0,"deny":422944}],"permission_users":[],"permission_sync":0},{"id":"9155203584956320","name":"讨论","user_id":"3966258738","guild_id":"3785158050166220","voice_quality":"1","limit_amount":0,"is_category":0,"is_readonly":false,"parent_id":"1742885831146235","is_private":false,"server_type":1,"server_url":"ws-sh3.kaiheila.cn:443","level":100,"slow_mode":0,"topic":"","is_master":false,"type":1,"permission_overwrites":[{"role_id":0,"allow":0,"deny":0}],"permission_users":[],"permission_sync":1}]},{"id":"1123361744605908","name":"四季酱（测试）","guild_id":"3785158050166220","is_category":1,"is_master":false,"level":4,"type":0,"permission_overwrites":[{"role_id":0,"allow":0,"deny":0}],"permission_users":[{"user":{"id":"3854020099","username":"孤梦星影","identify_num":"5898","online":false,"os":"Websocket","status":1,"avatar":"https://img.kaiheila.cn/avatars/2020-07/XO1jU0Mlxk02s02s.jpg/icon","mobile_verified":true,"nickname":"孤梦星影","roles":[74884,62365],"joined_at":1606834660000,"active_time":1609738190950},"allow":3112,"deny":0}],"channels":[{"id":"9780593380130385","name":"介绍","user_id":"3966258738","guild_id":"3785158050166220","voice_quality":"1","limit_amount":0,"is_category":0,"is_readonly":false,"parent_id":"1123361744605908","is_private":false,"server_type":1,"server_url":"ws-sh3.kaiheila.cn:443","level":1,"slow_mode":0,"topic":"","is_master":false,"type":1,"permission_overwrites":[{"role_id":0,"allow":0,"deny":421888}],"permission_users":[{"user":{"id":"3854020099","username":"孤梦星影","identify_num":"5898","online":false,"os":"Websocket","status":1,"avatar":"https://img.kaiheila.cn/avatars/2020-07/XO1jU0Mlxk02s02s.jpg/icon","mobile_verified":true,"nickname":"孤梦星影","roles":[74884,62365],"joined_at":1606834660000,"active_time":1609738190950},"allow":3112,"deny":0}],"permission_sync":0},{"id":"6410201717804387","name":"告示板","user_id":"3854020099","guild_id":"3785158050166220","voice_quality":"1","limit_amount":0,"is_category":0,"is_readonly":false,"parent_id":"1123361744605908","is_private":false,"server_type":1,"server_url":"ws-sh3.kaiheila.cn:443","level":2,"slow_mode":0,"topic":"每日告示 / 精准卡池 / 首杀公告","is_master":false,"type":1,"permission_overwrites":[{"role_id":80055,"allow":14336,"deny":0},{"role_id":0,"allow":0,"deny":421888}],"permission_users":[{"user":{"id":"3854020099","username":"孤梦星影","identify_num":"5898","online":false,"os":"Websocket","status":1,"avatar":"https://img.kaiheila.cn/avatars/2020-07/XO1jU0Mlxk02s02s.jpg/icon","mobile_verified":true,"nickname":"孤梦星影","roles":[74884,62365],"joined_at":1606834660000,"active_time":1609738190950},"allow":3112,"deny":0}],"permission_sync":0},{"id":"6004165964684811","name":"讨论","user_id":"3966258738","guild_id":"3785158050166220","voice_quality":"1","limit_amount":0,"is_category":0,"is_readonly":false,"parent_id":"1123361744605908","is_private":false,"server_type":1,"server_url":"ws-sh3.kaiheila.cn:443","level":3,"slow_mode":0,"topic":"","is_master":false,"type":1,"permission_overwrites":[{"role_id":0,"allow":0,"deny":0}],"permission_users":[{"user":{"id":"3854020099","username":"孤梦星影","identify_num":"5898","online":false,"os":"Websocket","status":1,"avatar":"https://img.kaiheila.cn/avatars/2020-07/XO1jU0Mlxk02s02s.jpg/icon","mobile_verified":true,"nickname":"孤梦星影","roles":[74884,62365],"joined_at":1606834660000,"active_time":1609738190950},"allow":3112,"deny":0}],"permission_sync":1}]},{"id":"9378025328687596","name":"翻译/Translator（测试）","guild_id":"3785158050166220","is_category":1,"is_master":false,"level":5,"type":0,"permission_overwrites":[{"role_id":0,"allow":0,"deny":0}],"permission_users":[],"channels":[{"id":"7889264829456748","name":"介绍","user_id":"3966258738","guild_id":"3785158050166220","voice_quality":"1","limit_amount":0,"is_category":0,"is_readonly":false,"parent_id":"9378025328687596","is_private":false,"server_type":1,"server_url":"ws-sh4.kaiheila.cn:443","level":1,"slow_mode":0,"topic":"","is_master":false,"type":1,"permission_overwrites":[{"role_id":83335,"allow":421888,"deny":0},{"role_id":0,"allow":0,"deny":421888}],"permission_users":[],"permission_sync":0},{"id":"5381478316780071","name":"通知","user_id":"3966258738","guild_id":"3785158050166220","voice_quality":"1","limit_amount":0,"is_category":0,"is_readonly":false,"parent_id":"9378025328687596","is_private":false,"server_type":1,"server_url":"ws-sh3.kaiheila.cn:443","level":2,"slow_mode":0,"topic":"","is_master":false,"type":1,"permission_overwrites":[{"role_id":0,"allow":0,"deny":421888}],"permission_users":[],"permission_sync":0},{"id":"8358660539431182","name":"报名申请","user_id":"3966258738","guild_id":"3785158050166220","voice_quality":"1","limit_amount":0,"is_category":0,"is_readonly":false,"parent_id":"9378025328687596","is_private":false,"server_type":1,"server_url":"ws-sh3.kaiheila.cn:443","level":3,"slow_mode":0,"topic":"","is_master":false,"type":1,"permission_overwrites":[{"role_id":0,"allow":0,"deny":0}],"permission_users":[],"permission_sync":1},{"id":"3780971593907556","name":"讨论","user_id":"3966258738","guild_id":"3785158050166220","voice_quality":"1","limit_amount":0,"is_category":0,"is_readonly":false,"parent_id":"9378025328687596","is_private":false,"server_type":1,"server_url":"ws-sh4.kaiheila.cn:443","level":4,"slow_mode":0,"topic":"","is_master":false,"type":1,"permission_overwrites":[{"role_id":0,"allow":0,"deny":0}],"permission_users":[],"permission_sync":1}]},{"id":"2312446683923812","name":"开播啦（Beta）&BMLive","guild_id":"3785158050166220","is_category":1,"is_master":false,"level":100,"type":0,"permission_overwrites":[{"role_id":0,"allow":0,"deny":0}],"permission_users":[],"channels":[{"id":"1519238947373450","name":"介绍","user_id":"374797264","guild_id":"3785158050166220","voice_quality":"1","limit_amount":0,"is_category":0,"is_readonly":false,"parent_id":"2312446683923812","is_private":false,"server_type":1,"server_url":"ws-sh4.kaiheila.cn:443","level":1,"slow_mode":0,"topic":"","is_master":false,"type":1,"permission_overwrites":[{"role_id":0,"allow":0,"deny":4096}],"permission_users":[],"permission_sync":0},{"id":"1228002058500804","name":"通知","user_id":"374797264","guild_id":"3785158050166220","voice_quality":"1","limit_amount":0,"is_category":0,"is_readonly":false,"parent_id":"2312446683923812","is_private":false,"server_type":1,"server_url":"ws-sh4.kaiheila.cn:443","level":2,"slow_mode":0,"topic":"","is_master":false,"type":1,"permission_overwrites":[{"role_id":0,"allow":0,"deny":4096}],"permission_users":[],"permission_sync":0},{"id":"2183078874313786","name":"讨论","user_id":"374797264","guild_id":"3785158050166220","voice_quality":"1","limit_amount":0,"is_category":0,"is_readonly":false,"parent_id":"2312446683923812","is_private":false,"server_type":1,"server_url":"ws-sh3.kaiheila.cn:443","level":3,"slow_mode":0,"topic":"","is_master":false,"type":1,"permission_overwrites":[{"role_id":0,"allow":0,"deny":0}],"permission_users":[],"permission_sync":1},{"id":"2784279851707867","name":"测试（2021）","user_id":"374797264","guild_id":"3785158050166220","voice_quality":"1","limit_amount":0,"is_category":0,"is_readonly":false,"parent_id":"2312446683923812","is_private":false,"server_type":1,"server_url":"ws-sh4.kaiheila.cn:443","level":4,"slow_mode":0,"topic":"","is_master":false,"type":1,"permission_overwrites":[{"role_id":0,"allow":0,"deny":0}],"permission_users":[],"permission_sync":1}]}],"user_notify_type":0,"emojis":[],"my_roles":[77715,74884,72119],"my_nickname":"BMLive","recommend_info":{"guild_id":"3785158050166220","open_id":"15862667","default_channel_id":"2118926065513331","name":"机器人社区 - Bot Community","icon":"https://img.kaiheila.cn/icons/2020-11/fKIFpYdgfd0e80e8.png/icon","banner":"https://img.kaiheila.cn/assets/2020-12/KbxIqit3xG0sg0go.png","desc":"开黑啦Bot讨论与测试的集中社区，在这里找到你需要的Bot吧。","status":1,"tag":"其他社群"}}]}
 
@@ -21557,17 +21557,17 @@ result.未知函数_67187447 (未知函数_67187451 (到文本 (未知函数_671
 
 .局部变量 url, 文本型, , , 
 .局部变量 header, 文本型, , , 
-.局部变量 result, 未知类型0x490132F6, , , 
+.局部变量 result, 类_json, , , 
 
-赋值 (url, 相加 (“/user/me”))
-赋值 (header, 相加 (“Authorization: Bot ”, 选择 (等于 (token, “”), , 读配置项 (相加 (取运行目录 (), “\bot_token.ini”), “token”, token, )), #换行符, “Content-type: application/json”))
+赋值 (url, 相加 (g_url, “/user/me”))
+赋值 (header, 相加 (“Authorization: Bot ”, 选择 (等于 (token, “”), g_token, 读配置项 (相加 (取运行目录 (), “\bot_token.ini”), “token”, token, )), #换行符, “Content-type: application/json”))
  ' json.置属性 (“guild_id”, GuildId, )
  ' 调试输出 (baseUrl, header, json.取数据文本 ())
-result.未知函数_67187447 (未知函数_67187451 (到文本 (未知函数_67187452 (url, 0, , , , header, , , , , , , ))), )
+result.解析 (编码_utf8到gb2312 (到文本 (网页_访问 (url, 0, , , , header, , , , , , , ))), )
  ' 调试输出 (, “获取服务器信息”, “kaiheila”)
  ' 调试输出 (, “返回信息: ” ＋ result.取数据文本 (), “kaiheila”)
  ' {"code":0,"message":"操作成功","data":{"id":"*****","username":"****","identify_num":"9028","online":true,"os":"Websocket","status":0,"avatar":"https://img.kaiheila.cn/assets/2021-01/OQlgu5UiGJ0e80e8.jpeg/icon","bot":true,"tag_info":{"color":"#34A853","text":"机器人"},"mobile_verified":true,"client_id":"********","mobile_prefix":"86","mobile":"****","privacy_game_activity":0,"privacy_music_activity":0,"enable_desktop_notification":true,"audio_setting":"","auto_exit_audio_channel":false,"invited_count":"0","need_guide":false,"friend_setting":{"all":true},"chat_setting":"1","auth_info":[]}}'
-返回 (result.未知函数_67187450 ())
+返回 (result.取数据文本 ())
 
 
 .子程序 asset_create, 文本型, , 
@@ -21579,28 +21579,28 @@ result.未知函数_67187447 (未知函数_67187451 (到文本 (未知函数_671
 .局部变量 type, 文本型, , , 
 .局部变量 header, 文本型, , , 
 .局部变量 Playload, 字节集, , , 
-.局部变量 json, 未知类型0x490132F6, , , 
+.局部变量 json, 类_json, , , 
 
-赋值 (url, 相加 (“/asset/create”))
-赋值 (uuid, 未知函数_67187458 (10, ))
-赋值 (type, 未知函数_67187459 (本地资源路径))
+赋值 (url, 相加 (g_url, “/asset/create”))
+赋值 (uuid, 文本_取随机数字 (10, ))
+赋值 (type, 文件_取扩展名 (本地资源路径))
 .判断开始 (等于 (type, “.png”))
     赋值 (type, “image/png”)
 .默认
     赋值 (type, “image/png”)
 .判断结束
 赋值 (header, 相加 (“Content-Type: multipart/form-data; boundary=--------------------------”, uuid))
-赋值 (header, 相加 (header, #换行符, “Authorization: Bot ”, 选择 (等于 (token, “”), , 读配置项 (相加 (取运行目录 (), “\bot_token.ini”), “token”, token, ))))
+赋值 (header, 相加 (header, #换行符, “Authorization: Bot ”, 选择 (等于 (token, “”), g_token, 读配置项 (相加 (取运行目录 (), “\bot_token.ini”), “token”, token, ))))
 赋值 (Playload, 到字节集 (相加 (“----------------------------”, uuid, #换行符)))
-赋值 (Playload, 相加 (Playload, 到字节集 (相加 (“Content-Disposition: form-data; name=”, #引号, “file”, #引号, “; filename=”, #引号, “temp”, 未知函数_67187460 (本地资源路径, ), #引号, #换行符))))
+赋值 (Playload, 相加 (Playload, 到字节集 (相加 (“Content-Disposition: form-data; name=”, #引号, “file”, #引号, “; filename=”, #引号, “temp”, 文件_取文件名 (本地资源路径, ), #引号, #换行符))))
 赋值 (Playload, 相加 (Playload, 到字节集 (相加 (“Content-Type: ”, type, #换行符))))
 赋值 (Playload, 相加 (Playload, 到字节集 (#换行符)))
 赋值 (Playload, 相加 (Playload, 读入文件 (本地资源路径), 到字节集 (#换行符)))
 赋值 (Playload, 相加 (Playload, 到字节集 (相加 (“----------------------------”, uuid, “--”))))
  ' 调试输出 (url, header, 到文本 (Playload))
-json.未知函数_67187447 (未知函数_67187451 (到文本 (未知函数_67187452 (url, 1, , , , header, , , Playload, , , , ))), )
+json.解析 (编码_utf8到gb2312 (到文本 (网页_访问 (url, 1, , , , header, , , Playload, , , , ))), )
  ' {"code":0,"message":"操作成功","data":{"url":"https://img.kaiheila.cn/assets/2021-01/22/zV8yikTGJf0la0k5.png"}}
-返回 (json.未知函数_67187450 ())
+返回 (json.取数据文本 ())
 
 .子程序 guild_role_index, 空白型, , 获取服务器角色列表
 .参数 token, 文本型, 可空, 多机器人预留位置 采用文件对应 token=token
@@ -21608,12 +21608,12 @@ json.未知函数_67187447 (未知函数_67187451 (到文本 (未知函数_67187
 
 .局部变量 url, 文本型, , , 
 .局部变量 header, 文本型, , , 
-.局部变量 result, 未知类型0x49013305, , , 
+.局部变量 result, 类_json, , , 
 
-赋值 (url, 相加 (“/guild-role/index”))
+赋值 (url, 相加 (g_url, “/guild-role/index”))
 赋值 (url, 相加 (url, “?guild_id=”, guild_id))
-赋值 (相加 (“Authorization: Bot ”, 选择 (等于 (token, “”), , 读配置项 (相加 (取运行目录 (), “\bot_token.ini”), “token”, token, )), #换行符, “Content-type: application/json”))
-result.未知函数_67187447 (未知函数_67187451 (到文本 (未知函数_67187452 (url, 0, , , , header, , , , , , , ))), )
+赋值 (header, 相加 (“Authorization: Bot ”, 选择 (等于 (token, “”), g_token, 读配置项 (相加 (取运行目录 (), “\bot_token.ini”), “token”, token, )), #换行符, “Content-type: application/json”))
+result.解析 (编码_utf8到gb2312 (到文本 (网页_访问 (url, 0, , , , header, , , , , , , ))), )
  ' 调试输出 (, “获取服务器信息”, “kaiheila”)
  ' 调试输出 (, “返回信息: ” ＋ result.取数据文本 (), “kaiheila”)
  ' role_id unsigned int 角色的id
@@ -21624,7 +21624,7 @@ result.未知函数_67187447 (未知函数_67187451 (到文本 (未知函数_671
  ' mentionable unsigned int 只能为0或者1，该角色是否可以被提及
  ' permissions unsigned int 权限,参见权限说明
  ' {"code":0,"message":"操作成功","data":[{"role_id":5712,"name":"新角色1","color":3066993,"position":1,"hoist":0,"mentionable":0,"permissions":147643914},{"role_id":0,"name":"@全体成员","color":0,"position":999,"hoist":0,"mentionable":0,"permissions":147642888}],}
-返回 (未知函数_67187462 ())
+返回 (result.取数据文本 ())
 
 
 .子程序 guild_role_create, 空白型, , 创建服务器角色
@@ -21634,16 +21634,16 @@ result.未知函数_67187447 (未知函数_67187451 (到文本 (未知函数_671
 
 .局部变量 url, 文本型, , , 
 .局部变量 header, 文本型, , , 
-.局部变量 json, 未知类型0x490132F6, , , 
-.局部变量 result, 未知类型0x4901330A, , , 
+.局部变量 json, 类_json, , , 
+.局部变量 result, 类_json, , , 
 
-赋值 (url, 相加 (“/guild-role/create”))
-赋值 (header, 相加 (“Authorization: Bot ”, 选择 (等于 (token, “”), , 读配置项 (相加 (取运行目录 (), “\bot_token.ini”), “token”, token, )), #换行符, “Content-type: application/json”))
+赋值 (url, 相加 (g_url, “/guild-role/create”))
+赋值 (header, 相加 (“Authorization: Bot ”, 选择 (等于 (token, “”), g_token, 读配置项 (相加 (取运行目录 (), “\bot_token.ini”), “token”, token, )), #换行符, “Content-type: application/json”))
 .如果真 (不等于 (name, “”))
-    json.未知函数_67187449 (“name”, name, )
+    json.置属性 (“name”, name, )
 .如果真结束
-json.未知函数_67187449 (“guild_id”, guild_id, )
-result.未知函数_67187447 (未知函数_67187451 (到文本 (未知函数_67187452 (url, 1, 未知函数_67187467 (json.未知函数_67187450 (), , 真), , , header, , , , , , , ))), )
+json.置属性 (“guild_id”, guild_id, )
+result.解析 (编码_utf8到gb2312 (到文本 (网页_访问 (url, 1, 编码_URL编码 (json.取数据文本 (), , 真), , , header, , , , , , , ))), )
  ' 调试输出 (, “获取服务器信息”, “kaiheila”)
  ' 调试输出 (, “返回信息: ” ＋ result.取数据文本 (), “kaiheila”)
  ' role_id unsigned int 角色的id
@@ -21654,7 +21654,7 @@ result.未知函数_67187447 (未知函数_67187451 (到文本 (未知函数_671
  ' mentionable unsigned int 只能为0或者1，该角色是否可以被提及
  ' permissions unsigned int 权限,参见权限说明
  ' {"code":0,"message":"操作成功","data":[{"role_id":5712,"name":"新角色1","color":3066993,"position":1,"hoist":0,"mentionable":0,"permissions":147643914}],}
-返回 (未知函数_67187468 ())
+返回 (result.取数据文本 ())
 
 
 .子程序 guild_role_update, 空白型, , 更新服务器角色
@@ -21667,23 +21667,23 @@ result.未知函数_67187447 (未知函数_67187451 (到文本 (未知函数_671
 
 .局部变量 url, 文本型, , , 
 .局部变量 header, 文本型, , , 
-.局部变量 result, 未知类型0x4901330E, , , 
-.局部变量 json, 未知类型0x490132F6, , , 
+.局部变量 result, 类_json, , , 
+.局部变量 json, 类_json, , , 
 
-赋值 (url, 相加 (“/guild-role/update”))
-json.未知函数_67187449 (“guild_id”, guild_id, )
-json.未知函数_67187448 (“role_id”, role_id)
+赋值 (url, 相加 (g_url, “/guild-role/update”))
+json.置属性 (“guild_id”, guild_id, )
+json.置属性数值 (“role_id”, role_id)
 .如果真 (等于 (是否为空 (hoist), 假))
-    json.未知函数_67187448 (“hoist”, 选择 (等于 (hoist, 1), 1, 2), )
+    json.置属性数值 (“hoist”, 选择 (等于 (hoist, 1), 1, 2), )
 .如果真结束
 .如果真 (等于 (是否为空 (mentionable), 假))
-    json.未知函数_67187448 (“mentionable”, 选择 (等于 (mentionable, 1), 1, 2), )
+    json.置属性数值 (“mentionable”, 选择 (等于 (mentionable, 1), 1, 2), )
 .如果真结束
 .如果真 (等于 (是否为空 (permissions), 假))
-    json.未知函数_67187448 (“permissions”, permissions, )
+    json.置属性数值 (“permissions”, permissions, )
 .如果真结束
-赋值 (相加 (“Authorization: Bot ”, 选择 (等于 (token, “”), , 读配置项 (相加 (取运行目录 (), “\bot_token.ini”), “token”, token, )), #换行符, “Content-type: application/json”))
-result.未知函数_67187447 (未知函数_67187451 (到文本 (未知函数_67187452 (url, 1, 未知函数_67187467 (json.未知函数_67187450 (), 真, ), , , header, , , , , , , ))), )
+赋值 (header, 相加 (“Authorization: Bot ”, 选择 (等于 (token, “”), g_token, 读配置项 (相加 (取运行目录 (), “\bot_token.ini”), “token”, token, )), #换行符, “Content-type: application/json”))
+result.解析 (编码_utf8到gb2312 (到文本 (网页_访问 (url, 1, 编码_URL编码 (json.取数据文本 (), 真, ), , , header, , , , , , , ))), )
  ' 调试输出 (, “获取服务器信息”, “kaiheila”)
  ' 调试输出 (, “返回信息: ” ＋ result.取数据文本 (), “kaiheila”)
  ' role_id unsigned int 角色的id
@@ -21694,7 +21694,7 @@ result.未知函数_67187447 (未知函数_67187451 (到文本 (未知函数_671
  ' mentionable unsigned int 只能为0或者1，该角色是否可以被提及
  ' permissions unsigned int 权限,参见权限说明
  ' {"code":0,"message":"操作成功","data":[{"role_id":5712,"name":"新角色1","color":3066993,"position":1,"hoist":0,"mentionable":0,"permissions":147643914}],}
-返回 (未知函数_67187471 ())
+返回 (result.取数据文本 ())
 
 
 .子程序 guild_role_delete, 空白型, , 删除服务器角色
@@ -21704,18 +21704,18 @@ result.未知函数_67187447 (未知函数_67187451 (到文本 (未知函数_671
 
 .局部变量 url, 文本型, , , 
 .局部变量 header, 文本型, , , 
-.局部变量 result, 未知类型0x49013313, , , 
-.局部变量 json, 未知类型0x490132F6, , , 
+.局部变量 result, 类_json, , , 
+.局部变量 json, 类_json, , , 
 
-赋值 (url, 相加 (“/guild-role/delete”))
-赋值 (header, 相加 (“Authorization: Bot ”, 选择 (等于 (token, “”), , 读配置项 (相加 (取运行目录 (), “\bot_token.ini”), “token”, token, )), #换行符, “Content-type: application/json”))
-json.未知函数_67187449 (“guild_id”, guild_id, )
-json.未知函数_67187448 (“role_id”, role_id, )
-result.未知函数_67187447 (未知函数_67187451 (到文本 (未知函数_67187452 (url, 1, 未知函数_67187467 (json.未知函数_67187450 (), 真, ), , , header, , , , , , , ))), )
+赋值 (url, 相加 (g_url, “/guild-role/delete”))
+赋值 (header, 相加 (“Authorization: Bot ”, 选择 (等于 (token, “”), g_token, 读配置项 (相加 (取运行目录 (), “\bot_token.ini”), “token”, token, )), #换行符, “Content-type: application/json”))
+json.置属性 (“guild_id”, guild_id, )
+json.置属性数值 (“role_id”, role_id, )
+result.解析 (编码_utf8到gb2312 (到文本 (网页_访问 (url, 1, 编码_URL编码 (json.取数据文本 (), 真, ), , , header, , , , , , , ))), )
  ' 调试输出 (, “获取服务器信息”, “kaiheila”)
  ' 调试输出 (, “返回信息: ” ＋ result.取数据文本 (), “kaiheila”)
  ' {"code":0,"message":"操作成功","data":[]}
-返回 (未知函数_67187476 ())
+返回 (result.取数据文本 ())
 
 
 .子程序 guild_role_grant, 空白型, , 赋予用户角色
@@ -21726,22 +21726,22 @@ result.未知函数_67187447 (未知函数_67187451 (到文本 (未知函数_671
 
 .局部变量 url, 文本型, , , 
 .局部变量 header, 文本型, , , 
-.局部变量 result, 未知类型0x49013316, , , 
-.局部变量 json, 未知类型0x490132F6, , , 
+.局部变量 result, 类_json, , , 
+.局部变量 json, 类_json, , , 
 
-赋值 (url, 相加 (“/guild-role/grant”))
-赋值 (header, 相加 (“Authorization: Bot ”, 选择 (等于 (token, “”), , 读配置项 (相加 (取运行目录 (), “\bot_token.ini”), “token”, token, )), #换行符, “Content-type: application/json”))
-json.未知函数_67187449 (“guild_id”, guild_id, )
-json.未知函数_67187449 (“user_id”, user_id, )
-json.未知函数_67187448 (“role_id”, role_id)
-result.未知函数_67187447 (未知函数_67187451 (到文本 (未知函数_67187452 (url, 1, 未知函数_67187467 (json.未知函数_67187450 (), 真, ), , , header, , , , , , , ))), )
+赋值 (url, 相加 (g_url, “/guild-role/grant”))
+赋值 (header, 相加 (“Authorization: Bot ”, 选择 (等于 (token, “”), g_token, 读配置项 (相加 (取运行目录 (), “\bot_token.ini”), “token”, token, )), #换行符, “Content-type: application/json”))
+json.置属性 (“guild_id”, guild_id, )
+json.置属性 (“user_id”, user_id, )
+json.置属性数值 (“role_id”, role_id)
+result.解析 (编码_utf8到gb2312 (到文本 (网页_访问 (url, 1, 编码_URL编码 (json.取数据文本 (), 真, ), , , header, , , , , , , ))), )
  ' user_id string 用户id
  ' guild_id string 服务器id
  ' roles Array 角色id的列表
  ' 调试输出 (, “获取服务器信息”, “kaiheila”)
  ' 调试输出 (, “返回信息: ” ＋ result.取数据文本 (), “kaiheila”)
  ' {"code":0,"message":"操作成功","data":{"user_id":"xxxx","guild_id":"xxxx","roles":[1,2]}}
-返回 (未知函数_67187479 ())
+返回 (result.取数据文本 ())
 
 
 .子程序 guild_role_revoke, 空白型, , 删除用户角色
@@ -21752,113 +21752,32 @@ result.未知函数_67187447 (未知函数_67187451 (到文本 (未知函数_671
 
 .局部变量 url, 文本型, , , 
 .局部变量 header, 文本型, , , 
-.局部变量 result, 未知类型0x49013319, , , 
-.局部变量 json, 未知类型0x490132F6, , , 
+.局部变量 result, 类_json, , , 
+.局部变量 json, 类_json, , , 
 
-赋值 (url, 相加 (“/guild-role/revoke”))
-赋值 (header, 相加 (“Authorization: Bot ”, 选择 (等于 (token, “”), , 读配置项 (相加 (取运行目录 (), “\bot_token.ini”), “token”, token, )), #换行符, “Content-type: application/json”))
-json.未知函数_67187449 (“guild_id”, guild_id, )
-json.未知函数_67187448 (“role_id”, role_id)
-json.未知函数_67187449 (“user_id”, user_id, )
-result.未知函数_67187447 (未知函数_67187451 (到文本 (未知函数_67187452 (url, 1, 未知函数_67187467 (json.未知函数_67187450 (), 真, ), , , header, , , , , , , ))), )
+赋值 (url, 相加 (g_url, “/guild-role/revoke”))
+赋值 (header, 相加 (“Authorization: Bot ”, 选择 (等于 (token, “”), g_token, 读配置项 (相加 (取运行目录 (), “\bot_token.ini”), “token”, token, )), #换行符, “Content-type: application/json”))
+json.置属性 (“guild_id”, guild_id, )
+json.置属性数值 (“role_id”, role_id)
+json.置属性 (“user_id”, user_id, )
+result.解析 (编码_utf8到gb2312 (到文本 (网页_访问 (url, 1, 编码_URL编码 (json.取数据文本 (), 真, ), , , header, , , , , , , ))), )
  ' 调试输出 (, “获取服务器信息”, “kaiheila”)
  ' 调试输出 (, “返回信息: ” ＋ result.取数据文本 (), “kaiheila”)
  ' guild_id string 服务器id
  ' user_id string 角色id
  ' roles Array 角色id的列表
  ' {"code":0,"message":"操作成功","data":{"user_id":"xxxx","guild_id":"xxxx","roles":[9]}}
-返回 (未知函数_67187482 ())
+返回 (result.取数据文本 ())
 
 
 .程序集 Queue, , , 
 
 .子程序 QueueHeart, 空白型, , 
 .循环判断首 ()
-    QueueHeartProc ()
+    未知函数_67187586 ()
     程序_延时 (5, 1)
 .循环判断尾 (不等于 (Version, “”))
 
-
-
-.子程序 QueueHeartProc, 空白型, , 
-.局部变量 msgJson, 类_json, , , 
-.局部变量 匿名局部变量_11470, 空白型, , , 
-.局部变量 channel_type, 文本型, , , 
-.局部变量 target_id, 文本型, , , 
-.局部变量 msg_id, 文本型, , , 
-.局部变量 content, 文本型, , , 
-.局部变量 guild_id, 文本型, , , 
-.局部变量 channel_name, 文本型, , , 
-.局部变量 senderid, 文本型, , , 
-.局部变量 sendernickname, 文本型, , , 
-.局部变量 verify_token, 文本型, , , 
-.局部变量 result, 文本型, , , 
-.局部变量 i, 整数型, , , 
-.局部变量 item, 文本型, , , 
-
-.判断循环首 (大于 (取数组成员数 (g_msgList), 0))
-     ' 只要有数据就进来：
-    msgJson.解析 (g_msgList [1], )
-    删除成员 (g_msgList, 1, 1)
-     ' 删除成员 (g_khl_msgList_id, 1, 1)
-    赋值 (msgJson, msgJson.取属性 (“d”))
-    .如果真 (等于 (msgJson.取通用属性 (“extra.author.bot”, ), “true”))
-        到循环尾 ()
-    .如果真结束
-    
-     ' 01-01 01:18:05 {"s":0,"d":{"type":1,"channel_type":"GROUP","target_id":"8876187633547319","author_id":"374797264","content":"@@野生的怪才君#2279933469 ","msg_id":"2b1ce912-6b55-47e1-a42b-918c154d3c9b","msg_timestamp":1609435085214,"nonce":"","extra":{"local_id":"5PlkQi5wEyXufD7vVwWNPblq","type":"1","guild_id":"4674611826831570","channel_name":"privatePush","mention":["2279933469"],"mention_all":false,"mention_roles":[],"mention_here":false,"code":"","author":{"identify_num":"3507","avatar":"https://img.kaiheila.cn/avatars/2020-07/XkyJKsvalO2bc2bc.jpg/icon","username":"萌动众生","id":"374797264","nickname":"萌动众生","roles":[29953,28231]}},"verify_token":""},"sn":719}
-    赋值 (channel_type, msgJson.取通用属性 (“channel_type”, )) ' GROUP
-    赋值 (target_id, msgJson.取通用属性 (“target_id”, ))
-    赋值 (msg_id, msgJson.取通用属性 (“msg_id”, ))
-    赋值 (content, msgJson.取通用属性 (“content”, ))
-    赋值 (guild_id, msgJson.取通用属性 (“extra['guild_id']”, )) ' 4674611826831570=main
-    赋值 (channel_name, msgJson.取通用属性 (“extra['channel_name']”, ))
-    赋值 (senderid, msgJson.取通用属性 (“extra.author.id”, ))
-    赋值 (sendernickname, msgJson.取通用属性 (“extra.author.nickname”, ))
-    赋值 (verify_token, msgJson.取通用属性 (“verify_token”, ))
-    
-     ' {"s":0,"d":{"type":1,"channel_type":"GROUP","target_id":"7873127691138410","author_id":"374797264","content":"@萌动众生#374797264 @易语言模板测试#1698900299 @role:95455; ","msg_id":"b34464da-da9c-473c-bc1a-d0eb0631d269","msg_timestamp":1610603734178,"nonce":"","extra":{"local_id":"lp3JfeNPUrpBcNdlYYI7Odpv","type":1,"guild_id":"6277101564729879","channel_name":"文字频道","mention":["374797264","1698900299"],"mention_all":false,"mention_roles":[95455],"mention_here":false,"code":"","author":{"identify_num":"3507","avatar":"https://img.kaiheila.cn/avatars/2020-07/XkyJKsvalO2bc2bc.jpg/icon","username":"萌动众生","id":"374797264","nickname":"萌动众生","roles":[]},"quote":{"local_id":"o5WoZqKQU5I6qT5rWDQCxCnw","type":1,"guild_id":"6277101564729879","channel_name":"文字频道","mention":[],"mention_all":false,"mention_roles":[],"mention_here":false,"code":"","author":{"identify_num":"3507","avatar":"https://img.kaiheila.cn/avatars/2020-07/XkyJKsvalO2bc2bc.jpg/icon","username":"萌动众生","id":"374797264","nickname":"萌动众生","roles":[]},"id":"bb891959-6381-4313-a07c-8e8cf31daebc","content":".test-tools","create_at":1610603600673,"notCount":true,"status":"SEND_SUCCESS","timeStr":"今天 下午 01:53","showTime":false,"gather_id":"5a2d7d94-4f09-44e0-b6f8-5fab80eada69","in_group":true,"rong_id":"bb891959-6381-4313-a07c-8e8cf31daebc","errorInfo":null,"pb0":true}},"verify_token":""},"sn":4}
-    .判断开始 (等于 (channel_type, “GROUP”)) ' 频道消息
-        
-        .判断开始 (不等于 (寻找文本 (content, 相加 (“@”, g_bot.quard), , 假), -1)) ' 艾特了机器人
-            赋值 (result, 相加 (“消息类型: ”, 选择 (等于 (msgJson.取通用属性 (“type”, ), “1”), “文字消息”, “其他”)))
-            赋值 (result, 相加 (result, #换行符, “消息ID: ”, msg_id))
-            赋值 (result, 相加 (result, #换行符, “发送人: ”, sendernickname, “#”, senderid))
-            
-            .如果真 (不等于 (msgJson.取通用属性 (“extra.quote['id']”, ), “”))
-                赋值 (result, 相加 (result, #换行符, “引用消息ID: ”, msgJson.取通用属性 (“extra.quote['rong_id']”, )))
-                赋值 (result, 相加 (result, #换行符, “引用消息发送人: ”, msgJson.取通用属性 (“extra.quote.author.username”, ), “#”, msgJson.取通用属性 (“extra.quote.author.id”, )))
-            .如果真结束
-            .如果真 (大于 (msgJson.取属性 (“extra.mention”).成员数 (), 0))
-                .计次循环首 (msgJson.取属性 (“extra.mention”).成员数 (), i)
-                    赋值 (result, 相加 (result, #换行符, “引用用户: ”, at部分处理 (content, msgJson.取通用属性 (相加 (“extra.mention['”, 到文本 (相减 (i, 1)), “']”), ))))
-                .计次循环尾 ()
-                
-            .如果真结束
-             ' .如果真 (大于 (msgJson.取属性 (“extra.mention”, ).成员数 (), 0))
-                 ' .计次循环首 (msgJson.取属性 (“extra.mention_roles”, ).成员数 (), i)
-                     ' result ＝ result ＋ #换行符 ＋ “引用用户: ” ＋ msgJson.取通用属性 (“extra.mention['” ＋ 到文本 (i － 1) ＋ “']”, )
-                 ' .计次循环尾 ()
-             ' .如果真结束
-            .如果真 (等于 (msgJson.取通用属性 (“extra['mention_all']”, ), “true”))
-                赋值 (result, 相加 (result, #换行符, “引用全体成员: ”, msg_id))
-            .如果真结束
-            .如果真 (等于 (msgJson.取通用属性 (“extra['mention_here']”, ), “true”))
-                赋值 (result, 相加 (result, #换行符, “引用在线成员: ”, msg_id))
-            .如果真结束
-            
-            未知函数_67185808 (1, target_id, result, msg_id, , )
-        .默认
-            
-        .判断结束
-        
-        
-    .默认
-        
-    .判断结束
-    
-    
-.判断循环尾 ()
 
 
 .子程序 at部分处理, 文本型, , 
@@ -21878,6 +21797,90 @@ result.未知函数_67187447 (未知函数_67187451 (到文本 (未知函数_671
 .计次循环尾 ()
 返回 (uid)
 
+.子程序 QueueHeartProc, 空白型, , 
+.局部变量 msgJson, 未知类型0x49013423, , , 
+.局部变量 匿名局部变量_13334, 空白型, , , 
+.局部变量 channel_type, 文本型, , , 
+.局部变量 target_id, 文本型, , , 
+.局部变量 msg_id, 文本型, , , 
+.局部变量 content, 文本型, , , 
+.局部变量 guild_id, 文本型, , , 
+.局部变量 channel_name, 文本型, , , 
+.局部变量 senderid, 文本型, , , 
+.局部变量 sendernickname, 文本型, , , 
+.局部变量 verify_token, 文本型, , , 
+.局部变量 result, 文本型, , , 
+.局部变量 i, 整数型, , , 
+.局部变量 item, 文本型, , , 
+
+.判断循环首 (大于 (取数组成员数 (), 0))
+     ' 只要有数据就进来：
+    msgJson.未知函数_67187748 ( [1], )
+    删除成员 (1, 1)
+     ' 删除成员 (g_khl_msgList_id, 1, 1)
+    赋值 (msgJson, msgJson.未知函数_67187749 (“d”))
+    .如果真 (等于 (msgJson.未知函数_67187750 (“extra.author.bot”, ), “true”))
+        到循环尾 ()
+    .如果真结束
+    
+    赋值 (channel_type, msgJson.未知函数_67187750 (“channel_type”, )) ' GROUP
+    
+    .判断开始 (等于 (channel_type, “PERSON”))
+         ' {"type":255,"channel_type":"PERSON","target_id":"414248069","author_id":"1","content":"[系统消息]","msg_id":"01bba042-1b8e-4600-9de2-a6adf84dee1c","msg_timestamp":1611381724543,"nonce":"","extra":{"type":"message_btn_click","body":{"value":"test value","msg_id":"38623f74-94ef-4bc2-8eee-9d29d5a565de","user_id":"2393184238"}}}
+    .判断 (等于 (channel_type, “GROUP”)) ' 频道消息
+        赋值 (target_id, msgJson.未知函数_67187750 (“target_id”, ))
+        赋值 (msg_id, msgJson.未知函数_67187750 (“msg_id”, ))
+        赋值 (content, msgJson.未知函数_67187750 (“content”, ))
+        赋值 (guild_id, msgJson.未知函数_67187750 (“extra['guild_id']”, )) ' 4674611826831570=main
+        赋值 (channel_name, msgJson.未知函数_67187750 (“extra['channel_name']”, ))
+        赋值 (senderid, msgJson.未知函数_67187750 (“extra.author.id”, ))
+        赋值 (sendernickname, msgJson.未知函数_67187750 (“extra.author.nickname”, ))
+        赋值 (verify_token, msgJson.未知函数_67187750 (“verify_token”, ))
+         ' 01-01 01:18:05 {"s":0,"d":{"type":1,"channel_type":"GROUP","target_id":"8876187633547319","author_id":"374797264","content":"@@野生的怪才君#2279933469 ","msg_id":"2b1ce912-6b55-47e1-a42b-918c154d3c9b","msg_timestamp":1609435085214,"nonce":"","extra":{"local_id":"5PlkQi5wEyXufD7vVwWNPblq","type":"1","guild_id":"4674611826831570","channel_name":"privatePush","mention":["2279933469"],"mention_all":false,"mention_roles":[],"mention_here":false,"code":"","author":{"identify_num":"3507","avatar":"https://img.kaiheila.cn/avatars/2020-07/XkyJKsvalO2bc2bc.jpg/icon","username":"萌动众生","id":"374797264","nickname":"萌动众生","roles":[29953,28231]}},"verify_token":""},"sn":719}
+         ' {"s":0,"d":{"type":1,"channel_type":"GROUP","target_id":"7873127691138410","author_id":"374797264","content":"@萌动众生#374797264 @易语言模板测试#1698900299 @role:95455; ","msg_id":"b34464da-da9c-473c-bc1a-d0eb0631d269","msg_timestamp":1610603734178,"nonce":"","extra":{"local_id":"lp3JfeNPUrpBcNdlYYI7Odpv","type":1,"guild_id":"6277101564729879","channel_name":"文字频道","mention":["374797264","1698900299"],"mention_all":false,"mention_roles":[95455],"mention_here":false,"code":"","author":{"identify_num":"3507","avatar":"https://img.kaiheila.cn/avatars/2020-07/XkyJKsvalO2bc2bc.jpg/icon","username":"萌动众生","id":"374797264","nickname":"萌动众生","roles":[]},"quote":{"local_id":"o5WoZqKQU5I6qT5rWDQCxCnw","type":1,"guild_id":"6277101564729879","channel_name":"文字频道","mention":[],"mention_all":false,"mention_roles":[],"mention_here":false,"code":"","author":{"identify_num":"3507","avatar":"https://img.kaiheila.cn/avatars/2020-07/XkyJKsvalO2bc2bc.jpg/icon","username":"萌动众生","id":"374797264","nickname":"萌动众生","roles":[]},"id":"bb891959-6381-4313-a07c-8e8cf31daebc","content":".test-tools","create_at":1610603600673,"notCount":true,"status":"SEND_SUCCESS","timeStr":"今天 下午 01:53","showTime":false,"gather_id":"5a2d7d94-4f09-44e0-b6f8-5fab80eada69","in_group":true,"rong_id":"bb891959-6381-4313-a07c-8e8cf31daebc","errorInfo":null,"pb0":true}},"verify_token":""},"sn":4}
+        
+        .判断开始 (不等于 (寻找文本 (content, 相加 (“@”, .), , 假), -1)) ' 艾特了机器人
+            赋值 (相加 (“消息类型: ”, 选择 (等于 (“type”.未知函数_67187752 (), “1”), “文字消息”, “其他”)))
+            赋值 (相加 (#换行符, “消息ID: ”, ))
+            赋值 (相加 (#换行符, “发送人: ”, , “#”, ))
+            赋值 (相加 (#换行符, “服务器: ”, ))
+            赋值 (相加 (#换行符, “频道: ”, , “#”, ))
+            
+            .如果真 (不等于 (“extra.quote['id']”.未知函数_67187752 (), “”))
+                赋值 (相加 (#换行符, “引用消息ID: ”, “extra.quote['id']”.未知函数_67187752 ()))
+                赋值 (相加 (#换行符, “引用消息发送人: ”, “extra.quote.author.username”.未知函数_67187752 (), “#”, “extra.quote.author.id”.未知函数_67187752 ()))
+            .如果真结束
+            .如果真 (大于 (“extra.mention”.未知函数_67187754 ().未知函数_67187753 (), 0))
+                .计次循环首 (“extra.mention”.未知函数_67187754 ().未知函数_67187753 (), )
+                    赋值 (相加 (#换行符, “引用用户: ”, 未知函数_67187755 (相加 (“extra.mention['”, 到文本 (相减 (1)), “']”).未知函数_67187752 ())))
+                .计次循环尾 ()
+                
+            .如果真结束
+             ' .如果真 (大于 (“extra.mention”.未知函数_67187754 ().未知函数_67187753 (), 0))
+                 ' .计次循环首 (“extra.mention_roles”.未知函数_67187754 ().未知函数_67187753 (), )
+                     ' result ＝ result ＋ #换行符 ＋ “引用用户: ” ＋ msgJson.取通用属性 (“extra.mention['” ＋ 到文本 (i － 1) ＋ “']”, )
+                 ' .计次循环尾 ()
+             ' .如果真结束
+            .如果真 (等于 (“extra['mention_all']”.未知函数_67187752 (), “true”))
+                赋值 (相加 (#换行符, “引用全体成员: ”, ))
+            .如果真结束
+            .如果真 (等于 (“extra['mention_here']”.未知函数_67187752 (), “true”))
+                赋值 (相加 (#换行符, “引用在线成员: ”, ))
+            .如果真结束
+            未知函数_67187751 (1, target_id, result, msg_id, , )
+        .默认
+            
+        .判断结束
+        
+        
+    .默认
+        
+    .判断结束
+    
+    
+.判断循环尾 ()
+
+
 .程序集 WebSocket, , , 
 
 .子程序 WsConnet, 空白型, , 
@@ -21887,7 +21890,7 @@ result.未知函数_67187447 (未知函数_67187451 (到文本 (未知函数_671
 .局部变量 url, 文本型, , , 
 
  ' header ＝ “Authorization: Bot ” ＋ 选择 (token ＝ “”, g_token, 读配置项 (取运行目录 () ＋ “\bot.ini”, “token”, token, ))
-赋值 (url, 未知函数_67186055 (0))
+赋值 (url, gateway_index (0))
 日志_输出 (“→”, 相加 (“Ws_Con.url=”, 到文本 (url)))
 .如果真 (等于 (WS_Start (url, , id), 真))
     赋值 (g_conID, id)
@@ -22276,116 +22279,116 @@ WS_OnClose () ' 调用 连接关闭 事件
 
 .程序集 tools, , , 
 
-.子程序 rolevalueTorole, 未知类型0x41013336, , 
+.子程序 rolevalueTorole, role_new, , 
 .参数 roleValue, 整数型, , 
 
-.局部变量 temp, 未知类型0x41013336, , , 
+.局部变量 temp, role_new, , , 
 
  ' 数据位的说明如下：
  ' 0 1 管理员 拥有此权限会获得完整的管理权，包括绕开所有其他权限（包括频道权限）限制，属于危险权限。
-赋值 (temp., 选择 (未知函数_67187511 (roleValue, 0), 0, 1))
+赋值 (temp._0, 选择 (__query_bit (roleValue, 0), 0, 1))
  ' 1 2 管理服务器 拥有此权限的成员可以修改服务器名称和更换区域。
-赋值 (temp., 选择 (未知函数_67187511 (roleValue, 1), 0, 1))
+赋值 (temp._1, 选择 (__query_bit (roleValue, 1), 0, 1))
  ' 2 4 查看管理日志 拥有此权限的成员可以查看服务器的管理日志。
-赋值 (temp., 选择 (未知函数_67187511 (roleValue, 2), 0, 1))
+赋值 (temp._2, 选择 (__query_bit (roleValue, 2), 0, 1))
  ' 3 8 创建服务器邀请 能否创建服务器邀请链接
-赋值 (temp., 选择 (未知函数_67187511 (roleValue, 3), 0, 1))
+赋值 (temp._3, 选择 (__query_bit (roleValue, 3), 0, 1))
  ' 4 16 管理邀请 拥有该权限可以管理服务器的邀请
-赋值 (temp., 选择 (未知函数_67187511 (roleValue, 4), 0, 1))
+赋值 (temp._4, 选择 (__query_bit (roleValue, 4), 0, 1))
  ' 5 32 频道管理 拥有此权限的成员可以创建新的频道以及编辑或删除已存在的频道。
-赋值 (temp., 选择 (未知函数_67187511 (roleValue, 5), 0, 1))
+赋值 (temp._5, 选择 (__query_bit (roleValue, 5), 0, 1))
  ' 6 64 踢出用户
-赋值 (temp., 选择 (未知函数_67187511 (roleValue, 6), 0, 1))
+赋值 (temp._6, 选择 (__query_bit (roleValue, 6), 0, 1))
  ' 7 128 封禁用户
-赋值 (temp., 选择 (未知函数_67187511 (roleValue, 7), 0, 1))
+赋值 (temp._7, 选择 (__query_bit (roleValue, 7), 0, 1))
  ' 8 256 管理自定义表情
-赋值 (temp., 选择 (未知函数_67187511 (roleValue, 8), 0, 1))
+赋值 (temp._8, 选择 (__query_bit (roleValue, 8), 0, 1))
  ' 9 512 修改服务器昵称 拥有此权限的用户可以更改他们的昵称。
-赋值 (temp., 选择 (未知函数_67187511 (roleValue, 9), 0, 1))
+赋值 (temp._9, 选择 (__query_bit (roleValue, 9), 0, 1))
  ' 10 1024 管理角色权限 拥有此权限成员可以创建新的角色和编辑删除低于该角色的身份。
-赋值 (temp., 选择 (未知函数_67187511 (roleValue, 10), 0, 1))
+赋值 (temp._10, 选择 (__query_bit (roleValue, 10), 0, 1))
  ' 11 2048 查看文字、语音频道
-赋值 (temp., 选择 (未知函数_67187511 (roleValue, 11), 0, 1))
+赋值 (temp._11, 选择 (__query_bit (roleValue, 11), 0, 1))
  ' 12 4096 发布消息
-赋值 (temp., 选择 (未知函数_67187511 (roleValue, 12), 0, 1))
+赋值 (temp._12, 选择 (__query_bit (roleValue, 12), 0, 1))
  ' 13 8192 管理消息 拥有此权限的成员可以删除其他成员发出的消息和置顶消息。
-赋值 (temp., 选择 (未知函数_67187511 (roleValue, 13), 0, 1))
+赋值 (temp._13, 选择 (__query_bit (roleValue, 13), 0, 1))
  ' 14 16384 上传文件
-赋值 (temp., 选择 (未知函数_67187511 (roleValue, 14), 0, 1))
+赋值 (temp._14, 选择 (__query_bit (roleValue, 14), 0, 1))
  ' 15 32768 语音链接
-赋值 (temp., 选择 (未知函数_67187511 (roleValue, 15), 0, 1))
+赋值 (temp._15, 选择 (__query_bit (roleValue, 15), 0, 1))
  ' 16 65536 语音管理 拥有此权限的成员可以把其他成员移动和踢出频道；但此类移动仅限于在该成员和被移动成员均有权限的频道之间进行。
-赋值 (temp., 选择 (未知函数_67187511 (roleValue, 16), 0, 1))
+赋值 (temp._16, 选择 (__query_bit (roleValue, 16), 0, 1))
  ' 17 131072 提及@全体成员 拥有此权限的成员可使用@全体成员以提及该频道中所有成员。
-赋值 (temp., 选择 (未知函数_67187511 (roleValue, 17), 0, 1))
+赋值 (temp._17, 选择 (__query_bit (roleValue, 17), 0, 1))
  ' 18 262144 添加反应 拥有此权限的成员可以对消息添加新的反应。
-赋值 (temp., 选择 (未知函数_67187511 (roleValue, 18), 0, 1))
+赋值 (temp._18, 选择 (__query_bit (roleValue, 18), 0, 1))
  ' 19 524288 跟随添加反应 拥有此权限的成员可以跟随使用已经添加的反应。
-赋值 (temp., 选择 (未知函数_67187511 (roleValue, 19), 0, 1))
+赋值 (temp._19, 选择 (__query_bit (roleValue, 19), 0, 1))
  ' 20 1048576 被动连接语音频道 拥有此限制的成员无法主动连接语音频道，只能在被动邀请或被人移动时，才可以进入语音频道。
-赋值 (temp., 选择 (未知函数_67187511 (roleValue, 20), 0, 1))
+赋值 (temp._20, 选择 (__query_bit (roleValue, 20), 0, 1))
  ' 21 2097152 仅使用按键说话 拥有此限制的成员加入语音频道后，只能使用按键说话。
-赋值 (temp., 选择 (未知函数_67187511 (roleValue, 21), 0, 1))
+赋值 (temp._21, 选择 (__query_bit (roleValue, 21), 0, 1))
  ' 22 4194304 使用自由麦 没有此权限的成员，必须在频道内使用按键说话。
-赋值 (temp., 选择 (未知函数_67187511 (roleValue, 22), 0, 1))
+赋值 (temp._22, 选择 (__query_bit (roleValue, 22), 0, 1))
  ' 23 8388608 说话
-赋值 (temp., 选择 (未知函数_67187511 (roleValue, 23), 0, 1))
+赋值 (temp._23, 选择 (__query_bit (roleValue, 23), 0, 1))
  ' 24 16777216 服务器静音
-赋值 (temp., 选择 (未知函数_67187511 (roleValue, 24), 0, 1))
+赋值 (temp._24, 选择 (__query_bit (roleValue, 24), 0, 1))
  ' 25 33554432 服务器闭麦
-赋值 (temp., 选择 (未知函数_67187511 (roleValue, 25), 0, 1))
+赋值 (temp._25, 选择 (__query_bit (roleValue, 25), 0, 1))
  ' 26 67108864 修改他人昵称 拥有此权限的用户可以更改他人的昵称
-赋值 (temp., 选择 (未知函数_67187511 (roleValue, 26), 0, 1))
+赋值 (temp._26, 选择 (__query_bit (roleValue, 26), 0, 1))
  ' 27 134217728 播放伴奏 拥有此权限的成员可在语音频道中播放音乐伴奏
-赋值 (temp., 选择 (未知函数_67187511 (roleValue, 27), 0, 1))
-赋值 (temp., 选择 (未知函数_67187511 (roleValue, 28), 0, 1))
-赋值 (temp., 选择 (未知函数_67187511 (roleValue, 29), 0, 1))
-赋值 (temp., 选择 (未知函数_67187511 (roleValue, 30), 0, 1))
-赋值 (temp., 选择 (未知函数_67187511 (roleValue, 31), 0, 1))
+赋值 (temp._27, 选择 (__query_bit (roleValue, 27), 0, 1))
+赋值 (temp._28, 选择 (__query_bit (roleValue, 28), 0, 1))
+赋值 (temp._29, 选择 (__query_bit (roleValue, 29), 0, 1))
+赋值 (temp._30, 选择 (__query_bit (roleValue, 30), 0, 1))
+赋值 (temp._31, 选择 (__query_bit (roleValue, 31), 0, 1))
 返回 (temp)
  ' 比特位 值 权限 说明
 
 
 .子程序 roleTorolevalue, 整数型, , 
-.参数 role, 未知类型0x41013336, , 
+.参数 role, role_new, , 
 
 .局部变量 value, 整数型, , , 
 
-赋值 (value, 选择 (等于 (role., 1), 未知函数_67187545 (value, 0), 未知函数_67187546 (value, 0)))
-赋值 (value, 选择 (等于 (role., 1), 未知函数_67187545 (value, 1), 未知函数_67187546 (value, 1)))
-赋值 (value, 选择 (等于 (role., 1), 未知函数_67187545 (value, 2), 未知函数_67187546 (value, 2)))
-赋值 (value, 选择 (等于 (role., 1), 未知函数_67187545 (value, 3), 未知函数_67187546 (value, 3)))
-赋值 (value, 选择 (等于 (role., 1), 未知函数_67187545 (value, 4), 未知函数_67187546 (value, 4)))
-赋值 (value, 选择 (等于 (role., 1), 未知函数_67187545 (value, 5), 未知函数_67187546 (value, 5)))
-赋值 (value, 选择 (等于 (role., 1), 未知函数_67187545 (value, 6), 未知函数_67187546 (value, 6)))
-赋值 (value, 选择 (等于 (role., 1), 未知函数_67187545 (value, 7), 未知函数_67187546 (value, 7)))
-赋值 (value, 选择 (等于 (role., 1), 未知函数_67187545 (value, 8), 未知函数_67187546 (value, 8)))
-赋值 (value, 选择 (等于 (role., 1), 未知函数_67187545 (value, 9), 未知函数_67187546 (value, 9)))
-赋值 (value, 选择 (等于 (role., 1), 未知函数_67187545 (value, 10), 未知函数_67187546 (value, 10)))
-赋值 (value, 选择 (等于 (role., 1), 未知函数_67187545 (value, 11), 未知函数_67187546 (value, 11)))
-赋值 (value, 选择 (等于 (role., 1), 未知函数_67187545 (value, 12), 未知函数_67187546 (value, 12)))
-赋值 (value, 选择 (等于 (role., 1), 未知函数_67187545 (value, 13), 未知函数_67187546 (value, 13)))
-赋值 (value, 选择 (等于 (role., 1), 未知函数_67187545 (value, 14), 未知函数_67187546 (value, 14)))
-赋值 (value, 选择 (等于 (role., 1), 未知函数_67187545 (value, 15), 未知函数_67187546 (value, 15)))
-赋值 (value, 选择 (等于 (role., 1), 未知函数_67187545 (value, 16), 未知函数_67187546 (value, 16)))
-赋值 (value, 选择 (等于 (role., 1), 未知函数_67187545 (value, 17), 未知函数_67187546 (value, 17)))
-赋值 (value, 选择 (等于 (role., 1), 未知函数_67187545 (value, 18), 未知函数_67187546 (value, 18)))
-赋值 (value, 选择 (等于 (role., 1), 未知函数_67187545 (value, 19), 未知函数_67187546 (value, 19)))
-赋值 (value, 选择 (等于 (role., 1), 未知函数_67187545 (value, 20), 未知函数_67187546 (value, 20)))
-赋值 (value, 选择 (等于 (role., 1), 未知函数_67187545 (value, 21), 未知函数_67187546 (value, 21)))
-赋值 (value, 选择 (等于 (role., 1), 未知函数_67187545 (value, 22), 未知函数_67187546 (value, 22)))
-赋值 (value, 选择 (等于 (role., 1), 未知函数_67187545 (value, 23), 未知函数_67187546 (value, 23)))
-赋值 (value, 选择 (等于 (role., 1), 未知函数_67187545 (value, 24), 未知函数_67187546 (value, 24)))
-赋值 (value, 选择 (等于 (role., 1), 未知函数_67187545 (value, 25), 未知函数_67187546 (value, 25)))
-赋值 (value, 选择 (等于 (role., 1), 未知函数_67187545 (value, 26), 未知函数_67187546 (value, 26)))
-赋值 (value, 选择 (等于 (role., 1), 未知函数_67187545 (value, 27), 未知函数_67187546 (value, 27)))
-赋值 (value, 选择 (等于 (role., 1), 未知函数_67187545 (value, 28), 未知函数_67187546 (value, 28)))
-赋值 (value, 选择 (等于 (role., 1), 未知函数_67187545 (value, 29), 未知函数_67187546 (value, 29)))
-赋值 (value, 选择 (等于 (role., 1), 未知函数_67187545 (value, 30), 未知函数_67187546 (value, 30)))
-赋值 (value, 选择 (等于 (role., 1), 未知函数_67187545 (value, 31), 未知函数_67187546 (value, 31)))
+赋值 (value, 选择 (等于 (role._0, 1), __set_bit_on (value, 0), __set_bit_off (value, 0)))
+赋值 (value, 选择 (等于 (role._1, 1), __set_bit_on (value, 1), __set_bit_off (value, 1)))
+赋值 (value, 选择 (等于 (role._2, 1), __set_bit_on (value, 2), __set_bit_off (value, 2)))
+赋值 (value, 选择 (等于 (role._3, 1), __set_bit_on (value, 3), __set_bit_off (value, 3)))
+赋值 (value, 选择 (等于 (role._4, 1), __set_bit_on (value, 4), __set_bit_off (value, 4)))
+赋值 (value, 选择 (等于 (role._5, 1), __set_bit_on (value, 5), __set_bit_off (value, 5)))
+赋值 (value, 选择 (等于 (role._6, 1), __set_bit_on (value, 6), __set_bit_off (value, 6)))
+赋值 (value, 选择 (等于 (role._7, 1), __set_bit_on (value, 7), __set_bit_off (value, 7)))
+赋值 (value, 选择 (等于 (role._8, 1), __set_bit_on (value, 8), __set_bit_off (value, 8)))
+赋值 (value, 选择 (等于 (role._9, 1), __set_bit_on (value, 9), __set_bit_off (value, 9)))
+赋值 (value, 选择 (等于 (role._10, 1), __set_bit_on (value, 10), __set_bit_off (value, 10)))
+赋值 (value, 选择 (等于 (role._11, 1), __set_bit_on (value, 11), __set_bit_off (value, 11)))
+赋值 (value, 选择 (等于 (role._12, 1), __set_bit_on (value, 12), __set_bit_off (value, 12)))
+赋值 (value, 选择 (等于 (role._13, 1), __set_bit_on (value, 13), __set_bit_off (value, 13)))
+赋值 (value, 选择 (等于 (role._14, 1), __set_bit_on (value, 14), __set_bit_off (value, 14)))
+赋值 (value, 选择 (等于 (role._15, 1), __set_bit_on (value, 15), __set_bit_off (value, 15)))
+赋值 (value, 选择 (等于 (role._16, 1), __set_bit_on (value, 16), __set_bit_off (value, 16)))
+赋值 (value, 选择 (等于 (role._17, 1), __set_bit_on (value, 17), __set_bit_off (value, 17)))
+赋值 (value, 选择 (等于 (role._18, 1), __set_bit_on (value, 18), __set_bit_off (value, 18)))
+赋值 (value, 选择 (等于 (role._19, 1), __set_bit_on (value, 19), __set_bit_off (value, 19)))
+赋值 (value, 选择 (等于 (role._20, 1), __set_bit_on (value, 20), __set_bit_off (value, 20)))
+赋值 (value, 选择 (等于 (role._21, 1), __set_bit_on (value, 21), __set_bit_off (value, 21)))
+赋值 (value, 选择 (等于 (role._22, 1), __set_bit_on (value, 22), __set_bit_off (value, 22)))
+赋值 (value, 选择 (等于 (role._23, 1), __set_bit_on (value, 23), __set_bit_off (value, 23)))
+赋值 (value, 选择 (等于 (role._24, 1), __set_bit_on (value, 24), __set_bit_off (value, 24)))
+赋值 (value, 选择 (等于 (role._25, 1), __set_bit_on (value, 25), __set_bit_off (value, 25)))
+赋值 (value, 选择 (等于 (role._26, 1), __set_bit_on (value, 26), __set_bit_off (value, 26)))
+赋值 (value, 选择 (等于 (role._27, 1), __set_bit_on (value, 27), __set_bit_off (value, 27)))
+赋值 (value, 选择 (等于 (role._28, 1), __set_bit_on (value, 28), __set_bit_off (value, 28)))
+赋值 (value, 选择 (等于 (role._29, 1), __set_bit_on (value, 29), __set_bit_off (value, 29)))
+赋值 (value, 选择 (等于 (role._30, 1), __set_bit_on (value, 30), __set_bit_off (value, 30)))
+赋值 (value, 选择 (等于 (role._31, 1), __set_bit_on (value, 31), __set_bit_off (value, 31)))
 返回 (value)
 
-.子程序 roleCrraftNull, 未知类型0x41013336, , 
+.子程序 roleCrraftNull, role_new, , 
 .局部变量 i, 整数型, , , 
 .局部变量 value, 整数型, , , 
 
@@ -22423,57 +22426,269 @@ WS_OnClose () ' 调用 连接关闭 事件
 
 
 .子程序 卡片测试, 空白型, , 
-.局部变量 content, 未知类型0x4901337B, , , 消息.加成员(card)
-.局部变量 card, 未知类型0x4901337B, , , 卡片<arr>.加成员(modules)
-.局部变量 modules, 未知类型0x4901337B, , , 模块<arr>
-.局部变量 item, 未知类型0x4901337B, , , 元素
-.局部变量 item2, 未知类型0x4901337B, , , 
+.局部变量 content, 类_json, , , 消息.加成员(card)
+.局部变量 card, 类_json, , , 卡片<arr>.加成员(modules)
+.局部变量 modules, 类_json, , , 模块<arr>
+.局部变量 item, 类_json, , , 元素
+.局部变量 item2, 类_json, , , 
 
 
-card.未知函数_67187580 (“type”, “card”, )
-modules.未知函数_67187580 (“type”, “section”, ) ' image-group  把item加到modules的elements属性里
-item.未知函数_67187580 (“type”, “plain-text”, )
-item.未知函数_67187580 (“content”, “我是标题”, )
-modules.未知函数_67187580 (“text”, item.未知函数_67187581 (), 真)
-item.未知函数_67187580 (“type”, “image”, )
-item.未知函数_67187580 (“src”, “https://s3.ax1x.com/2021/01/05/sFStpt.png”, )
-item.未知函数_67187580 (“alt”, “123”, )
-item.未知函数_67187580 (“size”, “lg”, )
-item.未知函数_67187580 (“circle”, “true”, 真)
+card.置属性 (“type”, “card”, )
+modules.置属性 (“type”, “section”, ) ' image-group  把item加到modules的elements属性里
+item.置属性 (“type”, “plain-text”, )
+item.置属性 (“content”, “我是标题”, )
+modules.置属性 (“text”, item.取数据文本 (), 真)
+item.置属性 (“type”, “image”, )
+item.置属性 (“src”, “https://s3.ax1x.com/2021/01/05/sFStpt.png”, )
+item.置属性 (“alt”, “123”, )
+item.置属性 (“size”, “lg”, )
+item.置属性 (“circle”, “true”, 真)
 
-modules.未知函数_67187580 (“accessory”, item.未知函数_67187581 (), 真)
+modules.置属性 (“accessory”, item.取数据文本 (), 真)
 
-card.未知函数_67187582 (modules.未知函数_67187581 (), “modules”, 真, )
-content.未知函数_67187582 (card.未知函数_67187581 (), , 真, )
-调试输出 (content.未知函数_67187581 ())
+card.加成员 (modules.取数据文本 (), “modules”, 真, )
+content.加成员 (card.取数据文本 (), , 真, )
+调试输出 (content.取数据文本 ())
 
 
-.子程序 rolevalueTorole_fase, 未知类型0x4101337F, , 
+.子程序 rolevalueTorole_fase, role, , 
 .参数 roleValue, 整数型, , 
 
-.局部变量 role, 未知类型0x4101337F, , , 
+.局部变量 role, role, , , 
 .局部变量 i, 整数型, , , 
 
 .计次循环首 (32, i)
-    赋值 (role [i], 未知函数_67187511 (roleValue, 相减 (i, 1)))
+    赋值 (role [i], __query_bit (roleValue, 相减 (i, 1)))
 .计次循环尾 ()
 
 
 .子程序 roleTorolevalue_fase, 整数型, , 
-.参数 role, 未知类型0x4101337F, , 
+.参数 role, role, , 
 
 .局部变量 i, 整数型, , , 
 .局部变量 rolevalue, 整数型, , , 
 
 .计次循环首 (32, i)
-    赋值 (rolevalue, 选择 (等于 (role [i], 0), 未知函数_67187584 (rolevalue, 相减 (i, 1)), 未知函数_67187585 (rolevalue, 相减 (i, 1))))
+    赋值 (rolevalue, 选择 (等于 (role [i], 0), __set_bit_off (rolevalue, 相减 (i, 1)), __set_bit_on (rolevalue, 相减 (i, 1))))
 .计次循环尾 ()
 返回 (rolevalue)
 
-.子程序 roleCrraftNull_fase, 未知类型0x4101337F, , 
-.局部变量 value, 未知类型0x4101337F, , , 
+.子程序 roleCrraftNull_fase, role, , 
+.局部变量 value, role, , , 
 
 返回 (value)
+
+.程序集 CardMessage, , , 
+
+.子程序 CardMessage_index, 文本型, , 
+.局部变量 item, 未知类型0x490133F2, , , 
+.局部变量 item2, 未知类型0x490133F2, , , 
+.局部变量 modules, 未知类型0x490133F3, , , 
+.局部变量 moduless, 未知类型0x490133F2, , , 
+.局部变量 Card, 未知类型0x490133F4, , , 
+.局部变量 Cards, 未知类型0x490133F2, , , 
+.局部变量 temp, 文本型, , , 
+
+ ' 先创建一个文本元素
+赋值 (item, item_new_text (“测试”, 假))
+赋值 (item2, item_new_button (“info”, “button1”, “return-val”, “按钮”))
+ ' Items_add (json,json1 )
+ ' 元素部分处理完了，加入到对应模块里,需要形成数组的需要 items_add
+赋值 (modules, Modules_new_section (item, item2))
+ ' 模块弄好了，封装成组
+Modules_add (moduless, modules)
+赋值 (item, Modules_new_countdown (到长整数 (未知函数_67187703 (增减时间 (取现行时间 (), #日, 1), , )), 到长整数 (未知函数_67187703 (增减时间 (取现行时间 (), #小时, 1), , )), “second”))
+Modules_add (moduless, item)
+ ' 丢到卡片里
+赋值 (Card, Card_new (moduless))
+ ' 卡片封装成组
+Card_add (Cards, Card)
+ ' 传走的时候一定要用文本型 （不知道啥问题）
+赋值 (temp, Cards.未知函数_67187701 ())
+调试输出 (temp)
+未知函数_67187702 (10, “7873127691138410”, temp, , , )
+返回 (temp)
+
+.子程序 Card_add, 空白型, , Card+Card
+.参数 json, 未知类型0x490133F2, , 
+.参数 item, 未知类型0x490133F2, , 
+
+json.未知函数_67187704 (item.未知函数_67187701 (), , 真, )
+返回 ()
+
+.子程序 Card_new, 未知类型0x490133F2, , modules->card
+.参数 modules, 未知类型0x490133F2, , 
+
+.局部变量 json, 未知类型0x490133F9, , , 
+
+json.未知函数_67187706 (“type”, “card”, )
+json.未知函数_67187706 (“modules”, modules.未知函数_67187701 (), 真)
+返回 (json)
+
+.子程序 Modules_add, 空白型, , modules+modules
+.参数 json, 未知类型0x490133FB, , 
+.参数 item, 未知类型0x490133FB, , 
+
+json.未知函数_67187704 (item.未知函数_67187701 (), , 真, )
+返回 ()
+
+.子程序 Modules_new_header, 未知类型0x490133FC, , 标题模块
+.参数 content, 文本型, , 
+
+.局部变量 json, 未知类型0x490133F2, , , 
+.局部变量 item, 未知类型0x490133F2, , , 
+
+json.未知函数_67187706 (“type”, “header”, )
+item.未知函数_67187706 (“type”, “plain-text”, )
+item.未知函数_67187706 (“content”, content, )
+json.未知函数_67187706 (“text”, item.未知函数_67187701 (), 真)
+返回 (json)
+
+.子程序 Modules_new_section, 未知类型0x490133FD, , 内容模块 1：1 图文
+.参数 text, 未知类型0x490133F2, , 
+.参数 accessory, 未知类型0x490133F2, , 
+
+.局部变量 json, 未知类型0x490133FE, , , 
+.局部变量 item, 未知类型0x490133F2, , , 
+
+json.未知函数_67187711 (“type”, “header”, )
+json.未知函数_67187706 (“text”, text.未知函数_67187701 (), 真)
+json.未知函数_67187706 (“accessory”, accessory.未知函数_67187701 (), 真) ' item.new()
+
+返回 (json)
+
+.子程序 Modules_new_imagegroup, 未知类型0x490133F2, , 
+.参数 elements, 未知类型0x490133F2, , 图片元素组 item.image 1-9
+
+.局部变量 json, 未知类型0x490133F2, , , 
+
+json.未知函数_67187706 (“type”, “image-group”, )
+json.未知函数_67187706 (“elements”, elements.未知函数_67187701 (), 真)
+返回 (json)
+
+.子程序 Modules_new_actiongroup, 未知类型0x49013400, , 
+.参数 elements, 未知类型0x49013400, , 交互元素组 item.buttons 1-4
+
+.局部变量 json, 未知类型0x49013400, , , 
+
+json.未知函数_67187706 (“type”, “action-group”, )
+json.未知函数_67187713 (“elements”, elements.未知函数_67187714 (), 真)
+返回 (json)
+
+.子程序 Modules_new_context, 未知类型0x49013403, , 图文混排
+.参数 elements, 未知类型0x49013403, , 图文元素组 item.plain-text, kmarkdown, image 1-10
+
+.局部变量 json, 未知类型0x49013403, , , 
+
+json.未知函数_67187706 (“type”, “context”, )
+json.未知函数_67187716 (“elements”, elements.未知函数_67187717 (), 真)
+返回 (json)
+
+.子程序 Modules_new_divider, 未知类型0x49013406, , 分割线
+.局部变量 json, 未知类型0x49013406, , , 
+
+json.未知函数_67187706 (“type”, “divider”, )
+返回 (json)
+
+.子程序 Modules_new_file, 未知类型0x49013407, , 文件
+.参数 type, 文本型, , file|audio|video
+.参数 src, 文本型, , 
+.参数 title, 文本型, , 
+.参数 cover, 文本型, , audio有效
+
+.局部变量 json, 未知类型0x49013407, , , 
+
+“type”.未知函数_67187720 ()
+json.未知函数_67187706 (“src”, src, )
+json.未知函数_67187706 (“title”, title, )
+json.未知函数_67187706 (“cover”, cover, )
+返回 (json)
+
+.子程序 Modules_new_countdown, 未知类型0x4901340B, , 倒计时
+.参数 endTime, 长整数型, , 到期的毫秒时间戳
+.参数 startTime, 长整数型, , 起始的毫秒时间戳，仅当mode为second才有这个字段
+.参数 mode, 文本型, , day,hour,second //倒计时样式, 按天显示，按小时显示或者按秒显示
+
+.局部变量 json, 未知类型0x4901340B, , , 
+
+json.未知函数_67187706 (“type”, “countdown”, )
+json.未知函数_67187724 (“endTime”, endTime)
+json.未知函数_67187724 (“startTime”, startTime)
+json.未知函数_67187706 (“mode”, mode, )
+返回 (json)
+
+.子程序 Items_add, 空白型, , 
+.参数 json, 未知类型0x4901340D, , 
+.参数 item, 未知类型0x4901340D, , 
+
+json.未知函数_67187704 (item.未知函数_67187701 (), , 真, )
+返回 ()
+
+.子程序 item_new_text, 未知类型0x490133F2, , 元素 文本
+.参数 content, 文本型, , 
+.参数 emoji, 逻辑型, , 
+
+.局部变量 json, 未知类型0x490133F2, , , 
+
+“type”.未知函数_67187726 (“plain-text”, )
+json.未知函数_67187706 (“content”, content, ) ' 也可以只有这个
+json.未知函数_67187706 (“emoji”, 选择 (emoji, “true”, “false”), 真)
+返回 (json)
+
+
+.子程序 item_new_kmarkdown, 未知类型0x49013410, , 元素 md文本
+.参数 content, 文本型, , 
+
+.局部变量 json, 未知类型0x49013410, , , 
+
+json.未知函数_67187706 (“type”, “kmarkdown”, )
+json.未知函数_67187729 (“content”, content, ) ' 也可以只有这个
+返回 (json)
+
+.子程序 item_new_image, 未知类型0x49013412, , 元素 图片
+.参数 src, 文本型, , 图片类型（MimeType）限制说明：目前仅支持image/jpeg, image/gif, image/png这3种
+.参数 alt, 文本型, , 
+.参数 size, 文本型, , sm|lg
+.参数 circle, 逻辑型, , 
+
+.局部变量 json, 未知类型0x49013412, , , 
+
+json.未知函数_67187706 (“type”, “image”, )
+json.未知函数_67187706 (“src”, src, )
+json.未知函数_67187706 (“alt”, alt, )
+json.未知函数_67187706 (“content”, src, )
+json.未知函数_67187706 (“circle”, 选择 (circle, “true”, “false”), 真)
+返回 (json)
+
+.子程序 item_new_button, 未知类型0x49013413, , 元素 按钮
+.参数 theme, 文本型, , "primary|warning|info|danger|...", //按钮的主题颜色
+.参数 value, 文本型, , //要传递的value，为string
+.参数 click, 文本型, , //click时的事件类型， return-val 返回value值
+.参数 text, 文本型, , text可以为plain-text, kmarkdown
+
+.局部变量 json, 未知类型0x49013413, , , 
+.局部变量 src, 文本型, , , 
+
+json.未知函数_67187706 (“type”, “button”, )
+json.未知函数_67187706 (“theme”, theme, )
+json.未知函数_67187706 (“value”, value, )
+json.未知函数_67187706 (“click”, click, )
+ ' click代表用户点击的事件,默认为""，代表无任何事件。
+ ' 当为link时，会跳转到value代表的链接;
+ ' 当为return-val时，系统会通过系统消息将消息id,点击用户id和value发回给发送者，发送者可以根据自己的需求进行处理。
+json.未知函数_67187706 (“text”, text, )
+返回 (json)
+
+.子程序 Modules_new_paragraph, 未知类型0x490133F2, , 结构体 区域文本
+.参数 cols, 空白型, , 栏数
+.参数 fields, 未知类型0x490133F2, , 元素数组
+
+.局部变量 json, 未知类型0x490133F2, , , 
+
+json.未知函数_67187706 (“type”, “paragraph”, )
+json.未知函数_67187724 (“cols”, cols)
+json.未知函数_67187706 (“fields”, fields.未知函数_67187701 (), 真)
+返回 (json)
 
 
  ' 不属于任何一个程序集、类模块的函数：

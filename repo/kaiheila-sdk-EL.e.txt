@@ -6849,9 +6849,11 @@ loop”", 隐藏,
 
 赋值 (g_token, 读配置项 (相加 (取运行目录 (), “\bot_token.ini”), “def”, “token”, )) ' 请在机器人后台获取)
 
-未知函数_67186826 (524288)
+ ' rolevalueTorole (524288)
  ' 初始化（）
 init ()
+ ' CardMessage_index ()
+
  ' 卡片测试 ()
 载入 (窗口1, , 假)
 返回 (0) ' 可以根据您的需要返回任意数值
@@ -6916,6 +6918,7 @@ connectId.断开客户 ()
 .子程序 _窗口1_创建完毕, 空白型, , 
 未知支持库函数_0 (&QueueHeart, , )
  ' 下边是启动Ws的选项
+
  ' 启动线程 (&WsConnet, , )
 
 .子程序 数组中查找, 逻辑型, , 
@@ -6945,7 +6948,12 @@ connectId.断开客户 ()
 .默认
     
 .判断结束
-赋值 (.内容, 相加 (时间_格式化 (取现行时间 (), “MM-DD ”, “hh:mm”, ), “ [”, 来源, “]”, 文本, #换行符, .内容))
+调试输出 (相加 (时间_格式化 (取现行时间 (), “MM-DD ”, “hh:mm”, ), “ [”, 来源, “]”, 文本))
+.如果真 (是否已创建 (窗口1))
+    赋值 (.内容, 相加 (未知函数_67187809 (取现行时间 (), “MM-DD ”, “hh:mm”, ), “ [”, , “]”, , #换行符, .内容))
+    
+.如果真结束
+
 
 .子程序 协议头, 文本型, , 
 .参数 b, 文本型, , 
@@ -21478,11 +21486,11 @@ json.解析 (编码_utf8到gb2312 (到文本 (网页_访问 (url, 1, , , , heade
 
 .局部变量 url, 文本型, , , 
 .局部变量 header, 文本型, , , 
-.局部变量 result, 未知类型0x4901329E, , , 
+.局部变量 result, 类_json, , , 
 
 赋值 (url, 相加 (g_url, “/guild-role/index”))
 赋值 (url, 相加 (url, “?guild_id=”, guild_id))
-赋值 (相加 (“Authorization: Bot ”, 选择 (等于 (token, “”), , 读配置项 (相加 (取运行目录 (), “\bot_token.ini”), “token”, token, )), #换行符, “Content-type: application/json”))
+赋值 (header, 相加 (“Authorization: Bot ”, 选择 (等于 (token, “”), g_token, 读配置项 (相加 (取运行目录 (), “\bot_token.ini”), “token”, token, )), #换行符, “Content-type: application/json”))
 result.解析 (编码_utf8到gb2312 (到文本 (网页_访问 (url, 0, , , , header, , , , , , , ))), )
  ' 调试输出 (, “获取服务器信息”, “kaiheila”)
  ' 调试输出 (, “返回信息: ” ＋ result.取数据文本 (), “kaiheila”)
@@ -21494,7 +21502,7 @@ result.解析 (编码_utf8到gb2312 (到文本 (网页_访问 (url, 0, , , , hea
  ' mentionable unsigned int 只能为0或者1，该角色是否可以被提及
  ' permissions unsigned int 权限,参见权限说明
  ' {"code":0,"message":"操作成功","data":[{"role_id":5712,"name":"新角色1","color":3066993,"position":1,"hoist":0,"mentionable":0,"permissions":147643914},{"role_id":0,"name":"@全体成员","color":0,"position":999,"hoist":0,"mentionable":0,"permissions":147642888}],}
-返回 (未知函数_67187355 ())
+返回 (result.取数据文本 ())
 
 
 .子程序 guild_role_create, 空白型, , 创建服务器角色
@@ -21505,7 +21513,7 @@ result.解析 (编码_utf8到gb2312 (到文本 (网页_访问 (url, 0, , , , hea
 .局部变量 url, 文本型, , , 
 .局部变量 header, 文本型, , , 
 .局部变量 json, 类_json, , , 
-.局部变量 result, 未知类型0x490132AC, , , 
+.局部变量 result, 类_json, , , 
 
 赋值 (url, 相加 (g_url, “/guild-role/create”))
 赋值 (header, 相加 (“Authorization: Bot ”, 选择 (等于 (token, “”), g_token, 读配置项 (相加 (取运行目录 (), “\bot_token.ini”), “token”, token, )), #换行符, “Content-type: application/json”))
@@ -21524,7 +21532,7 @@ result.解析 (编码_utf8到gb2312 (到文本 (网页_访问 (url, 1, 编码_UR
  ' mentionable unsigned int 只能为0或者1，该角色是否可以被提及
  ' permissions unsigned int 权限,参见权限说明
  ' {"code":0,"message":"操作成功","data":[{"role_id":5712,"name":"新角色1","color":3066993,"position":1,"hoist":0,"mentionable":0,"permissions":147643914}],}
-返回 (未知函数_67187373 ())
+返回 (result.取数据文本 ())
 
 
 .子程序 guild_role_update, 空白型, , 更新服务器角色
@@ -21537,7 +21545,7 @@ result.解析 (编码_utf8到gb2312 (到文本 (网页_访问 (url, 1, 编码_UR
 
 .局部变量 url, 文本型, , , 
 .局部变量 header, 文本型, , , 
-.局部变量 result, 未知类型0x490132B8, , , 
+.局部变量 result, 类_json, , , 
 .局部变量 json, 类_json, , , 
 
 赋值 (url, 相加 (g_url, “/guild-role/update”))
@@ -21552,7 +21560,7 @@ json.置属性数值 (“role_id”, role_id)
 .如果真 (等于 (是否为空 (permissions), 假))
     json.置属性数值 (“permissions”, permissions, )
 .如果真结束
-赋值 (相加 (“Authorization: Bot ”, 选择 (等于 (token, “”), , 读配置项 (相加 (取运行目录 (), “\bot_token.ini”), “token”, token, )), #换行符, “Content-type: application/json”))
+赋值 (header, 相加 (“Authorization: Bot ”, 选择 (等于 (token, “”), g_token, 读配置项 (相加 (取运行目录 (), “\bot_token.ini”), “token”, token, )), #换行符, “Content-type: application/json”))
 result.解析 (编码_utf8到gb2312 (到文本 (网页_访问 (url, 1, 编码_URL编码 (json.取数据文本 (), 真, ), , , header, , , , , , , ))), )
  ' 调试输出 (, “获取服务器信息”, “kaiheila”)
  ' 调试输出 (, “返回信息: ” ＋ result.取数据文本 (), “kaiheila”)
@@ -21564,7 +21572,7 @@ result.解析 (编码_utf8到gb2312 (到文本 (网页_访问 (url, 1, 编码_UR
  ' mentionable unsigned int 只能为0或者1，该角色是否可以被提及
  ' permissions unsigned int 权限,参见权限说明
  ' {"code":0,"message":"操作成功","data":[{"role_id":5712,"name":"新角色1","color":3066993,"position":1,"hoist":0,"mentionable":0,"permissions":147643914}],}
-返回 (未知函数_67187385 ())
+返回 (result.取数据文本 ())
 
 
 .子程序 guild_role_delete, 空白型, , 删除服务器角色
@@ -21574,7 +21582,7 @@ result.解析 (编码_utf8到gb2312 (到文本 (网页_访问 (url, 1, 编码_UR
 
 .局部变量 url, 文本型, , , 
 .局部变量 header, 文本型, , , 
-.局部变量 result, 未知类型0x490132C4, , , 
+.局部变量 result, 类_json, , , 
 .局部变量 json, 类_json, , , 
 
 赋值 (url, 相加 (g_url, “/guild-role/delete”))
@@ -21585,7 +21593,7 @@ result.解析 (编码_utf8到gb2312 (到文本 (网页_访问 (url, 1, 编码_UR
  ' 调试输出 (, “获取服务器信息”, “kaiheila”)
  ' 调试输出 (, “返回信息: ” ＋ result.取数据文本 (), “kaiheila”)
  ' {"code":0,"message":"操作成功","data":[]}
-返回 (未知函数_67187397 ())
+返回 (result.取数据文本 ())
 
 
 .子程序 guild_role_grant, 空白型, , 赋予用户角色
@@ -21596,7 +21604,7 @@ result.解析 (编码_utf8到gb2312 (到文本 (网页_访问 (url, 1, 编码_UR
 
 .局部变量 url, 文本型, , , 
 .局部变量 header, 文本型, , , 
-.局部变量 result, 未知类型0x490132D0, , , 
+.局部变量 result, 类_json, , , 
 .局部变量 json, 类_json, , , 
 
 赋值 (url, 相加 (g_url, “/guild-role/grant”))
@@ -21611,7 +21619,7 @@ result.解析 (编码_utf8到gb2312 (到文本 (网页_访问 (url, 1, 编码_UR
  ' 调试输出 (, “获取服务器信息”, “kaiheila”)
  ' 调试输出 (, “返回信息: ” ＋ result.取数据文本 (), “kaiheila”)
  ' {"code":0,"message":"操作成功","data":{"user_id":"xxxx","guild_id":"xxxx","roles":[1,2]}}
-返回 (未知函数_67187409 ())
+返回 (result.取数据文本 ())
 
 
 .子程序 guild_role_revoke, 空白型, , 删除用户角色
@@ -21622,7 +21630,7 @@ result.解析 (编码_utf8到gb2312 (到文本 (网页_访问 (url, 1, 编码_UR
 
 .局部变量 url, 文本型, , , 
 .局部变量 header, 文本型, , , 
-.局部变量 result, 未知类型0x490132DC, , , 
+.局部变量 result, 类_json, , , 
 .局部变量 json, 类_json, , , 
 
 赋值 (url, 相加 (g_url, “/guild-role/revoke”))
@@ -21637,7 +21645,7 @@ result.解析 (编码_utf8到gb2312 (到文本 (网页_访问 (url, 1, 编码_UR
  ' user_id string 角色id
  ' roles Array 角色id的列表
  ' {"code":0,"message":"操作成功","data":{"user_id":"xxxx","guild_id":"xxxx","roles":[9]}}
-返回 (未知函数_67187421 ())
+返回 (result.取数据文本 ())
 
 
 .程序集 Queue, , , 
@@ -21676,46 +21684,50 @@ result.解析 (编码_utf8到gb2312 (到文本 (网页_访问 (url, 1, 编码_UR
         到循环尾 ()
     .如果真结束
     
-     ' 01-01 01:18:05 {"s":0,"d":{"type":1,"channel_type":"GROUP","target_id":"8876187633547319","author_id":"374797264","content":"@@野生的怪才君#2279933469 ","msg_id":"2b1ce912-6b55-47e1-a42b-918c154d3c9b","msg_timestamp":1609435085214,"nonce":"","extra":{"local_id":"5PlkQi5wEyXufD7vVwWNPblq","type":"1","guild_id":"4674611826831570","channel_name":"privatePush","mention":["2279933469"],"mention_all":false,"mention_roles":[],"mention_here":false,"code":"","author":{"identify_num":"3507","avatar":"https://img.kaiheila.cn/avatars/2020-07/XkyJKsvalO2bc2bc.jpg/icon","username":"萌动众生","id":"374797264","nickname":"萌动众生","roles":[29953,28231]}},"verify_token":""},"sn":719}
     赋值 (channel_type, msgJson.取通用属性 (“channel_type”, )) ' GROUP
-    赋值 (target_id, msgJson.取通用属性 (“target_id”, ))
-    赋值 (msg_id, msgJson.取通用属性 (“msg_id”, ))
-    赋值 (content, msgJson.取通用属性 (“content”, ))
-    赋值 (guild_id, msgJson.取通用属性 (“extra['guild_id']”, )) ' 4674611826831570=main
-    赋值 (channel_name, msgJson.取通用属性 (“extra['channel_name']”, ))
-    赋值 (senderid, msgJson.取通用属性 (“extra.author.id”, ))
-    赋值 (sendernickname, msgJson.取通用属性 (“extra.author.nickname”, ))
-    赋值 (verify_token, msgJson.取通用属性 (“verify_token”, ))
     
-     ' {"s":0,"d":{"type":1,"channel_type":"GROUP","target_id":"7873127691138410","author_id":"374797264","content":"@萌动众生#374797264 @易语言模板测试#1698900299 @role:95455; ","msg_id":"b34464da-da9c-473c-bc1a-d0eb0631d269","msg_timestamp":1610603734178,"nonce":"","extra":{"local_id":"lp3JfeNPUrpBcNdlYYI7Odpv","type":1,"guild_id":"6277101564729879","channel_name":"文字频道","mention":["374797264","1698900299"],"mention_all":false,"mention_roles":[95455],"mention_here":false,"code":"","author":{"identify_num":"3507","avatar":"https://img.kaiheila.cn/avatars/2020-07/XkyJKsvalO2bc2bc.jpg/icon","username":"萌动众生","id":"374797264","nickname":"萌动众生","roles":[]},"quote":{"local_id":"o5WoZqKQU5I6qT5rWDQCxCnw","type":1,"guild_id":"6277101564729879","channel_name":"文字频道","mention":[],"mention_all":false,"mention_roles":[],"mention_here":false,"code":"","author":{"identify_num":"3507","avatar":"https://img.kaiheila.cn/avatars/2020-07/XkyJKsvalO2bc2bc.jpg/icon","username":"萌动众生","id":"374797264","nickname":"萌动众生","roles":[]},"id":"bb891959-6381-4313-a07c-8e8cf31daebc","content":".test-tools","create_at":1610603600673,"notCount":true,"status":"SEND_SUCCESS","timeStr":"今天 下午 01:53","showTime":false,"gather_id":"5a2d7d94-4f09-44e0-b6f8-5fab80eada69","in_group":true,"rong_id":"bb891959-6381-4313-a07c-8e8cf31daebc","errorInfo":null,"pb0":true}},"verify_token":""},"sn":4}
-    .判断开始 (等于 (channel_type, “GROUP”)) ' 频道消息
+    .判断开始 (等于 (channel_type, “PERSON”))
+         ' {"type":255,"channel_type":"PERSON","target_id":"414248069","author_id":"1","content":"[系统消息]","msg_id":"01bba042-1b8e-4600-9de2-a6adf84dee1c","msg_timestamp":1611381724543,"nonce":"","extra":{"type":"message_btn_click","body":{"value":"test value","msg_id":"38623f74-94ef-4bc2-8eee-9d29d5a565de","user_id":"2393184238"}}}
+    .判断 (等于 (channel_type, “GROUP”)) ' 频道消息
+        赋值 (target_id, msgJson.取通用属性 (“target_id”, ))
+        赋值 (msg_id, msgJson.取通用属性 (“msg_id”, ))
+        赋值 (content, msgJson.取通用属性 (“content”, ))
+        赋值 (guild_id, msgJson.取通用属性 (“extra['guild_id']”, )) ' 4674611826831570=main
+        赋值 (channel_name, msgJson.取通用属性 (“extra['channel_name']”, ))
+        赋值 (senderid, msgJson.取通用属性 (“extra.author.id”, ))
+        赋值 (sendernickname, msgJson.取通用属性 (“extra.author.nickname”, ))
+        赋值 (verify_token, msgJson.取通用属性 (“verify_token”, ))
+         ' 01-01 01:18:05 {"s":0,"d":{"type":1,"channel_type":"GROUP","target_id":"8876187633547319","author_id":"374797264","content":"@@野生的怪才君#2279933469 ","msg_id":"2b1ce912-6b55-47e1-a42b-918c154d3c9b","msg_timestamp":1609435085214,"nonce":"","extra":{"local_id":"5PlkQi5wEyXufD7vVwWNPblq","type":"1","guild_id":"4674611826831570","channel_name":"privatePush","mention":["2279933469"],"mention_all":false,"mention_roles":[],"mention_here":false,"code":"","author":{"identify_num":"3507","avatar":"https://img.kaiheila.cn/avatars/2020-07/XkyJKsvalO2bc2bc.jpg/icon","username":"萌动众生","id":"374797264","nickname":"萌动众生","roles":[29953,28231]}},"verify_token":""},"sn":719}
+         ' {"s":0,"d":{"type":1,"channel_type":"GROUP","target_id":"7873127691138410","author_id":"374797264","content":"@萌动众生#374797264 @易语言模板测试#1698900299 @role:95455; ","msg_id":"b34464da-da9c-473c-bc1a-d0eb0631d269","msg_timestamp":1610603734178,"nonce":"","extra":{"local_id":"lp3JfeNPUrpBcNdlYYI7Odpv","type":1,"guild_id":"6277101564729879","channel_name":"文字频道","mention":["374797264","1698900299"],"mention_all":false,"mention_roles":[95455],"mention_here":false,"code":"","author":{"identify_num":"3507","avatar":"https://img.kaiheila.cn/avatars/2020-07/XkyJKsvalO2bc2bc.jpg/icon","username":"萌动众生","id":"374797264","nickname":"萌动众生","roles":[]},"quote":{"local_id":"o5WoZqKQU5I6qT5rWDQCxCnw","type":1,"guild_id":"6277101564729879","channel_name":"文字频道","mention":[],"mention_all":false,"mention_roles":[],"mention_here":false,"code":"","author":{"identify_num":"3507","avatar":"https://img.kaiheila.cn/avatars/2020-07/XkyJKsvalO2bc2bc.jpg/icon","username":"萌动众生","id":"374797264","nickname":"萌动众生","roles":[]},"id":"bb891959-6381-4313-a07c-8e8cf31daebc","content":".test-tools","create_at":1610603600673,"notCount":true,"status":"SEND_SUCCESS","timeStr":"今天 下午 01:53","showTime":false,"gather_id":"5a2d7d94-4f09-44e0-b6f8-5fab80eada69","in_group":true,"rong_id":"bb891959-6381-4313-a07c-8e8cf31daebc","errorInfo":null,"pb0":true}},"verify_token":""},"sn":4}
         
         .判断开始 (不等于 (寻找文本 (content, 相加 (“@”, g_bot.quard), , 假), -1)) ' 艾特了机器人
-            赋值 (result, 相加 (“消息类型: ”, 选择 (等于 (msgJson.取通用属性 (“type”, ), “1”), “文字消息”, “其他”)))
-            赋值 (result, 相加 (result, #换行符, “消息ID: ”, msg_id))
-            赋值 (result, 相加 (result, #换行符, “发送人: ”, sendernickname, “#”, senderid))
+            赋值 (相加 (“消息类型: ”, 选择 (等于 (“type”.未知函数_67187815 (), “1”), “文字消息”, “其他”)))
+            赋值 (相加 (#换行符, “消息ID: ”, ))
+            赋值 (相加 (#换行符, “发送人: ”, , “#”, ))
+            赋值 (相加 (#换行符, “服务器: ”, ))
+            赋值 (相加 (#换行符, “频道: ”, , “#”, ))
             
-            .如果真 (不等于 (msgJson.取通用属性 (“extra.quote['id']”, ), “”))
-                赋值 (result, 相加 (result, #换行符, “引用消息ID: ”, msgJson.取通用属性 (“extra.quote['id']”, )))
+            .如果真 (不等于 (“extra.quote['id']”.未知函数_67187815 (), “”))
+                赋值 (相加 (#换行符, “引用消息ID: ”, “extra.quote['id']”.未知函数_67187815 ()))
+                赋值 (相加 (#换行符, “引用消息发送人: ”, “extra.quote.author.username”.未知函数_67187815 (), “#”, “extra.quote.author.id”.未知函数_67187815 ()))
             .如果真结束
-            .如果真 (大于 (msgJson.取属性 (“extra.mention”).成员数 (), 0))
-                .计次循环首 (msgJson.取属性 (“extra.mention”).成员数 (), i)
-                    赋值 (result, 相加 (result, #换行符, “引用用户: ”, at部分处理 (content, msgJson.取通用属性 (相加 (“extra.mention['”, 到文本 (相减 (i, 1)), “']”), ))))
+            .如果真 (大于 (“extra.mention”.未知函数_67187817 ().未知函数_67187816 (), 0))
+                .计次循环首 (“extra.mention”.未知函数_67187817 ().未知函数_67187816 (), )
+                    赋值 (相加 (#换行符, “引用用户: ”, 未知函数_67187818 (相加 (“extra.mention['”, 到文本 (相减 (1)), “']”).未知函数_67187815 ())))
                 .计次循环尾 ()
                 
             .如果真结束
-             ' .如果真 (大于 (msgJson.取属性 (“extra.mention”, ).成员数 (), 0))
-                 ' .计次循环首 (msgJson.取属性 (“extra.mention_roles”, ).成员数 (), i)
+             ' .如果真 (大于 (“extra.mention”.未知函数_67187817 ().未知函数_67187816 (), 0))
+                 ' .计次循环首 (“extra.mention_roles”.未知函数_67187817 ().未知函数_67187816 (), )
                      ' result ＝ result ＋ #换行符 ＋ “引用用户: ” ＋ msgJson.取通用属性 (“extra.mention['” ＋ 到文本 (i － 1) ＋ “']”, )
                  ' .计次循环尾 ()
              ' .如果真结束
-            .如果真 (等于 (msgJson.取通用属性 (“extra['mention_all']”, ), “true”))
-                赋值 (result, 相加 (result, #换行符, “引用全体成员: ”, msg_id))
+            .如果真 (等于 (“extra['mention_all']”.未知函数_67187815 (), “true”))
+                赋值 (相加 (#换行符, “引用全体成员: ”, ))
             .如果真结束
-            .如果真 (等于 (msgJson.取通用属性 (“extra['mention_here']”, ), “true”))
-                赋值 (result, 相加 (result, #换行符, “引用在线成员: ”, msg_id))
+            .如果真 (等于 (“extra['mention_here']”.未知函数_67187815 (), “true”))
+                赋值 (相加 (#换行符, “引用在线成员: ”, ))
             .如果真结束
-            
             channel_message (1, target_id, result, msg_id, , )
         .默认
             
@@ -21749,10 +21761,10 @@ result.解析 (编码_utf8到gb2312 (到文本 (网页_访问 (url, 1, 编码_UR
 
 .程序集 tools, , , 
 
-.子程序 rolevalueTorole, 未知类型0x41013264, , 
+.子程序 rolevalueTorole, role_new, , 
 .参数 roleValue, 整数型, , 
 
-.局部变量 temp, 未知类型0x41013264, , , 
+.局部变量 temp, role_new, , , 
 
  ' 数据位的说明如下：
  ' 0 1 管理员 拥有此权限会获得完整的管理权，包括绕开所有其他权限（包括频道权限）限制，属于危险权限。
@@ -21820,45 +21832,45 @@ result.解析 (编码_utf8到gb2312 (到文本 (网页_访问 (url, 1, 编码_UR
 
 
 .子程序 roleTorolevalue, 整数型, , 
-.参数 role, 未知类型0x41013264, , 
+.参数 role, role_new, , 
 
 .局部变量 value, 整数型, , , 
 
-赋值 (value, 选择 (等于 (role., 1), 未知函数_67187339 (value, 0), 未知函数_67187340 (value, 0)))
-赋值 (value, 选择 (等于 (role., 1), 未知函数_67187339 (value, 1), 未知函数_67187340 (value, 1)))
-赋值 (value, 选择 (等于 (role., 1), 未知函数_67187339 (value, 2), 未知函数_67187340 (value, 2)))
-赋值 (value, 选择 (等于 (role., 1), 未知函数_67187339 (value, 3), 未知函数_67187340 (value, 3)))
-赋值 (value, 选择 (等于 (role., 1), 未知函数_67187339 (value, 4), 未知函数_67187340 (value, 4)))
-赋值 (value, 选择 (等于 (role., 1), 未知函数_67187339 (value, 5), 未知函数_67187340 (value, 5)))
-赋值 (value, 选择 (等于 (role., 1), 未知函数_67187339 (value, 6), 未知函数_67187340 (value, 6)))
-赋值 (value, 选择 (等于 (role., 1), 未知函数_67187339 (value, 7), 未知函数_67187340 (value, 7)))
-赋值 (value, 选择 (等于 (role., 1), 未知函数_67187339 (value, 8), 未知函数_67187340 (value, 8)))
-赋值 (value, 选择 (等于 (role., 1), 未知函数_67187339 (value, 9), 未知函数_67187340 (value, 9)))
-赋值 (value, 选择 (等于 (role., 1), 未知函数_67187339 (value, 10), 未知函数_67187340 (value, 10)))
-赋值 (value, 选择 (等于 (role., 1), 未知函数_67187339 (value, 11), 未知函数_67187340 (value, 11)))
-赋值 (value, 选择 (等于 (role., 1), 未知函数_67187339 (value, 12), 未知函数_67187340 (value, 12)))
-赋值 (value, 选择 (等于 (role., 1), 未知函数_67187339 (value, 13), 未知函数_67187340 (value, 13)))
-赋值 (value, 选择 (等于 (role., 1), 未知函数_67187339 (value, 14), 未知函数_67187340 (value, 14)))
-赋值 (value, 选择 (等于 (role., 1), 未知函数_67187339 (value, 15), 未知函数_67187340 (value, 15)))
-赋值 (value, 选择 (等于 (role., 1), 未知函数_67187339 (value, 16), 未知函数_67187340 (value, 16)))
-赋值 (value, 选择 (等于 (role., 1), 未知函数_67187339 (value, 17), 未知函数_67187340 (value, 17)))
-赋值 (value, 选择 (等于 (role., 1), 未知函数_67187339 (value, 18), 未知函数_67187340 (value, 18)))
-赋值 (value, 选择 (等于 (role., 1), 未知函数_67187339 (value, 19), 未知函数_67187340 (value, 19)))
-赋值 (value, 选择 (等于 (role., 1), 未知函数_67187339 (value, 20), 未知函数_67187340 (value, 20)))
-赋值 (value, 选择 (等于 (role., 1), 未知函数_67187339 (value, 21), 未知函数_67187340 (value, 21)))
-赋值 (value, 选择 (等于 (role., 1), 未知函数_67187339 (value, 22), 未知函数_67187340 (value, 22)))
-赋值 (value, 选择 (等于 (role., 1), 未知函数_67187339 (value, 23), 未知函数_67187340 (value, 23)))
-赋值 (value, 选择 (等于 (role., 1), 未知函数_67187339 (value, 24), 未知函数_67187340 (value, 24)))
-赋值 (value, 选择 (等于 (role., 1), 未知函数_67187339 (value, 25), 未知函数_67187340 (value, 25)))
-赋值 (value, 选择 (等于 (role., 1), 未知函数_67187339 (value, 26), 未知函数_67187340 (value, 26)))
-赋值 (value, 选择 (等于 (role., 1), 未知函数_67187339 (value, 27), 未知函数_67187340 (value, 27)))
-赋值 (value, 选择 (等于 (role., 1), 未知函数_67187339 (value, 28), 未知函数_67187340 (value, 28)))
-赋值 (value, 选择 (等于 (role., 1), 未知函数_67187339 (value, 29), 未知函数_67187340 (value, 29)))
-赋值 (value, 选择 (等于 (role., 1), 未知函数_67187339 (value, 30), 未知函数_67187340 (value, 30)))
-赋值 (value, 选择 (等于 (role., 1), 未知函数_67187339 (value, 31), 未知函数_67187340 (value, 31)))
+赋值 (value, 选择 (等于 (role._0, 1), __set_bit_on (value, 0), __set_bit_off (value, 0)))
+赋值 (value, 选择 (等于 (role._1, 1), __set_bit_on (value, 1), __set_bit_off (value, 1)))
+赋值 (value, 选择 (等于 (role._2, 1), __set_bit_on (value, 2), __set_bit_off (value, 2)))
+赋值 (value, 选择 (等于 (role._3, 1), __set_bit_on (value, 3), __set_bit_off (value, 3)))
+赋值 (value, 选择 (等于 (role._4, 1), __set_bit_on (value, 4), __set_bit_off (value, 4)))
+赋值 (value, 选择 (等于 (role._5, 1), __set_bit_on (value, 5), __set_bit_off (value, 5)))
+赋值 (value, 选择 (等于 (role._6, 1), __set_bit_on (value, 6), __set_bit_off (value, 6)))
+赋值 (value, 选择 (等于 (role._7, 1), __set_bit_on (value, 7), __set_bit_off (value, 7)))
+赋值 (value, 选择 (等于 (role._8, 1), __set_bit_on (value, 8), __set_bit_off (value, 8)))
+赋值 (value, 选择 (等于 (role._9, 1), __set_bit_on (value, 9), __set_bit_off (value, 9)))
+赋值 (value, 选择 (等于 (role._10, 1), __set_bit_on (value, 10), __set_bit_off (value, 10)))
+赋值 (value, 选择 (等于 (role._11, 1), __set_bit_on (value, 11), __set_bit_off (value, 11)))
+赋值 (value, 选择 (等于 (role._12, 1), __set_bit_on (value, 12), __set_bit_off (value, 12)))
+赋值 (value, 选择 (等于 (role._13, 1), __set_bit_on (value, 13), __set_bit_off (value, 13)))
+赋值 (value, 选择 (等于 (role._14, 1), __set_bit_on (value, 14), __set_bit_off (value, 14)))
+赋值 (value, 选择 (等于 (role._15, 1), __set_bit_on (value, 15), __set_bit_off (value, 15)))
+赋值 (value, 选择 (等于 (role._16, 1), __set_bit_on (value, 16), __set_bit_off (value, 16)))
+赋值 (value, 选择 (等于 (role._17, 1), __set_bit_on (value, 17), __set_bit_off (value, 17)))
+赋值 (value, 选择 (等于 (role._18, 1), __set_bit_on (value, 18), __set_bit_off (value, 18)))
+赋值 (value, 选择 (等于 (role._19, 1), __set_bit_on (value, 19), __set_bit_off (value, 19)))
+赋值 (value, 选择 (等于 (role._20, 1), __set_bit_on (value, 20), __set_bit_off (value, 20)))
+赋值 (value, 选择 (等于 (role._21, 1), __set_bit_on (value, 21), __set_bit_off (value, 21)))
+赋值 (value, 选择 (等于 (role._22, 1), __set_bit_on (value, 22), __set_bit_off (value, 22)))
+赋值 (value, 选择 (等于 (role._23, 1), __set_bit_on (value, 23), __set_bit_off (value, 23)))
+赋值 (value, 选择 (等于 (role._24, 1), __set_bit_on (value, 24), __set_bit_off (value, 24)))
+赋值 (value, 选择 (等于 (role._25, 1), __set_bit_on (value, 25), __set_bit_off (value, 25)))
+赋值 (value, 选择 (等于 (role._26, 1), __set_bit_on (value, 26), __set_bit_off (value, 26)))
+赋值 (value, 选择 (等于 (role._27, 1), __set_bit_on (value, 27), __set_bit_off (value, 27)))
+赋值 (value, 选择 (等于 (role._28, 1), __set_bit_on (value, 28), __set_bit_off (value, 28)))
+赋值 (value, 选择 (等于 (role._29, 1), __set_bit_on (value, 29), __set_bit_off (value, 29)))
+赋值 (value, 选择 (等于 (role._30, 1), __set_bit_on (value, 30), __set_bit_off (value, 30)))
+赋值 (value, 选择 (等于 (role._31, 1), __set_bit_on (value, 31), __set_bit_off (value, 31)))
 返回 (value)
 
-.子程序 roleCrraftNull, 未知类型0x41013264, , 
+.子程序 roleCrraftNull, role_new, , 
 .局部变量 i, 整数型, , , 
 .局部变量 value, 整数型, , , 
 
@@ -21896,29 +21908,32 @@ result.解析 (编码_utf8到gb2312 (到文本 (网页_访问 (url, 1, 编码_UR
 
 
 .子程序 卡片测试, 空白型, , 
-.局部变量 content, 未知类型0x4901328E, , , 消息.加成员(card)
-.局部变量 card, 未知类型0x4901328E, , , 卡片<arr>.加成员(modules)
-.局部变量 modules, 未知类型0x4901328E, , , 模块<arr>
-.局部变量 item, 未知类型0x4901328E, , , 元素
-.局部变量 item2, 未知类型0x4901328E, , , 
+.局部变量 content, 类_json, , , 消息.加成员(card)
+.局部变量 card, 类_json, , , 卡片<arr>.加成员(modules)
+.局部变量 modules, 类_json, , , 模块<arr>
+.局部变量 item, 类_json, , , 元素
+.局部变量 item2, 类_json, , , 
 
 
-card.未知函数_67187343 (“type”, “card”, )
-modules.未知函数_67187343 (“type”, “section”, ) ' image-group  把item加到modules的elements属性里
-item.未知函数_67187343 (“type”, “plain-text”, )
-item.未知函数_67187343 (“content”, “我是标题”, )
-modules.未知函数_67187343 (“text”, item.未知函数_67187344 (), 真)
-item.未知函数_67187343 (“type”, “image”, )
-item.未知函数_67187343 (“src”, “https://s3.ax1x.com/2021/01/05/sFStpt.png”, )
-item.未知函数_67187343 (“alt”, “123”, )
-item.未知函数_67187343 (“size”, “lg”, )
-item.未知函数_67187343 (“circle”, “true”, 真)
+card.置属性 (“type”, “card”, )
+modules.置属性 (“type”, “section”, ) ' image-group  把item加到modules的elements属性里
+item.置属性 (“type”, “plain-text”, )
+item.置属性 (“content”, “我是标题”, )
+modules.置属性 (“text”, item.取数据文本 (), 真)
+item.置属性 (“type”, “button”, )
+item.置属性 (“value”, “.bilisublist”, )
+item.置属性 (“click”, “return-val”, )
+item.置属性 (“text”, “测试”, )
+ ' item.置属性 (“src”, “https://s3.ax1x.com/2021/01/05/sFStpt.png”, )
+ ' item.置属性 (“alt”, “123”, )
+ ' item.置属性 (“size”, “lg”, )
+ ' item.置属性 (“circle”, “true”, 真)
 
-modules.未知函数_67187343 (“accessory”, item.未知函数_67187344 (), 真)
+modules.置属性 (“accessory”, item.取数据文本 (), 真)
 
-card.未知函数_67187345 (modules.未知函数_67187344 (), “modules”, 真, )
-content.未知函数_67187345 (card.未知函数_67187344 (), , 真, )
-调试输出 (content.未知函数_67187344 ())
+card.加成员 (modules.取数据文本 (), “modules”, 真, )
+content.加成员 (card.取数据文本 (), , 真, )
+调试输出 (content.取数据文本 ())
 
 
 .子程序 rolevalueTorole_fase, role, , 
@@ -21947,6 +21962,218 @@ content.未知函数_67187345 (card.未知函数_67187344 (), , 真, )
 .局部变量 value, role, , , 
 
 返回 (value)
+
+.程序集 CardMessage, , , 
+
+.子程序 CardMessage_index, 文本型, , 
+.局部变量 item, 类_json, , , 
+.局部变量 item2, 类_json, , , 
+.局部变量 modules, 未知类型0x49013453, , , 
+.局部变量 moduless, 类_json, , , 
+.局部变量 Card, 未知类型0x49013451, , , 
+.局部变量 Cards, 类_json, , , 
+.局部变量 temp, 文本型, , , 
+
+ ' 先创建一个文本元素
+赋值 (item, item_new_text (“测试”, 假))
+赋值 (item2, item_new_button (“info”, “button1”, “return-val”, “按钮”))
+ ' Items_add (json,json1 )
+ ' 元素部分处理完了，加入到对应模块里,需要形成数组的需要 items_add
+赋值 (modules, Modules_new_section (item, item2))
+ ' 模块弄好了，封装成组
+Modules_add (moduless, modules)
+赋值 (item, Modules_new_countdown (到长整数 (时间_到时间戳 (增减时间 (取现行时间 (), #日, 1), , )), 到长整数 (时间_到时间戳 (增减时间 (取现行时间 (), #小时, 1), , )), “second”))
+Modules_add (moduless, item)
+ ' 丢到卡片里
+赋值 (Card, Card_new (moduless))
+ ' 卡片封装成组
+Card_add (Cards, Card)
+ ' 传走的时候一定要用文本型 （不知道啥问题）
+赋值 (temp, Cards.取数据文本 ())
+调试输出 (temp)
+channel_message (10, “7873127691138410”, temp, , , )
+返回 (temp)
+
+.子程序 Card_add, 空白型, , Card+Card
+.参数 json, 类_json, , 
+.参数 item, 类_json, , 
+
+json.加成员 (item.取数据文本 (), , 真, )
+返回 ()
+
+.子程序 Card_new, 类_json, , modules->card
+.参数 modules, 类_json, , 
+
+.局部变量 json, 未知类型0x49013366, , , 
+
+json.置属性 (“type”, “card”, )
+json.置属性 (“modules”, modules.取数据文本 (), 真)
+返回 (json)
+
+.子程序 Modules_add, 空白型, , modules+modules
+.参数 json, 未知类型0x4901336B, , 
+.参数 item, 未知类型0x4901336B, , 
+
+json.加成员 (item.取数据文本 (), , 真, )
+返回 ()
+
+.子程序 Modules_new_header, 未知类型0x49013371, , 标题模块
+.参数 content, 文本型, , 
+
+.局部变量 json, 类_json, , , 
+.局部变量 item, 类_json, , , 
+
+json.置属性 (“type”, “header”, )
+item.置属性 (“type”, “plain-text”, )
+item.置属性 (“content”, content, )
+json.置属性 (“text”, item.取数据文本 (), 真)
+返回 (json)
+
+.子程序 Modules_new_section, 未知类型0x49013383, , 内容模块 1：1 图文
+.参数 text, 类_json, , 
+.参数 accessory, 类_json, , 
+
+.局部变量 json, 未知类型0x49013384, , , 
+.局部变量 item, 类_json, , , 
+
+json.未知函数_67187590 (“type”, “header”, )
+json.置属性 (“text”, text.取数据文本 (), 真)
+json.置属性 (“accessory”, accessory.取数据文本 (), 真) ' item.new()
+
+返回 (json)
+
+.子程序 Modules_new_imagegroup, 类_json, , 
+.参数 elements, 类_json, , 图片元素组 item.image 1-9
+
+.局部变量 json, 类_json, , , 
+
+json.置属性 (“type”, “image-group”, )
+json.置属性 (“elements”, elements.取数据文本 (), 真)
+返回 (json)
+
+.子程序 Modules_new_actiongroup, 未知类型0x490133FC, , 
+.参数 elements, 未知类型0x490133FC, , 交互元素组 item.buttons 1-4
+
+.局部变量 json, 未知类型0x490133FC, , , 
+
+json.置属性 (“type”, “action-group”, )
+json.未知函数_67187709 (“elements”, elements.未知函数_67187710 (), 真)
+返回 (json)
+
+.子程序 Modules_new_context, 未知类型0x49013402, , 图文混排
+.参数 elements, 未知类型0x49013402, , 图文元素组 item.plain-text, kmarkdown, image 1-10
+
+.局部变量 json, 未知类型0x49013402, , , 
+
+json.置属性 (“type”, “context”, )
+json.未知函数_67187715 (“elements”, elements.未知函数_67187716 (), 真)
+返回 (json)
+
+.子程序 Modules_new_divider, 未知类型0x49013409, , 分割线
+.局部变量 json, 未知类型0x49013409, , , 
+
+json.置属性 (“type”, “divider”, )
+返回 (json)
+
+.子程序 Modules_new_file, 未知类型0x4901340F, , 文件
+.参数 type, 文本型, , file|audio|video
+.参数 src, 文本型, , 
+.参数 title, 文本型, , 
+.参数 cover, 文本型, , audio有效
+
+.局部变量 json, 未知类型0x4901340F, , , 
+
+“type”.未知函数_67187762 ()
+json.置属性 (“src”, src, )
+json.置属性 (“title”, title, )
+json.置属性 (“cover”, cover, )
+返回 (json)
+
+.子程序 Modules_new_countdown, 未知类型0x4901343B, , 倒计时
+.参数 endTime, 长整数型, , 到期的毫秒时间戳
+.参数 startTime, 长整数型, , 起始的毫秒时间戳，仅当mode为second才有这个字段
+.参数 mode, 文本型, , day,hour,second //倒计时样式, 按天显示，按小时显示或者按秒显示
+
+.局部变量 json, 未知类型0x4901343B, , , 
+
+json.置属性 (“type”, “countdown”, )
+json.置属性数值 (“endTime”, endTime)
+json.置属性数值 (“startTime”, startTime)
+json.置属性 (“mode”, mode, )
+返回 (json)
+
+.子程序 Items_add, 空白型, , 
+.参数 json, 未知类型0x490133EB, , 
+.参数 item, 未知类型0x490133EB, , 
+
+json.加成员 (item.取数据文本 (), , 真, )
+返回 ()
+
+.子程序 item_new_text, 类_json, , 元素 文本
+.参数 content, 文本型, , 
+.参数 emoji, 逻辑型, , 
+
+.局部变量 json, 类_json, , , 
+
+“type”.未知函数_67187626 (“plain-text”, )
+json.置属性 (“content”, content, ) ' 也可以只有这个
+json.置属性 (“emoji”, 选择 (emoji, “true”, “false”), 真)
+返回 (json)
+
+
+.子程序 item_new_kmarkdown, 未知类型0x490133B3, , 元素 md文本
+.参数 content, 文本型, , 
+
+.局部变量 json, 未知类型0x490133B3, , , 
+
+json.置属性 (“type”, “kmarkdown”, )
+json.未知函数_67187637 (“content”, content, ) ' 也可以只有这个
+返回 (json)
+
+.子程序 item_new_image, 未知类型0x490133BA, , 元素 图片
+.参数 src, 文本型, , 图片类型（MimeType）限制说明：目前仅支持image/jpeg, image/gif, image/png这3种
+.参数 alt, 文本型, , 
+.参数 size, 文本型, , sm|lg
+.参数 circle, 逻辑型, , 
+
+.局部变量 json, 未知类型0x490133BA, , , 
+
+json.置属性 (“type”, “image”, )
+json.置属性 (“src”, src, )
+json.置属性 (“alt”, alt, )
+json.置属性 (“content”, src, )
+json.置属性 (“circle”, 选择 (circle, “true”, “false”), 真)
+返回 (json)
+
+.子程序 item_new_button, 未知类型0x490133D4, , 元素 按钮
+.参数 theme, 文本型, , "primary|warning|info|danger|...", //按钮的主题颜色
+.参数 value, 文本型, , //要传递的value，为string
+.参数 click, 文本型, , //click时的事件类型， return-val 返回value值
+.参数 text, 文本型, , text可以为plain-text, kmarkdown
+
+.局部变量 json, 未知类型0x490133D4, , , 
+.局部变量 src, 文本型, , , 
+
+json.置属性 (“type”, “button”, )
+json.置属性 (“theme”, theme, )
+json.置属性 (“value”, value, )
+json.置属性 (“click”, click, )
+ ' click代表用户点击的事件,默认为""，代表无任何事件。
+ ' 当为link时，会跳转到value代表的链接;
+ ' 当为return-val时，系统会通过系统消息将消息id,点击用户id和value发回给发送者，发送者可以根据自己的需求进行处理。
+json.置属性 (“text”, text, )
+返回 (json)
+
+.子程序 Modules_new_paragraph, 类_json, , 结构体 区域文本
+.参数 cols, 空白型, , 栏数
+.参数 fields, 类_json, , 元素数组
+
+.局部变量 json, 类_json, , , 
+
+json.置属性 (“type”, “paragraph”, )
+json.置属性数值 (“cols”, cols)
+json.置属性 (“fields”, fields.取数据文本 (), 真)
+返回 (json)
 
 
  ' 不属于任何一个程序集、类模块的函数：
