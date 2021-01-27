@@ -1,10 +1,10 @@
- ' 文件类型：Windows控制台程序
+ ' 文件类型：未知类型
 
- ' 程序名称：开黑啦易语言BOT
- ' 程序描述：kaiheila_EL_bot
+ ' 程序名称：灵恸芯模组API
+ ' 程序描述：灵恸芯模组API
 @备注:
-kaiheila_EL_bot
- ' 程序作者：萌动众生
+灵恸芯模组API
+ ' 程序作者：
  ' 邮政编码：
  ' 联系地址：
  ' 联系电话：
@@ -15,52 +15,8 @@ kaiheila_EL_bot
  ' 版本号：1.0
  ' 创建号：0.0
 
-窗口 窗口1
-    左边 = 50
-    顶边 = 50
-    宽度 = 931
-    高度 = 392
-    鼠标指针 = { 0,0,0,0 }
-    标记 = “”
-    可视 = 真
-    禁止 = 假
-    边框 = 2
-    底图方式 = 1
-    底色 = 16777215 '  0xFFFFFF
-    最大化按钮 = 假
-    最小化按钮 = 真
-    控制按钮 = 真
-    位置 = 1
-    可否移动 = 真
-    背景音乐播放次数 = 0
-    回车下移焦点 = 假
-    Esc键关闭 = 真
-    F1键打开帮助 = 假
-    帮助标志值 = 0
-    在任务栏中显示 = 真
-    随意移动 = 假
-    外形 = 0
-    总在最前 = 假
-    保持标题栏激活 = 假
-    窗口类名 = “”
-    底图 =  ' 空
-    图标 =  ' 空
-    背景音乐 =  ' 空
-    标题 = “控制台”
-    帮助文件名 = “”
 
 
-
-.常量 INTERNET_SCHEME_HTTPS, "2", , 这是一个HTTP协议。使用安全的事务语义。
-.常量 WINHTTP_FLAG_SECURE, "8388608", , 使用安全的事务语义。这意味着使用安全套接字层（SSL）/传输层安全性（TLS）。
-.常量 , , , 
-.常量 WINHTTP_OPTION_UPGRADE_TO_WEB_SOCKET, "114", , 
-.常量 , , , 
-.常量 WINHTTP_ADDREQ_FLAG_ADD, "536870912", , 添加一个协议头，如果协议头已存在则被新值替换，与WINHTTP_ADDREQ_FLAG_REPLACE标志一起使用。
-.常量 WINHTTP_ADDREQ_FLAG_REPLACE, "2147483648", , 替换或者删除一个协议头，如果值为空则删除，否则被替换。
-.常量 , , , 
-.常量 HTTP_BUFFER_LEN, "10240", , 10KB
-.常量 HTTP_BUFFER_LENMAX, "1048576", , 1MB
 .常量 旧窗口过程, "“oldWndProc”", 隐藏, 
 .常量 LMEM_ZEROINIT, "64", 隐藏, 
 .常量 WM_NOTIFY, "78", 隐藏, 当某个控件的某个事件已经发生或这个控件需要得到一些信息时，发送此消息给它的父窗口
@@ -2942,21 +2898,33 @@ loop”", 隐藏,
 .常量 CF_ENHMETAFILE, "14", 隐藏, 增强图元文件的句柄（HENHMETAFILE）。
 .常量 CF_HDROP, "15", 隐藏, 类型为HDROP的句柄，用于标识文件列表。应用程序可以通过将句柄传递给DragQueryFile函数来检索有关文件的信息。
 .常量 MAX_PATH, "260", 隐藏, 编译器所支持的最长全路径名的长度
-.图片 DefaultUserAgentW, " ' 已保存到：C:\Users\asus\Desktop\kaiheila_EL_bot\repo\kaiheila-sdk-EL_ws-WinHttp.e\DefaultUserAgentW", , Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.2)
 
 
  ' 所需要的支持库：
  ' krnln d09f2340818511d396f6aaf844c7e325 5 7 系统核心支持库
- ' iext 27bb20fdd3e145e4bee3db39ddd6e64c 2 0 扩展界面支持库一
- ' EThread 5F99C1642A2F4e03850721B4F5D7C3F8 2 0 多线程支持库
- ' spec A512548E76954B6E92C21055517615B0 3 1 特殊功能支持库
 
 
 
  ' 所需要的模块
- ' 菜鸟开发模块 C:\Users\asus\OneDrive\项目组-FXSLB2020\公用模块组\菜鸟开发模块.ec
  ' 精易模块 C:\Users\asus\OneDrive\项目组-FXSLB2020\公用模块组\精易模块[v8.4.5].ec
 
+
+数据类型 URL_COMPONENTS, 公开, 
+    .成员 dwStructSize, 空白型, , , 本结构长度，注：60
+    .成员 lpszScheme, 空白型, , , 协议类型
+    .成员 dwSchemeLength, 空白型, , , 协议类型缓冲区长度
+    .成员 nScheme, 空白型, , , 链接类型，1=http，2=https。（INTERNET_SCHEME_HTTP=1，INTERNET_SCHEME_HTTPS=2）
+    .成员 lpszHostName, 空白型, , , 主机域名(Host)
+    .成员 dwHostNameLength, 空白型, , , 主机域名缓冲区长度
+    .成员 nPort, 空白型, , , 端口
+    .成员 lpszUserName, 空白型, , , 帐号
+    .成员 dwUserNameLength, 空白型, , , 帐号缓冲区长度
+    .成员 lpszPassword, 空白型, , , 密码
+    .成员 dwPasswordLength, 空白型, , , 密码缓冲区长度
+    .成员 lpszUrlPath, 空白型, , , 路径(页面地址)
+    .成员 dwUrlPathLength, 空白型, , , 路径缓冲区长度
+    .成员 lpszExtraInfo, 空白型, , , 额外信息，比如“?”或“#”之后的参数字符串。
+    .成员 dwExtraInfoLength, 空白型, , , 额外信息长度
 
 数据类型 精易_表头样式, 公开, 
     .成员 参_列索引, 整数型, , , 
@@ -3339,18 +3307,18 @@ loop”", 隐藏,
 数据类型 SYSTEM_PROCESS_INFORMATION, 公开, 进程_取父ID
     .成员 NextEntryDelta, 整数型, , , 
     .成员 ThreadCount, 整数型, , , 
-    .成员 Reserved1, 未知类型0x41012C57, , "3", 
-    .成员 CreateTime, 未知类型0x41012C57, , , 
-    .成员 UserTime, 未知类型0x41012C57, , , 
-    .成员 KernelTime, 未知类型0x41012C57, , , 
-    .成员 ImageName, 未知类型0x41012C58, , , 
+    .成员 Reserved1, 未知类型0x41018A94, , "3", 
+    .成员 CreateTime, 未知类型0x41018A94, , , 
+    .成员 UserTime, 未知类型0x41018A94, , , 
+    .成员 KernelTime, 未知类型0x41018A94, , , 
+    .成员 ImageName, 未知类型0x41018A95, , , 
     .成员 BasePriority, 整数型, , , KPRIORITY               
     .成员 ProcessId, 整数型, , , 
     .成员 InheritedFromProcessId, 整数型, , , 
     .成员 HandleCount, 整数型, , , 
     .成员 Reserved2, 整数型, , "2", 
     .成员 VirtualMemoryCounters, VM_COUNTERS, , , VM_COUNTERS             
-    .成员 IoCounters, 未知类型0x41012C59, , , IO_COUNTERS             
+    .成员 IoCounters, 未知类型0x41018A96, , , IO_COUNTERS             
 
 数据类型 精易_系统服务列表, 公开, 系统服务_枚举系统服务
     .成员 服务名称, 文本型, , , 
@@ -3427,97 +3395,9 @@ loop”", 隐藏,
     .成员 ptMaxPosition, POINT, , , 窗口最大化时窗口左上角的坐标
     .成员 rcNormalPosition, RECT, , , 当窗口处于恢复位置时窗口的坐标
 
-数据类型 URL_COMPONENTS, , 连接类型
-    .成员 dwStructSize, 整数型, , , 结构大小 注:60（15*4）
-    .成员 lpszScheme, 整数型, , , 协议类型
-    .成员 dwSchemeLength, 整数型, , , 协议长度
-    .成员 nScheme, 整数型, , , 链接类型 1=http 2=https
-    .成员 lpszHostName, 整数型, , , 域名
-    .成员 dwHostNameLength, 整数型, , , 域名长度
-    .成员 nPort, 整数型, , , 端口
-    .成员 lpszUserName, 整数型, , , 帐号
-    .成员 dwUserNameLength, 整数型, , , 帐号长度
-    .成员 lpszPassword, 整数型, , , 密码
-    .成员 wPasswordLength, 整数型, , , 密码长度
-    .成员 lpszUrlPath, 整数型, , , 访问路径
-    .成员 dwUrlPathLength, 整数型, , , 路径长度
-    .成员 lpszExtraInfo, 整数型, , , 信息 比如"?"或"#"之后的参数字符串
-    .成员 dwExtraInfoLength, 整数型, , , 信息长度
-
-数据类型 botMsg, , 
-    .成员 username, 文本型, , , 
-    .成员 id, 文本型, , , 
-    .成员 quard, 文本型, , , 
-
-数据类型 role, , 
-    .成员 permissions, 整数型, , "32", 
-
-数据类型 role_new, , 
-    .成员 _0, 整数型, , , 1 管理员 拥有此权限会获得完整的管理权，包括绕开所有其他权限（包括频道权限）限制，属于危险权限。
-    .成员 _1, 整数型, , , 2 管理服务器 拥有此权限的成员可以修改服务器名称和更换区域。
-    .成员 _2, 整数型, , , 4 查看管理日志 拥有此权限的成员可以查看服务器的管理日志。
-    .成员 _3, 整数型, , , 8 创建服务器邀请 能否创建服务器邀请链接
-    .成员 _4, 整数型, , , 16 管理邀请 拥有该权限可以管理服务器的邀请
-    .成员 _5, 整数型, , , 32 频道管理 拥有此权限的成员可以创建新的频道以及编辑或删除已存在的频道。
-    .成员 _6, 整数型, , , 64 踢出用户
-    .成员 _7, 整数型, , , 128 封禁用户
-    .成员 _8, 整数型, , , 256 管理自定义表情
-    .成员 _9, 整数型, , , 512 修改服务器昵称 拥有此权限的用户可以更改他们的昵称。
-    .成员 _10, 整数型, , , 1024 管理角色权限 拥有此权限成员可以创建新的角色和编辑删除低于该角色的身份。
-    .成员 _11, 整数型, , , 2048 查看文字、语音频道 
-    .成员 _12, 整数型, , , 4096 发布消息
-    .成员 _13, 整数型, , , 8192 管理消息 拥有此权限的成员可以删除其他成员发出的消息和置顶消息。
-    .成员 _14, 整数型, , , 16384 上传文件
-    .成员 _15, 整数型, , , 32768 语音链接
-    .成员 _16, 整数型, , , 65536 语音管理 拥有此权限的成员可以把其他成员移动和踢出频道；但此类移动仅限于在该成员和被移动成员均有权限的频道之间进行。
-    .成员 _17, 整数型, , , 131072 提及@全体成员 拥有此权限的成员可使用@全体成员以提及该频道中所有成员。
-    .成员 _18, 整数型, , , 262144 添加反应 拥有此权限的成员可以对消息添加新的反应。
-    .成员 _19, 整数型, , , 524288 跟随添加反应 拥有此权限的成员可以跟随使用已经添加的反应。
-    .成员 _20, 整数型, , , 1048576 被动连接语音频道 拥有此限制的成员无法主动连接语音频道，只能在被动邀请或被人移动时，才可以进入语音频道。
-    .成员 _21, 整数型, , , 2097152 仅使用按键说话 拥有此限制的成员加入语音频道后，只能使用按键说话。
-    .成员 _22, 整数型, , , 4194304 使用自由麦 没有此权限的成员，必须在频道内使用按键说话。
-    .成员 _23, 整数型, , , 8388608 说话
-    .成员 _24, 整数型, , , 16777216 服务器静音
-    .成员 _25, 整数型, , , 33554432 服务器闭麦
-    .成员 _26, 整数型, , , 108864 修改他人昵称 拥有此权限的用户可以更改他人的昵称
-    .成员 _27, 整数型, , , 134217728 播放伴奏 拥有此权限的成员可在语音频道中播放音乐伴奏
-    .成员 _28, 整数型, , , 
-    .成员 _29, 整数型, , , 
-    .成员 _30, 整数型, , , 
-    .成员 _31, 整数型, , , 
-    .成员 _32, 整数型, , , 
-
-数据类型 function, , 
-    .成员 name, 文本型, , , 
-    .成员 prefix, 文本型, , , 
-    .成员 fundaddr, 子程序指针, , , 
-
-数据类型 plugin, , 
-    .成员 插件名, 文本型, , , 1
-    .成员 版本, 文本型, , , 2
-    .成员 作者, 文本型, , , 3
-    .成员 介绍, 文本型, , , 4
-    .成员 格式左, 文本型, , , 5
-    .成员 调用名, 文本型, , , 6
-    .成员 功能中显示, 逻辑型, , , 7
-    .成员 文件名, 文本型, , , 8
-    .成员 启用状态, 逻辑型, , , 9
-
-.全局变量 g_baseUrl, 文本型, , , 
-.全局变量 g_apiVer, 文本型, , , 
-.全局变量 g_token, 文本型, , , 
-.全局变量 g_url, 文本型, , , 
+.全局变量 数据目录, 文本型, , , 
 .全局变量 普通填表, 普通填表, 公开, , 
 .全局变量 内存, 类_内存, 公开, , 内存操作
-.全局变量 g_msgList, 文本型, , "0", 
-.全局变量 Version, 文本型, , , 
-.全局变量 g_msgList_id, 空白型, , , 
-.全局变量 g_MsgID, 整数型, , , 
-.全局变量 g_conID, 整数型, , , 
-.全局变量 g_bot, botMsg, , , 
-.全局变量 匿名全局变量_12875, 空白型, , , 
-.全局变量 core_function, 未知类型0x410134B2, , "0", 
-.全局变量 plugins, 未知类型0x410134B3, , "0", 
 
 .DLL命令 HeapSize, 整数型, "kernel32.dll", "HeapSize", 公开, 返回堆对象的大小
     .参数 hHeap, 整数型, , 
@@ -3561,19 +3441,19 @@ loop”", 隐藏,
     .参数 lpFileName, 文本型, , 0
 
 .DLL命令 LocalSize_IP_ADDR_STRING, 整数型, "kernel32.dll", "LocalSize", 公开, 
-    .参数 hMem, 未知类型0x41012C5A, 传址, 
+    .参数 hMem, 未知类型0x41018A97, 传址, 
 
 .DLL命令 CopyMemory_IP_ADDR_STRING, 空白型, "kernel32.dll", "RtlMoveMemory", 公开, 
-    .参数 Destination, 未知类型0x41012C5A, 传址, 
+    .参数 Destination, 未知类型0x41018A97, 传址, 
     .参数 Source, 整数型, , 
     .参数 Length, 整数型, , 
 
 .DLL命令 LocalSize_IP_ADAPTER_INFO, 整数型, "kernel32.dll", "LocalSize", 公开, 返回本地内存块大小,类似sizeof
-    .参数 hMem, 未知类型0x41012C5B, 传址, 
+    .参数 hMem, 未知类型0x41018A98, 传址, 
 
 .DLL命令 GetPtr_IP_ADAPTER_INFO, 整数型, "kernel32.dll", "lstrcpynA", 公开, , 取指针
-    .参数 lpString1, 未知类型0x41012C5B, 传址, 
-    .参数 lpString2, 未知类型0x41012C5B, 传址, 
+    .参数 lpString1, 未知类型0x41018A98, 传址, 
+    .参数 lpString2, 未知类型0x41018A98, 传址, 
     .参数 iMaxLength, 整数型, , 传递0
 
 .DLL命令 GetPtr_Bin, 整数型, "kernel32.dll", "lstrcpynA", 公开, 取指针
@@ -3616,8 +3496,8 @@ loop”", 隐藏,
 .DLL命令 ZwOpenProcess, 整数型, "ntdll.dll", "ZwOpenProcess", 公开, 
     .参数 hProcess, 整数型, 传址, 
     .参数 DesiredAccess, 整数型, , 
-    .参数 ObjectAttributes, 未知类型0x41012C5C, , 
-    .参数 ClientId, 未知类型0x41012C5D, , 
+    .参数 ObjectAttributes, 未知类型0x41018A99, , 
+    .参数 ClientId, 未知类型0x41018A9A, , 
 
 .DLL命令 ZwDuplicateObject, 整数型, "ntdll.dll", "ZwDuplicateObject", 公开, 
     .参数 SourceProcessHandle, 整数型, , 
@@ -3631,7 +3511,7 @@ loop”", 隐藏,
 .DLL命令 ZwCreateJobObject, 整数型, "ntdll.dll", "ZwCreateJobObject", 公开, 
     .参数 JobHandle, 整数型, 传址, 
     .参数 DesiredAccess, 整数型, , 
-    .参数 ObjectAttributes, 未知类型0x41012C5C, , 
+    .参数 ObjectAttributes, 未知类型0x41018A99, , 
 
 .DLL命令 ZwAssignProcessToJobObject, 整数型, "ntdll.dll", "ZwAssignProcessToJobObject", 公开, 
     .参数 JobHandle, 整数型, , 
@@ -3662,7 +3542,7 @@ loop”", 隐藏,
     .参数 ucchMax, 整数型, , 
 
 .DLL命令 RtlMoveMemory_IMAGE_DOS_HEADER, 空白型, "kernel32.dll", "RtlMoveMemory", 公开, 
-    .参数 Dest, 未知类型0x41012C5E, 传址, 
+    .参数 Dest, 未知类型0x41018A9B, 传址, 
     .参数 Src, 字节型, 传址, 
     .参数 L, 整数型, , 
 
@@ -3867,7 +3747,7 @@ loop”", 隐藏,
     .参数 枚举句柄, 整数型, , hEnumHandle
 
 .DLL命令 SHFileOperationA, 整数型, "Shell32.dll", "SHFileOperationA", 公开, 
-    .参数 文件参数, 未知类型0x41012C5F, , 
+    .参数 文件参数, 未知类型0x41018A9C, , 
 
 .DLL命令 gethostbyname, 整数型, "ws2_32.dll", "gethostbyname", 公开, 成功返回内存指针
     .参数 name, 文本型, , 机器名称
@@ -3894,9 +3774,9 @@ loop”", 隐藏,
 
 .DLL命令 select, 整数型, "ws2_32.dll", "select", 公开, 
     .参数 nfds, 整数型, , 
-    .参数 readfds, 未知类型0x41012C60, 传址, 指向一组等待可读性检查的套接口
-    .参数 writefds, 未知类型0x41012C60, 传址, 指向一组等待可写性检查的套接口
-    .参数 exceptfds, 未知类型0x41012C60, 传址, 指向一组等待错误检查的套接口
+    .参数 readfds, 未知类型0x41018A9D, 传址, 指向一组等待可读性检查的套接口
+    .参数 writefds, 未知类型0x41018A9D, 传址, 指向一组等待可写性检查的套接口
+    .参数 exceptfds, 未知类型0x41018A9D, 传址, 指向一组等待错误检查的套接口
     .参数 timeout, 整数型, 传址, 
 
 .DLL命令 InternetOpenUrlA, 整数型, "wininet.dll", "InternetOpenUrlA", 公开, 
@@ -3970,7 +3850,7 @@ loop”", 隐藏,
 
 .DLL命令 WSAStartup, 整数型, "ws2_32.dll", "WSAStartup", 公开, 初始化WnSocket服务
     .参数 必需版本, 整数型, , wVersionRequired
-    .参数 服务信息, 未知类型0x41012C61, , lpWSAData
+    .参数 服务信息, 未知类型0x41018A9E, , lpWSAData
 
 .DLL命令 SendARP, 整数型, "IPHLPAPI.DLL", "SendARP", 公开, 
     .参数 目标IP, 整数型, , 
@@ -4022,7 +3902,7 @@ loop”", 隐藏,
 
 .DLL命令 GetGUIThreadInfo, 整数型, "user32.dll", "GetGUIThreadInfo", 公开, 　
     .参数 idThread, 整数型, , 
-    .参数 pgui, 未知类型0x41012C62, 传址, 
+    .参数 pgui, 未知类型0x41018A9F, 传址, 
 
 .DLL命令 GetAsyncKeyState, 整数型, "user32.dll", "GetAsyncKeyState", 公开, 取键状态
     .参数 键代码, 整数型, , vKey Long，欲测试的虚拟键的键码
@@ -4102,7 +3982,7 @@ loop”", 隐藏,
 
 .DLL命令 SetWaitableTimer, 整数型, "kernel32.dll", "SetWaitableTimer", 公开, 
     .参数 hTimer, 整数型, , 
-    .参数 pDueTime, 未知类型0x41012C63, , 
+    .参数 pDueTime, 未知类型0x41018AA0, , 
     .参数 lPeriod, 整数型, , 
     .参数 pfnCompletionRoutine, 整数型, , 
     .参数 lpArgToCompletionRoutine, 整数型, , 
@@ -4251,7 +4131,7 @@ loop”", 隐藏,
 
 .DLL命令 GdiplusStartup, 整数型, "gdiplus.dll", "GdiplusStartup", 公开, GDI启动 图像转换类
     .参数 token, 整数型, 传址, 
-    .参数 inputbuf, 未知类型0x41012C64, , 
+    .参数 inputbuf, 未知类型0x41018AA1, , 
     .参数 outputbuf, 整数型, , 
 
 .DLL命令 GdiplusShutdown, 空白型, "gdiplus.dll", "GdiplusShutdown", 公开, _GDI关闭
@@ -4259,12 +4139,12 @@ loop”", 隐藏,
 
 .DLL命令 InternetFindNextFileA, 整数型, "WinInet.dll", "InternetFindNextFileA", 公开, 
     .参数 hFind, 整数型, , 
-    .参数 lpvFindData, 未知类型0x41012C65, 传址, 
+    .参数 lpvFindData, 未知类型0x41018AA2, 传址, 
 
 .DLL命令 FtpFindFirstFileA, 整数型, "WinInet.dll", "FtpFindFirstFileA", 公开, _FTP查找文件
     .参数 hFtp, 整数型, , 
     .参数 lpszSearchFile, 文本型, , 
-    .参数 lpFindFileData, 未知类型0x41012C65, , 
+    .参数 lpFindFileData, 未知类型0x41018AA2, , 
     .参数 dwFlags, 整数型, , 
     .参数 dwContext, 整数型, , 
 
@@ -4453,7 +4333,7 @@ loop”", 隐藏,
     .参数 lpNumberOfBytesWritten, 整数型, , 实际写出长度
 
 .DLL命令 LocalSize_SHELLEXECUTEINFOA, 整数型, "kernel32.dll", "LocalSize", 公开, 返回本地内存块大小　
-    .参数 hMem, 未知类型0x41012C66, , 
+    .参数 hMem, 未知类型0x41018AA3, , 
 
 .DLL命令 LocalSize, 整数型, "kernel32.dll", "LocalSize", 公开, 返回本地内存块大小
     .参数 hMem, 整数型, , 
@@ -4465,12 +4345,12 @@ loop”", 隐藏,
 
 .DLL命令 RtlMoveMemory_BITMAPINFO, 整数型, "kernel32.dll", "RtlMoveMemory", 公开, _内存图像截图1
     .参数 Destination, 字节集, , 
-    .参数 Source, 未知类型0x41012C67, , 
+    .参数 Source, 未知类型0x41018AA4, , 
     .参数 Length, 整数型, , 
 
 .DLL命令 RtlMoveMemory_BITMAPFILEHEADER, 整数型, "kernel32.dll", "RtlMoveMemory", 公开, _内存图像截图
     .参数 Destination, 字节集, , 
-    .参数 Source, 未知类型0x41012C68, , 
+    .参数 Source, 未知类型0x41018AA5, , 
     .参数 Length, 整数型, , 
 
 .DLL命令 GetDIBColorTable, 空白型, "gdi32.dll", "GetDIBColorTable", 公开, 取得颜色表信息
@@ -4481,7 +4361,7 @@ loop”", 隐藏,
 
 .DLL命令 RtlMoveMemory_位图信息, 整数型, "kernel32.dll", "RtlMoveMemory", 公开, 内存拷贝_
     .参数 Destination, 字节集, , 
-    .参数 Source, 未知类型0x41012C69, , 
+    .参数 Source, 未知类型0x41018AA6, , 
     .参数 Length, 整数型, , 
 
 .DLL命令 GetBitmapBits, 空白型, "gdi32.dll", "GetBitmapBits", 公开, 复制二进制位图_
@@ -4499,7 +4379,7 @@ loop”", 隐藏,
 
 .DLL命令 CreateDIBSection, 整数型, "gdi32.dll", "CreateDIBSection", 公开, 创建一个DIBSection。这是一个GDI对象，可象一幅与设备有关位图那样使用。但是，它在内部作为一幅与设备无关位图保存  执行成功返回DIBSection位图的句柄，零表示失败。会设置GetLastError
     .参数 设备场景句柄, 整数型, , 一个设备场景的句柄。如dw设为DIB_PAL_COLORS，那么DIB颜色表就会用来自逻辑调色板的颜色进行初始化
-    .参数 pBitmapInfo, 未知类型0x41012C69, , BITMAPINFO，这个结构初始化成欲创建的那幅位图的配置数据
+    .参数 pBitmapInfo, 未知类型0x41018AA6, , BITMAPINFO，这个结构初始化成欲创建的那幅位图的配置数据
     .参数 常数, 整数型, , 下述常数之一：;DIB_PAL_COLORS：BITMAPINFO包含了一个16位调色板索引的数组;DIB_RGB_COLORS：BITMAPINFO包含了一个颜色表，其中保存有32位颜色（RGBQUAD）
     .参数 内存地址, 整数型, , 用于载入DIBSection数据区的内存地址
     .参数 文件映射句柄, 整数型, , 指向一个文件映射对象的可选句柄，位图将在其中创建。如设为零，Windows会自动分配内存
@@ -4507,12 +4387,12 @@ loop”", 隐藏,
 
 .DLL命令 RtlMoveMemory_BITMAPFILEHEADER_字节型, 空白型, "kernel32.dll", "RtlMoveMemory", 公开, 
     .参数 Dest, 字节型, 传址, 
-    .参数 Src, 未知类型0x41012C68, , 
+    .参数 Src, 未知类型0x41018AA5, , 
     .参数 len, 整数型, , 
 
 .DLL命令 RtlMoveMemory_BITMAPINFOHEADER, 空白型, "kernel32.dll", "RtlMoveMemory", 公开, 
     .参数 Dest, 字节型, 传址, 
-    .参数 Src, 未知类型0x41012C6A, , 
+    .参数 Src, 未知类型0x41018AA7, , 
     .参数 len, 整数型, , 
 
 .DLL命令 LsaFreeMemory, 整数型, "ADVAPI32.DLL", "LsaFreeMemory", 公开, 
@@ -4522,7 +4402,7 @@ loop”", 隐藏,
     .参数 ObjectHandle, 整数型, , 
 
 .DLL命令 RtlMoveMemory_NMLVCUSTOMDRAW, 空白型, "kernel32.dll", "RtlMoveMemory", 公开, 
-    .参数 Destination, 未知类型0x41012C6B, , 
+    .参数 Destination, 未知类型0x41018AA8, , 
     .参数 Source, 整数型, , 
     .参数 Length, 整数型, , 
 
@@ -4695,13 +4575,13 @@ loop”", 隐藏,
 
 .DLL命令 GetFileTime, 逻辑型, "kernel32.dll", "GetFileTime", 公开, _文件取时间
     .参数 hFile, 整数型, , 
-    .参数 创建时间, 未知类型0x41012C6C, 传址, 创建时间
-    .参数 访问时间, 未知类型0x41012C6C, 传址, 访问时间
-    .参数 修改时间, 未知类型0x41012C6C, 传址, 修改时间
+    .参数 创建时间, 未知类型0x41018AA9, 传址, 创建时间
+    .参数 访问时间, 未知类型0x41018AA9, 传址, 访问时间
+    .参数 修改时间, 未知类型0x41018AA9, 传址, 修改时间
 
 .DLL命令 LocalFileTimeToFileTime, 整数型, "kernel32.dll", "LocalFileTimeToFileTime", 公开, _文件时间转移为UTC文件时间 将本地文件时间转移为UTC文件时间
-    .参数 lpLocalFileTime, 未知类型0x41012C6C, , 
-    .参数 lpFileTime, 未知类型0x41012C6C, , 
+    .参数 lpLocalFileTime, 未知类型0x41018AA9, , 
+    .参数 lpFileTime, 未知类型0x41018AA9, , 
 
 .DLL命令 MapViewOfFile, 整数型, "kernel32.dll", "MapViewOfFile", 公开, _查看文件映射对象 将一个文件映射对象映射到当前应用程序的地址空间
     .参数 hFileMappingObject, 整数型, , 
@@ -4727,9 +4607,9 @@ loop”", 隐藏,
 
 .DLL命令 SetFileTime, 逻辑型, "kernel32.dll", "SetFileTime", 公开, _文件置时间 设置文件的创建、访问及上次修改时间  非零表示成功，零表示失败。会设置GetLastError
     .参数 hFile, 整数型, , 系统文件句柄
-    .参数 lpCreationTime, 未知类型0x41012C6C, , FILETIME，文件的创建时间
-    .参数 lpLastAccessTime, 未知类型0x41012C6C, , FILETIME，文件上一次访问的时间
-    .参数 lpLastWriteTime, 未知类型0x41012C6C, , FILETIME，文件最近一次修改的时间;
+    .参数 lpCreationTime, 未知类型0x41018AA9, , FILETIME，文件的创建时间
+    .参数 lpLastAccessTime, 未知类型0x41018AA9, , FILETIME，文件上一次访问的时间
+    .参数 lpLastWriteTime, 未知类型0x41018AA9, , FILETIME，文件最近一次修改的时间;
 
 .DLL命令 CopyFileA, 逻辑型, "kernel32.dll", "CopyFileA", 公开, 文件_复制
     .参数 源文件名, 文本型, , lpExistingFileName，被复制的文件名
@@ -4886,7 +4766,7 @@ loop”", 隐藏,
     .参数 扫描线初始编号, 整数型, , Scan，Bits数组中第一条扫描线的编号。如BitsInfo之BITMAPINFOHEADER部分的biHeight字段是正数，那么这条扫描线就会从位图的底部开始计算；如果是负数，就从顶部开始计算
     .参数 扫描线数量, 整数型, , NumScans，欲复制的扫描线数量
     .参数 缓冲区指针, 字节型, 传址, Bits，指向一个缓冲区的指针。这个缓冲区包含了以DIB格式描述的位图数据；这种格式是由BitsInfo指定的
-    .参数 位图结构, 未知类型0x41012C69, , BitsInfo，对Bits DIB的格式和颜色进行描述的一个结构
+    .参数 位图结构, 未知类型0x41018AA6, , BitsInfo，对Bits DIB的格式和颜色进行描述的一个结构
     .参数 常量标志, 整数型, , wUsage，常数
 
 .DLL命令 SHGetPathFromIDListA, 整数型, "shell32.dll", "SHGetPathFromIDListA", 公开, _从列表id取路径
@@ -4947,7 +4827,7 @@ loop”", 隐藏,
 .DLL命令 LookupPrivilegeValueA, 逻辑型, "advapi32.dll", "LookupPrivilegeValueA", 公开, _恢复权限
     .参数 lpSystemName, 文本型, , 
     .参数 lpName, 文本型, , 
-    .参数 lpLuid, 未知类型0x41012C6D, 传址, 
+    .参数 lpLuid, 未知类型0x41018AAA, 传址, 
 
 .DLL命令 OpenEventA, 整数型, "kernel32.dll", "OpenEventA", 公开, 打开事件同步对象
     .参数 dwDesiredAccess, 整数型, , 
@@ -5061,7 +4941,7 @@ loop”", 隐藏,
 .DLL命令 AdjustTokenPrivileges, 逻辑型, "advapi32.dll", "AdjustTokenPrivileges", 公开, 使能/取消令牌特权 _进程置权限
     .参数 令牌句柄, 整数型, , 
     .参数 DisableAllPrivileges, 逻辑型, , 
-    .参数 NewState, 未知类型0x41012C6E, 传址, 
+    .参数 NewState, 未知类型0x41018AAB, 传址, 
     .参数 BufferLength, 整数型, , 
     .参数 PreviousState, 整数型, , 
     .参数 ReturnLength, 整数型, , 
@@ -5187,7 +5067,7 @@ loop”", 隐藏,
     .参数 nStartScan, 整数型, , 
     .参数 nNumScans, 整数型, , 
     .参数 lpBits, 整数型, , 
-    .参数 lpBI, 未知类型0x41012C67, , 
+    .参数 lpBI, 未知类型0x41018AA4, , 
     .参数 wUsage, 整数型, , 
 
 .DLL命令 GetDIBits, 整数型, "gdi32.dll", "GetDIBits", 公开, _位图复制 将来自一幅位图的二进制位复制到一幅与设备无关的位图里
@@ -5196,7 +5076,7 @@ loop”", 隐藏,
     .参数 nStartScan, 整数型, , 
     .参数 nNumScans, 整数型, , 
     .参数 lpBits, 字节集, , 
-    .参数 lpBI, 未知类型0x41012C67, , 
+    .参数 lpBI, 未知类型0x41018AA4, , 
     .参数 wUsage, 整数型, , 
 
 .DLL命令 BitBlt, 逻辑型, "gdi32.dll", "BitBlt", 公开, 复制场景位图
@@ -5351,7 +5231,7 @@ loop”", 隐藏,
 
 .DLL命令 Thread32Next, 逻辑型, "Kernel32.dll", "Thread32Next", 公开, _线程取第一个
     .参数 快照句柄, 整数型, , 
-    .参数 线程入口结构, 未知类型0x41012C6F, , 
+    .参数 线程入口结构, 未知类型0x41018AAC, , 
 
 .DLL命令 SHGetSpecialFolderPath, 逻辑型, "shell32.dll", "SHGetSpecialFolderPathA", 公开, 取系统目录
     .参数 hwndOwner, 整数型, , 
@@ -5364,7 +5244,7 @@ loop”", 隐藏,
     .参数 临时目录, 文本型, , 
 
 .DLL命令 SHBrowseForFolderA, 整数型, "shell32.dll", "SHBrowseForFolderA", 公开, 打开浏览目录对话框
-    .参数 lpBrowseInfo, 未知类型0x41012C70, , 
+    .参数 lpBrowseInfo, 未知类型0x41018AAD, , 
 
 .DLL命令 GetSystemDirectoryA, 整数型, "kernel32.dll", "GetSystemDirectoryA", 公开, 目录_取system32目录  成功返回system32目录的全路径
     .参数 缓冲区, 文本型, , 
@@ -5562,7 +5442,7 @@ loop”", 隐藏,
 
 .DLL命令 SHAppBarMessage, 整数型, "shell32.dll", "SHAppBarMessage", 公开, _系统取任务栏高度
     .参数 dwMessage, 整数型, , 
-    .参数 pData, 未知类型0x41012C71, , 
+    .参数 pData, 未知类型0x41018AAE, , 
 
 .DLL命令 GetDateFormatA, 整数型, "kernel32.dll", "GetDateFormatA", 公开, 针对指定的“当地”格式，对一个系统日期进行格式化  格式化过后的字串的长度。
     .参数 地方ID, 整数型, , Locale，用于决定格式的地方ID。lpFormat参数中指定的任何信息（倘若不是NULL）都优先于特定于地方的信息
@@ -5577,16 +5457,16 @@ loop”", 隐藏,
     .参数 double, 日期时间型, 传址, 
 
 .DLL命令 FileTimeToSystemTime, 整数型, "kernel32.dll", "FileTimeToSystemTime", 公开, _系统结构的内容 根据一个FILETIME结构的内容，装会设置GetLastError
-    .参数 文件时间结构, 未知类型0x41012C6C, , FILETIME，包含了文件时间的一个结构
+    .参数 文件时间结构, 未知类型0x41018AA9, , FILETIME，包含了文件时间的一个结构
     .参数 系统时间结构, 精易_时间, , SYSTEMTIME，用于装载系统时间信息的一个结构;
 
 .DLL命令 SystemTimeToFileTime, 整数型, "kernel32.dll", "SystemTimeToFileTime", 公开,  _系统到本地时间1
     .参数 lpSystemTime, 精易_时间, , 
-    .参数 lpFileTime, 未知类型0x41012C6C, , 
+    .参数 lpFileTime, 未知类型0x41018AA9, , 
 
 .DLL命令 FileTimeToLocalFileTime, 整数型, "kernel32.dll", "FileTimeToLocalFileTime", 公开, _系统到本地时间 将一个FILETIME结构转换成本地时间  非零表示成功，零表示失败。会设置GetLastError
-    .参数 文件时间, 未知类型0x41012C6C, , FILETIME，包含了UTC时间信息的一个结构
-    .参数 所在文件时间, 未知类型0x41012C6C, , FILETIME，用于装载转换过后的本地时间的结构;
+    .参数 文件时间, 未知类型0x41018AA9, , FILETIME，包含了UTC时间信息的一个结构
+    .参数 所在文件时间, 未知类型0x41018AA9, , FILETIME，用于装载转换过后的本地时间的结构;
 
 .DLL命令 GetTimeFormatA, 整数型, "kernel32.dll", "GetTimeFormatA", 公开, _系统置时间进行格式化 针对指定的“当地”格式，对一个系统时间进行格式化。
     .参数 地方ID, 整数型, , Locale，用于决定格式的地方ID。lpFormat参数中指定的任何信息（倘若不是NULL）都优先于特定于地方的信息
@@ -5678,7 +5558,7 @@ loop”", 隐藏,
     .参数 扫描线初始编号, 整数型, , nStartScan，欲复制到DIB中的第一条扫描线的编号
     .参数 扫描线数量, 整数型, , nNumScans，欲复制的扫描线数量
     .参数 缓冲区指针, 字节型, 传址, lpBits，指向一个缓冲区的指针。这个缓冲区将用于装载采用DIB格式的信息，但不取回数据（用ByVal传递零值）
-    .参数 位图结构, 未知类型0x41012C69, , lpBI，BITMAPINFO，对lpBits DIB的格式及颜色进行说明的一个结构。在BITMAPINFOHEADER结构中，从biSize到biCompression之间的所有字段都必须初始化
+    .参数 位图结构, 未知类型0x41018AA6, , lpBI，BITMAPINFO，对lpBits DIB的格式及颜色进行说明的一个结构。在BITMAPINFOHEADER结构中，从biSize到biCompression之间的所有字段都必须初始化
     .参数 常量标志, 整数型, , wUsage，下述常数之一：;DIB_PAL_COLORS：在颜色表中装载一个16位所以数组，它们与当前选定的调色板有关;DIB_RGB_COLORS：在颜色表中装载RGB颜色;
 
 .DLL命令 SetPixelV, 整数型, "gdi32.dll", "SetPixelV", 公开, 置场景颜色_在指定的设备场景中设置一个像素的RGB值
@@ -5703,7 +5583,7 @@ loop”", 隐藏,
 .DLL命令 GetObjectA, 整数型, "gdi32.dll", "GetObjectA", 公开, _取对象属性
     .参数 hgdiobj, 整数型, , 
     .参数 cbBuffer, 整数型, , 
-    .参数 lpvObject, 未知类型0x41012C72, , 
+    .参数 lpvObject, 未知类型0x41018AAF, , 
 
 .DLL命令 GlobalLock, 整数型, "kernel32.dll", "GlobalLock", 公开, 锁定内存对象并返回一个指针
     .参数 hMem, 整数型, , 
@@ -5738,7 +5618,7 @@ loop”", 隐藏,
 
 .DLL命令 RtlMoveMemory_剪贴板_置文件, 空白型, "kernel32.dll", "RtlMoveMemory", 公开, _剪贴板置文件
     .参数 pDest, 整数型, , 
-    .参数 pSrc, 未知类型0x41012C73, 传址, 
+    .参数 pSrc, 未知类型0x41018AB0, 传址, 
     .参数 ByteLen, 整数型, , 
 
 .DLL命令 DragQueryFileA, 整数型, "shell32.dll", "DragQueryFileA", 公开, _拖动查询文件
@@ -5869,7 +5749,7 @@ loop”", 隐藏,
 .DLL命令 ControlService, 逻辑型, "advapi32.dll", "ControlService", 公开, 
     .参数 hService, 整数型, , 
     .参数 dwControl, 整数型, , 
-    .参数 lpServiceStatus, 未知类型0x41012C74, , 
+    .参数 lpServiceStatus, 未知类型0x41018AB1, , 
 
 .DLL命令 DeleteService, 逻辑型, "advapi32.dll", "DeleteService", 公开, ,
     .参数 hService, 整数型, , 
@@ -5884,7 +5764,7 @@ loop”", 隐藏,
 
 .DLL命令 QueryServiceStatus, 逻辑型, "advapi32.dll", "QueryServiceStatus", 公开, 4：启动　7：暂停　1：停止　0：找不到服务
     .参数 hService, 整数型, , 
-    .参数 lpServiceStatus, 未知类型0x41012C74, , 
+    .参数 lpServiceStatus, 未知类型0x41018AB1, , 
 
 .DLL命令 QueryServiceStatusEx, 整数型, "ADVAPI32.DLL", "QueryServiceStatusEx", 公开, 
     .参数 hService, 整数型, , 
@@ -6040,7 +5920,7 @@ loop”", 隐藏,
 .DLL命令 RasDialA, 整数型, "rasapi32.dll", "RasDialA", 公开, _ADSL拨号
     .参数 lprasdialextensions, 整数型, , 拔号参数
     .参数 lpszPhonebook, 整数型, , 电话本名称,0
-    .参数 lprasdialparamsa, 未知类型0x41012C75, , 拔号参数
+    .参数 lprasdialparamsa, 未知类型0x41018AB2, , 拔号参数
     .参数 dwNotifierType, 整数型, , 消息通知方式
     .参数 lpvNotifier, 整数型, , 消息处理回调子程序
     .参数 lphrasconn, 整数型, 传址, 返回的成功连接的连接句柄
@@ -6050,11 +5930,11 @@ loop”", 隐藏,
 
 .DLL命令 RasGetEntryDialParams, 整数型, "rasapi32.dll", "RasGetEntryDialParamsA", 公开, 
     .参数 lpszPhoneBook, 文本型, 传址, 
-    .参数 lpDialParams, 未知类型0x41012C75, 传址, 未知类型：TRasDialParams。
+    .参数 lpDialParams, 未知类型0x41018AB2, 传址, 未知类型：TRasDialParams。
     .参数 lpfPassword, 逻辑型, 传址, 
 
 .DLL命令 GlobalSize_取连接信息用结构, 整数型, "kernel32.dll", "GlobalSize", 公开, kernel32.dll取结构尺寸
-    .参数 结构, 未知类型0x41012C76, 传址, 
+    .参数 结构, 未知类型0x41018AB3, 传址, 
 
 .DLL命令 GetPrivateProfileInt, 整数型, "kernel32.dll", "GetPrivateProfileIntA", 公开, 读配置项数值
     .参数 小节名, 字节集, , 
@@ -6080,21 +5960,21 @@ loop”", 隐藏,
 
 .DLL命令 LsaOpenPolicy, 整数型, "ADVAPI32.DLL", "LsaOpenPolicy", 公开, 
     .参数 SystemName, 整数型, , 未知类型：PLSA_UNICODE_STRING。
-    .参数 ObjectAttributes, 未知类型0x41012C77, , 未知类型：PLSA_OBJECT_ATTRIBUTES。
+    .参数 ObjectAttributes, 未知类型0x41018AB4, , 未知类型：PLSA_OBJECT_ATTRIBUTES。
     .参数 DesiredAccess, 整数型, , 
     .参数 PolicyHandle, 整数型, 传址, 未知类型：PLongWord。
 
 .DLL命令 RasEnumEntrie, 整数型, "rasapi32.dll", "RasEnumEntriesA", 公开, 
     .参数 reserved, 整数型, , 
     .参数 lpszPhoneBook, 整数型, , 
-    .参数 entrynamesArray, 未知类型0x41012C76, 传址, 未知类型：LPRasEntryNameA。
+    .参数 entrynamesArray, 未知类型0x41018AB3, 传址, 未知类型：LPRasEntryNameA。
     .参数 lpcb, 整数型, 传址, 
     .参数 lpcEntries, 整数型, 传址, 
 
 .DLL命令 RasEnumEntries, 整数型, "rasapi32.dll", "RasEnumEntriesA", 公开, rasapi32.dll 取连接信息结构,连接名称,数量等等
     .参数 lpStrNull, 整数型, , 保留字段,必须为NIL
     .参数 lpszphonebook, 整数型, , 电话本名称,在Win9X下无作用
-    .参数 lprasetryname, 未知类型0x41012C76, 传址 数组, RASENTRYNAME类型数组的指针
+    .参数 lprasetryname, 未知类型0x41018AB3, 传址 数组, RASENTRYNAME类型数组的指针
     .参数 lpcb, 整数型, 传址, 接收拨号连接名称的缓冲区的大小
     .参数 lpcentries, 整数型, 传址, 实际获得的拨号连接名称的数目
 
@@ -6107,7 +5987,7 @@ loop”", 隐藏,
 .DLL命令 RasSetEntryPropertiesA, 整数型, "rasapi32.dll", "RasSetEntryPropertiesA", 公开, _创建新拨号连接 rasapi32.dll 0=建立成功,其他为失败
     .参数 lpszPhonebook, 整数型, , 电话本名称,0
     .参数 lpszEntry, 文本型, , 连接名称
-    .参数 lpRasEntry, 未知类型0x41012C78, , 
+    .参数 lpRasEntry, 未知类型0x41018AB5, , 
     .参数 dwEntryInfoSize, 整数型, , 
     .参数 lpbDeviceInfo, 整数型, , 
     .参数 wDeviceInfoSize, 整数型, , 
@@ -6115,7 +5995,7 @@ loop”", 隐藏,
 .DLL命令 RasSetCredentialsA, 整数型, "rasapi32.dll", "RasSetCredentialsA", 公开, _设置拨号连接 rasapi32.dll
     .参数 lpszPhonebook, 整数型, , 电话本名称,0
     .参数 lpszEntry, 文本型, , 连接名称
-    .参数 lpCredentials, 未知类型0x41012C79, , 
+    .参数 lpCredentials, 未知类型0x41018AB6, , 
     .参数 fClearCredentials, 整数型, , 
 
 .DLL命令 GetKeyState, 逻辑型, "user32.dll", "GetKeyState", 公开, _取键盘状态 针对已处理过的按键，在最近一次输入信息时，判断指定虚拟键的状态  如开关键打开，则位0设为1（开关键包括CapsLock， ;    NumLock，ScrollLock）；如某个键当时正处于按下状态，则位15为1；如已经抬起，则为0
@@ -6151,13 +6031,13 @@ loop”", 隐藏,
     .参数 pOutBufLen, 整数型, 传址, 
 
 .DLL命令 CopyMemory_ip_adapter_info, 整数型, "kernel32.dll", "RtlMoveMemory", 公开, 
-    .参数 Destination, 未知类型0x41012C7A, , 
+    .参数 Destination, 未知类型0x41018AB7, , 
     .参数 Source, 整数型, , 
     .参数 Length, 整数型, , 
 
 .DLL命令 CopyMemory_ias, 空白型, "kernel32.dll", "RtlMoveMemory", 公开, 
-    .参数 Destination, 未知类型0x41012C5A, 传址, 
-    .参数 Source, 未知类型0x41012C5A, , 
+    .参数 Destination, 未知类型0x41018A97, 传址, 
+    .参数 Source, 未知类型0x41018A97, , 
     .参数 Length, 整数型, , 
 
 .DLL命令 ImageList_Read, 整数型, "comctl32.dll", "ImageList_Read", 公开, 成功返回图片组句柄
@@ -6239,7 +6119,7 @@ loop”", 隐藏,
 
 .DLL命令 LsaRetrievePrivateData, 整数型, "ADVAPI32.DLL", "LsaRetrievePrivateData", 公开, 
     .参数 LSA_HANDLE, 整数型, , 
-    .参数 KeyName, 未知类型0x41012C7B, , 未知类型：PLSA_UNICODE_STRING。
+    .参数 KeyName, 未知类型0x41018AB8, , 未知类型：PLSA_UNICODE_STRING。
     .参数 PrivateData, 整数型, 传址, 未知类型：PLSA_UNICODE_STRING。
 
 .DLL命令 GetVersionEx, 逻辑型, "kernel32.dll", "GetVersionExA", 公开, 在一个OSVERSIONINFO结构中载入与平台和操作系统有关的版本信息  非零表示成功，零表示失败
@@ -6248,7 +6128,7 @@ loop”", 隐藏,
 .DLL命令 GetVersion, 整数型, "kernel32.dll", "GetVersion", 公开, ,
 
 .DLL命令 GlobalSize_RASENTRY, 整数型, "kernel32.dll", "GlobalSize", 公开, 取结构尺寸
-    .参数 结构, 未知类型0x41012C7C, 传址, 
+    .参数 结构, 未知类型0x41018AB9, 传址, 
 
 .DLL命令 IsBadStringPtrA, 整数型, "kernel32.dll", "IsBadStringPtrA", 公开, 指针是否有效,无否返回1
     .参数 指针, 整数型, , 
@@ -6289,7 +6169,7 @@ loop”", 隐藏,
     .参数 lpInfo, 整数型, 传址, 
 
 .DLL命令 StartServiceCtrlDispatcher, 整数型, "advapi32.dll", "StartServiceCtrlDispatcherA", 公开, 
-    .参数 SERVICE_TABLE, 未知类型0x41012C7D, 数组, 
+    .参数 SERVICE_TABLE, 未知类型0x41018ABA, 数组, 
 
 .DLL命令 RegisterServiceCtrlHandler, 整数型, "advapi32.dll", "RegisterServiceCtrlHandlerA", 公开, 
     .参数 lpServiceName, 文本型, , 
@@ -6297,7 +6177,7 @@ loop”", 隐藏,
 
 .DLL命令 SetServiceStatus, 整数型, "advapi32.dll", "SetServiceStatus", 公开, 
     .参数 hServiceStatus, 整数型, , 
-    .参数 lpServiceStatus, 未知类型0x41012C74, , 
+    .参数 lpServiceStatus, 未知类型0x41018AB1, , 
 
 .DLL命令 GdipLoadImageFromStream, 整数型, "GdiPlus.dll", "GdipLoadImageFromStream", 公开, 
     .参数 stream, 整数型, , 
@@ -6338,11 +6218,11 @@ loop”", 隐藏,
     .参数 hWnd, 整数型, , 
     .参数 hdcDst, 整数型, , 
     .参数 pptDst, 整数型, , 
-    .参数 psize, 未知类型0x41012C7E, , 
+    .参数 psize, 未知类型0x41018ABB, , 
     .参数 hdcSrc, 整数型, , 
     .参数 pptSrc, 精易_坐标, , 
     .参数 crKey, 整数型, , 
-    .参数 pblend, 未知类型0x41012C7F, , 
+    .参数 pblend, 未知类型0x41018ABC, , 
     .参数 dwFlags, 整数型, , 
 
 .DLL命令 InitCompression, 整数型, "gzip.dll", "InitCompression", 公开, 
@@ -6374,7 +6254,7 @@ loop”", 隐藏,
     .参数 context, 整数型, , 
 
 .DLL命令 ShellExecuteEx, 整数型, "shell32.dll", "ShellExecuteEx", 公开, 　
-    .参数 lpExecInfo, 未知类型0x41012C66, , 
+    .参数 lpExecInfo, 未知类型0x41018AA3, , 
 
 .DLL命令 RegOpenKeyExA, 整数型, "advapi32.dll", "RegOpenKeyExA", 公开, 
     .参数 hKey, 整数型, , 
@@ -6469,7 +6349,7 @@ loop”", 隐藏,
     .参数 dwCreationFlags, 整数型, , 
     .参数 lpEnvironment, 整数型, , 
     .参数 lpCurrentDirectory, 整数型, , 
-    .参数 lpStartupInfo, 未知类型0x41012C80, , 
+    .参数 lpStartupInfo, 未知类型0x41018ABD, , 
     .参数 lpProcessInformation, 精易_进程结构, 传址, 
 
 .DLL命令 RtlAdjustPrivilege32, 整数型, "ntdll.dll", "RtlAdjustPrivilege", 公开, 提升进程权限
@@ -6492,7 +6372,7 @@ loop”", 隐藏,
 
 .DLL命令 GetFileInformationByHandle, 逻辑型, "kernel32.dll", "GetFileInformationByHandle", 公开, 文件_句柄取路径
     .参数 hFile, 整数型, , 
-    .参数 lpFileInformation, 未知类型0x41012C81, , 
+    .参数 lpFileInformation, 未知类型0x41018ABE, , 
 
 .DLL命令 GetVolumeInformation, 逻辑型, "kernel32.dll", "GetVolumeInformationA", 公开, 文件_句柄取路径
     .参数 lpRootPathName, 文本型, , 
@@ -6506,7 +6386,7 @@ loop”", 隐藏,
 
 .DLL命令 ZwQueryInformationFile, 整数型, "ntdll.dll", "ZwQueryInformationFile", 公开, 文件_句柄取路径
     .参数 FileHandle, 整数型, , 
-    .参数 IoStatusBlock, 未知类型0x41012C82, , 
+    .参数 IoStatusBlock, 未知类型0x41018ABF, , 
     .参数 FileInformation, 整数型, , 
     .参数 Length, 整数型, , 
     .参数 FileInformationClass, 整数型, , 
@@ -6535,7 +6415,7 @@ loop”", 隐藏,
     .参数 数据, 整数型, , dwData
 
 .DLL命令 GetMessageA, 逻辑型, "user32.dll", "GetMessageA", 公开, 
-    .参数 lpMsg, 未知类型0x41012C83, , 
+    .参数 lpMsg, 未知类型0x41018AC0, , 
     .参数 hwnd, 整数型, , 
     .参数 wMsgFilterMin, 整数型, , 
     .参数 wMsgFilterMax, 整数型, , 
@@ -6606,7 +6486,7 @@ loop”", 隐藏,
 
 .DLL命令 Shell_NotifyIcon, 逻辑型, "shell32.dll", "Shell_NotifyIconA", 公开, 
     .参数 dwMessage, 整数型, , 
-    .参数 lpData, 未知类型0x41012C84, , 
+    .参数 lpData, 未知类型0x41018AC1, , 
 
 .DLL命令 GetTopWindow, 整数型, "user32.dll", "GetTopWindow", 公开, 
     .参数 hwnd, 整数型, , 
@@ -6628,7 +6508,7 @@ loop”", 隐藏,
 
 .DLL命令 Thread32First, 逻辑型, "KERNEL32.DLL", "Thread32First", 公开, 
     .参数 hSnapshot, 整数型, , 
-    .参数 lpte, 未知类型0x41012C6F, , 
+    .参数 lpte, 未知类型0x41018AAC, , 
 
 .DLL命令 gethostbyaddr, 整数型, "wsock32.dll", "gethostbyaddr", 公开, 
     .参数 addr, 整数型, 传址, 
@@ -6636,7 +6516,7 @@ loop”", 隐藏,
     .参数 type, 整数型, 传址, 
 
 .DLL命令 CopyMemory_int2hostent, 整数型, "kernel32.dll", "RtlMoveMemory", 公开, 
-    .参数 目标数据地址, 未知类型0x41012C85, , 
+    .参数 目标数据地址, 未知类型0x41018AC2, , 
     .参数 源数据, 整数型, , 
     .参数 尺寸, 整数型, , 
 
@@ -6648,7 +6528,7 @@ loop”", 隐藏,
     .参数 RequestData, 文本型, , 
     .参数 RequestSize, 短整数型, , 
     .参数 RequestOptions, 整数型, , 
-    .参数 ReplyBuffer, 未知类型0x41012C86, , 
+    .参数 ReplyBuffer, 未知类型0x41018AC3, , 
     .参数 ReplySize, 整数型, , 
     .参数 Timeout, 整数型, , 
 
@@ -6880,372 +6760,252 @@ loop”", 隐藏,
     .参数 _String1, 字节集, , 
     .参数 _String2, 字节集, , 
 
-.DLL命令 MultiByteToWideChar, 整数型, "kernel32", "MultiByteToWideChar", , 
-    .参数 CodePage, 整数型, , 
-    .参数 dwFlags, 整数型, , 
-    .参数 lpMultiByteStr, 文本型, 传址, 
-    .参数 cchMultiByte, 整数型, , 
-    .参数 lpWideCharStr, 字节集, 传址, 
-    .参数 cchWideChar, 整数型, , 
+.程序集 First, , , 
 
-.DLL命令 WinHttpCrackUrl, 逻辑型, "Winhttp.dll", "WinHttpCrackUrl", , 
-    .参数 pwszUrl, 字节集, 传址, 
-    .参数 dwUrlLength, 整数型, , 
-    .参数 dwFlags, 整数型, , 
-    .参数 lpUrlComponents, URL_COMPONENTS, , 
+.子程序 _启动子程序, 整数型, , 请在本子程序中放置动态链接库初始化代码
+赋值 (数据目录, 相加 (appdir (), “\ltdata”))
+_临时子程序 () ' 在初始化代码执行完毕后调用测试代码
+返回 (0) ' 返回值被忽略。
 
-.DLL命令 WinHttpOpen, 整数型, "Winhttp.dll", "WinHttpOpen", , 
-    .参数 pwszUserAgent, 字节集, 传址, 
-    .参数 dwAccessType, 整数型, , 
-    .参数 pwszProxyName, 整数型, , 
-    .参数 pwszProxyBypass, 整数型, , 
-    .参数 dwFlags, 整数型, , 
+.子程序 _临时子程序, 空白型, , 
+ ' 本名称子程序用作测试程序用，仅在开发及调试环境中有效，编译发布程序前将被系统自动清空，请将所有用作测试的临时代码放在本子程序中。 ***注意不要修改本子程序的名称、参数及返回值类型。
+ ' 调试输出 (getuserbp (“1665080823”, “灵材”))
+moddebug (“1”, “22”)
 
-.DLL命令 WinHttpCloseHandle, 逻辑型, "Winhttp.dll", "WinHttpCloseHandle", , 
-    .参数 hInternet, 整数型, , 
 
-.DLL命令 WinHttpSetTimeouts, 逻辑型, "Winhttp.dll", "WinHttpSetTimeouts", , 
-    .参数 hInternet, 整数型, , 
-    .参数 dwResolveTimeout, 整数型, , 
-    .参数 dwConnectTimeout, 整数型, , 
-    .参数 dwSendTimeout, 整数型, , 
-    .参数 dwReceiveTimeout, 整数型, , 
+.程序集 User, , , 
 
-.DLL命令 WinHttpConnect, 整数型, "Winhttp.dll", "WinHttpConnect", , 
-    .参数 hSession, 整数型, , 
-    .参数 pswzServerName, 字节集, 传址, 
-    .参数 nServerPort, 整数型, , 
-    .参数 dwReserved, 整数型, , 
+.子程序 getyearvip, 逻辑型, , 
+.参数 QQ, 文本型, , 
 
-.DLL命令 WinHttpOpenRequest, 整数型, "Winhttp.dll", "WinHttpOpenRequest", , 
-    .参数 hConnect, 整数型, , 
-    .参数 pwszVerb, 字节集, 传址, 
-    .参数 pwszObjectName, 字节集, 传址, 
-    .参数 pwszVersion, 整数型, , 
-    .参数 pwszReferrer, 整数型, , 
-    .参数 ppwszAcceptTypes, 整数型, , 
-    .参数 dwFlags, 整数型, , 
+.局部变量 时间间隔, 整数型, , , 
 
-.DLL命令 WinHttpSetOption, 逻辑型, "Winhttp.dll", "WinHttpSetOption", , 
-    .参数 hInternet, 整数型, , 
-    .参数 dwOption, 整数型, , 
-    .参数 lpBuffer, 整数型, , 
-    .参数 dwBufferLength, 整数型, , 
-
-.DLL命令 WinHttpAddRequestHeaders, 逻辑型, "Winhttp.dll", "WinHttpAddRequestHeaders", , 
-    .参数 hRequest, 整数型, , 
-    .参数 pwszHeaders, 字节集, 传址, 
-    .参数 dwHeadersLength, 整数型, , 
-    .参数 dwModifiers, 整数型, , 
-
-.DLL命令 WinHttpSendRequest, 逻辑型, "Winhttp.dll", "WinHttpSendRequest", , 
-    .参数 hRequest, 整数型, , 
-    .参数 pwszHeaders, 整数型, , 
-    .参数 dwHeadersLength, 整数型, , 
-    .参数 lpOptional, 字节集, 传址, 
-    .参数 dwOptionalLength, 整数型, , 
-    .参数 dwTotalLength, 整数型, , 
-    .参数 dwContext, 整数型, , 
-
-.DLL命令 WinHttpReceiveResponse, 逻辑型, "Winhttp.dll", "WinHttpReceiveResponse", , 
-    .参数 hRequest, 整数型, , 
-    .参数 lpReserved, 整数型, , 
-
-.DLL命令 WinHttpWebSocketCompleteUpgrade, 整数型, "Winhttp.dll", "WinHttpWebSocketCompleteUpgrade", , 
-    .参数 hRequest, 整数型, , 
-    .参数 pContext, 短整数型, 传址, 
-
-.DLL命令 WinHttpWebSocketReceive, 整数型, "Winhttp.dll", "WinHttpWebSocketReceive", , 
-    .参数 hWebSocket, 整数型, , 
-    .参数 pvBuffer, 字节集, 传址, 
-    .参数 dwBufferLength, 整数型, , 
-    .参数 pdwBytesRead, 整数型, 传址, 
-    .参数 peBufferType, 整数型, 传址, 
-
-.DLL命令 WinHttpWebSocketSend, 整数型, "Winhttp.dll", "WinHttpWebSocketSend", , 
-    .参数 hWebSocket, 整数型, , 
-    .参数 eBufferType, 整数型, , 
-    .参数 pvBuffer, 字节集, 传址, 
-    .参数 dwBufferLength, 整数型, , 
-
-.DLL命令 WinHttpWebSocketClose, 整数型, "Winhttp.dll", "WinHttpWebSocketClose", , 
-    .参数 hWebSocket, 整数型, , 
-    .参数 usStatus, 整数型, , 
-    .参数 pvReason, 整数型, , 
-    .参数 dwReasonLength, 整数型, , 
-
-.DLL命令 GetLastError, 整数型, "Kernel32", "GetLastError", , 
-
-.DLL命令 CreateThread, 整数型, "kernel32.dll", "CreateThread", , 
-    .参数 lpThreadAttributes, 整数型, , 
-    .参数 dwStackSize, 整数型, , 
-    .参数 lpStartAddress, 子程序指针, , 
-    .参数 lpParameter, 整数型, , 
-    .参数 dwCreationFlags, 整数型, , 
-    .参数 lpThreadId, 整数型, 传址, 
-
-.DLL命令 插件信息, 文本型, "", "", , 
-
-.DLL命令 使用插件, 文本型, "", "", , 
-    .参数 msgFrom, 整数型, , 0=频道聊天  1=好友私聊
-    .参数 msgType, 整数型, , 同步之前的
-    .参数 channelId, 文本型, , 当msgFrom=0时才有
-    .参数 userId, 文本型, , 
-    .参数 contant, 文本型, , 
-    .参数 msgId, 文本型, , 
-    .参数 json, 文本型, , 备用 留给你自己解析
-
-.DLL命令 启动插件, 文本型, "", "", , 
-    .参数 token, 文本型, , 
-
-.程序集 程序集1, , , 
-
-.子程序 _启动子程序, 整数型, , 本子程序在程序启动后最先执行
- ' // 这个是 开黑啦 BOT 易语言版本 （WebHook + WebSocket For WinHttp）
-赋值 (Version, “v0.0.4”)
-
- ' // 开黑啦后台配置：
- ' //  回调地址填写：http://{yourdomain}/khl/botv1?compress=0
- ' // “?compress=0” 是不压缩，请务必加入
-
-init ()
-
-载入 (窗口1, , 假)
-返回 (0) ' 可以根据您的需要返回任意数值
-
-.子程序 init, 空白型, , 
-.局部变量 json, 类_json, , , 
-
-赋值 (g_baseUrl, “https://www.kaiheila.cn/api”)
-赋值 (g_apiVer, “3”)
-赋值 (g_url, 相加 (g_baseUrl, “/v”, g_apiVer))
-
-赋值 (g_token, 读配置项 (相加 (取运行目录 (), “\bot_token.ini”), “def”, “token”, )) ' 请在机器人后台获取)
-json.解析 (user_me (), )
-赋值 (g_bot.username, json.取通用属性 (“data.username”, ))
-赋值 (g_bot.id, json.取通用属性 (“data.id”, ))
-赋值 (g_bot.quard, 相加 (g_bot.username, “#”, g_bot.id))
-
-.窗口程序集 窗口程序集_窗口1, , , 
-
-.子程序 _服务器1_数据到达, 空白型, , 
-.局部变量 datapack, 字节集, , , 
-.局部变量 connectId, 文本型, , , 
-.局部变量 datapack_char, 文本型, , , 
-.局部变量 url, 文本型, , , 
-.局部变量 dataContent, 文本型, , , 
-.局部变量 匿名局部变量_77, 空白型, , , 
-.局部变量 data, 类_json, , , 
-.局部变量 redata, 类_json, , , 
-.局部变量 msg_id, 空白型, , , 
-
- ' 这里 开始处理
-赋值 (datapack, 取回数据 ())
-赋值 (connectId, 取回客户 ())
- ' //除了校验要回调以外，其他参数均不需要处理
-
-赋值 (datapack_char, 到文本 (datapack))
-赋值 (url, 文本_取指定内容 (datapack_char, “POST ”, “HTTP”))
-赋值 (dataContent, 文本_取文本之后 (datapack_char, 相加 (#换行符, #换行符)))
-
-data.解析 (编码_utf8到gb2312 (dataContent), )
-日志_输出 (“↓”, data.取数据文本 ())
-.判断开始 (等于 (data.取通用属性 (“d.type”, ), “255”))
-     ' 这是个信令
-    redata.置属性 (“challenge”, data.取通用属性 (“d.challenge”, ), )
-     ' 这里要处理协议头
-    
-    connectId.发送数据 (协议头 (redata.取数据文本 ()), )
-    connectId.断开客户 ()
-    返回 ()
-.默认
-    
-.判断结束
-
- ' 如果有多机器人（负载均衡）：
- ' msg_id ＝ data.取通用属性 (“d['msg_id']”, )
- ' .如果真 (等于 (数组中查找 (g_msgList_id, msg_id), 假))
-     ' 加入成员 (g_msgList, data.取数据文本 ())
-     ' 加入成员 (g_msgList_id, msg_id)
+赋值 (时间间隔, 取时间间隔 (到时间 (getyearvipdate (QQ)), 取现行时间 (), #秒))
+.如果真 (大于 (时间间隔, 0))
+    返回 (真)
 .如果真结束
- ' 单独机器人
-加入成员 (g_msgList, data.取数据文本 ())
-赋值 (g_MsgID, data.取属性数值 (“sn”))
-connectId.发送数据 (协议头 (redata.取数据文本 ()), )
-connectId.断开客户 ()
-返回 ()
-
-.子程序 _窗口1_创建完毕, 空白型, , 
-未知支持库函数_0 (&QueueHeart, , )
- ' 下边是启动Ws的选项
-未知支持库函数_0 (&WsConnet, , )
- ' 启动线程 (&InitCorefunction, , )
- ' 启动线程 (&PluginsInitialize, , )
-
-.子程序 数组中查找, 逻辑型, , 
-.参数 数组, 文本型, 数组, 
-.参数 文本, 文本型, , 
-
-.局部变量 i, 整数型, , , 
-
-.计次循环首 (取数组成员数 (数组), i)
-    .如果真 (等于 (数组 [i], 文本))
-        返回 (真)
-        
-    .如果真结束
-    
-.计次循环尾 ()
 返回 (假)
 
+.子程序 getvip, 逻辑型, , 
+.参数 QQ, 文本型, , 
 
-.子程序 日志_输出, 空白型, , 
-.参数 来源, 文本型, , 
-.参数 文本, 文本型, , 
+.局部变量 时间间隔, 整数型, , , 
 
-.判断开始 (等于 (来源, “”))
-    赋值 (来源, “Core”)
-.判断 (等于 (来源, “s”))
-    赋值 (来源, “Server”)
+赋值 (时间间隔, 取时间间隔 (到时间 (getvipdate (QQ)), 取现行时间 (), #秒))
+.如果真 (大于 (时间间隔, 0))
+    返回 (真)
+.如果真结束
+返回 (假)
+
+.子程序 getvipdate, 文本型, , 
+.参数 QQ, 文本型, , 
+
+.局部变量 欲返回, 文本型, , , 
+
+赋值 (欲返回, 读配置项 (相加 (数据目录, “\VIP.ini”), QQ, “到期时间”, “”))
+返回 (欲返回)
+
+.子程序 getyearvipdate, 文本型, , 
+.参数 QQ, 文本型, , 
+
+.局部变量 欲返回, 文本型, , , 
+
+赋值 (欲返回, 读配置项 (相加 (数据目录, “\VIP.ini”), QQ, “年费到期时间”, “”))
+返回 (欲返回)
+
+.子程序 getuserfj, 整数型, , 返回大于0表示封禁状态，小于0表示没有，以秒为单位
+.参数 QQ, 文本型, , 
+
+.局部变量 时间, 整数型, , , 
+
+赋值 (时间, 取时间间隔 (到时间 (读配置项 (相加 (数据目录, “\封禁系统.ini”), QQ, “封号”, “2015年1月1日1时1分1秒”)), 取现行时间 (), #秒))
+返回 (时间)
+
+.子程序 getuserch, 文本型, ,  获取玩家称号
+.参数 QQ, 文本型, , 
+
+.局部变量 欲返回, 文本型, , , 
+
+ ' 先判断是否有自定义称号：
+赋值 (欲返回, 读配置项 (相加 (数据目录, “\灵恸签到.ini”), QQ, “称号”, “”))
+.如果真 (不等于 (欲返回, “”))
+    返回 (相加 (“(”, 欲返回, “)”))
+.如果真结束
+.判断开始 (等于 (getadminlev (QQ), 3))
+    返回 (“(开发小组)”)
+.判断 (等于 (getadminlev (QQ), 2))
+    返回 (相加 (“(”, 读配置项 (相加 (数据目录, “\灵恸配置\灵恸配置.ini”), “称号”, “管理员”, “创世”), “)”))
+.判断 (等于 (getadminlev (QQ), 1))
+    返回 (相加 (“(”, 读配置项 (相加 (数据目录, “\灵恸配置\灵恸配置.ini”), “称号”, “风纪”, “风纪”), “)”))
+.判断 (不等于 (getagentlev (QQ), “”))
+    返回 (相加 (“(”, getagentlev (QQ), “)”))
+.判断 (等于 (getyearvip (QQ), 真))
+    返回 (相加 (“(”, 读配置项 (相加 (数据目录, “\灵恸配置\灵恸配置.ini”), “称号”, “年费会员”, “心途”), “)”))
+.判断 (等于 (getvip (QQ), 真))
+    返回 (相加 (“(”, 读配置项 (相加 (数据目录, “\灵恸配置\灵恸配置.ini”), “称号”, “会员”, “心梦”), “)”))
 .默认
     
 .判断结束
-赋值 (.内容, 相加 (时间_格式化 (取现行时间 (), “MM-DD ”, “hh:mm”, ), “ [”, 来源, “]”, 文本, #换行符, .内容))
+返回 (相加 (“(”, 读配置项 (相加 (数据目录, “\灵恸配置\灵恸配置.ini”), “称号”, “玩家”, “心源”), “)”))
 
-.子程序 协议头, 文本型, , 
-.参数 b, 文本型, , 
+.子程序 getusername, 文本型, , 获取玩家昵称
+.参数 发送者QQ, 文本型, , 
 
+.局部变量 昵称, 文本型, , , 
+
+赋值 (昵称, 读配置项 (相加 (数据目录, “\灵恸签到.ini”), 发送者QQ, “昵称”, “”))
+.如果真 (不等于 (昵称, “”))
+    赋值 (昵称, 相加 (getuserch (发送者QQ), 昵称))
+.如果真结束
+返回 (昵称)
+
+.子程序 getuserbp, 整数型, , 获取玩家背包物品数量
+.参数 发送者QQ, 文本型, , 
+.参数 道具名称, 文本型, , 
+
+返回 (到整数 (读配置项 (相加 (数据目录, “\背包数据\”, 取文本右边 (发送者QQ, 1), “.ini”), 发送者QQ, 道具名称, “”)))
+
+.子程序 saveuserbp, 空白型, , 写入玩家背包物品数量
+.参数 发送者QQ, 文本型, , 
+.参数 道具名称, 文本型, , 
+.参数 数量, 整数型, , 
+
+写配置项 (相加 (数据目录, “\背包数据\”, 取文本右边 (发送者QQ, 1), “.ini”), 发送者QQ, 道具名称, 到文本 (数量))
+
+.子程序 getusersx, 整数型, 公开, 获取玩家属性值
+.参数 发送者QQ, 文本型, , 
+.参数 属性, 文本型, , 
+
+返回 (到整数 (读配置项 (相加 (数据目录, “\灵恸属性\”, 取文本右边 (发送者QQ, 1), “.ini”), 发送者QQ, 属性, “”)))
+
+.子程序 saveusersx, 空白型, 公开, 写入玩家属性值
+.参数 发送者QQ, 文本型, , 
+.参数 属性, 文本型, , 
+.参数 数量, 整数型, , 
+
+写配置项 (相加 (数据目录, “\灵恸属性\”, 取文本右边 (发送者QQ, 1), “.ini”), 发送者QQ, 属性, 到文本 (数量))
+
+
+.程序集 Agent, , , 
+
+.子程序 getagentlev, 文本型, 公开, 
+.参数 qq, 文本型, , 
+
+返回 (读配置项 (相加 (数据目录, “\灵恸代理信息.ini”), qq, “等级”, “”))
+
+.程序集 Admin, , , 
+
+.子程序 getadminlev, 整数型, 公开, 
+.参数 QQ, 文本型, , 
+
+.局部变量 管理员列表, 文本型, , "0", 
+.局部变量 i, 整数型, , , 
+.局部变量 时间, 整数型, , , 
+
+ ' 3=开发组成员  2=超管  1=普管  0=玩家
+.判断开始 (或者 (等于 (QQ, “1665080823”), 等于 (QQ, “291225191”), 等于 (QQ, “2045305385”)))
+    返回 (3)
+.判断 (等于 (QQ, 读配置项 (相加 (取运行目录 (), “\Lt.Config”), “配置”, “授权验证”, “”)))
+    返回 (2)
+.默认
+    赋值 (管理员列表, 分割文本 (相加 (getadminlist (), “@40080823”), “@”, ))
+    .如果真 (等于 (取数组成员数 (管理员列表), 0))
+        返回 (0)
+    .如果真结束
+    .如果 (等于 (取数组成员数 (管理员列表), 1))
+        .如果 (等于 (管理员列表 [1], QQ))
+            返回 (2)
+        .否则
+            返回 (0)
+        .如果结束
+        
+    .否则
+        .计次循环首 (取数组成员数 (管理员列表), i)
+            .如果真 (等于 (管理员列表 [i], QQ))
+                .如果 (等于 (i, 1))
+                    返回 (2)
+                .否则
+                    返回 (1)
+                .如果结束
+                
+            .如果真结束
+            
+        .计次循环尾 ()
+    .如果结束
+    
+.判断结束
+赋值 (时间, getuserfj (QQ))
+.如果真 (大于 (时间, 0))
+    返回 (-1)
+.如果真结束
+返回 (0)
+
+.子程序 getadminlist, 文本型, 公开, 
 .局部变量 a, 文本型, , , 
 
-赋值 (a, “HTTP/1.1 200 OK”)
-赋值 (a, 相加 (a, #换行符, “Date: ”, 时间_转为GMT格式1 (增减时间 (取现行时间 (), #小时, -8))))
- ' a ＝ a ＋ #换行符 ＋ “Server: nginx/1.16.1”
-赋值 (a, 相加 (a, #换行符, “Content-Length: ”, 到文本 (取文本长度 (b))))
-赋值 (a, 相加 (a, #换行符, “Content-Type: application/json; charset=UTF-8”))
- ' a ＝ a ＋ #换行符 ＋ “Connection: close”
- ' a ＝ a ＋ #换行符 ＋ “X-Powered-By: PHP/7.4.13”
-赋值 (a, 相加 (a, #换行符, #换行符))
-赋值 (a, 相加 (a, b))
-调试输出 (a)
+赋值 (a, 读配置项 (相加 (数据目录, “\灵恸配置\灵恸配置.ini”), “管理员”, “QQ”, “”))
 返回 (a)
 
-.程序集 __HIDDEN_TEMP_MOD__, , , 
+.程序集 ModAPI, , , 
 
-.子程序 网页_HTTP读文本, 文本型, , 
-.参数 完整网址, 文本型, , 
-.参数 访问方式, 文本型, 可空, "GET" 或 "POST" 为空默认"GET"
-.参数 代理地址, 文本型, 可空, 
-.参数 附加协议头, 文本型, 可空, 
-.参数 提交信息, 文本型, 可空, "POST"专用
-.参数 网页头, 文本型, 参考 可空, 返回网页头部信息
+.子程序 version, 文本型, 公开, 返回MOD-API版本
+返回 (“0.1.170805”)
 
+.子程序 moddir, 文本型, 公开, 
+.参数 模组名称, 文本型, , 
 
+创建目录 (相加 (appdir (), “\mod\”, 模组名称))
+返回 (相加 (appdir (), “\mod\”, 模组名称))
 
-.子程序 网页_HTTP读文件, 字节集, , 
-.参数 完整网址, 文本型, , 
-.参数 访问方式, 文本型, 可空, "GET" 或 "POST" 为空默认"GET"
-.参数 代理地址, 文本型, 可空, 
-.参数 附加协议头, 文本型, 可空, 
-.参数 提交信息, 文本型, 可空, "POST"专用
-.参数 网页头, 文本型, 参考 可空, 返回网页头部信息
+.子程序 moddebug, 空白型, 公开, 
+.参数 模组名称, 文本型, , 
+.参数 欲输出的文本, 文本型, , 
 
+网页_访问 (相加 (“http://127.0.0.1:”, 读配置项 (相加 (appdir (), “\Lt.Config”), “配置”, “端口”, )), 1, 相加 (“[mod]”, 模组名称, “：”, 欲输出的文本, “[/mod]”), , , , , , , )
+ ' 无法构建进程通信！
 
-
-.子程序 网页_打开指定网址, 逻辑型, , 打开指定网址(成功返回真,失败返回假)
-.参数 要打开的网址, 文本型, , 欲打开的网页地址
+.子程序 appdir, 文本型, 公开, 
+返回 (取运行目录 ())
 
 
+.子程序 datadir, 文本型, 公开, ban
+返回 (数据目录)
 
-.子程序 网页_URL编码_UTF8, 文本型, , 返回已编码的URL
-.参数 Bin_URL, 文本型, , 
+.子程序 WriteConfig, 空白型, 公开, 不响应节名空值、项名触发警告
+.参数 路径x, 文本型, , 
+.参数 配置节名, 文本型, , 
+.参数 配置项名, 文本型, , 
+.参数 写入值, 文本型, , 
 
+.如果真 (等于 (配置节名, “”))
+    moddebug (“Lt Mod”, 相加 (“严重警告,Lt Data,尝试删除配置文件：”, 路径x, “([”, 配置节名, “])失败，原因：节名空！”))
+    返回 ()
+.如果真结束
+.如果真 (等于 (配置项名, “”))
+    moddebug (“Lt Mod”, 相加 (“严重警告,Lt Data,尝试删除配置节：”, 路径x, “([”, 配置节名, “])！”))
+    写配置项 (路径x, 配置节名, , )
+    返回 ()
+.如果真结束
+.如果真 (等于 (写入值, “”))
+     ' moddebug (“一般警告,Lt Data,尝试置配置项为空值：” ＋ 路径x ＋ “([” ＋ 配置节名 ＋ “]” ＋ 配置项名 ＋ “=” ＋ 写入值 ＋ “)，旧值：” ＋ ReadConfig (路径x, 配置节名, 配置项名, ))
+    写配置项 (路径x, 配置节名, 配置项名, )
+    返回 ()
+.如果真结束
+写配置项 (路径x, 配置节名, 配置项名, 写入值)
 
+.子程序 ReadConfig, 文本型, 公开, 
+.参数 路径x, 文本型, , 
+.参数 配置节名, 文本型, , 
+.参数 配置项名, 文本型, , 
+.参数 写入值, 文本型, , 
 
-.子程序 网页_URL编码, 文本型, , 返回已编码的URL
-.参数 Bin_URL, 文本型, , 
-
-
-
-.子程序 网页_URL解码_UTF8, 文本型, , 返回已解码的URL
-.参数 Bin_URL, 文本型, , 欲解码的文本
-
-
-
-.子程序 网页_URL解码, 文本型, , 返回已解码的URL
-.参数 Bin_URL, 文本型, , 欲解码的文本
-
-
-
-.子程序 Ansi转Utf8, 字节集, , 
-.参数 ansi文本, 文本型, , 
-
-
-
-.子程序 Utf8转ansi, 文本型, , 
-.参数 utf8, 字节集, , 
-
-
-
-.子程序 Unicode转Utf8, 字节集, , 
-.参数 Unicode字节集, 字节集, , 
-
-
-
-.子程序 Ansi转Unicode, 字节集, , 
-.参数 Ansi文本, 文本型, , 
-
-
-
-.子程序 Unicode转ansi, 文本型, , 将Unicode码转换为Ansi码 (返回转换后的文本)
-.参数 Unicode, 字节集, , 欲转换的Unicode字节集
-
-
-
-.子程序 Utf8转Unicode, 字节集, , 
-.参数 utf8字节集, 字节集, , 
-
-
-
-.子程序 取十进制, 整数型, , 十六进制转为十进制
-.参数 十六进制文本, 文本型, , 
-
-
-
-.子程序 UNICODE转汉字, 文本型, , 
-.参数 原文本, 文本型, , 
-
-
-
-.子程序 文本_取文本之后, 文本型, , 
-.参数 被搜寻的文本, 文本型, , 
-.参数 开始文本, 文本型, , 
-
-
-
-.子程序 文本_取指定内容, 文本型, , 
-.参数 完整内容, 文本型, , 
-.参数 左边文本, 文本型, 可空, 
-.参数 右边文本, 文本型, 可空, 
-
-
-
-.子程序 文本_取文本之前, 文本型, , 
-.参数 被搜寻的文本, 文本型, , 
-.参数 开始文本, 文本型, , 
-
-
-
-.子程序 枚举所有文件夹, 整数型, , 取一个文件夹下所有子目录；成功返回子目录数量，失败返回0；
-.参数 父文件夹路径, 文本型, , 如：D:\Program Files；目录分割符请用\
-.参数 子目录数组, 文本型, 参考 可空 数组, 用来装载返回的子目录路径；
-.参数 是否带路径, 逻辑型, 可空, 假=带，真=不带;
-
-
-
-.子程序 取配置项名, 整数型, , 返回配置项名数组成员数。返回 0 表示节名称下没有配置项；返回 -1 表示节名称或配置文件不存在。
-.参数 配置文件名, 文本型, , 指定配置文件的名称，通常以.ini作为文件名后缀。
-.参数 节名称, 文本型, , 包含欲读入配置项所处节的名称。
-.参数 配置项名数组, 文本型, 参考 数组, 参数作为返回值使用。返回指定节中的各配置项名称。
-
+.如果真 (等于 (配置节名, “”))
+    返回 (“”)
+.如果真结束
+.如果真 (等于 (配置项名, “”))
+    返回 (“”)
+.如果真结束
+返回 (读配置项 (路径x, 配置节名, 配置项名, 写入值))
 
 
 .类模块 普通填表, , , 
@@ -7286,7 +7046,7 @@ connectId.断开客户 ()
 .参数 图片宽度, 文本型, 参考 可空 数组, 
 .参数 图片高度, 文本型, 参考 可空 数组, 
 .参数 选中状态, 文本型, 参考 可空 数组, 
-.参数 匿名参数_5077, 文本型, 参考 可空 数组, 
+.参数 匿名参数_29202, 文本型, 参考 可空 数组, 
 .参数 是否标记, 逻辑型, 可空, 
 .参数 title链接标题, 文本型, 参考 可空 数组, 
 .参数 title链接地址, 文本型, 参考 可空 数组, 
@@ -14227,7 +13987,7 @@ connectId.断开客户 ()
 .子程序 文本_取文本行起始位置, 空白型, , 返回某行在整个文本中出现的位置数组，数组第一个成员是第一次出现的位置。
 .参数 文本, 文本型, , 
 .参数 行数, 整数型, , 
-.参数 匿名参数_6954, 整数型, 参考 数组, 
+.参数 匿名参数_31079, 整数型, 参考 数组, 
 
 
 
@@ -14262,14 +14022,14 @@ connectId.断开客户 ()
 
 .子程序 文件_取配置节名数组, 空白型, , 返回节名数组
 .参数 配置文件名, 文本型, , 
-.参数 匿名参数_6969, 文本型, 参考 数组, 
+.参数 匿名参数_31094, 文本型, 参考 数组, 
 
 
 
 .子程序 文件_取配置项名数组, 整数型, , 返回指定配置文件中指定的节中所有的配置名称，以“|”为分界，如果配置文件不存在或配置文件中指定节为空将返回空文本
 .参数 配置文件名, 文本型, , 
 .参数 节名名称, 文本型, , 
-.参数 匿名参数_6972, 文本型, 参考 数组, 
+.参数 匿名参数_31097, 文本型, 参考 数组, 
 
 
 
@@ -14291,7 +14051,7 @@ connectId.断开客户 ()
 .子程序 文本_取文本起始位置, 空白型, , 返回某个字符的在整个文本中出现的位置数组，数组第一个成员是第一次出现的位置。
 .参数 文本, 文本型, , 
 .参数 欲搜寻的文本, 文本型, , 
-.参数 匿名参数_6982, 整数型, 参考 数组, 
+.参数 匿名参数_31107, 整数型, 参考 数组, 
 
 
 
@@ -15203,7 +14963,7 @@ connectId.断开客户 ()
 
 
 .子程序 系统_光驱查询, 空白型, , 返回光驱的文本数组，
-.参数 匿名参数_7269, 文本型, 数组, 
+.参数 匿名参数_31394, 文本型, 数组, 
 
 
 
@@ -21454,1478 +21214,6 @@ connectId.断开客户 ()
 .参数 结束IP, 文本型, , 
 
 
-
-.程序集 Api, , , 
-
-.子程序 channel_message, 文本型, , /api/v3/channel/message
-.参数 object_name, 整数型, 可空, 消息类型, 见[objectName], 不传默认为 1, 代表文本类型。9 代表 kmarkdown 消息, 10 代表卡片消息。
-.参数 channel_id, 文本型, , 目标频道 id
-.参数 content, 文本型, , 消息内容
-.参数 quote, 文本型, 可空, 回复某条消息的 msgId
-.参数 nonce, 文本型, 可空, nonce, 服务端不做处理, 原样返回
-.参数 token, 文本型, 可空, 多机器人预留位置 采用文件对应 token=token
-
-.局部变量 url, 文本型, , , 
-.局部变量 header, 文本型, , , 
-.局部变量 json, 类_json, , , 
-.局部变量 result, 类_json, , , 
-.局部变量 cont, 类_json, , , 
-
-赋值 (url, 相加 (g_url, “/channel/message”))
-赋值 (header, 相加 (header, “Authorization: Bot ”, 选择 (等于 (token, “”), g_token, 读配置项 (相加 (取运行目录 (), “\bot_token.ini”), “token”, token, )), #换行符, “Content-Type: application/json”))
-.判断开始 (cont.解析 (content, ))
-    json.置属性数值 (“object_name”, 10)
-    json.置属性 (“content”, cont.取数据文本 (), )
-.判断 (不等于 (寻找文本 (content, “bilibili.com”, , 假), -1))
-    json.置属性数值 (“object_name”, 1)
-    json.置属性 (“content”, content, )
-.判断 (不等于 (寻找文本 (content, “.png”, , 假), -1))
-    json.置属性数值 (“object_name”, 2)
-    json.置属性 (“content”, content, )
-.默认
-    json.置属性数值 (“object_name”, 9)
-    json.置属性 (“content”, content, )
-.判断结束
-json.置属性 (“channel_id”, channel_id, )
-json.置属性 (“content”, content, )
-.如果真 (不等于 (quote, “”))
-    json.置属性 (“quote”, quote, )
-.如果真结束
- ' 调试输出 (url, header, json.取数据文本 ())
-result.解析 (编码_utf8到gb2312 (到文本 (网页_访问 (url, 1, 编码_gb2312到utf8 (json.取数据文本 ()), , , header, , , , , , , ))), )
- ' SystemLog (, “向” ＋ channelId ＋ “推送信息: ” ＋ content, “kaiheila”)
- ' SystemLog (, “返回信息: ” ＋ result.取数据文本 (), “kaiheila”)
-日志_输出 (“↑”, 相加 (“向”, channel_id, “推送信息: ”, content))
-日志_输出 (“↑”, 相加 (“返回信息: ”, result.取数据文本 ()))
-返回 (result.取通用属性 (“data['msg_id']”, ))
-
-
-.子程序 intimacy_index, 空白型, , 
-.参数 userId, 文本型, , 
-.参数 token, 文本型, 可空, 
-
-.局部变量 url, 文本型, , , 
-.局部变量 header, 文本型, , , 
-.局部变量 json, 类_json, , , 
-.局部变量 result, 类_json, , , 
-
-赋值 (url, 相加 (g_url, “/intimacy/index”))
-赋值 (header, 相加 (“Authorization: Bot ”, 选择 (等于 (token, “”), g_token, 读配置项 (相加 (取运行目录 (), “\bot_token.ini”), “token”, token, )), #换行符, “Content-type: application/json”))
-json.置属性 (“user_id”, userId, )
-调试输出 (url, header, json.取数据文本 ())
-result.解析 (编码_utf8到gb2312 (到文本 (网页_访问 (url, 1, 编码_gb2312到utf8 (json.取数据文本 ()), , , header, , , , , , , ))), )
- ' SystemLog (, “获取用户” ＋ userId ＋ “亲密信息”, “kaiheila”)
- ' SystemLog (, “返回信息: ” ＋ result.取数据文本 (), “kaiheila”)
-
-
-.子程序 intimacy_update, 空白型, , 
-.参数 userId, 文本型, , 
-.参数 score, 整数型, , 
-.参数 social_info, 文本型, , 
-.参数 img_id, 整数型, , 
-.参数 token, 文本型, 可空, 
-
-.局部变量 url, 文本型, , , 
-.局部变量 header, 文本型, , , 
-.局部变量 json, 类_json, , , 
-.局部变量 result, 类_json, , , 
-
-赋值 (url, 相加 (g_url, “/intimacy/update”))
-赋值 (header, 相加 (“Authorization: Bot ”, 选择 (等于 (token, “”), g_token, 读配置项 (相加 (取运行目录 (), “\bot_token.ini”), “token”, token, )), #换行符, “Content-type: application/json”))
-json.置属性 (“user_id”, userId, )
-json.置属性数值 (“score”, score)
-json.置属性 (“social_info”, social_info, )
-json.置属性数值 (“img_id”, img_id)
-
- ' 调试输出 (baseUrl, header, json.取数据文本 ())
-result.解析 (编码_utf8到gb2312 (到文本 (网页_访问 (url, 1, 编码_gb2312到utf8 (json.取数据文本 ()), , , header, , , , , , , ))), )
- ' SystemLog (, “修改” ＋ userId ＋ “亲密度信息”, “kaiheila”)
- ' SystemLog (, “返回信息: ” ＋ result.取数据文本 (), “kaiheila”)
-
-
-.子程序 gateway_index, 文本型, , /api/v3/gateway/index
-.参数 token, 文本型, 可空, 
-.参数 compress, 整数型, 可空, 
-
-.局部变量 url, 文本型, , , 
-.局部变量 header, 文本型, , , 
-.局部变量 result, 类_json, , , 
-
-赋值 (url, 相加 (g_url, “/gateway/index”))
-赋值 (header, 相加 (“Authorization: Bot ”, 选择 (等于 (token, “”), g_token, 读配置项 (相加 (取运行目录 (), “\bot_token.ini”), “token”, token, ))))
-.如果真 (是否为空 (compress))
-    赋值 (compress, 1)
-.如果真结束
-赋值 (url, 相加 (url, “?compress=”, 到文本 (compress)))
-result.解析 (编码_utf8到gb2312 (到文本 (网页_访问 (url, 0, , , , header, , , , , , , ))), )
-调试输出 (url, result.取数据文本 ())
-返回 (result.取通用属性 (“data.url”, ))
- ' {"code": 0,"message": "操作成功","data": {"url": "wss://xxxx"}}
- ' {"code":0,"message":"操作成功","data":{"url":"wss://ws.kaiheila.cn/gateway?compress=0&token=1234="}
-
-.子程序 guild_index, 文本型, , /api/v3/guild/index
-.参数 token, 文本型, 可空, 
-
-.局部变量 header, 文本型, , , 
-.局部变量 json, 类_json, , , 
-.局部变量 result, 类_json, , , 
-.局部变量 url, 文本型, , , 
-
-赋值 (url, 相加 (g_url, “/intimacy/update”))
-赋值 (header, 相加 (“Authorization: Bot ”, 选择 (等于 (token, “”), g_token, 读配置项 (相加 (取运行目录 (), “\bot_token.ini”), “token”, token, )), #换行符, “Content-type: application/json”))
- ' json.置属性 (“guild_id”, GuildId, )
- ' 调试输出 (baseUrl, header, json.取数据文本 ())
-result.解析 (编码_utf8到gb2312 (到文本 (网页_访问 (url, 1, 编码_gb2312到utf8 (json.取数据文本 ()), , , header, , , , , , , ))), )
- ' SystemLog (, “获取服务器信息”, “kaiheila”)
- ' SystemLog (, “返回信息: ” ＋ result.取数据文本 (), “kaiheila”)
-返回 (result.取数据文本 ())
-未知函数_37992 () ' *** 缩略程序块 ***
- ' {"code":0,"message":"操作成功","data":[{"id":"4674611826831570","name":"萌动の进击小队","topic":"","user_id":"374797264","is_master":false,"icon":"https://img.kaiheila.cn/icons/2020-07/lGtX0jyRsB0hs0hs.jpg/icon","invite_enabled":1,"notify_type":2,"region":"shanghai","enable_open":1,"open_id":43628314,"default_channel_id":"4920503065903445","default_channel_id_setting":"4920503065903445","welcome_channel_id":"7134649593688386","ws_type":1,"roles":[{"role_id":93153,"name":"屠尽群内欧狗","color":3447003,"position":1,"hoist":0,"mentionable":0,"permissions":143448584},{"role_id":28231,"name":"老家伙了","color":15277667,"position":2,"hoist":1,"mentionable":1,"permissions":198705150},{"role_id":28232,"name":"老权限了","color":15158332,"position":3,"hoist":1,"mentionable":1,"permissions":198180840},{"role_id":91402,"name":"萌动家的崽崽们","color":15158332,"position":4,"hoist":1,"mentionable":0,"permissions":143448584},{"role_id":70039,"name":"老队友了","color":3447003,"position":5,"hoist":0,"mentionable":0,"permissions":147642888},{"role_id":28423,"name":"老朋友了","color":3066993,"position":6,"hoist":0,"mentionable":0,"permissions":135043080},{"role_id":29953,"name":"天启队员","color":12541924,"position":7,"hoist":0,"mentionable":0,"permissions":147642888},{"role_id":77700,"name":"BMLive","color":0,"position":8,"hoist":0,"mentionable":0,"permissions":134217729},{"role_id":92668,"name":"开播啦","color":0,"position":9,"hoist":0,"mentionable":0,"permissions":134217728},{"role_id":0,"name":"@全体成员","color":0,"hoist":0,"mentionable":0,"permissions":143448584}],"channels":[{"id":"9201982985091207","name":"?? 欢迎","guild_id":"4674611826831570","is_category":1,"is_master":false,"level":1,"type":0,"permission_overwrites":[{"role_id":0,"allow":0,"deny":0}],"permission_users":[],"channels":[{"id":"7134649593688386","name":"?? 欢迎","user_id":"374797264","guild_id":"4674611826831570","voice_quality":"1","limit_amount":0,"is_category":0,"is_readonly":false,"parent_id":"9201982985091207","is_private":false,"server_type":1,"server_url":"ws-sh3.kaiheila.cn:443","level":1,"slow_mode":0,"topic":"","is_master":false,"type":1,"permission_overwrites":[{"role_id":0,"allow":0,"deny":266240}],"permission_users":[],"permission_sync":0},{"id":"4671426705846718","name":"?? 规则 & 信息","user_id":"374797264","guild_id":"4674611826831570","voice_quality":"1","limit_amount":0,"is_category":0,"is_readonly":false,"parent_id":"9201982985091207","is_private":false,"server_type":1,"server_url":"ws-sh3.kaiheila.cn:443","level":2,"slow_mode":0,"topic":"频道更新or变动日志","is_master":false,"type":1,"permission_overwrites":[{"role_id":28232,"allow":425000,"deny":0},{"role_id":28231,"allow":425000,"deny":0},{"role_id":0,"allow":2048,"deny":422952}],"permission_users":[],"permission_sync":0},{"id":"6439504774931802","name":"?? 权限 & 申请","user_id":"374797264","guild_id":"4674611826831570","voice_quality":"1","limit_amount":0,"is_category":0,"is_readonly":false,"parent_id":"9201982985091207","is_private":false,"server_type":1,"server_url":"ws-sh4.kaiheila.cn:443","level":3,"slow_mode":0,"topic":"","is_master":false,"type":1,"permission_overwrites":[{"role_id":28231,"allow":0,"deny":2048},{"role_id":28232,"allow":0,"deny":2048},{"role_id":70039,"allow":0,"deny":2048},{"role_id":29953,"allow":0,"deny":2048},{"role_id":28423,"allow":0,"deny":2048},{"role_id":0,"allow":6144,"deny":418856}],"permission_users":[],"permission_sync":0},{"id":"8946246843830026","name":"publicPush","user_id":"374797264","guild_id":"4674611826831570","voice_quality":"1","limit_amount":0,"is_category":0,"is_readonly":false,"parent_id":"9201982985091207","is_private":false,"server_type":1,"server_url":"ws-sh4.kaiheila.cn:443","level":4,"slow_mode":0,"topic":"8946246843830026","is_master":false,"type":1,"permission_overwrites":[{"role_id":0,"allow":0,"deny":4096}],"permission_users":[],"permission_sync":0},{"id":"8876187633547319","name":"privatePush","user_id":"374797264","guild_id":"4674611826831570","voice_quality":"1","limit_amount":0,"is_category":0,"is_readonly":false,"parent_id":"9201982985091207","is_private":false,"server_type":1,"server_url":"ws-sh3.kaiheila.cn:443","level":5,"slow_mode":0,"topic":"8876187633547319","is_master":false,"type":1,"permission_overwrites":[{"role_id":0,"allow":12615680,"deny":264192}],"permission_users":[{"user":{"id":"2279933469","username":"@野生的怪才君","identify_num":"6561","online":true,"os":"Websocket","status":1,"avatar":"https://img.kaiheila.cn/avatars/2021-01/YaJKS70ClV04g04g.png/icon","tag_info":{"color":"#6666CC","text":"开黑啦"},"mobile_verified":true,"nickname":"@野生的怪才君","roles":[28423,70039],"joined_at":1599030970000,"active_time":1609435303477},"allow":6144,"deny":0},{"user":{"id":"2898845865","username":"楚子御233","identify_num":"2398","online":false,"os":"Android","status":1,"avatar":"https://img.kaiheila.cn/avatars/2020-09/RwyDDjUOml0xc0xc.jpg/icon","mobile_verified":true,"nickname":"楚子御233","roles":[28232,91402],"joined_at":1595391577000,"active_time":1606399740765},"allow":2048,"deny":0}],"permission_sync":0}]},{"id":"2040082336289336","name":"?? 进击时刻","guild_id":"4674611826831570","is_category":1,"is_master":false,"level":2,"type":0,"permission_overwrites":[{"role_id":0,"allow":0,"deny":0}],"permission_users":[],"channels":[{"id":"4920503065903445","name":"?? 闲聊","user_id":"374797264","guild_id":"4674611826831570","voice_quality":"1","limit_amount":0,"is_category":0,"is_readonly":false,"parent_id":"2040082336289336","is_private":false,"server_type":1,"server_url":"ws-sh4.kaiheila.cn:443","level":1,"slow_mode":0,"topic":"都可以聊，没错，这边是真正的闲聊频道","is_master":false,"type":1,"permission_overwrites":[{"role_id":0,"allow":0,"deny":0}],"permission_users":[],"permission_sync":0},{"id":"3407099043767163","name":"?? 原神地铁站","user_id":"374797264","guild_id":"4674611826831570","voice_quality":"1","limit_amount":0,"is_category":0,"is_readonly":false,"parent_id":"2040082336289336","is_private":false,"server_type":1,"server_url":"ws-sh3.kaiheila.cn:443","level":2,"slow_mode":0,"topic":"","is_master":false,"type":1,"permission_overwrites":[{"role_id":0,"allow":0,"deny":0}],"permission_users":[],"permission_sync":1},{"id":"1074378324827907","name":"??圣诞节狂欢夜~","user_id":"374797264","guild_id":"4674611826831570","voice_quality":"1","limit_amount":0,"is_category":0,"is_readonly":false,"parent_id":"2040082336289336","is_private":false,"server_type":1,"server_url":"ws-sh4.kaiheila.cn:443","level":5,"slow_mode":0,"topic":"","is_master":false,"type":1,"permission_overwrites":[{"role_id":0,"allow":0,"deny":2048}],"permission_users":[],"permission_sync":0},{"id":"6923348389173964","name":"??圣诞节狂欢夜~","user_id":"374797264","guild_id":"4674611826831570","voice_quality":"2","limit_amount":50,"is_category":0,"is_readonly":false,"parent_id":"2040082336289336","is_private":false,"server_type":1,"server_url":"ws-sh3.kaiheila.cn:443","level":6,"slow_mode":0,"topic":"","is_master":false,"type":2,"permission_overwrites":[{"role_id":0,"allow":0,"deny":2048}],"permission_users":[],"permission_sync":0},{"id":"2602081638118679","name":"??? 闲聊","user_id":"374797264","guild_id":"4674611826831570","voice_quality":"2","limit_amount":50,"is_category":0,"is_readonly":false,"parent_id":"2040082336289336","is_private":false,"server_type":1,"server_url":"ws-sh4.kaiheila.cn:443","level":7,"slow_mode":0,"topic":"","is_master":false,"type":2,"permission_overwrites":[{"role_id":0,"allow":0,"deny":0}],"permission_users":[],"permission_sync":1}]},{"id":"3148240951158032","name":"??? 直播专区","guild_id":"4674611826831570","is_category":1,"is_master":false,"level":4,"type":0,"permission_overwrites":[{"role_id":28231,"allow":63437864,"deny":0},{"role_id":28232,"allow":63437864,"deny":0},{"role_id":70039,"allow":12621824,"deny":0},{"role_id":0,"allow":34816,"deny":64451624}],"permission_users":[],"channels":[{"id":"2213468576199940","name":"?? 萌动の天启小队","user_id":"374797264","guild_id":"4674611826831570","voice_quality":"3","limit_amount":10,"is_category":0,"is_readonly":false,"parent_id":"3148240951158032","is_private":false,"server_type":1,"server_url":"ws-sh3.kaiheila.cn:443","level":2,"slow_mode":0,"topic":"","is_master":false,"type":2,"permission_overwrites":[{"role_id":28231,"allow":63437864,"deny":0},{"role_id":28232,"allow":63437864,"deny":0},{"role_id":70039,"allow":12621824,"deny":0},{"role_id":0,"allow":34816,"deny":64451624}],"permission_users":[],"permission_sync":1,"users":[{"id":"374797264","username":"萌动众生","identify_num":"3507","online":true,"os":"Android","status":1,"avatar":"https://img.kaiheila.cn/avatars/2020-07/XkyJKsvalO2bc2bc.jpg/icon","mobile_verified":true,"nickname":"萌动众生"},{"id":"452244037","username":"BiliBili泽少","identify_num":"6583","online":true,"os":"Websocket","status":1,"avatar":"https://img.kaiheila.cn/avatars/2020-07/riBrofjkV902s02s.jpg/icon","mobile_verified":true,"nickname":"BiliBili泽少"}]},{"id":"9127567535107846","name":"? 阿泽的小队","user_id":"374797264","guild_id":"4674611826831570","voice_quality":"3","limit_amount":10,"is_category":0,"is_readonly":false,"parent_id":"3148240951158032","is_private":false,"server_type":1,"server_url":"ws-sh4.kaiheila.cn:443","level":3,"slow_mode":0,"topic":"","is_master":false,"type":2,"permission_overwrites":[{"role_id":28231,"allow":63437864,"deny":0},{"role_id":28232,"allow":63437864,"deny":0},{"role_id":70039,"allow":12621824,"deny":0},{"role_id":0,"allow":34816,"deny":64451624}],"permission_users":[],"permission_sync":1},{"id":"9336352446506648","name":"录制专用","user_id":"374797264","guild_id":"4674611826831570","voice_quality":"3","limit_amount":10,"is_category":0,"is_readonly":false,"parent_id":"3148240951158032","is_private":false,"server_type":1,"server_url":"ws-sh3.kaiheila.cn:443","level":4,"slow_mode":0,"topic":"","is_master":false,"type":2,"permission_overwrites":[{"role_id":28231,"allow":63437864,"deny":0},{"role_id":0,"allow":0,"deny":64486440}],"permission_users":[],"permission_sync":0}]},{"id":"4381278616673205","name":"???  开黑小队","guild_id":"4674611826831570","is_category":1,"is_master":false,"level":5,"type":0,"permission_overwrites":[{"role_id":28231,"allow":63437864,"deny":0},{"role_id":28232,"allow":63437864,"deny":0},{"role_id":0,"allow":12621824,"deny":51864616}],"permission_users":[],"channels":[{"id":"8204415661056837","name":"?? 我的世界·MOJANG","user_id":"374797264","guild_id":"4674611826831570","voice_quality":"2","limit_amount":25,"is_category":0,"is_readonly":false,"parent_id":"4381278616673205","is_private":false,"server_type":1,"server_url":"ws-sh3.kaiheila.cn:443","level":2,"slow_mode":0,"topic":"","is_master":false,"type":2,"permission_overwrites":[{"role_id":28231,"allow":63437864,"deny":0},{"role_id":28232,"allow":63437864,"deny":0},{"role_id":0,"allow":12621824,"deny":51864616}],"permission_users":[],"permission_sync":1},{"id":"3503268996803831","name":"?? 超级动物大逃杀","user_id":"374797264","guild_id":"4674611826831570","voice_quality":"2","limit_amount":25,"is_category":0,"is_readonly":false,"parent_id":"4381278616673205","is_private":false,"server_type":1,"server_url":"ws-sh4.kaiheila.cn:443","level":3,"slow_mode":0,"topic":"","is_master":false,"type":2,"permission_overwrites":[{"role_id":28231,"allow":63437864,"deny":0},{"role_id":28232,"allow":63437864,"deny":0},{"role_id":0,"allow":12621824,"deny":51864616}],"permission_users":[],"permission_sync":1},{"id":"9986841986701024","name":"? 原神","user_id":"374797264","guild_id":"4674611826831570","voice_quality":"2","limit_amount":50,"is_category":0,"is_readonly":false,"parent_id":"4381278616673205","is_private":false,"server_type":1,"server_url":"ws-sh3.kaiheila.cn:443","level":4,"slow_mode":0,"topic":"","is_master":false,"type":2,"permission_overwrites":[{"role_id":28231,"allow":63437864,"deny":0},{"role_id":28232,"allow":63437864,"deny":0},{"role_id":0,"allow":12621824,"deny":51864616}],"permission_users":[],"permission_sync":1},{"id":"7986733477113949","name":"?? 歌会","user_id":"374797264","guild_id":"4674611826831570","voice_quality":"3","limit_amount":50,"is_category":0,"is_readonly":false,"parent_id":"4381278616673205","is_private":false,"server_type":1,"server_url":"ws-sh3.kaiheila.cn:443","level":5,"slow_mode":0,"topic":"","is_master":false,"type":2,"permission_overwrites":[{"role_id":28231,"allow":63437864,"deny":0},{"role_id":28232,"allow":63437864,"deny":0},{"role_id":0,"allow":12621824,"deny":51864616}],"permission_users":[],"permission_sync":1},{"id":"5933403837754325","name":":-=-=-=-=-=-=-=-=-=-:","user_id":"374797264","guild_id":"4674611826831570","voice_quality":"2","limit_amount":0,"is_category":0,"is_readonly":false,"parent_id":"4381278616673205","is_private":false,"server_type":1,"server_url":"ws-sh3.kaiheila.cn:443","level":6,"slow_mode":0,"topic":"","is_master":false,"type":2,"permission_overwrites":[{"role_id":28231,"allow":63437864,"deny":0},{"role_id":28232,"allow":63437864,"deny":0},{"role_id":0,"allow":12621824,"deny":51864616}],"permission_users":[],"permission_sync":1},{"id":"8322595493063682","name":"??? 开黑小队Ⅰ","user_id":"374797264","guild_id":"4674611826831570","voice_quality":"2","limit_amount":25,"is_category":0,"is_readonly":false,"parent_id":"4381278616673205","is_private":false,"server_type":1,"server_url":"ws-sh3.kaiheila.cn:443","level":7,"slow_mode":0,"topic":"","is_master":false,"type":2,"permission_overwrites":[{"role_id":28231,"allow":63437864,"deny":0},{"role_id":28232,"allow":63437864,"deny":0},{"role_id":0,"allow":12621824,"deny":51864616}],"permission_users":[],"permission_sync":1},{"id":"9220366270536135","name":"??? 开黑小队Ⅱ","user_id":"374797264","guild_id":"4674611826831570","voice_quality":"2","limit_amount":25,"is_category":0,"is_readonly":false,"parent_id":"4381278616673205","is_private":false,"server_type":1,"server_url":"ws-sh3.kaiheila.cn:443","level":8,"slow_mode":0,"topic":"","is_master":false,"type":2,"permission_overwrites":[{"role_id":28231,"allow":63437864,"deny":0},{"role_id":28232,"allow":63437864,"deny":0},{"role_id":0,"allow":12621824,"deny":51864616}],"permission_users":[],"permission_sync":1},{"id":"9884518620168687","name":"??? 开黑小队Ⅲ","user_id":"374797264","guild_id":"4674611826831570","voice_quality":"2","limit_amount":25,"is_category":0,"is_readonly":false,"parent_id":"4381278616673205","is_private":false,"server_type":1,"server_url":"ws-sh4.kaiheila.cn:443","level":9,"slow_mode":0,"topic":"","is_master":false,"type":2,"permission_overwrites":[{"role_id":28231,"allow":63437864,"deny":0},{"role_id":28232,"allow":63437864,"deny":0},{"role_id":0,"allow":12621824,"deny":51864616}],"permission_users":[],"permission_sync":1},{"id":"9651308534877259","name":"??? 开黑小队Ⅳ","user_id":"374797264","guild_id":"4674611826831570","voice_quality":"2","limit_amount":25,"is_category":0,"is_readonly":false,"parent_id":"4381278616673205","is_private":false,"server_type":1,"server_url":"ws-sh4.kaiheila.cn:443","level":10,"slow_mode":0,"topic":"","is_master":false,"type":2,"permission_overwrites":[{"role_id":28231,"allow":63437864,"deny":0},{"role_id":28232,"allow":63437864,"deny":0},{"role_id":0,"allow":12621824,"deny":51864616}],"permission_users":[],"permission_sync":1},{"id":"2678692603936134","name":"??? 开黑小队Ⅴ","user_id":"374797264","guild_id":"4674611826831570","voice_quality":"2","limit_amount":25,"is_category":0,"is_readonly":false,"parent_id":"4381278616673205","is_private":false,"server_type":1,"server_url":"ws-sh4.kaiheila.cn:443","level":11,"slow_mode":0,"topic":"","is_master":false,"type":2,"permission_overwrites":[{"role_id":28231,"allow":63437864,"deny":0},{"role_id":28232,"allow":63437864,"deny":0},{"role_id":0,"allow":12621824,"deny":51864616}],"permission_users":[],"permission_sync":1},{"id":"9643802261257194","name":"??? 开黑小队Ⅵ","user_id":"374797264","guild_id":"4674611826831570","voice_quality":"2","limit_amount":25,"is_category":0,"is_readonly":false,"parent_id":"4381278616673205","is_private":false,"server_type":1,"server_url":"ws-sh4.kaiheila.cn:443","level":12,"slow_mode":0,"topic":"","is_master":false,"type":2,"permission_overwrites":[{"role_id":28231,"allow":63437864,"deny":0},{"role_id":28232,"allow":63437864,"deny":0},{"role_id":0,"allow":12621824,"deny":51864616}],"permission_users":[],"permission_sync":1},{"id":"4965167685249531","name":":-=-=-=-=-=-=-=-=-=-:","user_id":"374797264","guild_id":"4674611826831570","voice_quality":"2","limit_amount":0,"is_category":0,"is_readonly":false,"parent_id":"4381278616673205","is_private":false,"server_type":1,"server_url":"ws-sh4.kaiheila.cn:443","level":13,"slow_mode":0,"topic":"","is_master":false,"type":2,"permission_overwrites":[{"role_id":28231,"allow":63437864,"deny":0},{"role_id":28232,"allow":63437864,"deny":0},{"role_id":0,"allow":12621824,"deny":51864616}],"permission_users":[],"permission_sync":1},{"id":"3964949110027696","name":"??? 私聊Ⅰ","user_id":"374797264","guild_id":"4674611826831570","voice_quality":"2","limit_amount":4,"is_category":0,"is_readonly":false,"parent_id":"4381278616673205","is_private":false,"server_type":1,"server_url":"ws-sh3.kaiheila.cn:443","level":14,"slow_mode":0,"topic":"","is_master":false,"type":2,"permission_overwrites":[{"role_id":28231,"allow":63437864,"deny":0},{"role_id":28232,"allow":63437864,"deny":0},{"role_id":0,"allow":12621824,"deny":51864616}],"permission_users":[],"permission_sync":1},{"id":"8786161793548173","name":"??? 私聊Ⅱ","user_id":"374797264","guild_id":"4674611826831570","voice_quality":"2","limit_amount":4,"is_category":0,"is_readonly":false,"parent_id":"4381278616673205","is_private":false,"server_type":1,"server_url":"ws-sh3.kaiheila.cn:443","level":15,"slow_mode":0,"topic":"","is_master":false,"type":2,"permission_overwrites":[{"role_id":28231,"allow":63437864,"deny":0},{"role_id":28232,"allow":63437864,"deny":0},{"role_id":0,"allow":12621824,"deny":51864616}],"permission_users":[],"permission_sync":1},{"id":"8389819858077310","name":"??? 私聊Ⅲ","user_id":"374797264","guild_id":"4674611826831570","voice_quality":"2","limit_amount":4,"is_category":0,"is_readonly":false,"parent_id":"4381278616673205","is_private":false,"server_type":1,"server_url":"ws-sh4.kaiheila.cn:443","level":16,"slow_mode":0,"topic":"","is_master":false,"type":2,"permission_overwrites":[{"role_id":28231,"allow":63437864,"deny":0},{"role_id":28232,"allow":63437864,"deny":0},{"role_id":0,"allow":12621824,"deny":51864616}],"permission_users":[],"permission_sync":1}]},{"id":"5851911091434057","name":"?? 专属频道","guild_id":"4674611826831570","is_category":1,"is_master":false,"level":100,"type":0,"permission_overwrites":[{"role_id":0,"allow":12621824,"deny":0}],"permission_users":[],"channels":[{"id":"1613665896150746","name":"升君文化办公室聊天","user_id":"374797264","guild_id":"4674611826831570","voice_quality":"1","limit_amount":0,"is_category":0,"is_readonly":false,"parent_id":"5851911091434057","is_private":false,"server_type":1,"server_url":"ws-sh4.kaiheila.cn:443","level":1,"slow_mode":0,"topic":"","is_master":false,"type":1,"permission_overwrites":[{"role_id":0,"allow":12877824,"deny":6144}],"permission_users":[{"user":{"id":"1362466679","username":"老升","identify_num":"9090","online":false,"os":"Websocket","status":1,"avatar":"https://img.kaiheila.cn/assets/avatar_10.jpg/icon","mobile_verified":true,"nickname":"老升","roles":[28423,70039],"joined_at":1606816224000,"active_time":1607002162780},"allow":268288,"deny":0},{"user":{"id":"3655720641","username":"皮卡没有丘","identify_num":"0284","online":false,"os":"Websocket","status":1,"avatar":"https://img.kaiheila.cn/avatars/2020-12/c6n8y2mmMN02s02s.jpg/icon","mobile_verified":true,"nickname":"皮卡没有丘","roles":[28423,70039],"joined_at":1606816616000,"active_time":1606816616645},"allow":268288,"deny":0}],"permission_sync":0},{"id":"6438647694329361","name":"内鬼专用档案室","user_id":"374797264","guild_id":"4674611826831570","voice_quality":"1","limit_amount":0,"is_category":0,"is_readonly":false,"parent_id":"5851911091434057","is_private":false,"server_type":1,"server_url":"ws-sh3.kaiheila.cn:443","level":2,"slow_mode":0,"topic":"","is_master":false,"type":1,"permission_overwrites":[{"role_id":0,"allow":262144,"deny":2048}],"permission_users":[{"user":{"id":"3633010535","username":"Shugen","identify_num":"3438","online":true,"os":"Websocket","status":1,"avatar":"https://img.kaiheila.cn/avatars/2020-05/GVQi914BNL02s02s.jpg/icon","mobile_verified":true,"nickname":"Shugen","roles":[28231],"joined_at":1595499865000,"active_time":1610377998062},"allow":2048,"deny":0},{"user":{"id":"3966258738","username":"Il Harper","identify_num":"0735","online":true,"os":"Websocket","status":1,"avatar":"https://img.kaiheila.cn/avatars/2020-07/WoZ8T12JXq08c08c.jpg/icon","mobile_verified":true,"nickname":"Il Harper","roles":[28423,70039],"joined_at":1595562199000,"active_time":1610378112080},"allow":2048,"deny":0}],"permission_sync":0},{"id":"6887699588602185","name":"??B站三方对接","user_id":"374797264","guild_id":"4674611826831570","voice_quality":"1","limit_amount":0,"is_category":0,"is_readonly":false,"parent_id":"5851911091434057","is_private":false,"server_type":1,"server_url":"ws-sh4.kaiheila.cn:443","level":3,"slow_mode":0,"topic":"","is_master":false,"type":1,"permission_overwrites":[{"role_id":0,"allow":262144,"deny":2048}],"permission_users":[{"user":{"id":"3966258738","username":"Il Harper","identify_num":"0735","online":true,"os":"Websocket","status":1,"avatar":"https://img.kaiheila.cn/avatars/2020-07/WoZ8T12JXq08c08c.jpg/icon","mobile_verified":true,"nickname":"Il Harper","roles":[28423,70039],"joined_at":1595562199000,"active_time":1610378112080},"allow":2048,"deny":0},{"user":{"id":"3633010535","username":"Shugen","identify_num":"3438","online":true,"os":"Websocket","status":1,"avatar":"https://img.kaiheila.cn/avatars/2020-05/GVQi914BNL02s02s.jpg/icon","mobile_verified":true,"nickname":"Shugen","roles":[28231],"joined_at":1595499865000,"active_time":1610377998062},"allow":2048,"deny":0}],"permission_sync":0},{"id":"8711710822435428","name":"升君文化办公室","user_id":"374797264","guild_id":"4674611826831570","voice_quality":"2","limit_amount":10,"is_category":0,"is_readonly":false,"parent_id":"5851911091434057","is_private":false,"server_type":1,"server_url":"ws-sh3.kaiheila.cn:443","level":4,"slow_mode":0,"topic":"","is_master":false,"type":2,"permission_overwrites":[{"role_id":0,"allow":4096,"deny":12617728}],"permission_users":[{"user":{"id":"1362466679","username":"老升","identify_num":"9090","online":false,"os":"Websocket","status":1,"avatar":"https://img.kaiheila.cn/assets/avatar_10.jpg/icon","mobile_verified":true,"nickname":"老升","roles":[28423,70039],"joined_at":1606816224000,"active_time":1607002162780},"allow":13631488,"deny":0},{"user":{"id":"3655720641","username":"皮卡没有丘","identify_num":"0284","online":false,"os":"Websocket","status":1,"avatar":"https://img.kaiheila.cn/avatars/2020-12/c6n8y2mmMN02s02s.jpg/icon","mobile_verified":true,"nickname":"皮卡没有丘","roles":[28423,70039],"joined_at":1606816616000,"active_time":1606816616645},"allow":13664256,"deny":0}],"permission_sync":0},{"id":"6719874300234196","name":"??B站三方对接","user_id":"374797264","guild_id":"4674611826831570","voice_quality":"2","limit_amount":50,"is_category":0,"is_readonly":false,"parent_id":"5851911091434057","is_private":false,"server_type":1,"server_url":"ws-sh3.kaiheila.cn:443","level":5,"slow_mode":0,"topic":"","is_master":false,"type":2,"permission_overwrites":[{"role_id":0,"allow":0,"deny":2048}],"permission_users":[],"permission_sync":0},{"id":"7980903271743302","name":"楚子御233 ??","user_id":"374797264","guild_id":"4674611826831570","voice_quality":"2","limit_amount":10,"is_category":0,"is_readonly":false,"parent_id":"5851911091434057","is_private":false,"server_type":1,"server_url":"ws-sh3.kaiheila.cn:443","level":6,"slow_mode":0,"topic":"","is_master":false,"type":2,"permission_overwrites":[{"role_id":0,"allow":12621824,"deny":0}],"permission_users":[],"permission_sync":1},{"id":"9549600785206171","name":"shugen ??","user_id":"374797264","guild_id":"4674611826831570","voice_quality":"2","limit_amount":10,"is_category":0,"is_readonly":false,"parent_id":"5851911091434057","is_private":false,"server_type":1,"server_url":"ws-sh3.kaiheila.cn:443","level":7,"slow_mode":0,"topic":"","is_master":false,"type":2,"permission_overwrites":[{"role_id":0,"allow":12621824,"deny":0}],"permission_users":[{"user":{"id":"3633010535","username":"Shugen","identify_num":"3438","online":true,"os":"Websocket","status":1,"avatar":"https://img.kaiheila.cn/avatars/2020-05/GVQi914BNL02s02s.jpg/icon","mobile_verified":true,"nickname":"Shugen","roles":[28231],"joined_at":1595499865000,"active_time":1610377998062},"allow":1064,"deny":0}],"permission_sync":0}]}],"user_notify_type":0,"emojis":[],"my_roles":[77700,70039],"my_nickname":"BMLive","recommend_info":{"guild_id":"4674611826831570","open_id":"43628314","default_channel_id":"4920503065903445","name":"萌动の进击小队","icon":"https://img.kaiheila.cn/icons/2020-07/lGtX0jyRsB0hs0hs.jpg/icon","banner":"https://img.kaiheila.cn/assets/2020-07/WYZtaSAZPl0sg0go.png","desc":"B站主播萌动众生的进击小队语音","status":1,"tag":"我的世界  Minecraft"}},{"id":"3785158050166220","name":"机器人社区 - Bot Community","topic":"","user_id":"3966258738","is_master":false,"icon":"https://img.kaiheila.cn/icons/2020-11/fKIFpYdgfd0e80e8.png/icon","invite_enabled":1,"notify_type":1,"region":"shanghai","enable_open":1,"open_id":15862667,"default_channel_id":"2118926065513331","default_channel_id_setting":"2118926065513331","welcome_channel_id":"7399419909964325","ws_type":1,"roles":[{"role_id":62365,"name":"社区管理","color":3066993,"position":1,"hoist":1,"mentionable":0,"permissions":134217729},{"role_id":79691,"name":"机器人公约","color":15844367,"position":2,"hoist":0,"mentionable":0,"permissions":147642888},{"role_id":72119,"name":"Bot","color":15277667,"position":3,"hoist":1,"mentionable":0,"permissions":134742528},{"role_id":72508,"name":"开黑啦官方","color":15105570,"position":4,"hoist":1,"mentionable":0,"permissions":147642888},{"role_id":74884,"name":"蓝牌","color":3447003,"position":5,"hoist":1,"mentionable":0,"permissions":147642888},{"role_id":77641,"name":"Harper猫猫","color":0,"position":6,"hoist":0,"mentionable":0,"permissions":201326591},{"role_id":77643,"name":"Root","color":0,"position":7,"hoist":0,"mentionable":0,"permissions":199229143},{"role_id":77715,"name":"BMLive","color":0,"position":8,"hoist":0,"mentionable":0,"permissions":134217731},{"role_id":80055,"name":"四季酱","color":0,"position":9,"hoist":0,"mentionable":0,"permissions":134217959},{"role_id":83335,"name":"翻译/Translator","color":0,"position":10,"hoist":0,"mentionable":0,"permissions":134217728},{"role_id":93523,"name":"开播啦","color":0,"position":11,"hoist":0,"mentionable":0,"permissions":134221824},{"role_id":95322,"name":"检查/Inspector","color":0,"position":12,"hoist":0,"mentionable":0,"permissions":0},{"role_id":0,"name":"@全体成员","color":0,"hoist":0,"mentionable":0,"permissions":147642888}],"channels":[{"id":"9248381262346207","name":"欢迎","guild_id":"3785158050166220","is_category":1,"is_master":false,"level":1,"type":0,"permission_overwrites":[{"role_id":0,"allow":0,"deny":64221184}],"permission_users":[],"channels":[{"id":"2118926065513331","name":"公告","user_id":"3966258738","guild_id":"3785158050166220","voice_quality":"1","limit_amount":0,"is_category":0,"is_readonly":false,"parent_id":"9248381262346207","is_private":false,"server_type":1,"server_url":"ws-sh4.kaiheila.cn:443","level":1,"slow_mode":0,"topic":"","is_master":false,"type":1,"permission_overwrites":[{"role_id":0,"allow":0,"deny":64221184}],"permission_users":[],"permission_sync":1},{"id":"4311014847902427","name":"通知","user_id":"3966258738","guild_id":"3785158050166220","voice_quality":"1","limit_amount":0,"is_category":0,"is_readonly":false,"parent_id":"9248381262346207","is_private":false,"server_type":1,"server_url":"ws-sh4.kaiheila.cn:443","level":2,"slow_mode":0,"topic":"","is_master":false,"type":1,"permission_overwrites":[{"role_id":0,"allow":0,"deny":64221184}],"permission_users":[],"permission_sync":1},{"id":"7399419909964325","name":"欢迎","user_id":"3966258738","guild_id":"3785158050166220","voice_quality":"1","limit_amount":0,"is_category":0,"is_readonly":false,"parent_id":"9248381262346207","is_private":false,"server_type":1,"server_url":"ws-sh4.kaiheila.cn:443","level":3,"slow_mode":0,"topic":"","is_master":false,"type":1,"permission_overwrites":[{"role_id":0,"allow":0,"deny":64221184}],"permission_users":[],"permission_sync":1}]},{"id":"1700606945702051","name":"综合","guild_id":"3785158050166220","is_category":1,"is_master":false,"level":2,"type":0,"permission_overwrites":[{"role_id":0,"allow":0,"deny":0}],"permission_users":[],"channels":[{"id":"8316705894505670","name":"闲聊区","user_id":"3966258738","guild_id":"3785158050166220","voice_quality":"1","limit_amount":0,"is_category":0,"is_readonly":false,"parent_id":"1700606945702051","is_private":false,"server_type":0,"server_url":"ws1.kaiheila.cn:4443","level":1,"slow_mode":0,"topic":"","is_master":false,"type":1,"permission_overwrites":[{"role_id":0,"allow":0,"deny":0}],"permission_users":[],"permission_sync":1}]},{"id":"1742885831146235","name":"机器人公约","guild_id":"3785158050166220","is_category":1,"is_master":false,"level":3,"type":0,"permission_overwrites":[{"role_id":0,"allow":0,"deny":0}],"permission_users":[],"channels":[{"id":"3285459045056497","name":"介绍","user_id":"3966258738","guild_id":"3785158050166220","voice_quality":"1","limit_amount":0,"is_category":0,"is_readonly":false,"parent_id":"1742885831146235","is_private":false,"server_type":1,"server_url":"ws-sh4.kaiheila.cn:443","level":100,"slow_mode":0,"topic":"","is_master":false,"type":1,"permission_overwrites":[{"role_id":77641,"allow":423936,"deny":0},{"role_id":0,"allow":0,"deny":422944}],"permission_users":[],"permission_sync":0},{"id":"9155203584956320","name":"讨论","user_id":"3966258738","guild_id":"3785158050166220","voice_quality":"1","limit_amount":0,"is_category":0,"is_readonly":false,"parent_id":"1742885831146235","is_private":false,"server_type":1,"server_url":"ws-sh3.kaiheila.cn:443","level":100,"slow_mode":0,"topic":"","is_master":false,"type":1,"permission_overwrites":[{"role_id":0,"allow":0,"deny":0}],"permission_users":[],"permission_sync":1}]},{"id":"1123361744605908","name":"四季酱（测试）","guild_id":"3785158050166220","is_category":1,"is_master":false,"level":4,"type":0,"permission_overwrites":[{"role_id":0,"allow":0,"deny":0}],"permission_users":[{"user":{"id":"3854020099","username":"孤梦星影","identify_num":"5898","online":false,"os":"Websocket","status":1,"avatar":"https://img.kaiheila.cn/avatars/2020-07/XO1jU0Mlxk02s02s.jpg/icon","mobile_verified":true,"nickname":"孤梦星影","roles":[74884,62365],"joined_at":1606834660000,"active_time":1609738190950},"allow":3112,"deny":0}],"channels":[{"id":"9780593380130385","name":"介绍","user_id":"3966258738","guild_id":"3785158050166220","voice_quality":"1","limit_amount":0,"is_category":0,"is_readonly":false,"parent_id":"1123361744605908","is_private":false,"server_type":1,"server_url":"ws-sh3.kaiheila.cn:443","level":1,"slow_mode":0,"topic":"","is_master":false,"type":1,"permission_overwrites":[{"role_id":0,"allow":0,"deny":421888}],"permission_users":[{"user":{"id":"3854020099","username":"孤梦星影","identify_num":"5898","online":false,"os":"Websocket","status":1,"avatar":"https://img.kaiheila.cn/avatars/2020-07/XO1jU0Mlxk02s02s.jpg/icon","mobile_verified":true,"nickname":"孤梦星影","roles":[74884,62365],"joined_at":1606834660000,"active_time":1609738190950},"allow":3112,"deny":0}],"permission_sync":0},{"id":"6410201717804387","name":"告示板","user_id":"3854020099","guild_id":"3785158050166220","voice_quality":"1","limit_amount":0,"is_category":0,"is_readonly":false,"parent_id":"1123361744605908","is_private":false,"server_type":1,"server_url":"ws-sh3.kaiheila.cn:443","level":2,"slow_mode":0,"topic":"每日告示 / 精准卡池 / 首杀公告","is_master":false,"type":1,"permission_overwrites":[{"role_id":80055,"allow":14336,"deny":0},{"role_id":0,"allow":0,"deny":421888}],"permission_users":[{"user":{"id":"3854020099","username":"孤梦星影","identify_num":"5898","online":false,"os":"Websocket","status":1,"avatar":"https://img.kaiheila.cn/avatars/2020-07/XO1jU0Mlxk02s02s.jpg/icon","mobile_verified":true,"nickname":"孤梦星影","roles":[74884,62365],"joined_at":1606834660000,"active_time":1609738190950},"allow":3112,"deny":0}],"permission_sync":0},{"id":"6004165964684811","name":"讨论","user_id":"3966258738","guild_id":"3785158050166220","voice_quality":"1","limit_amount":0,"is_category":0,"is_readonly":false,"parent_id":"1123361744605908","is_private":false,"server_type":1,"server_url":"ws-sh3.kaiheila.cn:443","level":3,"slow_mode":0,"topic":"","is_master":false,"type":1,"permission_overwrites":[{"role_id":0,"allow":0,"deny":0}],"permission_users":[{"user":{"id":"3854020099","username":"孤梦星影","identify_num":"5898","online":false,"os":"Websocket","status":1,"avatar":"https://img.kaiheila.cn/avatars/2020-07/XO1jU0Mlxk02s02s.jpg/icon","mobile_verified":true,"nickname":"孤梦星影","roles":[74884,62365],"joined_at":1606834660000,"active_time":1609738190950},"allow":3112,"deny":0}],"permission_sync":1}]},{"id":"9378025328687596","name":"翻译/Translator（测试）","guild_id":"3785158050166220","is_category":1,"is_master":false,"level":5,"type":0,"permission_overwrites":[{"role_id":0,"allow":0,"deny":0}],"permission_users":[],"channels":[{"id":"7889264829456748","name":"介绍","user_id":"3966258738","guild_id":"3785158050166220","voice_quality":"1","limit_amount":0,"is_category":0,"is_readonly":false,"parent_id":"9378025328687596","is_private":false,"server_type":1,"server_url":"ws-sh4.kaiheila.cn:443","level":1,"slow_mode":0,"topic":"","is_master":false,"type":1,"permission_overwrites":[{"role_id":83335,"allow":421888,"deny":0},{"role_id":0,"allow":0,"deny":421888}],"permission_users":[],"permission_sync":0},{"id":"5381478316780071","name":"通知","user_id":"3966258738","guild_id":"3785158050166220","voice_quality":"1","limit_amount":0,"is_category":0,"is_readonly":false,"parent_id":"9378025328687596","is_private":false,"server_type":1,"server_url":"ws-sh3.kaiheila.cn:443","level":2,"slow_mode":0,"topic":"","is_master":false,"type":1,"permission_overwrites":[{"role_id":0,"allow":0,"deny":421888}],"permission_users":[],"permission_sync":0},{"id":"8358660539431182","name":"报名申请","user_id":"3966258738","guild_id":"3785158050166220","voice_quality":"1","limit_amount":0,"is_category":0,"is_readonly":false,"parent_id":"9378025328687596","is_private":false,"server_type":1,"server_url":"ws-sh3.kaiheila.cn:443","level":3,"slow_mode":0,"topic":"","is_master":false,"type":1,"permission_overwrites":[{"role_id":0,"allow":0,"deny":0}],"permission_users":[],"permission_sync":1},{"id":"3780971593907556","name":"讨论","user_id":"3966258738","guild_id":"3785158050166220","voice_quality":"1","limit_amount":0,"is_category":0,"is_readonly":false,"parent_id":"9378025328687596","is_private":false,"server_type":1,"server_url":"ws-sh4.kaiheila.cn:443","level":4,"slow_mode":0,"topic":"","is_master":false,"type":1,"permission_overwrites":[{"role_id":0,"allow":0,"deny":0}],"permission_users":[],"permission_sync":1}]},{"id":"2312446683923812","name":"开播啦（Beta）&BMLive","guild_id":"3785158050166220","is_category":1,"is_master":false,"level":100,"type":0,"permission_overwrites":[{"role_id":0,"allow":0,"deny":0}],"permission_users":[],"channels":[{"id":"1519238947373450","name":"介绍","user_id":"374797264","guild_id":"3785158050166220","voice_quality":"1","limit_amount":0,"is_category":0,"is_readonly":false,"parent_id":"2312446683923812","is_private":false,"server_type":1,"server_url":"ws-sh4.kaiheila.cn:443","level":1,"slow_mode":0,"topic":"","is_master":false,"type":1,"permission_overwrites":[{"role_id":0,"allow":0,"deny":4096}],"permission_users":[],"permission_sync":0},{"id":"1228002058500804","name":"通知","user_id":"374797264","guild_id":"3785158050166220","voice_quality":"1","limit_amount":0,"is_category":0,"is_readonly":false,"parent_id":"2312446683923812","is_private":false,"server_type":1,"server_url":"ws-sh4.kaiheila.cn:443","level":2,"slow_mode":0,"topic":"","is_master":false,"type":1,"permission_overwrites":[{"role_id":0,"allow":0,"deny":4096}],"permission_users":[],"permission_sync":0},{"id":"2183078874313786","name":"讨论","user_id":"374797264","guild_id":"3785158050166220","voice_quality":"1","limit_amount":0,"is_category":0,"is_readonly":false,"parent_id":"2312446683923812","is_private":false,"server_type":1,"server_url":"ws-sh3.kaiheila.cn:443","level":3,"slow_mode":0,"topic":"","is_master":false,"type":1,"permission_overwrites":[{"role_id":0,"allow":0,"deny":0}],"permission_users":[],"permission_sync":1},{"id":"2784279851707867","name":"测试（2021）","user_id":"374797264","guild_id":"3785158050166220","voice_quality":"1","limit_amount":0,"is_category":0,"is_readonly":false,"parent_id":"2312446683923812","is_private":false,"server_type":1,"server_url":"ws-sh4.kaiheila.cn:443","level":4,"slow_mode":0,"topic":"","is_master":false,"type":1,"permission_overwrites":[{"role_id":0,"allow":0,"deny":0}],"permission_users":[],"permission_sync":1}]}],"user_notify_type":0,"emojis":[],"my_roles":[77715,74884,72119],"my_nickname":"BMLive","recommend_info":{"guild_id":"3785158050166220","open_id":"15862667","default_channel_id":"2118926065513331","name":"机器人社区 - Bot Community","icon":"https://img.kaiheila.cn/icons/2020-11/fKIFpYdgfd0e80e8.png/icon","banner":"https://img.kaiheila.cn/assets/2020-12/KbxIqit3xG0sg0go.png","desc":"开黑啦Bot讨论与测试的集中社区，在这里找到你需要的Bot吧。","status":1,"tag":"其他社群"}}]}
-
- ' 频道数组:
-
-
-
-.子程序 user_me, 文本型, , 
-.参数 token, 文本型, 可空, 多机器人预留位置 采用文件对应 token=token
-
-.局部变量 url, 文本型, , , 
-.局部变量 header, 文本型, , , 
-.局部变量 result, 类_json, , , 
-
-赋值 (url, 相加 (g_url, “/user/me”))
-赋值 (header, 相加 (“Authorization: Bot ”, 选择 (等于 (token, “”), g_token, 读配置项 (相加 (取运行目录 (), “\bot_token.ini”), “token”, token, )), #换行符, “Content-type: application/json”))
- ' json.置属性 (“guild_id”, GuildId, )
- ' 调试输出 (baseUrl, header, json.取数据文本 ())
-result.解析 (编码_utf8到gb2312 (到文本 (网页_访问 (url, 0, , , , header, , , , , , , ))), )
- ' 调试输出 (, “获取服务器信息”, “kaiheila”)
- ' 调试输出 (, “返回信息: ” ＋ result.取数据文本 (), “kaiheila”)
- ' {"code":0,"message":"操作成功","data":{"id":"*****","username":"****","identify_num":"9028","online":true,"os":"Websocket","status":0,"avatar":"https://img.kaiheila.cn/assets/2021-01/OQlgu5UiGJ0e80e8.jpeg/icon","bot":true,"tag_info":{"color":"#34A853","text":"机器人"},"mobile_verified":true,"client_id":"********","mobile_prefix":"86","mobile":"****","privacy_game_activity":0,"privacy_music_activity":0,"enable_desktop_notification":true,"audio_setting":"","auto_exit_audio_channel":false,"invited_count":"0","need_guide":false,"friend_setting":{"all":true},"chat_setting":"1","auth_info":[]}}'
-返回 (result.取数据文本 ())
-
-
-.子程序 asset_create, 文本型, , 
-.参数 token, 文本型, 可空, 
-.参数 本地资源路径, 文本型, , 
-
-.局部变量 url, 文本型, , , 
-.局部变量 uuid, 文本型, , , 
-.局部变量 type, 文本型, , , 
-.局部变量 header, 文本型, , , 
-.局部变量 Playload, 字节集, , , 
-.局部变量 json, 类_json, , , 
-
-赋值 (url, 相加 (g_url, “/asset/create”))
-赋值 (uuid, 文本_取随机数字 (10, ))
-赋值 (type, 文件_取扩展名 (本地资源路径))
-.判断开始 (等于 (type, “.png”))
-    赋值 (type, “image/png”)
-.默认
-    赋值 (type, “image/png”)
-.判断结束
-赋值 (header, 相加 (“Content-Type: multipart/form-data; boundary=--------------------------”, uuid))
-赋值 (header, 相加 (header, #换行符, “Authorization: Bot ”, 选择 (等于 (token, “”), g_token, 读配置项 (相加 (取运行目录 (), “\bot_token.ini”), “token”, token, ))))
-赋值 (Playload, 到字节集 (相加 (“----------------------------”, uuid, #换行符)))
-赋值 (Playload, 相加 (Playload, 到字节集 (相加 (“Content-Disposition: form-data; name=”, #引号, “file”, #引号, “; filename=”, #引号, “temp”, 文件_取文件名 (本地资源路径, ), #引号, #换行符))))
-赋值 (Playload, 相加 (Playload, 到字节集 (相加 (“Content-Type: ”, type, #换行符))))
-赋值 (Playload, 相加 (Playload, 到字节集 (#换行符)))
-赋值 (Playload, 相加 (Playload, 读入文件 (本地资源路径), 到字节集 (#换行符)))
-赋值 (Playload, 相加 (Playload, 到字节集 (相加 (“----------------------------”, uuid, “--”))))
- ' 调试输出 (url, header, 到文本 (Playload))
-json.解析 (编码_utf8到gb2312 (到文本 (网页_访问 (url, 1, , , , header, , , Playload, , , , ))), )
- ' {"code":0,"message":"操作成功","data":{"url":"https://img.kaiheila.cn/assets/2021-01/22/zV8yikTGJf0la0k5.png"}}
-返回 (json.取数据文本 ())
-
-.子程序 guild_role_index, 空白型, , 获取服务器角色列表
-.参数 token, 文本型, 可空, 多机器人预留位置 采用文件对应 token=token
-.参数 guild_id, 文本型, , 
-
-.局部变量 url, 文本型, , , 
-.局部变量 header, 文本型, , , 
-.局部变量 result, 类_json, , , 
-
-赋值 (url, 相加 (g_url, “/guild-role/index”))
-赋值 (url, 相加 (url, “?guild_id=”, guild_id))
-赋值 (header, 相加 (“Authorization: Bot ”, 选择 (等于 (token, “”), g_token, 读配置项 (相加 (取运行目录 (), “\bot_token.ini”), “token”, token, )), #换行符, “Content-type: application/json”))
-result.解析 (编码_utf8到gb2312 (到文本 (网页_访问 (url, 0, , , , header, , , , , , , ))), )
- ' 调试输出 (, “获取服务器信息”, “kaiheila”)
- ' 调试输出 (, “返回信息: ” ＋ result.取数据文本 (), “kaiheila”)
- ' role_id unsigned int 角色的id
- ' name string 角色的名称
- ' color unsigned int 角色的色值0x000000 - 0xFFFFFF
- ' position unsigned int 顺序，值越小载靠前
- ' hoist unsigned int 只能为0或者1，是否把该角色的用户在用户列表排到前面
- ' mentionable unsigned int 只能为0或者1，该角色是否可以被提及
- ' permissions unsigned int 权限,参见权限说明
- ' {"code":0,"message":"操作成功","data":[{"role_id":5712,"name":"新角色1","color":3066993,"position":1,"hoist":0,"mentionable":0,"permissions":147643914},{"role_id":0,"name":"@全体成员","color":0,"position":999,"hoist":0,"mentionable":0,"permissions":147642888}],}
-返回 (result.取数据文本 ())
-
-
-.子程序 guild_role_create, 空白型, , 创建服务器角色
-.参数 token, 文本型, 可空, 多机器人预留位置 采用文件对应 token=token
-.参数 name, 文本型, 可空, 
-.参数 guild_id, 文本型, , 
-
-.局部变量 url, 文本型, , , 
-.局部变量 header, 文本型, , , 
-.局部变量 json, 类_json, , , 
-.局部变量 result, 类_json, , , 
-
-赋值 (url, 相加 (g_url, “/guild-role/create”))
-赋值 (header, 相加 (“Authorization: Bot ”, 选择 (等于 (token, “”), g_token, 读配置项 (相加 (取运行目录 (), “\bot_token.ini”), “token”, token, )), #换行符, “Content-type: application/json”))
-.如果真 (不等于 (name, “”))
-    json.置属性 (“name”, name, )
-.如果真结束
-json.置属性 (“guild_id”, guild_id, )
-result.解析 (编码_utf8到gb2312 (到文本 (网页_访问 (url, 1, 编码_URL编码 (json.取数据文本 (), , 真), , , header, , , , , , , ))), )
- ' 调试输出 (, “获取服务器信息”, “kaiheila”)
- ' 调试输出 (, “返回信息: ” ＋ result.取数据文本 (), “kaiheila”)
- ' role_id unsigned int 角色的id
- ' name string 角色的名称
- ' color unsigned int 角色的色值0x000000 - 0xFFFFFF
- ' position unsigned int 顺序，值越小载靠前
- ' hoist unsigned int 只能为0或者1，是否把该角色的用户在用户列表排到前面
- ' mentionable unsigned int 只能为0或者1，该角色是否可以被提及
- ' permissions unsigned int 权限,参见权限说明
- ' {"code":0,"message":"操作成功","data":[{"role_id":5712,"name":"新角色1","color":3066993,"position":1,"hoist":0,"mentionable":0,"permissions":147643914}],}
-返回 (result.取数据文本 ())
-
-
-.子程序 guild_role_update, 空白型, , 更新服务器角色
-.参数 token, 文本型, 可空, 多机器人预留位置 采用文件对应 token=token
-.参数 guild_id, 文本型, , 
-.参数 role_id, 整数型, , 
-.参数 hoist, 整数型, 可空, 
-.参数 mentionable, 整数型, 可空, 
-.参数 permissions, 整数型, 可空, 
-
-.局部变量 url, 文本型, , , 
-.局部变量 header, 文本型, , , 
-.局部变量 result, 类_json, , , 
-.局部变量 json, 类_json, , , 
-
-赋值 (url, 相加 (g_url, “/guild-role/update”))
-json.置属性 (“guild_id”, guild_id, )
-json.置属性数值 (“role_id”, role_id)
-.如果真 (等于 (是否为空 (hoist), 假))
-    json.置属性数值 (“hoist”, 选择 (等于 (hoist, 1), 1, 2), )
-.如果真结束
-.如果真 (等于 (是否为空 (mentionable), 假))
-    json.置属性数值 (“mentionable”, 选择 (等于 (mentionable, 1), 1, 2), )
-.如果真结束
-.如果真 (等于 (是否为空 (permissions), 假))
-    json.置属性数值 (“permissions”, permissions, )
-.如果真结束
-赋值 (header, 相加 (“Authorization: Bot ”, 选择 (等于 (token, “”), g_token, 读配置项 (相加 (取运行目录 (), “\bot_token.ini”), “token”, token, )), #换行符, “Content-type: application/json”))
-result.解析 (编码_utf8到gb2312 (到文本 (网页_访问 (url, 1, 编码_URL编码 (json.取数据文本 (), 真, ), , , header, , , , , , , ))), )
- ' 调试输出 (, “获取服务器信息”, “kaiheila”)
- ' 调试输出 (, “返回信息: ” ＋ result.取数据文本 (), “kaiheila”)
- ' role_id unsigned int 角色的id
- ' name string 角色的名称
- ' color unsigned int 角色的色值0x000000 - 0xFFFFFF
- ' position unsigned int 顺序，值越小载靠前
- ' hoist unsigned int 只能为0或者1，是否把该角色的用户在用户列表排到前面
- ' mentionable unsigned int 只能为0或者1，该角色是否可以被提及
- ' permissions unsigned int 权限,参见权限说明
- ' {"code":0,"message":"操作成功","data":[{"role_id":5712,"name":"新角色1","color":3066993,"position":1,"hoist":0,"mentionable":0,"permissions":147643914}],}
-返回 (result.取数据文本 ())
-
-
-.子程序 guild_role_delete, 空白型, , 删除服务器角色
-.参数 token, 文本型, 可空, 多机器人预留位置 采用文件对应 token=token
-.参数 guild_id, 文本型, , 
-.参数 role_id, 整数型, , 
-
-.局部变量 url, 文本型, , , 
-.局部变量 header, 文本型, , , 
-.局部变量 result, 类_json, , , 
-.局部变量 json, 类_json, , , 
-
-赋值 (url, 相加 (g_url, “/guild-role/delete”))
-赋值 (header, 相加 (“Authorization: Bot ”, 选择 (等于 (token, “”), g_token, 读配置项 (相加 (取运行目录 (), “\bot_token.ini”), “token”, token, )), #换行符, “Content-type: application/json”))
-json.置属性 (“guild_id”, guild_id, )
-json.置属性数值 (“role_id”, role_id, )
-result.解析 (编码_utf8到gb2312 (到文本 (网页_访问 (url, 1, 编码_URL编码 (json.取数据文本 (), 真, ), , , header, , , , , , , ))), )
- ' 调试输出 (, “获取服务器信息”, “kaiheila”)
- ' 调试输出 (, “返回信息: ” ＋ result.取数据文本 (), “kaiheila”)
- ' {"code":0,"message":"操作成功","data":[]}
-返回 (result.取数据文本 ())
-
-
-.子程序 guild_role_grant, 空白型, , 赋予用户角色
-.参数 token, 文本型, 可空, 多机器人预留位置 采用文件对应 token=token
-.参数 guild_id, 文本型, , 
-.参数 user_id, 文本型, , 
-.参数 role_id, 整数型, , 
-
-.局部变量 url, 文本型, , , 
-.局部变量 header, 文本型, , , 
-.局部变量 result, 类_json, , , 
-.局部变量 json, 类_json, , , 
-
-赋值 (url, 相加 (g_url, “/guild-role/grant”))
-赋值 (header, 相加 (“Authorization: Bot ”, 选择 (等于 (token, “”), g_token, 读配置项 (相加 (取运行目录 (), “\bot_token.ini”), “token”, token, )), #换行符, “Content-type: application/json”))
-json.置属性 (“guild_id”, guild_id, )
-json.置属性 (“user_id”, user_id, )
-json.置属性数值 (“role_id”, role_id)
-result.解析 (编码_utf8到gb2312 (到文本 (网页_访问 (url, 1, 编码_URL编码 (json.取数据文本 (), 真, ), , , header, , , , , , , ))), )
- ' user_id string 用户id
- ' guild_id string 服务器id
- ' roles Array 角色id的列表
- ' 调试输出 (, “获取服务器信息”, “kaiheila”)
- ' 调试输出 (, “返回信息: ” ＋ result.取数据文本 (), “kaiheila”)
- ' {"code":0,"message":"操作成功","data":{"user_id":"xxxx","guild_id":"xxxx","roles":[1,2]}}
-返回 (result.取数据文本 ())
-
-
-.子程序 guild_role_revoke, 空白型, , 删除用户角色
-.参数 token, 文本型, 可空, 多机器人预留位置 采用文件对应 token=token
-.参数 guild_id, 文本型, , 
-.参数 role_id, 整数型, , 
-.参数 user_id, 文本型, , 
-
-.局部变量 url, 文本型, , , 
-.局部变量 header, 文本型, , , 
-.局部变量 result, 类_json, , , 
-.局部变量 json, 类_json, , , 
-
-赋值 (url, 相加 (g_url, “/guild-role/revoke”))
-赋值 (header, 相加 (“Authorization: Bot ”, 选择 (等于 (token, “”), g_token, 读配置项 (相加 (取运行目录 (), “\bot_token.ini”), “token”, token, )), #换行符, “Content-type: application/json”))
-json.置属性 (“guild_id”, guild_id, )
-json.置属性数值 (“role_id”, role_id)
-json.置属性 (“user_id”, user_id, )
-result.解析 (编码_utf8到gb2312 (到文本 (网页_访问 (url, 1, 编码_URL编码 (json.取数据文本 (), 真, ), , , header, , , , , , , ))), )
- ' 调试输出 (, “获取服务器信息”, “kaiheila”)
- ' 调试输出 (, “返回信息: ” ＋ result.取数据文本 (), “kaiheila”)
- ' guild_id string 服务器id
- ' user_id string 角色id
- ' roles Array 角色id的列表
- ' {"code":0,"message":"操作成功","data":{"user_id":"xxxx","guild_id":"xxxx","roles":[9]}}
-返回 (result.取数据文本 ())
-
-
-.程序集 Queue, , , 
-
-.子程序 QueueHeart, 空白型, , 
-.循环判断首 ()
-    QueueHeartProc ()
-    程序_延时 (5, 1)
-.循环判断尾 (不等于 (Version, “”))
-
-
-
-.子程序 at部分处理, 文本型, , 
-.参数 content, 文本型, , 
-.参数 uid, 文本型, , 
-
-.局部变量 list, 文本型, , "0", 
-.局部变量 i, 整数型, , , 
-
-赋值 (list, 分割文本 (content, “ ”, ))
-.计次循环首 (取数组成员数 (list), i)
-    .如果真 (等于 (文本_取文本之后 (list [i], “#”), uid))
-        返回 (文本_取文本之后 (list [i], “@”))
-    .如果真结束
-    
-    
-.计次循环尾 ()
-返回 (uid)
-
-.子程序 QueueHeartProc, 空白型, , 
-.局部变量 msgJson, 类_json, , , 
-.局部变量 匿名局部变量_13334, 空白型, , , 
-.局部变量 channel_type, 文本型, , , 
-.局部变量 target_id, 文本型, , , 
-.局部变量 msg_id, 文本型, , , 
-.局部变量 content, 文本型, , , 
-.局部变量 guild_id, 文本型, , , 
-.局部变量 channel_name, 文本型, , , 
-.局部变量 senderid, 文本型, , , 
-.局部变量 sendernickname, 文本型, , , 
-.局部变量 verify_token, 文本型, , , 
-.局部变量 result, 文本型, , , 
-.局部变量 i, 整数型, , , 
-.局部变量 item, 文本型, , , 
-
-.判断循环首 (大于 (取数组成员数 (g_msgList), 0))
-     ' 只要有数据就进来：
-    msgJson.解析 (g_msgList [1], )
-    删除成员 (g_msgList, 1, 1)
-     ' 删除成员 (g_khl_msgList_id, 1, 1)
-    赋值 (msgJson, msgJson.取属性 (“d”))
-    .如果真 (等于 (msgJson.取通用属性 (“extra.author.bot”, ), “true”))
-        到循环尾 ()
-    .如果真结束
-    
-    赋值 (channel_type, msgJson.取通用属性 (“channel_type”, )) ' GROUP
-    
-    .判断开始 (等于 (channel_type, “PERSON”))
-         ' {"type":255,"channel_type":"PERSON","target_id":"414248069","author_id":"1","content":"[系统消息]","msg_id":"01bba042-1b8e-4600-9de2-a6adf84dee1c","msg_timestamp":1611381724543,"nonce":"","extra":{"type":"message_btn_click","body":{"value":"test value","msg_id":"38623f74-94ef-4bc2-8eee-9d29d5a565de","user_id":"2393184238"}}}
-    .判断 (等于 (channel_type, “GROUP”)) ' 频道消息
-        赋值 (target_id, msgJson.取通用属性 (“target_id”, ))
-        赋值 (msg_id, msgJson.取通用属性 (“msg_id”, ))
-        赋值 (content, msgJson.取通用属性 (“content”, ))
-        赋值 (guild_id, msgJson.取通用属性 (“extra['guild_id']”, )) ' 4674611826831570=main
-        赋值 (channel_name, msgJson.取通用属性 (“extra['channel_name']”, ))
-        赋值 (senderid, msgJson.取通用属性 (“extra.author.id”, ))
-        赋值 (sendernickname, msgJson.取通用属性 (“extra.author.nickname”, ))
-        赋值 (verify_token, msgJson.取通用属性 (“verify_token”, ))
-        未知函数_67187902 (选择 (等于 (“GROUP”), 0, 1), “type”.未知函数_67187903 (), , , , , 未知函数_67187904 ())
-         ' 01-01 01:18:05 {"s":0,"d":{"type":1,"channel_type":"GROUP","target_id":"8876187633547319","author_id":"374797264","content":"@@野生的怪才君#2279933469 ","msg_id":"2b1ce912-6b55-47e1-a42b-918c154d3c9b","msg_timestamp":1609435085214,"nonce":"","extra":{"local_id":"5PlkQi5wEyXufD7vVwWNPblq","type":"1","guild_id":"4674611826831570","channel_name":"privatePush","mention":["2279933469"],"mention_all":false,"mention_roles":[],"mention_here":false,"code":"","author":{"identify_num":"3507","avatar":"https://img.kaiheila.cn/avatars/2020-07/XkyJKsvalO2bc2bc.jpg/icon","username":"萌动众生","id":"374797264","nickname":"萌动众生","roles":[29953,28231]}},"verify_token":""},"sn":719}
-         ' {"s":0,"d":{"type":1,"channel_type":"GROUP","target_id":"7873127691138410","author_id":"374797264","content":"@萌动众生#374797264 @易语言模板测试#1698900299 @role:95455; ","msg_id":"b34464da-da9c-473c-bc1a-d0eb0631d269","msg_timestamp":1610603734178,"nonce":"","extra":{"local_id":"lp3JfeNPUrpBcNdlYYI7Odpv","type":1,"guild_id":"6277101564729879","channel_name":"文字频道","mention":["374797264","1698900299"],"mention_all":false,"mention_roles":[95455],"mention_here":false,"code":"","author":{"identify_num":"3507","avatar":"https://img.kaiheila.cn/avatars/2020-07/XkyJKsvalO2bc2bc.jpg/icon","username":"萌动众生","id":"374797264","nickname":"萌动众生","roles":[]},"quote":{"local_id":"o5WoZqKQU5I6qT5rWDQCxCnw","type":1,"guild_id":"6277101564729879","channel_name":"文字频道","mention":[],"mention_all":false,"mention_roles":[],"mention_here":false,"code":"","author":{"identify_num":"3507","avatar":"https://img.kaiheila.cn/avatars/2020-07/XkyJKsvalO2bc2bc.jpg/icon","username":"萌动众生","id":"374797264","nickname":"萌动众生","roles":[]},"id":"bb891959-6381-4313-a07c-8e8cf31daebc","content":".test-tools","create_at":1610603600673,"notCount":true,"status":"SEND_SUCCESS","timeStr":"今天 下午 01:53","showTime":false,"gather_id":"5a2d7d94-4f09-44e0-b6f8-5fab80eada69","in_group":true,"rong_id":"bb891959-6381-4313-a07c-8e8cf31daebc","errorInfo":null,"pb0":true}},"verify_token":""},"sn":4}
-        
-        .判断开始 (不等于 (寻找文本 (content, 相加 (“@”, g_bot.quard), , 假), -1)) ' 艾特了机器人
-            赋值 (result, 相加 (“消息类型: ”, 选择 (等于 (msgJson.取通用属性 (“type”, ), “1”), “文字消息”, “其他”)))
-            赋值 (result, 相加 (result, #换行符, “消息ID: ”, msg_id))
-            赋值 (result, 相加 (result, #换行符, “发送人: ”, sendernickname, “#”, senderid))
-            赋值 (result, 相加 (result, #换行符, “服务器: ”, guild_id))
-            赋值 (result, 相加 (result, #换行符, “频道: ”, channel_name, “#”, target_id))
-            
-            .如果真 (不等于 (msgJson.取通用属性 (“extra.quote['id']”, ), “”))
-                赋值 (result, 相加 (result, #换行符, “引用消息ID: ”, msgJson.取通用属性 (“extra.quote['id']”, )))
-                赋值 (result, 相加 (result, #换行符, “引用消息发送人: ”, msgJson.取通用属性 (“extra.quote.author.username”, ), “#”, msgJson.取通用属性 (“extra.quote.author.id”, )))
-            .如果真结束
-            .如果真 (大于 (msgJson.取属性 (“extra.mention”).成员数 (), 0))
-                .计次循环首 (msgJson.取属性 (“extra.mention”).成员数 (), i)
-                    赋值 (result, 相加 (result, #换行符, “引用用户: ”, at部分处理 (content, msgJson.取通用属性 (相加 (“extra.mention['”, 到文本 (相减 (i, 1)), “']”), ))))
-                .计次循环尾 ()
-                
-            .如果真结束
-             ' .如果真 (大于 (msgJson.取属性 (“extra.mention”, ).成员数 (), 0))
-                 ' .计次循环首 (msgJson.取属性 (“extra.mention_roles”, ).成员数 (), i)
-                     ' result ＝ result ＋ #换行符 ＋ “引用用户: ” ＋ msgJson.取通用属性 (“extra.mention['” ＋ 到文本 (i － 1) ＋ “']”, )
-                 ' .计次循环尾 ()
-             ' .如果真结束
-            .如果真 (等于 (msgJson.取通用属性 (“extra['mention_all']”, ), “true”))
-                赋值 (result, 相加 (result, #换行符, “引用全体成员: ”, msg_id))
-            .如果真结束
-            .如果真 (等于 (msgJson.取通用属性 (“extra['mention_here']”, ), “true”))
-                赋值 (result, 相加 (result, #换行符, “引用在线成员: ”, msg_id))
-            .如果真结束
-            channel_message (1, target_id, result, msg_id, , )
-        .默认
-            
-        .判断结束
-        
-        
-    .默认
-        
-    .判断结束
-    
-    
-.判断循环尾 ()
-
-
-.子程序 QueueExec, 空白型, , 
-.参数 msgFrom, 整数型, , 0=频道聊天  1=好友私聊
-.参数 msgType, 整数型, , 同步之前的
-.参数 channelId, 文本型, , 当msgFrom=0时才有
-.参数 userId, 文本型, , 
-.参数 contant, 文本型, , 
-.参数 msgId, 文本型, , 
-.参数 json, 文本型, , 备用 留给你自己解析
-
-未知函数_67187900 (msgFrom, msgType, channelId, userId, contant, msgId, json)
-
-未知函数_67187901 (msgFrom, msgType, channelId, userId, contant, msgId, json)
-
-
-.程序集 WebSocket, , , 
-
-.子程序 WsConnet, 空白型, , 
-.局部变量 header, 文本型, , , 
-.局部变量 token, 文本型, , , 
-.局部变量 id, 整数型, , , 
-.局部变量 url, 文本型, , , 
-
- ' header ＝ “Authorization: Bot ” ＋ 选择 (token ＝ “”, g_token, 读配置项 (取运行目录 () ＋ “\bot.ini”, “token”, token, ))
-赋值 (url, gateway_index (0))
-日志_输出 (“→”, 相加 (“Ws_Con.url=”, 到文本 (url)))
-.如果真 (等于 (WS_Start (url, , id), 真))
-    赋值 (g_conID, id)
-    未知支持库函数_0 (&Ws_Heart, id, )
-     ' 客户端_设置心跳 (id, 30 × 1000)
-.如果真结束
-调试输出 (g_conID)
- ' g_MsgID ＝ 0
-
-.子程序 Ws_Heart, 空白型, , 
-.参数 id, 空白型, , 
-
-.循环判断首 ()
-    Ws_HeartSend ()
-    程序_延时 (30, 1)
-.循环判断尾 (等于 (g_conID, id))
-
-.子程序 WS_OnAccept, 空白型, , 
-调试输出 (“Ws_Con”, g_conID)
-日志_输出 (“√”, 相加 (“Ws_Con.id=”, 到文本 (g_conID)))
-
-
-.子程序 WS_OnClose, 空白型, , 
-调试输出 (“Ws_Close”, g_conID)
-日志_输出 (“×”, 相加 (“Ws_Close.id=”, 到文本 (g_conID))) ' ＋ “: ” ＋ 到文本 (enOperation) ＋ “-” ＋ 到文本 (iErrorCode_错误代码))
- ' 客户端_设置心跳 (id, 0)
-赋值 (g_conID, 0)
-程序_延时 (5, 1)
-未知支持库函数_0 (&WsConnet, , )
-
-
-.子程序 WS_OnReceive, 空白型, , 
-.参数 Buffer, 字节集, , 
-.参数 BufferType, 整数型, , 0=文本整包 1=文本部分包 2=json整包 3=json部分包 4=关闭包
-
-.局部变量 json, 类_json, , , 
-
-.如果真 (等于 (BufferType, 2))
-    .如果 (json.解析 (编码_utf8到gb2312 (到文本 (Buffer)), ))
-        调试输出 (json.取数据文本 ())
-        .判断开始 (等于 (json.取属性数值 (“s”), 1))
-            日志_输出 (“→”, 相加 (“Ws_Reco.id=”, 到文本 (g_conID), “;data=”, json.取数据文本 ()))
-             ' 方向： server->client
-             ' 说明： 当我们成功连接websocket后，客户端应该在6s内收到该包，否则认为连接超时。
-             ' {"s":1,"d":{"code":0,"sessionId":"d52751ae-f50a-4d9c-9056-74d61371fa58"}}
-            
-        .判断 (等于 (json.取属性数值 (“s”), 0))
-             ' 方向： server->client
-             ' 说明： 在正常连接状态下，收到的消息事件等。
-             ' {"s":0,"d":{"type":1,"channel_type":"GROUP","target_id":"7873127691138410","author_id":"374797264","content":"0.0","msg_id":"0bc55831-2da0-4ecd-b181-a35030b9a202","msg_timestamp":1610607613193,"nonce":"","extra":{"local_id":"qEe2BFfRXKpT6Ovyg1b9mEHN","type":1,"guild_id":"6277101564729879","channel_name":"\u6587\u5b57\u9891\u9053","mention":[],"mention_all":false,"mention_roles":[],"mention_here":false,"code":"","author":{"identify_num":"3507","avatar":"https:\/\/img.kaiheila.cn\/avatars\/2020-07\/XkyJKsvalO2bc2bc.jpg\/icon","username":"\u840c\u52a8\u4f17\u751f","id":"374797264","nickname":"\u840c\u52a8\u4f17\u751f","roles":[]}}},"extra":{"verifyToken":"","encryptKey":"","callbackUrl":"},"sn":1}
-            日志_输出 (“↓”, json.取数据文本 ())
-            加入成员 (g_msgList, json.取数据文本 ())
-            赋值 (g_MsgID, json.取属性数值 (“sn”))
-            
-        .判断 (等于 (json.取属性数值 (“s”), 2))
-             ' 方向： client -> server
-             ' 说明： 每隔30s(随机-5，+5),将当前的最大 sn 传给服务端,客户端应该在6s内收到PONG, 否则心跳超时。
-             ' {"s": 2,"sn": 6}
-            
-        .判断 (等于 (json.取属性数值 (“s”), 3))
-             ' 方向： server -> client
-             ' 说明： 回应客户端发出的ping
-             ' {"s": 3}
-            日志_输出 (“→”, 相加 (“Ws_Reco.id=”, 到文本 (g_conID), “;data=”, json.取数据文本 ()))
-            
-        .判断 (等于 (json.取属性数值 (“s”), 4))
-            
-        .判断 (等于 (json.取属性数值 (“s”), 5))
-             ' 方向： server->client
-             ' 说明： 服务端通知客户端, 代表该连接已失效, 请重新连接。客户端收到后应该主动断开当前连接。
-             ' 注意： 客户端收到该信令代表因为某些原因导致当前连接已失效, 需要进行以下操作以避免消息丢失.
-             ' 重新获取 gateway;  √
-             ' 清空本地的 sn 计数;  √
-             ' 清空本地消息队列.  √（需要做处理）
-            日志_输出 (“→”, 相加 (“Ws_Reco.id=”, 到文本 (g_conID), “;data=”, json.取数据文本 ()))
-            
-        .判断 (等于 (json.取属性数值 (“s”), 6))
-             ' 方向： server->client
-             ' 说明： 服务端通知客户端 resume 动作成功，中间所有离线消息已经全部发送成功
-            
-             ' {"s": 6"d": {"sessionId": "xxxx-xxxxxx-xxx-xxx"}}
-            日志_输出 (“→”, 相加 (“Ws_Reco.id=”, 到文本 (g_conID), “;data=”, json.取数据文本 ()))
-            
-        .默认
-            日志_输出 (“→”, 相加 (“Ws_Reco.id=”, 到文本 (g_conID), “;data=”, json.取数据文本 ()))
-        .判断结束
-        
-    .否则
-        日志_输出 (“→”, 相加 (“Ws_Reco.id=”, 到文本 (g_conID), “;data=”, 到文本 (Buffer)))
-        
-    .如果结束
-    
-    
-    
-    
-.如果真结束
-
-
-.子程序 Ws_Reco, 空白型, , 
-.参数 id, 空白型, , 
-.参数 pData_数据指针, 空白型, , 
-.参数 iLength_数据长度, 空白型, , 
-
-.局部变量 text, 文本型, , , 
-.局部变量 json, 类_json, , , 
-.局部变量 操作码, 字节型, , , 
-
-日志_输出 (“→”, 相加 (“Ws_Reco.id=”, 到文本 (id)))
-调试输出 (“Ws_Reco”, id, pData_数据指针, iLength_数据长度)
- ' 客户端_取回消息状态 (id, , , 操作码, , , )
-.判断开始 (等于 (操作码, 1)) ' 文本
-     ' text ＝ 客户端_取回文本 (pData_数据指针, iLength_数据长度)
-    .如果真 (不等于 (text, “”))
-        调试输出 (json.解析 (编码_utf8到gb2312 (text), ))
-        调试输出 (json.取数据文本 ())
-        .判断开始 (等于 (json.取属性数值 (“s”), 1))
-            日志_输出 (“→”, 相加 (“Ws_Reco.id=”, 到文本 (id), “;data=”, json.取数据文本 ()))
-             ' 方向： server->client
-             ' 说明： 当我们成功连接websocket后，客户端应该在6s内收到该包，否则认为连接超时。
-             ' {"s":1,"d":{"code":0,"sessionId":"d52751ae-f50a-4d9c-9056-74d61371fa58"}}
-            
-        .判断 (等于 (json.取属性数值 (“s”), 0))
-             ' 方向： server->client
-             ' 说明： 在正常连接状态下，收到的消息事件等。
-             ' {"s":0,"d":{"type":1,"channel_type":"GROUP","target_id":"7873127691138410","author_id":"374797264","content":"0.0","msg_id":"0bc55831-2da0-4ecd-b181-a35030b9a202","msg_timestamp":1610607613193,"nonce":"","extra":{"local_id":"qEe2BFfRXKpT6Ovyg1b9mEHN","type":1,"guild_id":"6277101564729879","channel_name":"\u6587\u5b57\u9891\u9053","mention":[],"mention_all":false,"mention_roles":[],"mention_here":false,"code":"","author":{"identify_num":"3507","avatar":"https:\/\/img.kaiheila.cn\/avatars\/2020-07\/XkyJKsvalO2bc2bc.jpg\/icon","username":"\u840c\u52a8\u4f17\u751f","id":"374797264","nickname":"\u840c\u52a8\u4f17\u751f","roles":[]}}},"extra":{"verifyToken":"","encryptKey":"","callbackUrl":"},"sn":1}
-            日志_输出 (“↓”, json.取数据文本 ())
-            加入成员 (g_msgList, json.取数据文本 ())
-            赋值 (g_MsgID, json.取属性数值 (“sn”))
-            
-        .判断 (等于 (json.取属性数值 (“s”), 2))
-             ' 方向： client -> server
-             ' 说明： 每隔30s(随机-5，+5),将当前的最大 sn 传给服务端,客户端应该在6s内收到PONG, 否则心跳超时。
-             ' {"s": 2,"sn": 6}
-            
-        .判断 (等于 (json.取属性数值 (“s”), 3))
-             ' 方向： server -> client
-             ' 说明： 回应客户端发出的ping
-             ' {"s": 3}
-            日志_输出 (“→”, 相加 (“Ws_Reco.id=”, 到文本 (id), “;data=”, json.取数据文本 ()))
-            
-        .判断 (等于 (json.取属性数值 (“s”), 4))
-            
-        .判断 (等于 (json.取属性数值 (“s”), 5))
-             ' 方向： server->client
-             ' 说明： 服务端通知客户端, 代表该连接已失效, 请重新连接。客户端收到后应该主动断开当前连接。
-             ' 注意： 客户端收到该信令代表因为某些原因导致当前连接已失效, 需要进行以下操作以避免消息丢失.
-             ' 重新获取 gateway;  √
-             ' 清空本地的 sn 计数;  √
-             ' 清空本地消息队列.  √（需要做处理）
-            日志_输出 (“→”, 相加 (“Ws_Reco.id=”, 到文本 (id), “;data=”, json.取数据文本 ()))
-            
-        .判断 (等于 (json.取属性数值 (“s”), 6))
-             ' 方向： server->client
-             ' 说明： 服务端通知客户端 resume 动作成功，中间所有离线消息已经全部发送成功
-            
-             ' {"s": 6"d": {"sessionId": "xxxx-xxxxxx-xxx-xxx"}}
-            日志_输出 (“→”, 相加 (“Ws_Reco.id=”, 到文本 (id), “;data=”, json.取数据文本 ()))
-            
-        .默认
-            日志_输出 (“→”, 相加 (“Ws_Reco.id=”, 到文本 (id), “;data=”, json.取数据文本 ()))
-            
-        .判断结束
-        
-        
-    .如果真结束
-    
-.默认
-    
-.判断结束
-
-
-
-.子程序 Ws_HeartSend, 空白型, , 
-.局部变量 json, 类_json, , , 
-
-日志_输出 (“↑”, 相加 (“Ws_Heart.id=”, 到文本 (g_conID)))
-调试输出 (“Ws_Heart”, g_conID)
-json.置属性数值 (“s”, 2)
-json.置属性数值 (“sn”, g_MsgID)
- ' 客户端_发送消息体文本 (id, json.取数据文本 (), , , , , )
-WS_Send (json.取数据文本 (), 2)
-
-.程序集 WinHttp1, , , 
-
-.程序集变量 hSession, 整数型, , , 
-.程序集变量 hConnect, 整数型, , , 
-.程序集变量 hRequest, 整数型, , , 
-.程序集变量 hWebSocket, 整数型, , , 
-.子程序 AnsiToUnicode, 字节集, , 
-.参数 参数_Ansi文本, 文本型, , 
-.参数 参数_代码页, 整数型, 可空, 默认为：936(简体中文)
-.参数 返回_宽字符长度, 整数型, 参考 可空, 
-
-.局部变量 ansi_len, 整数型, , , 
-.局部变量 tmp_len, 整数型, , , 
-.局部变量 unicode_data, 字节集, , , 
-
-赋值 (ansi_len, 取文本长度 (参数_Ansi文本))
-.如果真 (小于 (ansi_len, 1))
-    返回 ({  })
-.如果真结束
-.如果真 (等于 (是否为空 (参数_代码页), 真))
-    赋值 (参数_代码页, 936)
-.如果真结束
-赋值 (ansi_len, 相加 (ansi_len, 1))
-赋值 (tmp_len, 相乘 (MultiByteToWideChar (参数_代码页, 0, 参数_Ansi文本, ansi_len, unicode_data, 0), 2))
-赋值 (unicode_data, 取空白字节集 (tmp_len))
-赋值 (返回_宽字符长度, 相减 (MultiByteToWideChar (参数_代码页, 0, 参数_Ansi文本, ansi_len, unicode_data, tmp_len), 1))
-返回 (unicode_data)
-
-.子程序 WS_Start, 逻辑型, 公开, 创建ws/wss连接"WebSocket"对象
-.参数 参_url, 文本型, , 连接地址
-.参数 参_cookie, 文本型, 可空, 
-.参数 connectID, 空白型, 参考 可空, 
-
-.局部变量 temp, 整数型, , , 
-.局部变量 left, 文本型, , , 
-.局部变量 right, 文本型, , , 
-.局部变量 tempURL, 文本型, , , 
-.局部变量 urlW, 字节集, , , 
-.局部变量 lenW, 整数型, , , 
-.局部变量 urlComp, URL_COMPONENTS, , , 
-.局部变量 HostNameW, 字节集, , , 
-.局部变量 UrlPathW, 字节集, , , 
-.局部变量 dwFlags, 整数型, , , 
-
-赋值 (temp, 寻找文本 (参_url, “://”, , 假))
-.如果真 (小于 (temp, 1))
-    返回 (假)
-.如果真结束
-赋值 (left, 到小写 (取文本左边 (参_url, 相减 (temp, 1))))
-.判断开始 (等于 (left, “ws”))
-    赋值 (left, “http”)
-.判断 (等于 (left, “wss”))
-    赋值 (left, “https”)
-.默认
-    返回 (假)
-.判断结束
-赋值 (right, 取文本右边 (参_url, 相加 (相减 (取文本长度 (参_url), temp), 1)))
-赋值 (tempURL, 相加 (left, right))
-
-赋值 (urlW, AnsiToUnicode (tempURL, , lenW))
-赋值 (urlComp.dwStructSize, 60) ' 结构大小（15×4）
-连续赋值 (-1, urlComp.dwSchemeLength, urlComp.dwHostNameLength, urlComp.dwUrlPathLength, urlComp.dwExtraInfoLength)
-.如果真 (等于 (WinHttpCrackUrl (urlW, lenW, 0, urlComp), 假)) ' 进行url拆分
-    返回 (假)
-.如果真结束
-赋值 (HostNameW, 相加 (指针到字节集 (urlComp.lpszHostName, 相乘 (urlComp.dwHostNameLength, 2)), { 0, 0 })) ' 从拆分的url信息结构中读取出域名并补全Unicode结尾符
-.判断开始 (小于 (urlComp.dwUrlPathLength, 1)) ' 访问路径如果是空 自动使用斜杠
-    赋值 (UrlPathW, { 47, 0, 0, 0 }) ' /
-.默认
-    赋值 (UrlPathW, 相加 (指针到字节集 (urlComp.lpszUrlPath, 相乘 (相加 (urlComp.dwUrlPathLength, urlComp.dwExtraInfoLength), 2)), { 0, 0 }))
-.判断结束
-.如果真 (等于 (urlComp.nScheme, #INTERNET_SCHEME_HTTPS)) ' 判断是否为 HTTPS
-    赋值 (dwFlags, #WINHTTP_FLAG_SECURE) ' SSL
-.如果真结束
-
-赋值 (hSession, WinHttpOpen (#DefaultUserAgentW, 1, 0, 0, 0))
-.如果真 (等于 (hSession, 0))
-    调试输出 (“HttpOpen”, GetLastError ())
-    返回 (假)
-.如果真结束
-WinHttpSetTimeouts (hSession, 10000, 15000, 30000, 30000)
-赋值 (hConnect, WinHttpConnect (hSession, HostNameW, urlComp.nPort, 0))
-.如果真 (等于 (hConnect, 0))
-    WinHttpCloseHandle (hSession)
-    赋值 (hSession, 0)
-    调试输出 (“HttpConnect”, GetLastError ())
-    返回 (假)
-.如果真结束
-赋值 (hRequest, WinHttpOpenRequest (hConnect, AnsiToUnicode (“GET”), UrlPathW, 0, 0, 0, dwFlags))
-.如果真 (等于 (hRequest, 0))
-    WinHttpCloseHandle (hConnect)
-    WinHttpCloseHandle (hSession)
-    连续赋值 (0, hSession, hConnect)
-    调试输出 (“OpenRequest”, GetLastError ())
-    返回 (假)
-.如果真结束
-WinHttpSetOption (hRequest, #WINHTTP_OPTION_UPGRADE_TO_WEB_SOCKET, 0, 0) ' 升级为 WebSocket 只需这一步即可切换到 WebSocket 协议
-.如果真 (不等于 (参_cookie, “”))
-    WS_SetRequestHeader (“Cookie”, 参_cookie) ' 根据需要添加 Cookie 或 Header
-.如果真结束
-.如果真 (等于 (WinHttpSendRequest (hRequest, 0, 0, {  }, 0, 0, 0), 假)) ' 发送 握手消息
-    WinHttpCloseHandle (hRequest)
-    WinHttpCloseHandle (hConnect)
-    WinHttpCloseHandle (hSession)
-    连续赋值 (0, hSession, hConnect, hRequest)
-    调试输出 (“SendRequest”, GetLastError ())
-    返回 (假) ' 本源码来自三叶资源网(www.sanye.cx)
-.如果真结束
-.如果真 (等于 (WinHttpReceiveResponse (hRequest, 0), 假)) ' 确认 握手消息
-    WinHttpCloseHandle (hRequest)
-    WinHttpCloseHandle (hConnect)
-    WinHttpCloseHandle (hSession)
-    连续赋值 (0, hSession, hConnect, hRequest)
-    调试输出 (“ReceiveResponse”, GetLastError ())
-    返回 (假)
-.如果真结束
-赋值 (hWebSocket, WinHttpWebSocketCompleteUpgrade (hRequest, 0)) ' 获取 WebSocket 句柄
-.如果真 (等于 (hWebSocket, 0))
-    WinHttpCloseHandle (hRequest)
-    WinHttpCloseHandle (hConnect)
-    WinHttpCloseHandle (hSession)
-    连续赋值 (0, hSession, hConnect, hRequest)
-    调试输出 (“WebSocketCompleteUpgrade”, GetLastError ())
-    返回 (假)
-.如果真结束
-WinHttpCloseHandle (hRequest) ' 得到 WebSocket 句柄后 hRequest 即可关闭
-赋值 (hRequest, 0)
-WS_OnAccept () ' 调用 连接成功 事件
-CreateThread (0, 0, &WebSocketReceive, 0, 0, 0) ' 使用线程实时取回数据
-赋值 (connectID, hWebSocket)
-返回 (真)
-
-.子程序 WS_destory, 空白型, , 销毁"WebSocket"对象
-.如果真 (不等于 (hWebSocket, 0))
-    WinHttpWebSocketClose (hWebSocket, 1000, 0, 0)
-    赋值 (hWebSocket, 0)
-.如果真结束
-.如果真 (不等于 (hRequest, 0))
-    WinHttpCloseHandle (hRequest)
-    赋值 (hRequest, 0)
-.如果真结束
-.如果真 (不等于 (hConnect, 0))
-    WinHttpCloseHandle (hConnect)
-    赋值 (hConnect, 0)
-.如果真结束
-.如果真 (不等于 (hSession, 0))
-    WinHttpCloseHandle (hSession)
-    赋值 (hSession, 0)
-.如果真结束
-
-
-.子程序 WS_SetRequestHeader, 逻辑型, , 
-.参数 Header, 文本型, , 协议头名称
-.参数 Value, 文本型, , 协议头值
-
-.局部变量 HeaderW, 字节集, , , 
-.局部变量 Headerlen, 整数型, , , 
-
-.如果真 (或者 (等于 (hRequest, 0), 等于 (Header, “”)))
-    返回 (假)
-.如果真结束
-赋值 (HeaderW, AnsiToUnicode (相加 (Header, “:”, Value), , Headerlen))
-返回 (WinHttpAddRequestHeaders (hRequest, HeaderW, Headerlen, 位或 (#WINHTTP_ADDREQ_FLAG_ADD, #WINHTTP_ADDREQ_FLAG_REPLACE)))
-
-.子程序 WebSocketReceive, 空白型, , 内部接口
-.局部变量 Buffer, 字节集, , , 
-.局部变量 BytesLen, 整数型, , , 
-.局部变量 BufferType, 整数型, , , 0=文本整包 1=文本部分包 2=json整包 3=json部分包 4=关闭包
-
-赋值 (Buffer, 取空白字节集 (#HTTP_BUFFER_LENMAX))
-.判断循环首 (等于 (WinHttpWebSocketReceive (hWebSocket, Buffer, 相乘 (#HTTP_BUFFER_LENMAX, 2), BytesLen, BufferType), 0))
-    .如果真 (大于 (BytesLen, 0))
-        WS_OnReceive (取字节集左边 (Buffer, BytesLen), BufferType) ' 调用 数据到达 事件
-    .如果真结束
-    
-.判断循环尾 ()
-
- ' 取回数据失败，关闭 WebSocket
-.如果真 (并且 (不等于 (hWebSocket, 0), 等于 (WinHttpWebSocketClose (hWebSocket, 1000, 0, 0), 0)))
-    赋值 (hWebSocket, 0)
-.如果真结束
-.如果真 (不等于 (hConnect, 0))
-    WinHttpCloseHandle (hConnect)
-    WinHttpCloseHandle (hSession)
-    连续赋值 (0, hSession, hConnect)
-.如果真结束
- ' 本源码来自三叶资源网(www.sanye.cx)
-WS_OnClose () ' 调用 连接关闭 事件
-
-.子程序 WS_Send, 逻辑型, 公开, 
-.参数 参_Data, 文本型, , 
-.参数 参_Type, 整数型, 可空, 0=文本整包 1=文本部分包 2=json整包 3=json部分包 4=关闭包
-
-返回 (WS_SendBin (到字节集 (参_Data), 参_Type))
-
-.子程序 WS_SendBin, 逻辑型, 公开, 
-.参数 参_Data, 字节集, , 
-.参数 参_Type, 整数型, 可空, 0=文本整包 1=文本部分包 2=json整包 3=json部分包 4=关闭包
-
-.如果真 (等于 (hWebSocket, 0))
-    返回 (假)
-.如果真结束
-返回 (等于 (WinHttpWebSocketSend (hWebSocket, 参_Type, 参_Data, 取字节集长度 (参_Data)), 0))
-
-.程序集 tools, , , 
-
-.子程序 rolevalueTorole, role_new, , 
-.参数 roleValue, 整数型, , 
-
-.局部变量 temp, role_new, , , 
-
- ' 数据位的说明如下：
- ' 0 1 管理员 拥有此权限会获得完整的管理权，包括绕开所有其他权限（包括频道权限）限制，属于危险权限。
-赋值 (temp._0, 选择 (__query_bit (roleValue, 0), 0, 1))
- ' 1 2 管理服务器 拥有此权限的成员可以修改服务器名称和更换区域。
-赋值 (temp._1, 选择 (__query_bit (roleValue, 1), 0, 1))
- ' 2 4 查看管理日志 拥有此权限的成员可以查看服务器的管理日志。
-赋值 (temp._2, 选择 (__query_bit (roleValue, 2), 0, 1))
- ' 3 8 创建服务器邀请 能否创建服务器邀请链接
-赋值 (temp._3, 选择 (__query_bit (roleValue, 3), 0, 1))
- ' 4 16 管理邀请 拥有该权限可以管理服务器的邀请
-赋值 (temp._4, 选择 (__query_bit (roleValue, 4), 0, 1))
- ' 5 32 频道管理 拥有此权限的成员可以创建新的频道以及编辑或删除已存在的频道。
-赋值 (temp._5, 选择 (__query_bit (roleValue, 5), 0, 1))
- ' 6 64 踢出用户
-赋值 (temp._6, 选择 (__query_bit (roleValue, 6), 0, 1))
- ' 7 128 封禁用户
-赋值 (temp._7, 选择 (__query_bit (roleValue, 7), 0, 1))
- ' 8 256 管理自定义表情
-赋值 (temp._8, 选择 (__query_bit (roleValue, 8), 0, 1))
- ' 9 512 修改服务器昵称 拥有此权限的用户可以更改他们的昵称。
-赋值 (temp._9, 选择 (__query_bit (roleValue, 9), 0, 1))
- ' 10 1024 管理角色权限 拥有此权限成员可以创建新的角色和编辑删除低于该角色的身份。
-赋值 (temp._10, 选择 (__query_bit (roleValue, 10), 0, 1))
- ' 11 2048 查看文字、语音频道
-赋值 (temp._11, 选择 (__query_bit (roleValue, 11), 0, 1))
- ' 12 4096 发布消息
-赋值 (temp._12, 选择 (__query_bit (roleValue, 12), 0, 1))
- ' 13 8192 管理消息 拥有此权限的成员可以删除其他成员发出的消息和置顶消息。
-赋值 (temp._13, 选择 (__query_bit (roleValue, 13), 0, 1))
- ' 14 16384 上传文件
-赋值 (temp._14, 选择 (__query_bit (roleValue, 14), 0, 1))
- ' 15 32768 语音链接
-赋值 (temp._15, 选择 (__query_bit (roleValue, 15), 0, 1))
- ' 16 65536 语音管理 拥有此权限的成员可以把其他成员移动和踢出频道；但此类移动仅限于在该成员和被移动成员均有权限的频道之间进行。
-赋值 (temp._16, 选择 (__query_bit (roleValue, 16), 0, 1))
- ' 17 131072 提及@全体成员 拥有此权限的成员可使用@全体成员以提及该频道中所有成员。
-赋值 (temp._17, 选择 (__query_bit (roleValue, 17), 0, 1))
- ' 18 262144 添加反应 拥有此权限的成员可以对消息添加新的反应。
-赋值 (temp._18, 选择 (__query_bit (roleValue, 18), 0, 1))
- ' 19 524288 跟随添加反应 拥有此权限的成员可以跟随使用已经添加的反应。
-赋值 (temp._19, 选择 (__query_bit (roleValue, 19), 0, 1))
- ' 20 1048576 被动连接语音频道 拥有此限制的成员无法主动连接语音频道，只能在被动邀请或被人移动时，才可以进入语音频道。
-赋值 (temp._20, 选择 (__query_bit (roleValue, 20), 0, 1))
- ' 21 2097152 仅使用按键说话 拥有此限制的成员加入语音频道后，只能使用按键说话。
-赋值 (temp._21, 选择 (__query_bit (roleValue, 21), 0, 1))
- ' 22 4194304 使用自由麦 没有此权限的成员，必须在频道内使用按键说话。
-赋值 (temp._22, 选择 (__query_bit (roleValue, 22), 0, 1))
- ' 23 8388608 说话
-赋值 (temp._23, 选择 (__query_bit (roleValue, 23), 0, 1))
- ' 24 16777216 服务器静音
-赋值 (temp._24, 选择 (__query_bit (roleValue, 24), 0, 1))
- ' 25 33554432 服务器闭麦
-赋值 (temp._25, 选择 (__query_bit (roleValue, 25), 0, 1))
- ' 26 67108864 修改他人昵称 拥有此权限的用户可以更改他人的昵称
-赋值 (temp._26, 选择 (__query_bit (roleValue, 26), 0, 1))
- ' 27 134217728 播放伴奏 拥有此权限的成员可在语音频道中播放音乐伴奏
-赋值 (temp._27, 选择 (__query_bit (roleValue, 27), 0, 1))
-赋值 (temp._28, 选择 (__query_bit (roleValue, 28), 0, 1))
-赋值 (temp._29, 选择 (__query_bit (roleValue, 29), 0, 1))
-赋值 (temp._30, 选择 (__query_bit (roleValue, 30), 0, 1))
-赋值 (temp._31, 选择 (__query_bit (roleValue, 31), 0, 1))
-返回 (temp)
- ' 比特位 值 权限 说明
-
-
-.子程序 roleTorolevalue, 整数型, , 
-.参数 role, role_new, , 
-
-.局部变量 value, 整数型, , , 
-
-赋值 (value, 选择 (等于 (role._0, 1), __set_bit_on (value, 0), __set_bit_off (value, 0)))
-赋值 (value, 选择 (等于 (role._1, 1), __set_bit_on (value, 1), __set_bit_off (value, 1)))
-赋值 (value, 选择 (等于 (role._2, 1), __set_bit_on (value, 2), __set_bit_off (value, 2)))
-赋值 (value, 选择 (等于 (role._3, 1), __set_bit_on (value, 3), __set_bit_off (value, 3)))
-赋值 (value, 选择 (等于 (role._4, 1), __set_bit_on (value, 4), __set_bit_off (value, 4)))
-赋值 (value, 选择 (等于 (role._5, 1), __set_bit_on (value, 5), __set_bit_off (value, 5)))
-赋值 (value, 选择 (等于 (role._6, 1), __set_bit_on (value, 6), __set_bit_off (value, 6)))
-赋值 (value, 选择 (等于 (role._7, 1), __set_bit_on (value, 7), __set_bit_off (value, 7)))
-赋值 (value, 选择 (等于 (role._8, 1), __set_bit_on (value, 8), __set_bit_off (value, 8)))
-赋值 (value, 选择 (等于 (role._9, 1), __set_bit_on (value, 9), __set_bit_off (value, 9)))
-赋值 (value, 选择 (等于 (role._10, 1), __set_bit_on (value, 10), __set_bit_off (value, 10)))
-赋值 (value, 选择 (等于 (role._11, 1), __set_bit_on (value, 11), __set_bit_off (value, 11)))
-赋值 (value, 选择 (等于 (role._12, 1), __set_bit_on (value, 12), __set_bit_off (value, 12)))
-赋值 (value, 选择 (等于 (role._13, 1), __set_bit_on (value, 13), __set_bit_off (value, 13)))
-赋值 (value, 选择 (等于 (role._14, 1), __set_bit_on (value, 14), __set_bit_off (value, 14)))
-赋值 (value, 选择 (等于 (role._15, 1), __set_bit_on (value, 15), __set_bit_off (value, 15)))
-赋值 (value, 选择 (等于 (role._16, 1), __set_bit_on (value, 16), __set_bit_off (value, 16)))
-赋值 (value, 选择 (等于 (role._17, 1), __set_bit_on (value, 17), __set_bit_off (value, 17)))
-赋值 (value, 选择 (等于 (role._18, 1), __set_bit_on (value, 18), __set_bit_off (value, 18)))
-赋值 (value, 选择 (等于 (role._19, 1), __set_bit_on (value, 19), __set_bit_off (value, 19)))
-赋值 (value, 选择 (等于 (role._20, 1), __set_bit_on (value, 20), __set_bit_off (value, 20)))
-赋值 (value, 选择 (等于 (role._21, 1), __set_bit_on (value, 21), __set_bit_off (value, 21)))
-赋值 (value, 选择 (等于 (role._22, 1), __set_bit_on (value, 22), __set_bit_off (value, 22)))
-赋值 (value, 选择 (等于 (role._23, 1), __set_bit_on (value, 23), __set_bit_off (value, 23)))
-赋值 (value, 选择 (等于 (role._24, 1), __set_bit_on (value, 24), __set_bit_off (value, 24)))
-赋值 (value, 选择 (等于 (role._25, 1), __set_bit_on (value, 25), __set_bit_off (value, 25)))
-赋值 (value, 选择 (等于 (role._26, 1), __set_bit_on (value, 26), __set_bit_off (value, 26)))
-赋值 (value, 选择 (等于 (role._27, 1), __set_bit_on (value, 27), __set_bit_off (value, 27)))
-赋值 (value, 选择 (等于 (role._28, 1), __set_bit_on (value, 28), __set_bit_off (value, 28)))
-赋值 (value, 选择 (等于 (role._29, 1), __set_bit_on (value, 29), __set_bit_off (value, 29)))
-赋值 (value, 选择 (等于 (role._30, 1), __set_bit_on (value, 30), __set_bit_off (value, 30)))
-赋值 (value, 选择 (等于 (role._31, 1), __set_bit_on (value, 31), __set_bit_off (value, 31)))
-返回 (value)
-
-.子程序 roleCrraftNull, role_new, , 
-.局部变量 i, 整数型, , , 
-.局部变量 value, 整数型, , , 
-
- ' 数据位的说明如下：
-返回 (rolevalueTorole (0))
- ' 比特位 值 权限 说明
- ' 0 1 管理员 拥有此权限会获得完整的管理权，包括绕开所有其他权限（包括频道权限）限制，属于危险权限。
- ' 1 2 管理服务器 拥有此权限的成员可以修改服务器名称和更换区域。
- ' 2 4 查看管理日志 拥有此权限的成员可以查看服务器的管理日志。
- ' 3 8 创建服务器邀请 能否创建服务器邀请链接
- ' 4 16 管理邀请 拥有该权限可以管理服务器的邀请
- ' 5 32 频道管理 拥有此权限的成员可以创建新的频道以及编辑或删除已存在的频道。
- ' 6 64 踢出用户
- ' 7 128 封禁用户
- ' 8 256 管理自定义表情
- ' 9 512 修改服务器昵称 拥有此权限的用户可以更改他们的昵称。
- ' 10 1024 管理角色权限 拥有此权限成员可以创建新的角色和编辑删除低于该角色的身份。
- ' 11 2048 查看文字、语音频道
- ' 12 4096 发布消息
- ' 13 8192 管理消息 拥有此权限的成员可以删除其他成员发出的消息和置顶消息。
- ' 14 16384 上传文件
- ' 15 32768 语音链接
- ' 16 65536 语音管理 拥有此权限的成员可以把其他成员移动和踢出频道；但此类移动仅限于在该成员和被移动成员均有权限的频道之间进行。
- ' 17 131072 提及@全体成员 拥有此权限的成员可使用@全体成员以提及该频道中所有成员。
- ' 18 262144 添加反应 拥有此权限的成员可以对消息添加新的反应。
- ' 19 524288 跟随添加反应 拥有此权限的成员可以跟随使用已经添加的反应。
- ' 20 1048576 被动连接语音频道 拥有此限制的成员无法主动连接语音频道，只能在被动邀请或被人移动时，才可以进入语音频道。
- ' 21 2097152 仅使用按键说话 拥有此限制的成员加入语音频道后，只能使用按键说话。
- ' 22 4194304 使用自由麦 没有此权限的成员，必须在频道内使用按键说话。
- ' 23 8388608 说话
- ' 24 16777216 服务器静音
- ' 25 33554432 服务器闭麦
- ' 26 67108864 修改他人昵称 拥有此权限的用户可以更改他人的昵称
- ' 27 134217728 播放伴奏 拥有此权限的成员可在语音频道中播放音乐伴奏
-
-
-.子程序 卡片测试, 空白型, , 
-.局部变量 content, 类_json, , , 消息.加成员(card)
-.局部变量 card, 类_json, , , 卡片<arr>.加成员(modules)
-.局部变量 modules, 类_json, , , 模块<arr>
-.局部变量 item, 类_json, , , 元素
-.局部变量 item2, 类_json, , , 
-
-
-card.置属性 (“type”, “card”, )
-modules.置属性 (“type”, “section”, ) ' image-group  把item加到modules的elements属性里
-item.置属性 (“type”, “plain-text”, )
-item.置属性 (“content”, “我是标题”, )
-modules.置属性 (“text”, item.取数据文本 (), 真)
-item.置属性 (“type”, “image”, )
-item.置属性 (“src”, “https://s3.ax1x.com/2021/01/05/sFStpt.png”, )
-item.置属性 (“alt”, “123”, )
-item.置属性 (“size”, “lg”, )
-item.置属性 (“circle”, “true”, 真)
-
-modules.置属性 (“accessory”, item.取数据文本 (), 真)
-
-card.加成员 (modules.取数据文本 (), “modules”, 真, )
-content.加成员 (card.取数据文本 (), , 真, )
-调试输出 (content.取数据文本 ())
-
-
-.子程序 rolevalueTorole_fase, role, , 
-.参数 roleValue, 整数型, , 
-
-.局部变量 role, role, , , 
-.局部变量 i, 整数型, , , 
-
-.计次循环首 (32, i)
-    赋值 (role [i], __query_bit (roleValue, 相减 (i, 1)))
-.计次循环尾 ()
-
-
-.子程序 roleTorolevalue_fase, 整数型, , 
-.参数 role, role, , 
-
-.局部变量 i, 整数型, , , 
-.局部变量 rolevalue, 整数型, , , 
-
-.计次循环首 (32, i)
-    赋值 (rolevalue, 选择 (等于 (role [i], 0), __set_bit_off (rolevalue, 相减 (i, 1)), __set_bit_on (rolevalue, 相减 (i, 1))))
-.计次循环尾 ()
-返回 (rolevalue)
-
-.子程序 roleCrraftNull_fase, role, , 
-.局部变量 value, role, , , 
-
-返回 (value)
-
-.程序集 CardMessage, , , 
-
-.子程序 CardMessage_index, 文本型, , 
-.局部变量 item, 类_json, , , 
-.局部变量 item2, 类_json, , , 
-.局部变量 modules, 类_json, , , 
-.局部变量 moduless, 类_json, , , 
-.局部变量 Card, 类_json, , , 
-.局部变量 Cards, 类_json, , , 
-.局部变量 temp, 文本型, , , 
-
- ' 先创建一个文本元素
-赋值 (item, item_new_text (“测试”, 假))
-赋值 (item2, item_new_button (“info”, “button1”, “return-val”, “按钮”))
- ' Items_add (json,json1 )
- ' 元素部分处理完了，加入到对应模块里,需要形成数组的需要 items_add
-赋值 (modules, Modules_new_section (item, item2))
- ' 模块弄好了，封装成组
-Modules_add (moduless, modules)
-赋值 (item, Modules_new_countdown (到长整数 (时间_到时间戳 (增减时间 (取现行时间 (), #日, 1), , )), 到长整数 (时间_到时间戳 (增减时间 (取现行时间 (), #小时, 1), , )), “second”))
-Modules_add (moduless, item)
- ' 丢到卡片里
-赋值 (Card, Card_new (moduless))
- ' 卡片封装成组
-Card_add (Cards, Card)
- ' 传走的时候一定要用文本型 （不知道啥问题）
-赋值 (temp, Cards.取数据文本 ())
-调试输出 (temp)
-channel_message (10, “7873127691138410”, temp, , , )
-返回 (temp)
-
-.子程序 Card_add, 空白型, , Card+Card
-.参数 json, 类_json, , 
-.参数 item, 类_json, , 
-
-json.加成员 (item.取数据文本 (), , 真, )
-返回 ()
-
-.子程序 Card_new, 类_json, , modules->card
-.参数 modules, 类_json, , 
-
-.局部变量 json, 类_json, , , 
-
-json.置属性 (“type”, “card”, )
-json.置属性 (“modules”, modules.取数据文本 (), 真)
-返回 (json)
-
-.子程序 Modules_add, 空白型, , modules+modules
-.参数 json, 类_json, , 
-.参数 item, 类_json, , 
-
-json.加成员 (item.取数据文本 (), , 真, )
-返回 ()
-
-.子程序 Modules_new_header, 类_json, , 标题模块
-.参数 content, 文本型, , 
-
-.局部变量 json, 类_json, , , 
-.局部变量 item, 类_json, , , 
-
-json.置属性 (“type”, “header”, )
-item.置属性 (“type”, “plain-text”, )
-item.置属性 (“content”, content, )
-json.置属性 (“text”, item.取数据文本 (), 真)
-返回 (json)
-
-.子程序 Modules_new_section, 类_json, , 内容模块 1：1 图文
-.参数 text, 类_json, , 
-.参数 accessory, 类_json, , 
-
-.局部变量 json, 类_json, , , 
-.局部变量 item, 类_json, , , 
-
-json.置属性 (“type”, “header”, )
-json.置属性 (“text”, text.取数据文本 (), 真)
-json.置属性 (“accessory”, accessory.取数据文本 (), 真) ' item.new()
-
-返回 (json)
-
-.子程序 Modules_new_imagegroup, 类_json, , 
-.参数 elements, 类_json, , 图片元素组 item.image 1-9
-
-.局部变量 json, 类_json, , , 
-
-json.置属性 (“type”, “image-group”, )
-json.置属性 (“elements”, elements.取数据文本 (), 真)
-返回 (json)
-
-.子程序 Modules_new_actiongroup, 类_json, , 
-.参数 elements, 类_json, , 交互元素组 item.buttons 1-4
-
-.局部变量 json, 类_json, , , 
-
-json.置属性 (“type”, “action-group”, )
-json.置属性 (“elements”, elements.取数据文本 (), 真)
-返回 (json)
-
-.子程序 Modules_new_context, 类_json, , 内容模块 图文混排
-.参数 elements, 类_json, , 图文元素组 item.plain-text, kmarkdown, image 1-10
-
-.局部变量 json, 类_json, , , 
-
-json.置属性 (“type”, “context”, )
-json.置属性 (“elements”, elements.取数据文本 (), 真)
-返回 (json)
-
-.子程序 Modules_new_divider, 类_json, , 分割线
-.局部变量 json, 类_json, , , 
-
-json.置属性 (“type”, “divider”, )
-返回 (json)
-
-.子程序 Modules_new_file, 类_json, , 文件
-.参数 type, 文本型, , file|audio|video
-.参数 src, 文本型, , 
-.参数 title, 文本型, , 
-.参数 cover, 文本型, , audio有效
-
-.局部变量 json, 类_json, , , 
-
-json.置属性 (“type”, type, )
-json.置属性 (“src”, src, )
-json.置属性 (“title”, title, )
-json.置属性 (“cover”, cover, )
-返回 (json)
-
-.子程序 Modules_new_countdown, 类_json, , 倒计时
-.参数 endTime, 长整数型, , 到期的毫秒时间戳
-.参数 startTime, 长整数型, , 起始的毫秒时间戳，仅当mode为second才有这个字段
-.参数 mode, 文本型, , day,hour,second //倒计时样式, 按天显示，按小时显示或者按秒显示
-
-.局部变量 json, 类_json, , , 
-
-json.置属性 (“type”, “countdown”, )
-json.置属性数值 (“endTime”, endTime)
-json.置属性数值 (“startTime”, startTime)
-json.置属性 (“mode”, mode, )
-返回 (json)
-
-.子程序 Items_add, 空白型, , 
-.参数 json, 类_json, , 
-.参数 item, 类_json, , 
-
-json.加成员 (item.取数据文本 (), , 真, )
-返回 ()
-
-.子程序 item_new_text, 类_json, , 元素 文本
-.参数 content, 文本型, , 
-.参数 emoji, 逻辑型, , 
-
-.局部变量 json, 类_json, , , 
-
-json.置属性 (“type”, “plain-text”, )
-json.置属性 (“content”, content, ) ' 也可以只有这个
-json.置属性 (“emoji”, 选择 (emoji, “true”, “false”), 真)
-返回 (json)
-
-
-.子程序 item_new_kmarkdown, 类_json, , 元素 md文本
-.参数 content, 文本型, , 
-
-.局部变量 json, 类_json, , , 
-
-json.置属性 (“type”, “kmarkdown”, )
-json.置属性 (“content”, content, ) ' 也可以只有这个
-返回 (json)
-
-.子程序 item_new_image, 类_json, , 元素 图片
-.参数 src, 文本型, , 图片类型（MimeType）限制说明：目前仅支持image/jpeg, image/gif, image/png这3种
-.参数 alt, 文本型, , 
-.参数 size, 文本型, , sm|lg
-.参数 circle, 逻辑型, , 
-
-.局部变量 json, 类_json, , , 
-
-json.置属性 (“type”, “image”, )
-json.置属性 (“src”, src, )
-json.置属性 (“alt”, alt, )
-json.置属性 (“content”, src, )
-json.置属性 (“circle”, 选择 (circle, “true”, “false”), 真)
-返回 (json)
-
-.子程序 item_new_button, 类_json, , 元素 按钮
-.参数 theme, 文本型, , "primary|warning|info|danger|...", //按钮的主题颜色
-.参数 value, 文本型, , //要传递的value，为string
-.参数 click, 文本型, , //click时的事件类型， return-val 返回value值
-.参数 text, 文本型, , text可以为plain-text, kmarkdown
-
-.局部变量 json, 类_json, , , 
-.局部变量 src, 文本型, , , 
-
-json.置属性 (“type”, “button”, )
-json.置属性 (“theme”, theme, )
-json.置属性 (“value”, value, )
-json.置属性 (“click”, click, )
- ' click代表用户点击的事件,默认为""，代表无任何事件。
- ' 当为link时，会跳转到value代表的链接;
- ' 当为return-val时，系统会通过系统消息将消息id,点击用户id和value发回给发送者，发送者可以根据自己的需求进行处理。
-json.置属性 (“text”, text, )
-返回 (json)
-
-.子程序 Modules_new_paragraph, 类_json, , 结构体 区域文本
-.参数 cols, 空白型, , 栏数
-.参数 fields, 类_json, , 元素数组
-
-.局部变量 json, 类_json, , , 
-
-json.置属性 (“type”, “paragraph”, )
-json.置属性数值 (“cols”, cols)
-json.置属性 (“fields”, fields.取数据文本 (), 真)
-返回 (json)
-
-.程序集 Corefunction, , , 
-
-.子程序 InitCorefunction, 空白型, , 
-重定义数组 (假, 0)
-RegFunctionToCore (“debug助手”, “.debug”, &funcDebug)
-
-.子程序 RegFunctionToCore, 空白型, , 
-.参数 functionName, 文本型, , 
-.参数 commandPrefix, 文本型, , 
-.参数 functionAddr, 子程序指针, , 
-
-.局部变量 item, 未知类型0x4101345B, , , 
-
-赋值 (., )
-赋值 (item., commandPrefix)
-赋值 (item., functionAddr)
-加入成员 (item)
-
-.子程序 funcDebug, 逻辑型, , 
-.参数 msgFrom, 整数型, , 0=频道聊天  1=好友私聊
-.参数 msgType, 整数型, , 同步之前的
-.参数 channelId, 文本型, , 当msgFrom=0时才有
-.参数 userId, 文本型, , 
-.参数 contant, 文本型, , 
-.参数 msgId, 文本型, , 
-.参数 json, 文本型, , 备用 留给你自己解析
-
-返回 (假)
-
-.子程序 GoCorefunction, 空白型, , 消息从这里丢
-.参数 msgFrom, 整数型, , 0=频道聊天  1=好友私聊
-.参数 msgType, 整数型, , 同步之前的
-.参数 channelId, 文本型, , 当msgFrom=0时才有
-.参数 userId, 文本型, , 
-.参数 contant, 文本型, , 
-.参数 msgId, 文本型, , 
-.参数 json, 文本型, , 备用 留给你自己解析
-
-.局部变量 i, 整数型, , , 
-.局部变量 item, 未知类型0x4101345B, , , 
-.局部变量 JumpBack, 逻辑型, , , 
-
-.计次循环首 (取数组成员数 (), i)
-    赋值 (item,  [i])
-    .如果真 (等于 (命令_是否捕获 (item.), 真))
-        调用子程序 (item., , JumpBack, , , , , , )
-        .如果 (等于 (JumpBack, 真))
-            跳出循环 ()
-        .否则
-            
-        .如果结束
-        
-    .如果真结束
-    
-.计次循环尾 ()
-
-.子程序 命令_是否捕获, 逻辑型, , 
-.参数 contant, 文本型, , 
-.参数 commandperitx, 文本型, , 
-
-.如果 (等于 (取文本左边 (contant, 取文本长度 (commandperitx)), commandperitx))
-    返回 (真)
-.否则
-    
-.如果结束
-返回 (假)
-
-
-.程序集 plugins, , , 
-
-.子程序 PluginsInitialize, 空白型, , 修改完毕
-.局部变量 DLL文件, 文本型, , , 
-.局部变量 n, 整数型, , , 
-.局部变量 插件信息, 文本型, , "0", 
-.局部变量 MOD函数_临时, 未知类型0x4101347C, , , 
-.局部变量 插件分割, 文本型, , "0", 
-.局部变量 i, 整数型, , , 
-.局部变量 MODFileList, 文本型, , "0", 
-
-删除目录 (相加 (取运行目录 (), “\plugin_tmp”))
-创建目录 (相加 (取运行目录 (), “\plugin_tmp”))
-.如果真 (等于 (未知函数_67187840 (相加 (取运行目录 (), “\plugin”)), 假))
-    创建目录 (相加 (取运行目录 (), “\plugin”))
-.如果真结束
-清除数组 (MODFileList)
-赋值 (DLL文件, 寻找文件 (相加 (取运行目录 (), “\plugin\*.dll”), ))
-复制文件 (相加 (取运行目录 (), “\plugin\”, DLL文件), 相加 (取运行目录 (), “\plugin_tmp\”, DLL文件))
-.判断循环首 (不等于 (DLL文件, “”))
-    加入成员 (MODFileList, DLL文件)
-    赋值 (DLL文件, 寻找文件 ())
-    复制文件 (相加 (取运行目录 (), “\plugin\”, DLL文件), 相加 (取运行目录 (), “\plugin_tmp\”, DLL文件)) ' 移动到tmp目录下
-    处理事件 ()
-.判断循环尾 ()
-清除数组 ()
-
-.计次循环首 (取数组成员数 (MODFileList), n)
-    .如果真 (DLL命令调用转向 (相加 (取运行目录 (), “\plugin_tmp\”, MODFileList [n]), “start”))
-        .如果真 (等于 (未知函数_167851133 (), “假”)) ' 这里要提供一些必要参数了
-            
-            到循环尾 ()
-        .如果真结束
-        .如果真 (DLL命令调用转向 (相加 (取运行目录 (), “\plugin_tmp\”, MODFileList [n]), “info”))
-            未知函数_67187838 (未知函数_167851135 (), “{”, “}”, 插件分割)
-             ' 分割文本 (插件信息 () ＋ #换行符 ＋ “-----”, “-----” ＋ #换行符, )
-            .计次循环首 (取数组成员数 (插件分割), i)
-                赋值 (插件信息, 分割文本 (插件分割 [i], “,”, ))
-                .如果真 (等于 (取数组成员数 (插件信息), 7))
-                    赋值 (MOD函数_临时., 插件信息 [1])
-                    赋值 (MOD函数_临时., 插件信息 [2])
-                    赋值 (MOD函数_临时., 插件信息 [3])
-                    赋值 (MOD函数_临时., 插件信息 [4])
-                    赋值 (MOD函数_临时., 插件信息 [5])
-                    赋值 (MOD函数_临时., 插件信息 [6])
-                    赋值 (MOD函数_临时.功能中显示, 选择 (等于 (插件信息 [7], “true”), 真, 假))
-                    赋值 (MOD函数_临时.,  [n])
-                    赋值 (MOD函数_临时.启用状态, 选择 (等于 (读配置项 (相加 (取运行目录 (), “\plugin\set.ini”), “open”, 相加 (MOD函数_临时.插件名, “_”, MODFileList [n]), ), “true”), 真, 假))
-                    加入成员 (MOD函数_临时)
-                .如果真结束
-                 ' 处理事件 ()
-            .计次循环尾 ()
-        .如果真结束
-        
-    .如果真结束
-    
-.计次循环尾 ()
- ' 'ApplicationUI.超级列表框3.全部删除 ()
- ' .计次循环首 (取数组成员数 (), n)
-     ' ApplicationUI.超级列表框3.插入表项 (, , , , , )
-     ' ApplicationUI.超级列表框3.置标题 (n － 1, 0, MODFunction [n].插件名)
-     ' ApplicationUI.超级列表框3.置标题 (n － 1, 1, MODFunction [n].文件名)
-     ' ApplicationUI.超级列表框3.置标题 (n － 1, 2, MODFunction [n].格式左)
-     ' ApplicationUI.超级列表框3.置标题 (n － 1, 3, MODFunction [n].介绍)
-     ' ' 超级列表框3.置标题 (n － 1, 4, MOD函数 [n].作者)
-     ' ApplicationUI.超级列表框3.置状态图片 (n － 1, 文本逻到数字逻辑 (到文本 (MODFunction [n].启用状态)))
-     ' 处理事件 ()
- ' .计次循环尾 ()
- ' ApplicationUI.编辑框5.内容 ＝ “请选中一个模组以查看详情！”
- ' 重加载组合框1
- ' ApplicationUI.组合框1.清空 ()
- ' ApplicationUI.组合框1.加入项目 (“运行时间”, )
- ' 计次循环首 (取数组成员数 (MODFileList), n)
- ' ApplicationUI.组合框1.加入项目 (MODFileList [n], )
-
- ' ApplicationUI.组合框1.内容 ＝ 读配置项 (取运行目录 () ＋ “\Lt.Config”, “悬浮窗”, “事件”, “运行时间”)
-
-.子程序 PluginsCall, 空白型, , 从应用发起的API
-.参数 msgFrom, 整数型, , 0=频道聊天  1=好友私聊
-.参数 msgType, 整数型, , 同步之前的
-.参数 channelId, 文本型, , 当msgFrom=0时才有
-.参数 userId, 文本型, , 
-.参数 contant, 文本型, , 
-.参数 msgId, 文本型, , 
-.参数 json, 文本型, , 备用 留给你自己解析
-
-.局部变量 n, 整数型, , , 
-.局部变量 临时文本, 文本型, , , 
-.局部变量 plugin, 未知类型0x4101347C, , , 
-
-.计次循环首 (取数组成员数 (), n)
-    赋值 (plugin,  [n])
-     ' 写环境变量 (“corerun”, “MOD函数：” ＋ MODFunction [n].文件名 ＋ “,” ＋ MODFunction [n].插件名)
-    .如果真 (等于 (plugin., 假))
-        到循环尾 ()
-    .如果真结束
-     ' 过滤
-    
-    
-    .如果 (未知函数_67187856 (plugin.))
-        
-    .否则
-        到循环尾 ()
-    .如果结束
-    
-    .判断开始 (DLL命令调用转向 (相加 (取运行目录 (), “\plugin_tmp\”, plugin.), plugin.))
-         ' 这里cookies应该加个 用户授权的
-         ' 当前插件 ＝ MOD函数[n].文件名
-        赋值 (临时文本, 未知函数_167851153 (msgFrom, msgType, channelId, userId, contant, msgId, json))
-        .如果真 (不等于 (临时文本, “”))
-            返回 ()
-        .如果真结束
-        
-    .默认
-        
-    .判断结束
-    
-.计次循环尾 ()
-返回 ()
 
 
  ' 不属于任何一个程序集、类模块的函数：

@@ -3459,6 +3459,22 @@ loop”", 隐藏,
     .成员 _31, 整数型, , , 
     .成员 _32, 整数型, , , 
 
+数据类型 function, , 
+    .成员 name, 文本型, , , 
+    .成员 prefix, 文本型, , , 
+    .成员 fundaddr, 子程序指针, , , 
+
+数据类型 plugin, , 
+    .成员 插件名, 文本型, , , 1
+    .成员 版本, 文本型, , , 2
+    .成员 作者, 文本型, , , 3
+    .成员 介绍, 文本型, , , 4
+    .成员 格式左, 文本型, , , 5
+    .成员 调用名, 文本型, , , 6
+    .成员 功能中显示, 逻辑型, , , 7
+    .成员 文件名, 文本型, , , 8
+    .成员 启用状态, 逻辑型, , , 9
+
 .全局变量 g_baseUrl, 文本型, , , 
 .全局变量 g_apiVer, 文本型, , , 
 .全局变量 g_token, 文本型, , , 
@@ -3471,6 +3487,9 @@ loop”", 隐藏,
 .全局变量 g_MsgID, 整数型, , , 
 .全局变量 g_conID, 整数型, , , 
 .全局变量 g_bot, botMsg, , , 
+.全局变量 匿名全局变量_13445, 空白型, , , 
+.全局变量 core_function, function, , "0", 
+.全局变量 plugins, plugin, , "0", 
 
 .DLL命令 HeapSize, 整数型, "kernel32.dll", "HeapSize", 公开, 返回堆对象的大小
     .参数 hHeap, 整数型, , 
@@ -6833,6 +6852,20 @@ loop”", 隐藏,
     .参数 _String1, 字节集, , 
     .参数 _String2, 字节集, , 
 
+.DLL命令 插件信息, 文本型, "", "", , 
+
+.DLL命令 使用插件, 文本型, "", "", , 
+    .参数 msgFrom, 整数型, , 0=频道聊天  1=好友私聊
+    .参数 msgType, 整数型, , 同步之前的
+    .参数 channelId, 文本型, , 当msgFrom=0时才有
+    .参数 userId, 文本型, , 
+    .参数 contant, 文本型, , 
+    .参数 msgId, 文本型, , 
+    .参数 json, 文本型, , 备用 留给你自己解析
+
+.DLL命令 启动插件, 文本型, "", "", , 
+    .参数 token, 文本型, , 
+
 .程序集 程序集1, , , 
 
 .子程序 _启动子程序, 整数型, , 本子程序在程序启动后最先执行
@@ -6918,6 +6951,8 @@ connectId.断开客户 ()
 .子程序 _窗口1_创建完毕, 空白型, , 
 未知支持库函数_0 (&QueueHeart, , )
  ' 下边是启动Ws的选项
+ ' 启动线程 (&InitCorefunction, , )
+ ' 启动线程 (&PluginsInitialize, , )
 
  ' 启动线程 (&WsConnet, , )
 
@@ -6950,7 +6985,7 @@ connectId.断开客户 ()
 .判断结束
 调试输出 (相加 (时间_格式化 (取现行时间 (), “MM-DD ”, “hh:mm”, ), “ [”, 来源, “]”, 文本))
 .如果真 (是否已创建 (窗口1))
-    赋值 (.内容, 相加 (未知函数_67187809 (取现行时间 (), “MM-DD ”, “hh:mm”, ), “ [”, , “]”, , #换行符, .内容))
+    赋值 (.内容, 相加 (时间_格式化 (取现行时间 (), “MM-DD ”, “hh:mm”, ), “ [”, 来源, “]”, 文本, #换行符, .内容))
     
 .如果真结束
 
@@ -21686,6 +21721,7 @@ result.解析 (编码_utf8到gb2312 (到文本 (网页_访问 (url, 1, 编码_UR
     
     赋值 (channel_type, msgJson.取通用属性 (“channel_type”, )) ' GROUP
     
+    
     .判断开始 (等于 (channel_type, “PERSON”))
          ' {"type":255,"channel_type":"PERSON","target_id":"414248069","author_id":"1","content":"[系统消息]","msg_id":"01bba042-1b8e-4600-9de2-a6adf84dee1c","msg_timestamp":1611381724543,"nonce":"","extra":{"type":"message_btn_click","body":{"value":"test value","msg_id":"38623f74-94ef-4bc2-8eee-9d29d5a565de","user_id":"2393184238"}}}
     .判断 (等于 (channel_type, “GROUP”)) ' 频道消息
@@ -21697,36 +21733,38 @@ result.解析 (编码_utf8到gb2312 (到文本 (网页_访问 (url, 1, 编码_UR
         赋值 (senderid, msgJson.取通用属性 (“extra.author.id”, ))
         赋值 (sendernickname, msgJson.取通用属性 (“extra.author.nickname”, ))
         赋值 (verify_token, msgJson.取通用属性 (“verify_token”, ))
+        QueueExec (选择 (等于 (channel_type, “GROUP”), 0, 1), msgJson.取属性数值 (“type”), target_id, senderid, content, msg_id, msgJson.取数据文本 ())
+        
          ' 01-01 01:18:05 {"s":0,"d":{"type":1,"channel_type":"GROUP","target_id":"8876187633547319","author_id":"374797264","content":"@@野生的怪才君#2279933469 ","msg_id":"2b1ce912-6b55-47e1-a42b-918c154d3c9b","msg_timestamp":1609435085214,"nonce":"","extra":{"local_id":"5PlkQi5wEyXufD7vVwWNPblq","type":"1","guild_id":"4674611826831570","channel_name":"privatePush","mention":["2279933469"],"mention_all":false,"mention_roles":[],"mention_here":false,"code":"","author":{"identify_num":"3507","avatar":"https://img.kaiheila.cn/avatars/2020-07/XkyJKsvalO2bc2bc.jpg/icon","username":"萌动众生","id":"374797264","nickname":"萌动众生","roles":[29953,28231]}},"verify_token":""},"sn":719}
          ' {"s":0,"d":{"type":1,"channel_type":"GROUP","target_id":"7873127691138410","author_id":"374797264","content":"@萌动众生#374797264 @易语言模板测试#1698900299 @role:95455; ","msg_id":"b34464da-da9c-473c-bc1a-d0eb0631d269","msg_timestamp":1610603734178,"nonce":"","extra":{"local_id":"lp3JfeNPUrpBcNdlYYI7Odpv","type":1,"guild_id":"6277101564729879","channel_name":"文字频道","mention":["374797264","1698900299"],"mention_all":false,"mention_roles":[95455],"mention_here":false,"code":"","author":{"identify_num":"3507","avatar":"https://img.kaiheila.cn/avatars/2020-07/XkyJKsvalO2bc2bc.jpg/icon","username":"萌动众生","id":"374797264","nickname":"萌动众生","roles":[]},"quote":{"local_id":"o5WoZqKQU5I6qT5rWDQCxCnw","type":1,"guild_id":"6277101564729879","channel_name":"文字频道","mention":[],"mention_all":false,"mention_roles":[],"mention_here":false,"code":"","author":{"identify_num":"3507","avatar":"https://img.kaiheila.cn/avatars/2020-07/XkyJKsvalO2bc2bc.jpg/icon","username":"萌动众生","id":"374797264","nickname":"萌动众生","roles":[]},"id":"bb891959-6381-4313-a07c-8e8cf31daebc","content":".test-tools","create_at":1610603600673,"notCount":true,"status":"SEND_SUCCESS","timeStr":"今天 下午 01:53","showTime":false,"gather_id":"5a2d7d94-4f09-44e0-b6f8-5fab80eada69","in_group":true,"rong_id":"bb891959-6381-4313-a07c-8e8cf31daebc","errorInfo":null,"pb0":true}},"verify_token":""},"sn":4}
         
         .判断开始 (不等于 (寻找文本 (content, 相加 (“@”, g_bot.quard), , 假), -1)) ' 艾特了机器人
-            赋值 (相加 (“消息类型: ”, 选择 (等于 (“type”.未知函数_67187815 (), “1”), “文字消息”, “其他”)))
-            赋值 (相加 (#换行符, “消息ID: ”, ))
-            赋值 (相加 (#换行符, “发送人: ”, , “#”, ))
-            赋值 (相加 (#换行符, “服务器: ”, ))
-            赋值 (相加 (#换行符, “频道: ”, , “#”, ))
+            赋值 (result, 相加 (“消息类型: ”, 选择 (等于 (msgJson.取通用属性 (“type”, ), “1”), “文字消息”, “其他”)))
+            赋值 (result, 相加 (result, #换行符, “消息ID: ”, msg_id))
+            赋值 (result, 相加 (result, #换行符, “发送人: ”, sendernickname, “#”, senderid))
+            赋值 (result, 相加 (result, #换行符, “服务器: ”, guild_id))
+            赋值 (result, 相加 (result, #换行符, “频道: ”, channel_name, “#”, target_id))
             
-            .如果真 (不等于 (“extra.quote['id']”.未知函数_67187815 (), “”))
-                赋值 (相加 (#换行符, “引用消息ID: ”, “extra.quote['id']”.未知函数_67187815 ()))
-                赋值 (相加 (#换行符, “引用消息发送人: ”, “extra.quote.author.username”.未知函数_67187815 (), “#”, “extra.quote.author.id”.未知函数_67187815 ()))
+            .如果真 (不等于 (msgJson.取通用属性 (“extra.quote['id']”, ), “”))
+                赋值 (result, 相加 (result, #换行符, “引用消息ID: ”, msgJson.取通用属性 (“extra.quote['id']”, )))
+                赋值 (result, 相加 (result, #换行符, “引用消息发送人: ”, msgJson.取通用属性 (“extra.quote.author.username”, ), “#”, msgJson.取通用属性 (“extra.quote.author.id”, )))
             .如果真结束
-            .如果真 (大于 (“extra.mention”.未知函数_67187817 ().未知函数_67187816 (), 0))
-                .计次循环首 (“extra.mention”.未知函数_67187817 ().未知函数_67187816 (), )
-                    赋值 (相加 (#换行符, “引用用户: ”, 未知函数_67187818 (相加 (“extra.mention['”, 到文本 (相减 (1)), “']”).未知函数_67187815 ())))
+            .如果真 (大于 (msgJson.取属性 (“extra.mention”).成员数 (), 0))
+                .计次循环首 (msgJson.取属性 (“extra.mention”).成员数 (), i)
+                    赋值 (result, 相加 (result, #换行符, “引用用户: ”, at部分处理 (content, msgJson.取通用属性 (相加 (“extra.mention['”, 到文本 (相减 (i, 1)), “']”), ))))
                 .计次循环尾 ()
                 
             .如果真结束
-             ' .如果真 (大于 (“extra.mention”.未知函数_67187817 ().未知函数_67187816 (), 0))
-                 ' .计次循环首 (“extra.mention_roles”.未知函数_67187817 ().未知函数_67187816 (), )
+             ' .如果真 (大于 (msgJson.取属性 (“extra.mention”, ).成员数 (), 0))
+                 ' .计次循环首 (msgJson.取属性 (“extra.mention_roles”, ).成员数 (), i)
                      ' result ＝ result ＋ #换行符 ＋ “引用用户: ” ＋ msgJson.取通用属性 (“extra.mention['” ＋ 到文本 (i － 1) ＋ “']”, )
                  ' .计次循环尾 ()
              ' .如果真结束
-            .如果真 (等于 (“extra['mention_all']”.未知函数_67187815 (), “true”))
-                赋值 (相加 (#换行符, “引用全体成员: ”, ))
+            .如果真 (等于 (msgJson.取通用属性 (“extra['mention_all']”, ), “true”))
+                赋值 (result, 相加 (result, #换行符, “引用全体成员: ”, msg_id))
             .如果真结束
-            .如果真 (等于 (“extra['mention_here']”.未知函数_67187815 (), “true”))
-                赋值 (相加 (#换行符, “引用在线成员: ”, ))
+            .如果真 (等于 (msgJson.取通用属性 (“extra['mention_here']”, ), “true”))
+                赋值 (result, 相加 (result, #换行符, “引用在线成员: ”, msg_id))
             .如果真结束
             channel_message (1, target_id, result, msg_id, , )
         .默认
@@ -21740,6 +21778,20 @@ result.解析 (编码_utf8到gb2312 (到文本 (网页_访问 (url, 1, 编码_UR
     
     
 .判断循环尾 ()
+
+
+.子程序 QueueExec, 空白型, , 
+.参数 msgFrom, 整数型, , 0=频道聊天  1=好友私聊
+.参数 msgType, 整数型, , 同步之前的
+.参数 channelId, 文本型, , 当msgFrom=0时才有
+.参数 userId, 文本型, , 
+.参数 contant, 文本型, , 
+.参数 msgId, 文本型, , 
+.参数 json, 文本型, , 备用 留给你自己解析
+
+GoCorefunction (msgFrom, msgType, channelId, userId, contant, msgId, json)
+
+PluginsCall (msgFrom, msgType, channelId, userId, contant, msgId, json)
 
 
 .子程序 at部分处理, 文本型, , 
@@ -21968,9 +22020,9 @@ content.加成员 (card.取数据文本 (), , 真, )
 .子程序 CardMessage_index, 文本型, , 
 .局部变量 item, 类_json, , , 
 .局部变量 item2, 类_json, , , 
-.局部变量 modules, 未知类型0x49013453, , , 
+.局部变量 modules, 类_json, , , 
 .局部变量 moduless, 类_json, , , 
-.局部变量 Card, 未知类型0x49013451, , , 
+.局部变量 Card, 类_json, , , 
 .局部变量 Cards, 类_json, , , 
 .局部变量 temp, 文本型, , , 
 
@@ -22004,20 +22056,20 @@ json.加成员 (item.取数据文本 (), , 真, )
 .子程序 Card_new, 类_json, , modules->card
 .参数 modules, 类_json, , 
 
-.局部变量 json, 未知类型0x49013366, , , 
+.局部变量 json, 类_json, , , 
 
 json.置属性 (“type”, “card”, )
 json.置属性 (“modules”, modules.取数据文本 (), 真)
 返回 (json)
 
 .子程序 Modules_add, 空白型, , modules+modules
-.参数 json, 未知类型0x4901336B, , 
-.参数 item, 未知类型0x4901336B, , 
+.参数 json, 类_json, , 
+.参数 item, 类_json, , 
 
 json.加成员 (item.取数据文本 (), , 真, )
 返回 ()
 
-.子程序 Modules_new_header, 未知类型0x49013371, , 标题模块
+.子程序 Modules_new_header, 类_json, , 标题模块
 .参数 content, 文本型, , 
 
 .局部变量 json, 类_json, , , 
@@ -22029,14 +22081,14 @@ item.置属性 (“content”, content, )
 json.置属性 (“text”, item.取数据文本 (), 真)
 返回 (json)
 
-.子程序 Modules_new_section, 未知类型0x49013383, , 内容模块 1：1 图文
+.子程序 Modules_new_section, 类_json, , 内容模块 1：1 图文
 .参数 text, 类_json, , 
 .参数 accessory, 类_json, , 
 
-.局部变量 json, 未知类型0x49013384, , , 
+.局部变量 json, 类_json, , , 
 .局部变量 item, 类_json, , , 
 
-json.未知函数_67187590 (“type”, “header”, )
+json.置属性 (“type”, “header”, )
 json.置属性 (“text”, text.取数据文本 (), 真)
 json.置属性 (“accessory”, accessory.取数据文本 (), 真) ' item.new()
 
@@ -22051,50 +22103,50 @@ json.置属性 (“type”, “image-group”, )
 json.置属性 (“elements”, elements.取数据文本 (), 真)
 返回 (json)
 
-.子程序 Modules_new_actiongroup, 未知类型0x490133FC, , 
-.参数 elements, 未知类型0x490133FC, , 交互元素组 item.buttons 1-4
+.子程序 Modules_new_actiongroup, 类_json, , 
+.参数 elements, 类_json, , 交互元素组 item.buttons 1-4
 
-.局部变量 json, 未知类型0x490133FC, , , 
+.局部变量 json, 类_json, , , 
 
 json.置属性 (“type”, “action-group”, )
-json.未知函数_67187709 (“elements”, elements.未知函数_67187710 (), 真)
+json.置属性 (“elements”, elements.取数据文本 (), 真)
 返回 (json)
 
-.子程序 Modules_new_context, 未知类型0x49013402, , 图文混排
-.参数 elements, 未知类型0x49013402, , 图文元素组 item.plain-text, kmarkdown, image 1-10
+.子程序 Modules_new_context, 类_json, , 图文混排
+.参数 elements, 类_json, , 图文元素组 item.plain-text, kmarkdown, image 1-10
 
-.局部变量 json, 未知类型0x49013402, , , 
+.局部变量 json, 类_json, , , 
 
 json.置属性 (“type”, “context”, )
-json.未知函数_67187715 (“elements”, elements.未知函数_67187716 (), 真)
+json.置属性 (“elements”, elements.取数据文本 (), 真)
 返回 (json)
 
-.子程序 Modules_new_divider, 未知类型0x49013409, , 分割线
-.局部变量 json, 未知类型0x49013409, , , 
+.子程序 Modules_new_divider, 类_json, , 分割线
+.局部变量 json, 类_json, , , 
 
 json.置属性 (“type”, “divider”, )
 返回 (json)
 
-.子程序 Modules_new_file, 未知类型0x4901340F, , 文件
+.子程序 Modules_new_file, 类_json, , 文件
 .参数 type, 文本型, , file|audio|video
 .参数 src, 文本型, , 
 .参数 title, 文本型, , 
 .参数 cover, 文本型, , audio有效
 
-.局部变量 json, 未知类型0x4901340F, , , 
+.局部变量 json, 类_json, , , 
 
-“type”.未知函数_67187762 ()
+json.置属性 (“type”, type, )
 json.置属性 (“src”, src, )
 json.置属性 (“title”, title, )
 json.置属性 (“cover”, cover, )
 返回 (json)
 
-.子程序 Modules_new_countdown, 未知类型0x4901343B, , 倒计时
+.子程序 Modules_new_countdown, 类_json, , 倒计时
 .参数 endTime, 长整数型, , 到期的毫秒时间戳
 .参数 startTime, 长整数型, , 起始的毫秒时间戳，仅当mode为second才有这个字段
 .参数 mode, 文本型, , day,hour,second //倒计时样式, 按天显示，按小时显示或者按秒显示
 
-.局部变量 json, 未知类型0x4901343B, , , 
+.局部变量 json, 类_json, , , 
 
 json.置属性 (“type”, “countdown”, )
 json.置属性数值 (“endTime”, endTime)
@@ -22103,8 +22155,8 @@ json.置属性 (“mode”, mode, )
 返回 (json)
 
 .子程序 Items_add, 空白型, , 
-.参数 json, 未知类型0x490133EB, , 
-.参数 item, 未知类型0x490133EB, , 
+.参数 json, 类_json, , 
+.参数 item, 类_json, , 
 
 json.加成员 (item.取数据文本 (), , 真, )
 返回 ()
@@ -22115,28 +22167,28 @@ json.加成员 (item.取数据文本 (), , 真, )
 
 .局部变量 json, 类_json, , , 
 
-“type”.未知函数_67187626 (“plain-text”, )
+json.置属性 (“type”, “plain-text”, )
 json.置属性 (“content”, content, ) ' 也可以只有这个
 json.置属性 (“emoji”, 选择 (emoji, “true”, “false”), 真)
 返回 (json)
 
 
-.子程序 item_new_kmarkdown, 未知类型0x490133B3, , 元素 md文本
+.子程序 item_new_kmarkdown, 类_json, , 元素 md文本
 .参数 content, 文本型, , 
 
-.局部变量 json, 未知类型0x490133B3, , , 
+.局部变量 json, 类_json, , , 
 
 json.置属性 (“type”, “kmarkdown”, )
-json.未知函数_67187637 (“content”, content, ) ' 也可以只有这个
+json.置属性 (“content”, content, ) ' 也可以只有这个
 返回 (json)
 
-.子程序 item_new_image, 未知类型0x490133BA, , 元素 图片
+.子程序 item_new_image, 类_json, , 元素 图片
 .参数 src, 文本型, , 图片类型（MimeType）限制说明：目前仅支持image/jpeg, image/gif, image/png这3种
 .参数 alt, 文本型, , 
 .参数 size, 文本型, , sm|lg
-.参数 circle, 逻辑型, , 
+.参数 circle, 逻辑型, , 圆形
 
-.局部变量 json, 未知类型0x490133BA, , , 
+.局部变量 json, 类_json, , , 
 
 json.置属性 (“type”, “image”, )
 json.置属性 (“src”, src, )
@@ -22145,13 +22197,13 @@ json.置属性 (“content”, src, )
 json.置属性 (“circle”, 选择 (circle, “true”, “false”), 真)
 返回 (json)
 
-.子程序 item_new_button, 未知类型0x490133D4, , 元素 按钮
+.子程序 item_new_button, 类_json, , 元素 按钮
 .参数 theme, 文本型, , "primary|warning|info|danger|...", //按钮的主题颜色
 .参数 value, 文本型, , //要传递的value，为string
 .参数 click, 文本型, , //click时的事件类型， return-val 返回value值
 .参数 text, 文本型, , text可以为plain-text, kmarkdown
 
-.局部变量 json, 未知类型0x490133D4, , , 
+.局部变量 json, 类_json, , , 
 .局部变量 src, 文本型, , , 
 
 json.置属性 (“type”, “button”, )
@@ -22174,6 +22226,194 @@ json.置属性 (“type”, “paragraph”, )
 json.置属性数值 (“cols”, cols)
 json.置属性 (“fields”, fields.取数据文本 (), 真)
 返回 (json)
+
+.程序集 Corefunction, , , 
+
+.子程序 InitCorefunction, 空白型, , 
+重定义数组 (core_function, 假, 0)
+RegFunctionToCore (“debug助手”, “.debug”, &funcDebug)
+
+.子程序 RegFunctionToCore, 空白型, , 
+.参数 functionName, 文本型, , 
+.参数 commandPrefix, 文本型, , 
+.参数 functionAddr, 子程序指针, , 
+
+.局部变量 item, function, , , 
+
+赋值 (., )
+赋值 (item.prefix, commandPrefix)
+赋值 (item.fundaddr, functionAddr)
+加入成员 (core_function, item)
+
+.子程序 funcDebug, 逻辑型, , 
+.参数 msgFrom, 整数型, , 0=频道聊天  1=好友私聊
+.参数 msgType, 整数型, , 同步之前的
+.参数 channelId, 文本型, , 当msgFrom=0时才有
+.参数 userId, 文本型, , 
+.参数 contant, 文本型, , 
+.参数 msgId, 文本型, , 
+.参数 json, 文本型, , 备用 留给你自己解析
+
+返回 (假)
+
+.子程序 GoCorefunction, 空白型, , 消息从这里丢
+.参数 msgFrom, 整数型, , 0=频道聊天  1=好友私聊
+.参数 msgType, 整数型, , 同步之前的
+.参数 channelId, 文本型, , 当msgFrom=0时才有
+.参数 userId, 文本型, , 
+.参数 contant, 文本型, , 
+.参数 msgId, 文本型, , 
+.参数 json, 文本型, , 备用 留给你自己解析
+
+.局部变量 i, 整数型, , , 
+.局部变量 item, function, , , 
+.局部变量 JumpBack, 逻辑型, , , 
+
+.计次循环首 (取数组成员数 (core_function), i)
+    赋值 (item, core_function [i])
+    .如果真 (等于 (命令_是否捕获 (item.prefix), 真))
+        调用子程序 (item.fundaddr, , JumpBack, , , , , , )
+        .如果 (等于 (JumpBack, 真))
+            跳出循环 ()
+        .否则
+            
+        .如果结束
+        
+    .如果真结束
+    
+.计次循环尾 ()
+
+.子程序 命令_是否捕获, 逻辑型, , 
+.参数 contant, 文本型, , 
+.参数 commandperitx, 文本型, , 
+
+.如果 (等于 (取文本左边 (contant, 取文本长度 (commandperitx)), commandperitx))
+    返回 (真)
+.否则
+    
+.如果结束
+返回 (假)
+
+
+.程序集 plugins, , , 
+
+.子程序 PluginsInitialize, 空白型, , 修改完毕
+.局部变量 DLL文件, 文本型, , , 
+.局部变量 n, 整数型, , , 
+.局部变量 插件信息, 文本型, , "0", 
+.局部变量 MOD函数_临时, plugin, , , 
+.局部变量 插件分割, 文本型, , "0", 
+.局部变量 i, 整数型, , , 
+.局部变量 MODFileList, 文本型, , "0", 
+
+删除目录 (相加 (取运行目录 (), “\plugin_tmp”))
+创建目录 (相加 (取运行目录 (), “\plugin_tmp”))
+.如果真 (等于 (目录_是否存在 (相加 (取运行目录 (), “\plugin”)), 假))
+    创建目录 (相加 (取运行目录 (), “\plugin”))
+.如果真结束
+清除数组 (MODFileList)
+赋值 (DLL文件, 寻找文件 (相加 (取运行目录 (), “\plugin\*.dll”), ))
+复制文件 (相加 (取运行目录 (), “\plugin\”, DLL文件), 相加 (取运行目录 (), “\plugin_tmp\”, DLL文件))
+.判断循环首 (不等于 (DLL文件, “”))
+    加入成员 (MODFileList, DLL文件)
+    赋值 (DLL文件, 寻找文件 ())
+    复制文件 (相加 (取运行目录 (), “\plugin\”, DLL文件), 相加 (取运行目录 (), “\plugin_tmp\”, DLL文件)) ' 移动到tmp目录下
+    处理事件 ()
+.判断循环尾 ()
+清除数组 (plugins)
+
+.计次循环首 (取数组成员数 (MODFileList), n)
+    .如果真 (DLL命令调用转向 (相加 (取运行目录 (), “\plugin_tmp\”, MODFileList [n]), “start”))
+        .如果真 (等于 (启动插件 (g_token), “假”)) ' 这里要提供一些必要参数了
+            
+            到循环尾 ()
+        .如果真结束
+        .如果真 (DLL命令调用转向 (相加 (取运行目录 (), “\plugin_tmp\”, MODFileList [n]), “info”))
+            未知函数_67187962 (未知函数_167851259 (), “{”, “}”, 插件分割)
+             ' 分割文本 (插件信息 () ＋ #换行符 ＋ “-----”, “-----” ＋ #换行符, )
+            .计次循环首 (取数组成员数 (插件分割), i)
+                赋值 (插件信息, 分割文本 (插件分割 [i], “,”, ))
+                .如果真 (等于 (取数组成员数 (插件信息), 7))
+                    赋值 (MOD函数_临时., 插件信息 [1])
+                    赋值 (MOD函数_临时., 插件信息 [2])
+                    赋值 (MOD函数_临时., 插件信息 [3])
+                    赋值 (MOD函数_临时., 插件信息 [4])
+                    赋值 (MOD函数_临时., 插件信息 [5])
+                    赋值 (MOD函数_临时., 插件信息 [6])
+                    赋值 (MOD函数_临时.功能中显示, 选择 (等于 (插件信息 [7], “true”), 真, 假))
+                    赋值 (MOD函数_临时.,  [n])
+                    赋值 (MOD函数_临时.启用状态, 选择 (等于 (读配置项 (相加 (取运行目录 (), “\plugin\set.ini”), “open”, 相加 (MOD函数_临时.插件名, “_”, MODFileList [n]), ), “true”), 真, 假))
+                    加入成员 (plugins, MOD函数_临时)
+                .如果真结束
+                 ' 处理事件 ()
+            .计次循环尾 ()
+        .如果真结束
+        
+    .如果真结束
+    
+.计次循环尾 ()
+ ' 'ApplicationUI.超级列表框3.全部删除 ()
+ ' .计次循环首 (取数组成员数 (), n)
+     ' ApplicationUI.超级列表框3.插入表项 (, , , , , )
+     ' ApplicationUI.超级列表框3.置标题 (n － 1, 0, MODFunction [n].插件名)
+     ' ApplicationUI.超级列表框3.置标题 (n － 1, 1, MODFunction [n].文件名)
+     ' ApplicationUI.超级列表框3.置标题 (n － 1, 2, MODFunction [n].格式左)
+     ' ApplicationUI.超级列表框3.置标题 (n － 1, 3, MODFunction [n].介绍)
+     ' ' 超级列表框3.置标题 (n － 1, 4, MOD函数 [n].作者)
+     ' ApplicationUI.超级列表框3.置状态图片 (n － 1, 文本逻到数字逻辑 (到文本 (MODFunction [n].启用状态)))
+     ' 处理事件 ()
+ ' .计次循环尾 ()
+ ' ApplicationUI.编辑框5.内容 ＝ “请选中一个模组以查看详情！”
+ ' 重加载组合框1
+ ' ApplicationUI.组合框1.清空 ()
+ ' ApplicationUI.组合框1.加入项目 (“运行时间”, )
+ ' 计次循环首 (取数组成员数 (MODFileList), n)
+ ' ApplicationUI.组合框1.加入项目 (MODFileList [n], )
+
+ ' ApplicationUI.组合框1.内容 ＝ 读配置项 (取运行目录 () ＋ “\Lt.Config”, “悬浮窗”, “事件”, “运行时间”)
+
+.子程序 PluginsCall, 空白型, , 从应用发起的API
+.参数 msgFrom, 整数型, , 0=频道聊天  1=好友私聊
+.参数 msgType, 整数型, , 同步之前的
+.参数 channelId, 文本型, , 当msgFrom=0时才有
+.参数 userId, 文本型, , 
+.参数 contant, 文本型, , 
+.参数 msgId, 文本型, , 
+.参数 json, 文本型, , 备用 留给你自己解析
+
+.局部变量 n, 整数型, , , 
+.局部变量 临时文本, 文本型, , , 
+.局部变量 plugin, plugin, , , 
+
+.计次循环首 (取数组成员数 (plugins), n)
+    赋值 (plugin, plugins [n])
+     ' 写环境变量 (“corerun”, “MOD函数：” ＋ MODFunction [n].文件名 ＋ “,” ＋ MODFunction [n].插件名)
+    .如果真 (等于 (plugin.启用状态, 假))
+        到循环尾 ()
+    .如果真结束
+     ' 过滤
+    
+    
+    .如果 (命令_是否捕获 (plugin.格式左))
+        
+    .否则
+        到循环尾 ()
+    .如果结束
+    
+    .判断开始 (DLL命令调用转向 (相加 (取运行目录 (), “\plugin_tmp\”, plugin.文件名), plugin.调用名))
+         ' 这里cookies应该加个 用户授权的
+         ' 当前插件 ＝ MOD函数[n].文件名
+        赋值 (临时文本, 使用插件 (msgFrom, msgType, channelId, userId, contant, msgId, json))
+        .如果真 (不等于 (临时文本, “”))
+            返回 ()
+        .如果真结束
+        
+    .默认
+        
+    .判断结束
+    
+.计次循环尾 ()
+返回 ()
 
 
  ' 不属于任何一个程序集、类模块的函数：
