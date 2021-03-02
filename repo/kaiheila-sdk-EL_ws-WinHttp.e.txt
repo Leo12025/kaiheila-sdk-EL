@@ -7033,7 +7033,7 @@ init ()
 赋值 (g_url, 相加 (g_baseUrl, “/v”, g_apiVer))
 
 赋值 (g_token, 读配置项 (相加 (取运行目录 (), “\bot_token.ini”), “def”, “token”, )) ' 请在机器人后台获取)
-json.解析 (user_me (), )
+json.解析 (未知函数_67187933 (), )
 赋值 (g_bot.username, json.取通用属性 (“data.username”, ))
 赋值 (g_bot.id, json.取通用属性 (“data.id”, ))
 赋值 (g_bot.quard, 相加 (g_bot.username, “#”, g_bot.id))
@@ -21519,70 +21519,6 @@ result.解析 (编码_utf8到gb2312 (到文本 (网页_访问 (url, 1, 编码_gb
 返回 (result.取通用属性 (“data['msg_id']”, ))
 
 
-.子程序 intimacy_index, 文本型, , 
-.参数 userId, 文本型, , 
-.参数 token, 文本型, 可空, 
-
-.局部变量 url, 文本型, , , 
-.局部变量 header, 文本型, , , 
-.局部变量 json, 类_json, , , 
-.局部变量 result, 类_json, , , 
-
-赋值 (url, 相加 (g_url, “/intimacy/index”))
-赋值 (header, 相加 (“Authorization: Bot ”, 选择 (等于 (token, “”), g_token, 读配置项 (相加 (取运行目录 (), “\bot_token.ini”), “token”, token, )), #换行符, “Content-type: application/json”))
-json.置属性 (“user_id”, userId, )
-调试输出 (url, header, json.取数据文本 ())
-result.解析 (编码_utf8到gb2312 (到文本 (网页_访问 (url, 1, 编码_gb2312到utf8 (json.取数据文本 ()), , , header, , , , , , , ))), )
- ' SystemLog (, “获取用户” ＋ userId ＋ “亲密信息”, “kaiheila”)
- ' SystemLog (, “返回信息: ” ＋ result.取数据文本 (), “kaiheila”)
-返回 (result.取数据文本 ())
-
-.子程序 intimacy_update, 文本型, , 
-.参数 userId, 文本型, , 
-.参数 score, 整数型, , 
-.参数 social_info, 文本型, , 
-.参数 img_id, 整数型, , 
-.参数 token, 文本型, 可空, 
-
-.局部变量 url, 文本型, , , 
-.局部变量 header, 文本型, , , 
-.局部变量 json, 类_json, , , 
-.局部变量 result, 类_json, , , 
-
-赋值 (url, 相加 (g_url, “/intimacy/update”))
-赋值 (header, 相加 (“Authorization: Bot ”, 选择 (等于 (token, “”), g_token, 读配置项 (相加 (取运行目录 (), “\bot_token.ini”), “token”, token, )), #换行符, “Content-type: application/json”))
-json.置属性 (“user_id”, userId, )
-json.置属性数值 (“score”, score)
-json.置属性 (“social_info”, social_info, )
-json.置属性数值 (“img_id”, img_id)
-
- ' 调试输出 (baseUrl, header, json.取数据文本 ())
-result.解析 (编码_utf8到gb2312 (到文本 (网页_访问 (url, 1, 编码_gb2312到utf8 (json.取数据文本 ()), , , header, , , , , , , ))), )
- ' SystemLog (, “修改” ＋ userId ＋ “亲密度信息”, “kaiheila”)
- ' SystemLog (, “返回信息: ” ＋ result.取数据文本 (), “kaiheila”)
-返回 (result.取数据文本 ())
-
-
-.子程序 gateway_index, 文本型, , /api/v3/gateway/index
-.参数 token, 文本型, 可空, 
-.参数 compress, 整数型, 可空, 
-
-.局部变量 url, 文本型, , , 
-.局部变量 header, 文本型, , , 
-.局部变量 result, 类_json, , , 
-
-赋值 (url, 相加 (g_url, “/gateway/index”))
-赋值 (header, 相加 (“Authorization: Bot ”, 选择 (等于 (token, “”), g_token, 读配置项 (相加 (取运行目录 (), “\bot_token.ini”), “token”, token, ))))
-.如果真 (是否为空 (compress))
-    赋值 (compress, 1)
-.如果真结束
-赋值 (url, 相加 (url, “?compress=”, 到文本 (compress)))
-result.解析 (编码_utf8到gb2312 (到文本 (网页_访问 (url, 0, , , , header, , , , , , , ))), )
-调试输出 (url, result.取数据文本 ())
-返回 (result.取通用属性 (“data.url”, ))
- ' {"code": 0,"message": "操作成功","data": {"url": "wss://xxxx"}}
- ' {"code":0,"message":"操作成功","data":{"url":"wss://ws.kaiheila.cn/gateway?compress=0&token=1234="}
-
 .子程序 guild_index, 文本型, , /api/v3/guild/index
 .参数 token, 文本型, 可空, 
 
@@ -21604,336 +21540,6 @@ result.解析 (编码_utf8到gb2312 (到文本 (网页_访问 (url, 1, 编码_gb
 
  ' 频道数组:
 
-
-
-.子程序 user_me, 文本型, , 
-.参数 token, 文本型, 可空, 多机器人预留位置 采用文件对应 token=token
-
-.局部变量 url, 文本型, , , 
-.局部变量 header, 文本型, , , 
-.局部变量 result, 类_json, , , 
-
-赋值 (url, 相加 (g_url, “/user/me”))
-赋值 (header, 相加 (“Authorization: Bot ”, 选择 (等于 (token, “”), g_token, 读配置项 (相加 (取运行目录 (), “\bot_token.ini”), “token”, token, )), #换行符, “Content-type: application/json”))
- ' json.置属性 (“guild_id”, GuildId, )
- ' 调试输出 (baseUrl, header, json.取数据文本 ())
-result.解析 (编码_utf8到gb2312 (到文本 (网页_访问 (url, 0, , , , header, , , , , , , ))), )
- ' 调试输出 (, “获取服务器信息”, “kaiheila”)
- ' 调试输出 (, “返回信息: ” ＋ result.取数据文本 (), “kaiheila”)
- ' {"code":0,"message":"操作成功","data":{"id":"*****","username":"****","identify_num":"9028","online":true,"os":"Websocket","status":0,"avatar":"https://img.kaiheila.cn/assets/2021-01/OQlgu5UiGJ0e80e8.jpeg/icon","bot":true,"tag_info":{"color":"#34A853","text":"机器人"},"mobile_verified":true,"client_id":"********","mobile_prefix":"86","mobile":"****","privacy_game_activity":0,"privacy_music_activity":0,"enable_desktop_notification":true,"audio_setting":"","auto_exit_audio_channel":false,"invited_count":"0","need_guide":false,"friend_setting":{"all":true},"chat_setting":"1","auth_info":[]}}'
-返回 (result.取数据文本 ())
-
-
-.子程序 asset_create, 文本型, , 
-.参数 token, 文本型, 可空, 
-.参数 本地资源路径, 文本型, , 
-
-.局部变量 url, 文本型, , , 
-.局部变量 uuid, 文本型, , , 
-.局部变量 type, 文本型, , , 
-.局部变量 header, 文本型, , , 
-.局部变量 Playload, 字节集, , , 
-.局部变量 json, 类_json, , , 
-
-赋值 (url, 相加 (g_url, “/asset/create”))
-赋值 (uuid, 文本_取随机数字 (10, ))
-赋值 (type, 文件_取扩展名 (本地资源路径))
-.判断开始 (等于 (type, “.png”))
-    赋值 (type, “image/png”)
-.默认
-    赋值 (type, “image/png”)
-.判断结束
-赋值 (header, 相加 (“Content-Type: multipart/form-data; boundary=--------------------------”, uuid))
-赋值 (header, 相加 (header, #换行符, “Authorization: Bot ”, 选择 (等于 (token, “”), g_token, 读配置项 (相加 (取运行目录 (), “\bot_token.ini”), “token”, token, ))))
-赋值 (Playload, 到字节集 (相加 (“----------------------------”, uuid, #换行符)))
-赋值 (Playload, 相加 (Playload, 到字节集 (相加 (“Content-Disposition: form-data; name=”, #引号, “file”, #引号, “; filename=”, #引号, “temp”, 文件_取文件名 (本地资源路径, ), #引号, #换行符))))
-赋值 (Playload, 相加 (Playload, 到字节集 (相加 (“Content-Type: ”, type, #换行符))))
-赋值 (Playload, 相加 (Playload, 到字节集 (#换行符)))
-赋值 (Playload, 相加 (Playload, 读入文件 (本地资源路径), 到字节集 (#换行符)))
-赋值 (Playload, 相加 (Playload, 到字节集 (相加 (“----------------------------”, uuid, “--”))))
- ' 调试输出 (url, header, 到文本 (Playload))
-json.解析 (编码_utf8到gb2312 (到文本 (网页_访问 (url, 1, , , , header, , , Playload, , , , ))), )
- ' {"code":0,"message":"操作成功","data":{"url":"https://img.kaiheila.cn/assets/2021-01/22/zV8yikTGJf0la0k5.png"}}
-返回 (json.取数据文本 ())
-
-.子程序 guild_role_index, 文本型, , 获取服务器角色列表
-.参数 token, 文本型, 可空, 多机器人预留位置 采用文件对应 token=token
-.参数 guild_id, 文本型, , 
-
-.局部变量 url, 文本型, , , 
-.局部变量 header, 文本型, , , 
-.局部变量 result, 类_json, , , 
-
-赋值 (url, 相加 (g_url, “/guild-role/index”))
-赋值 (url, 相加 (url, “?guild_id=”, guild_id))
-赋值 (header, 相加 (“Authorization: Bot ”, 选择 (等于 (token, “”), g_token, 读配置项 (相加 (取运行目录 (), “\bot_token.ini”), “token”, token, )), #换行符, “Content-type: application/json”))
-result.解析 (编码_utf8到gb2312 (到文本 (网页_访问 (url, 0, , , , header, , , , , , , ))), )
- ' 调试输出 (, “获取服务器信息”, “kaiheila”)
- ' 调试输出 (, “返回信息: ” ＋ result.取数据文本 (), “kaiheila”)
- ' role_id unsigned int 角色的id
- ' name string 角色的名称
- ' color unsigned int 角色的色值0x000000 - 0xFFFFFF
- ' position unsigned int 顺序，值越小载靠前
- ' hoist unsigned int 只能为0或者1，是否把该角色的用户在用户列表排到前面
- ' mentionable unsigned int 只能为0或者1，该角色是否可以被提及
- ' permissions unsigned int 权限,参见权限说明
- ' {"code":0,"message":"操作成功","data":[{"role_id":5712,"name":"新角色1","color":3066993,"position":1,"hoist":0,"mentionable":0,"permissions":147643914},{"role_id":0,"name":"@全体成员","color":0,"position":999,"hoist":0,"mentionable":0,"permissions":147642888}],}
-返回 (result.取数据文本 ())
-
-
-.子程序 guild_role_create, 文本型, , 创建服务器角色
-.参数 token, 文本型, 可空, 多机器人预留位置 采用文件对应 token=token
-.参数 name, 文本型, 可空, 
-.参数 guild_id, 文本型, , 
-
-.局部变量 url, 文本型, , , 
-.局部变量 header, 文本型, , , 
-.局部变量 json, 类_json, , , 
-.局部变量 result, 类_json, , , 
-
-赋值 (url, 相加 (g_url, “/guild-role/create”))
-赋值 (header, 相加 (“Authorization: Bot ”, 选择 (等于 (token, “”), g_token, 读配置项 (相加 (取运行目录 (), “\bot_token.ini”), “token”, token, )), #换行符, “Content-type: application/json”))
-.如果真 (不等于 (name, “”))
-    json.置属性 (“name”, name, )
-.如果真结束
-json.置属性 (“guild_id”, guild_id, )
-result.解析 (编码_utf8到gb2312 (到文本 (网页_访问 (url, 1, 编码_URL编码 (json.取数据文本 (), , 真), , , header, , , , , , , ))), )
- ' 调试输出 (, “获取服务器信息”, “kaiheila”)
- ' 调试输出 (, “返回信息: ” ＋ result.取数据文本 (), “kaiheila”)
- ' role_id unsigned int 角色的id
- ' name string 角色的名称
- ' color unsigned int 角色的色值0x000000 - 0xFFFFFF
- ' position unsigned int 顺序，值越小载靠前
- ' hoist unsigned int 只能为0或者1，是否把该角色的用户在用户列表排到前面
- ' mentionable unsigned int 只能为0或者1，该角色是否可以被提及
- ' permissions unsigned int 权限,参见权限说明
- ' {"code":0,"message":"操作成功","data":[{"role_id":5712,"name":"新角色1","color":3066993,"position":1,"hoist":0,"mentionable":0,"permissions":147643914}],}
-返回 (result.取数据文本 ())
-
-
-.子程序 guild_role_update, 文本型, , 更新服务器角色
-.参数 token, 文本型, 可空, 多机器人预留位置 采用文件对应 token=token
-.参数 guild_id, 文本型, , 
-.参数 role_id, 整数型, , 
-.参数 hoist, 整数型, 可空, 
-.参数 mentionable, 整数型, 可空, 
-.参数 permissions, 整数型, 可空, 
-
-.局部变量 url, 文本型, , , 
-.局部变量 header, 文本型, , , 
-.局部变量 result, 类_json, , , 
-.局部变量 json, 类_json, , , 
-
-赋值 (url, 相加 (g_url, “/guild-role/update”))
-json.置属性 (“guild_id”, guild_id, )
-json.置属性数值 (“role_id”, role_id)
-.如果真 (等于 (是否为空 (hoist), 假))
-    json.置属性数值 (“hoist”, 选择 (等于 (hoist, 1), 1, 2), )
-.如果真结束
-.如果真 (等于 (是否为空 (mentionable), 假))
-    json.置属性数值 (“mentionable”, 选择 (等于 (mentionable, 1), 1, 2), )
-.如果真结束
-.如果真 (等于 (是否为空 (permissions), 假))
-    json.置属性数值 (“permissions”, permissions, )
-.如果真结束
-赋值 (header, 相加 (“Authorization: Bot ”, 选择 (等于 (token, “”), g_token, 读配置项 (相加 (取运行目录 (), “\bot_token.ini”), “token”, token, )), #换行符, “Content-type: application/json”))
-result.解析 (编码_utf8到gb2312 (到文本 (网页_访问 (url, 1, 编码_URL编码 (json.取数据文本 (), 真, ), , , header, , , , , , , ))), )
- ' 调试输出 (, “获取服务器信息”, “kaiheila”)
- ' 调试输出 (, “返回信息: ” ＋ result.取数据文本 (), “kaiheila”)
- ' role_id unsigned int 角色的id
- ' name string 角色的名称
- ' color unsigned int 角色的色值0x000000 - 0xFFFFFF
- ' position unsigned int 顺序，值越小载靠前
- ' hoist unsigned int 只能为0或者1，是否把该角色的用户在用户列表排到前面
- ' mentionable unsigned int 只能为0或者1，该角色是否可以被提及
- ' permissions unsigned int 权限,参见权限说明
- ' {"code":0,"message":"操作成功","data":[{"role_id":5712,"name":"新角色1","color":3066993,"position":1,"hoist":0,"mentionable":0,"permissions":147643914}],}
-返回 (result.取数据文本 ())
-
-
-.子程序 guild_role_delete, 文本型, , 删除服务器角色
-.参数 token, 文本型, 可空, 多机器人预留位置 采用文件对应 token=token
-.参数 guild_id, 文本型, , 
-.参数 role_id, 整数型, , 
-
-.局部变量 url, 文本型, , , 
-.局部变量 header, 文本型, , , 
-.局部变量 result, 类_json, , , 
-.局部变量 json, 类_json, , , 
-
-赋值 (url, 相加 (g_url, “/guild-role/delete”))
-赋值 (header, 相加 (“Authorization: Bot ”, 选择 (等于 (token, “”), g_token, 读配置项 (相加 (取运行目录 (), “\bot_token.ini”), “token”, token, )), #换行符, “Content-type: application/json”))
-json.置属性 (“guild_id”, guild_id, )
-json.置属性数值 (“role_id”, role_id, )
-result.解析 (编码_utf8到gb2312 (到文本 (网页_访问 (url, 1, 编码_URL编码 (json.取数据文本 (), 真, ), , , header, , , , , , , ))), )
- ' 调试输出 (, “获取服务器信息”, “kaiheila”)
- ' 调试输出 (, “返回信息: ” ＋ result.取数据文本 (), “kaiheila”)
- ' {"code":0,"message":"操作成功","data":[]}
-返回 (result.取数据文本 ())
-
-
-.子程序 guild_role_grant, 文本型, , 赋予用户角色
-.参数 token, 文本型, 可空, 多机器人预留位置 采用文件对应 token=token
-.参数 guild_id, 文本型, , 
-.参数 user_id, 文本型, , 
-.参数 role_id, 整数型, , 
-
-.局部变量 url, 文本型, , , 
-.局部变量 header, 文本型, , , 
-.局部变量 result, 类_json, , , 
-.局部变量 json, 类_json, , , 
-
-赋值 (url, 相加 (g_url, “/guild-role/grant”))
-赋值 (header, 相加 (“Authorization: Bot ”, 选择 (等于 (token, “”), g_token, 读配置项 (相加 (取运行目录 (), “\bot_token.ini”), “token”, token, )), #换行符, “Content-type: application/json”))
-json.置属性 (“guild_id”, guild_id, )
-json.置属性 (“user_id”, user_id, )
-json.置属性数值 (“role_id”, role_id)
-result.解析 (编码_utf8到gb2312 (到文本 (网页_访问 (url, 1, 编码_URL编码 (json.取数据文本 (), 真, ), , , header, , , , , , , ))), )
- ' user_id string 用户id
- ' guild_id string 服务器id
- ' roles Array 角色id的列表
- ' 调试输出 (, “获取服务器信息”, “kaiheila”)
- ' 调试输出 (, “返回信息: ” ＋ result.取数据文本 (), “kaiheila”)
- ' {"code":0,"message":"操作成功","data":{"user_id":"xxxx","guild_id":"xxxx","roles":[1,2]}}
-返回 (result.取数据文本 ())
-
-
-.子程序 guild_role_revoke, 空白型, , 删除用户角色
-.参数 token, 文本型, 可空, 多机器人预留位置 采用文件对应 token=token
-.参数 guild_id, 文本型, , 
-.参数 role_id, 整数型, , 
-.参数 user_id, 文本型, , 
-
-.局部变量 url, 文本型, , , 
-.局部变量 header, 文本型, , , 
-.局部变量 result, 类_json, , , 
-.局部变量 json, 类_json, , , 
-
-赋值 (url, 相加 (g_url, “/guild-role/revoke”))
-赋值 (header, 相加 (“Authorization: Bot ”, 选择 (等于 (token, “”), g_token, 读配置项 (相加 (取运行目录 (), “\bot_token.ini”), “token”, token, )), #换行符, “Content-type: application/json”))
-json.置属性 (“guild_id”, guild_id, )
-json.置属性数值 (“role_id”, role_id)
-json.置属性 (“user_id”, user_id, )
-result.解析 (编码_utf8到gb2312 (到文本 (网页_访问 (url, 1, 编码_URL编码 (json.取数据文本 (), 真, ), , , header, , , , , , , ))), )
- ' 调试输出 (, “获取服务器信息”, “kaiheila”)
- ' 调试输出 (, “返回信息: ” ＋ result.取数据文本 (), “kaiheila”)
- ' guild_id string 服务器id
- ' user_id string 角色id
- ' roles Array 角色id的列表
- ' {"code":0,"message":"操作成功","data":{"user_id":"xxxx","guild_id":"xxxx","roles":[9]}}
-返回 (result.取数据文本 ())
-
-
-.子程序 guild_emoji_index, 文本型, , 获取服务器表情列表
-.参数 token, 文本型, 可空, 多机器人预留位置 采用文件对应 token=token
-.参数 guild_id, 文本型, , 
-
-.局部变量 url, 文本型, , , 
-.局部变量 header, 文本型, , , 
-.局部变量 result, 类_json, , , 
-
-赋值 (url, 相加 (g_url, “/guild-emoji/index”))
-赋值 (url, 相加 (url, “?guild_id=”, guild_id))
-赋值 (header, 相加 (“Authorization: Bot ”, 选择 (等于 (token, “”), g_token, 读配置项 (相加 (取运行目录 (), “\bot_token.ini”), “token”, token, )), #换行符, “Content-type: application/json”))
-result.解析 (编码_utf8到gb2312 (到文本 (网页_访问 (url, 0, , , , header, , , , , , , ))), )
- ' name string 表情的名称
- ' id string 表情的 ID
- ' user_info object 上传用户，具体参考 用户相关接口(user_me)
- ' {"code":0,"message":"操作成功","data":[{"name":"ceeb653ely1gm1ayxhrnnj20j60jpwfu","id":"9168644645632553/4c43fcb7f6267d0c80ck","user_info":{"id":"1780328444","username":"用户名","identify_num":"3249","online":true,"os":"Websocket","status":1,"avatar":"https://chuanyuapp.oss-cn-qingdao.aliyuncs.com/assets/bot.png/icon"}},{"name":"ceeb653ely1gm6d2213ycj20go0gogvj","id":"9168644645632553/c74a7a8cda2f310c80c8","user_info":{"id":"1780328444","username":"用户名","identify_num":"3249","online":true,"os":"Websocket","status":1,"avatar":"https://chuanyuapp.oss-cn-qingdao.aliyuncs.com/assets/bot.png/icon"}}]}
-返回 (result.取数据文本 ())
-
-
-.子程序 guild_emoji_create, 文本型, ,  创建服务器表情
-.参数 token, 文本型, 可空, 
-.参数 name, 文本型, , 表情名。长度限制 2 - 32 字符，如果不写，则为随机字符串
-.参数 guild_id, 文本型, , 服务器 ID
-.参数 本地资源路径, 文本型, ,  表情文件。必须为 PNG 类型，大小不能超过 256 KB
-
-.局部变量 url, 文本型, , , 
-.局部变量 uuid, 文本型, , , 
-.局部变量 type, 文本型, , , 
-.局部变量 header, 文本型, , , 
-.局部变量 Playload, 字节集, , , 
-.局部变量 json, 类_json, , , 
-
-赋值 (url, 相加 (g_url, “/guild-emoji/create”))
-赋值 (uuid, 文本_取随机数字 (10, ))
-赋值 (type, 文件_取扩展名 (本地资源路径))
-.判断开始 (等于 (type, “.png”))
-    赋值 (type, “image/png”)
-.默认
-    赋值 (type, “image/png”)
-.判断结束
-赋值 (header, 相加 (“Content-Type: multipart/form-data; boundary=--------------------------”, uuid))
-赋值 (header, 相加 (header, #换行符, “Authorization: Bot ”, 选择 (等于 (token, “”), g_token, 读配置项 (相加 (取运行目录 (), “\bot_token.ini”), “token”, token, ))))
-赋值 (Playload, 到字节集 (相加 (“----------------------------”, uuid, #换行符)))
-赋值 (Playload, 相加 (Playload, 到字节集 (相加 (“Content-Disposition: form-data; name=”, #引号, “name”, #引号, #换行符))))
-赋值 (Playload, 相加 (Playload, 到字节集 (#换行符)))
-赋值 (Playload, 相加 (Playload, 到字节集 (name)))
-赋值 (Playload, 到字节集 (相加 (“----------------------------”, uuid, #换行符)))
-赋值 (Playload, 相加 (Playload, 到字节集 (相加 (“Content-Disposition: form-data; name=”, #引号, “guild_id”, #引号, #换行符))))
-赋值 (Playload, 相加 (Playload, 到字节集 (#换行符)))
-赋值 (Playload, 相加 (Playload, 到字节集 (guild_id)))
-
-赋值 (Playload, 到字节集 (相加 (“----------------------------”, uuid, #换行符)))
-赋值 (Playload, 相加 (Playload, 到字节集 (相加 (“Content-Disposition: form-data; name=”, #引号, “file”, #引号, “; filename=”, #引号, “temp”, 文件_取文件名 (本地资源路径, ), #引号, #换行符))))
-赋值 (Playload, 相加 (Playload, 到字节集 (相加 (“Content-Type: ”, type, #换行符))))
-赋值 (Playload, 相加 (Playload, 到字节集 (#换行符)))
-赋值 (Playload, 相加 (Playload, 读入文件 (本地资源路径), 到字节集 (#换行符)))
-赋值 (Playload, 相加 (Playload, 到字节集 (相加 (“----------------------------”, uuid, “--”))))
- ' 调试输出 (url, header, 到文本 (Playload))
-json.解析 (编码_utf8到gb2312 (到文本 (网页_访问 (url, 1, , , , header, , , Playload, , , , ))), )
- ' {"code":0,"message":"操作成功","data":{"name":"ceeb653ely1gm1ayxhrnnj20j60jpwfu","id":"1333609240026275/zTpnkSnMZH0c80ck.","user_info":{"id":"1780328444","username":"用户名","identify_num":"3249","online":true,"os":"Websocket","status":1,"avatar":"https://chuanyuapp.oss-cn-qingdao.aliyuncs.com/assets/bot.png/icon"}}}
-返回 (json.取数据文本 ())
-
-
-.子程序 guild_emoji_update, 文本型, ,  更新服务器表情
-.参数 token, 文本型, 可空, 多机器人预留位置 采用文件对应 token=token
-.参数 name, 文本型, , 
-.参数 id, 文本型, , 
-
-.局部变量 url, 文本型, , , 
-.局部变量 header, 文本型, , , 
-.局部变量 result, 类_json, , , 
-.局部变量 json, 类_json, , , 
-
-赋值 (url, 相加 (g_url, “/guild-emoji/update”))
-赋值 (header, 相加 (“Authorization: Bot ”, 选择 (等于 (token, “”), g_token, 读配置项 (相加 (取运行目录 (), “\bot_token.ini”), “token”, token, )), #换行符, “Content-type: application/json”))
-json.置属性 (“name”, name, )
-json.置属性 (“id”, id, )
- ' json.置属性数值 (“role_id”, role_id)
-result.解析 (编码_utf8到gb2312 (到文本 (网页_访问 (url, 1, 编码_URL编码 (json.取数据文本 (), 真, ), , , header, , , , , , , ))), )
- ' user_id string 用户id
- ' guild_id string 服务器id
- ' roles Array 角色id的列表
- ' 调试输出 (, “获取服务器信息”, “kaiheila”)
- ' 调试输出 (, “返回信息: ” ＋ result.取数据文本 (), “kaiheila”)
- ' {"code":0,"message":"操作成功","data":{"user_id":"xxxx","guild_id":"xxxx","roles":[1,2]}}
-返回 (result.取数据文本 ())
-
-
-.子程序 guild_emoji_delete, 文本型, , 删除服务器表情
-.参数 token, 文本型, 可空, 多机器人预留位置 采用文件对应 token=token
-.参数 id, 文本型, , 
-
-.局部变量 url, 文本型, , , 
-.局部变量 header, 文本型, , , 
-.局部变量 result, 类_json, , , 
-.局部变量 json, 类_json, , , 
-
-赋值 (url, 相加 (g_url, “/guild-emoji/delete”))
-赋值 (header, 相加 (“Authorization: Bot ”, 选择 (等于 (token, “”), g_token, 读配置项 (相加 (取运行目录 (), “\bot_token.ini”), “token”, token, )), #换行符, “Content-type: application/json”))
- ' json.置属性 (“name”, name, )
-json.置属性 (“id”, id, )
- ' json.置属性数值 (“role_id”, role_id)
-result.解析 (编码_utf8到gb2312 (到文本 (网页_访问 (url, 1, 编码_URL编码 (json.取数据文本 (), 真, ), , , header, , , , , , , ))), )
- ' user_id string 用户id
- ' guild_id string 服务器id
- ' roles Array 角色id的列表
- ' 调试输出 (, “获取服务器信息”, “kaiheila”)
- ' 调试输出 (, “返回信息: ” ＋ result.取数据文本 (), “kaiheila”)
- ' {"code":0,"message":"操作成功","data":{"user_id":"xxxx","guild_id":"xxxx","roles":[1,2]}}
-返回 (result.取数据文本 ())
 
 
 .程序集 Queue, , , 
@@ -22030,7 +21636,7 @@ PluginsCall (msgFrom, msgType, channelId, userId, contant, msgId, json)
 .局部变量 url, 文本型, , , 
 
  ' header ＝ “Authorization: Bot ” ＋ 选择 (token ＝ “”, g_token, 读配置项 (取运行目录 () ＋ “\bot.ini”, “token”, token, ))
-赋值 (url, gateway_index (0))
+赋值 (url, 未知函数_67187931 (0))
 日志_输出 (“→”, 相加 (“Ws_Con.url=”, 到文本 (url)))
 .如果真 (等于 (WS_Start (url, , id), 真))
     赋值 (g_conID, id)
@@ -23646,7 +23252,6 @@ result.未知函数_67188957 (未知函数_67188958 (到文本 (未知函数_671
 .程序集 Api_user_chat, , , 
 
 .子程序 user_chat_list, 文本型, ,  获取私信聊天会话列表
-.参数 guild_id, 文本型, , 频道消息的id
 .参数 token, 文本型, 可空, 
 
 .局部变量 url, 文本型, , , 
@@ -23709,6 +23314,582 @@ req.置属性 (“chat_code”, chat_code, )
 result.未知函数_67189034 (未知函数_67189035 (到文本 (未知函数_67189036 (url, 1, 未知函数_67189037 (req.未知函数_67189038 ()), , , header, , , , , , , ))), )
  ' {"code":0,"message":"操作成功","data":[]}
 返回 (result.未知函数_67189039 ())
+
+
+.程序集 Api_direct_message, , , 
+
+.子程序 Api_direct_message_, 空白型, , 消息详情参数说明
+ ' 参数名 类型 说明
+ ' id string 消息ID
+ ' type int 消息类型
+ ' author_id string 作者的用户ID
+ ' content string 消息内容
+ ' embeds array 超链接解析数据
+ ' attachments array 附加的多媒体数据
+ ' reactions array 回应数据
+ ' quote map 引用数据
+ ' read_status boolean 是否已读
+
+
+.子程序 direct_message_list, 文本型, ,  获取私信聊天消息列表
+.参数 chat_code, 文本型, , 私信会话 Code
+.参数 target_id, 文本型, 可空, 目标用户 id，后端会自动创建会话。有此参数之后可不传 chat_code参数
+.参数 msg_id, 文本型, 可空, 参考消息 id，不传则默认为最新的消息 id
+.参数 flag, 文本型, , 查询模式，有三种模式可以选择。不传则默认查询最新的消息
+.参数 token, 文本型, 可空, 
+
+.局部变量 url, 文本型, , , 
+.局部变量 header, 文本型, , , 
+.局部变量 result, 未知类型0x49013951, , , 
+
+ ' 查询模式 详细说明
+ ' before 查询参考消息之前的消息，不包括参考消息。
+ ' around 查询以参考消息为中心，前后一定数量的消息。
+ ' after 查询参考消息之后的消息，不包括参考消息。
+赋值 (url, 相加 (g_url, “/direct-message/list”))
+赋值 (url, 相加 (url, “?chat_code=”, chat_code, 选择 (等于 (是否为空 (target_id), 假), 相加 (“&target_id=”, target_id), “”), 选择 (等于 (是否为空 (msg_id), 假), 相加 (“&msg_id=”, msg_id), “”), 选择 (等于 (是否为空 (flag), 假), 相加 (“&flag=”, flag), “”)))
+赋值 (header, 相加 (“Authorization: Bot ”, 选择 (等于 (token, “”), , 读配置项 (相加 (取运行目录 (), “\bot_token.ini”), “token”, token, )), #换行符, “Content-type: application/json”))
+result.未知函数_67189074 (未知函数_67189075 (到文本 (未知函数_67189076 (url, 0, , , , header, , , , , , , ))), )
+ ' {"code":0,"message":"操作成功","data":{"items":[{"id":"3dcca4b3-ae4e-474264e0b676","type":1,"content":"Hello","embeds":[],"attachments":false,"create_at":1612677356950,"updated_at":0,"reactions":[],"author_id":"8444","image_name":"","read_status":false,"quote":null,"mention_info":null}]}}
+返回 (result.未知函数_67189077 ())
+
+
+.子程序 direct_message_create, 文本型, ,  发送私信聊天消息
+.参数 type, 整数型, 可空,  目标用户 id
+.参数 target_id, 文本型, 可空, 
+.参数 chat_code, 文本型, , 
+.参数 content, 文本型, , 
+.参数 quote, 文本型, 可空, 
+.参数 nonce, 文本型, 可空, 
+.参数 token, 文本型, 可空, 
+
+.局部变量 url, 文本型, , , 
+.局部变量 header, 文本型, , , 
+.局部变量 req, 未知类型0x4901395E, , , 
+.局部变量 result, 未知类型0x4901395F, , , 
+
+赋值 (url, 相加 (g_url, “/direct-message/create”))
+赋值 (header, 相加 (“Authorization: Bot ”, 选择 (等于 (token, “”), , 读配置项 (相加 (取运行目录 (), “\bot_token.ini”), “token”, token, )), #换行符, “Content-type: application/json”))
+req.置属性 (“type”, type, )
+.如果真 (等于 (是否为空 (target_id), 假))
+    “target_id”.未知函数_67189132 ()
+.如果真结束
+req.置属性 (“chat_code”, chat_code, )
+req.置属性 (“content”, content, )
+.如果真 (等于 (是否为空 (quote), 假))
+    “quote”.未知函数_67189141 ()
+.如果真结束
+.如果真 (等于 (是否为空 (nonce), 假))
+    req.置属性 (“nonce”, nonce, )
+.如果真结束
+result.未知函数_67189088 (未知函数_67189089 (到文本 (未知函数_67189090 (url, 1, 未知函数_67189091 (req.未知函数_67189092 ()), , , header, , , , , , , ))), )
+ ' {"code":0,"message":"操作成功","data":{"msg_id":"50974c-364c983fa6cb","msg_timestamp":1607072537177,"nonce":"xxxx"}}
+返回 (result.未知函数_67189093 ())
+
+
+.子程序 direct_message_update, 文本型, , 更新私信聊天消息
+.参数 msg_id, 文本型, ,  频道id, 如果频道是分组的id,会同步给所有sync=1的子频道
+.参数 content, 文本型, , 
+.参数 quote, 文本型, 可空, 
+.参数 token, 文本型, 可空, 
+
+.局部变量 url, 文本型, , , 
+.局部变量 header, 文本型, , , 
+.局部变量 req, 未知类型0x49013968, , , 
+.局部变量 result, 未知类型0x49013969, , , 
+
+赋值 (url, 相加 (g_url, “/direct-message/update”))
+赋值 (header, 相加 (“Authorization: Bot ”, 选择 (等于 (token, “”), , 读配置项 (相加 (取运行目录 (), “\bot_token.ini”), “token”, token, )), #换行符, “Content-type: application/json”))
+req.置属性 (“msg_id”, msg_id, )
+req.置属性 (“content”, content, )
+.如果真 (等于 (是否为空 (quote), 假))
+    req.置属性 (“quote”, quote, )
+.如果真结束
+result.未知函数_67189098 (未知函数_67189099 (到文本 (未知函数_67189100 (url, 1, 未知函数_67189101 (req.未知函数_67189102 ()), , , header, , , , , , , ))), )
+ ' {"code":0,"message":"操作成功","data":[]}
+返回 (result.未知函数_67189103 ())
+
+
+.子程序 direct_message_delete, 文本型, , 删除私信聊天消息
+.参数 msg_id, 文本型, ,  频道id, 如果频道是分组的id,会同步给所有sync=1的子频道
+.参数 token, 文本型, 可空, 
+
+.局部变量 url, 文本型, , , 
+.局部变量 header, 文本型, , , 
+.局部变量 req, 未知类型0x490139D6, , , 
+.局部变量 result, 未知类型0x490139D7, , , 
+
+赋值 (url, 相加 (“/direct-message/update”))
+赋值 (header, 相加 (“Authorization: Bot ”, 选择 (等于 (token, “”), , 读配置项 (相加 (取运行目录 (), “\bot_token.ini”), “token”, token, )), #换行符, “Content-type: application/json”))
+req.未知函数_67189208 (“msg_id”, msg_id, )
+result.未知函数_67189209 (未知函数_67189210 (到文本 (未知函数_67189211 (url, 1, 未知函数_67189212 (req.未知函数_67189213 ()), , , header, , , , , , , ))), )
+ ' {"code":0,"message":"操作成功","data":[]}
+返回 (result.未知函数_67189214 ())
+
+
+.子程序 direct_message_reaction_list, 文本型, ,  获取频道消息某回应的用户列表
+.参数 msg_id, 文本型, , 频道消息的id
+.参数 emoji, 文本型, 可空, emoji的id, 可以为GuilEmoji或者Emoji, 注意：在get中，应该进行urlencode
+.参数 token, 文本型, 可空, 
+
+.局部变量 url, 文本型, , , 
+.局部变量 header, 文本型, , , 
+.局部变量 result, 未知类型0x490139EA, , , 
+
+ ' 查询模式 详细说明
+ ' before 查询参考消息之前的消息，不包括参考消息。
+ ' around 查询以参考消息为中心，前后一定数量的消息。
+ ' after 查询参考消息之后的消息，不包括参考消息。
+赋值 (url, 相加 (“/direct-message/list”))
+赋值 (url, 相加 (url, “?msg_id=”, msg_id, “&emoji=”, emoji))
+赋值 (header, 相加 (“Authorization: Bot ”, 选择 (等于 (token, “”), , 读配置项 (相加 (取运行目录 (), “\bot_token.ini”), “token”, token, )), #换行符, “Content-type: application/json”))
+result.未知函数_67189227 (未知函数_67189228 (到文本 (未知函数_67189229 (url, 0, , , , header, , , , , , , ))), )
+ ' {"code":0,"message":"操作成功","data":{{"id":"xxxx","username":"test","identify_num":"xxx","online":false,"status":0,"avatar":"xxxx","bot":true,"nickname":"xxxx","reaction_time":1612323994414}}}
+返回 (result.未知函数_67189230 ())
+
+
+.子程序 direct_message_add_reaction, 文本型, ,  给某个消息添加回应
+.参数 msg_id, 文本型, , 频道消息的id
+.参数 emoji, 文本型, ,  emoji的id, 可以为GuilEmoji或者Emoji
+.参数 token, 文本型, 可空, 
+
+.局部变量 url, 文本型, , , 
+.局部变量 header, 文本型, , , 
+.局部变量 req, 未知类型0x490139FD, , , 
+.局部变量 result, 未知类型0x490139FE, , , 
+
+赋值 (url, 相加 (g_url, “/direct-message/add-reaction”))
+赋值 (header, 相加 (“Authorization: Bot ”, 选择 (等于 (token, “”), , 读配置项 (相加 (取运行目录 (), “\bot_token.ini”), “token”, token, )), #换行符, “Content-type: application/json”))
+req.置属性 (“msg_id”, msg_id, )
+req.置属性 (“emoji”, emoji, )
+result.未知函数_67189249 (未知函数_67189250 (到文本 (未知函数_67189251 (url, 1, 未知函数_67189252 (req.未知函数_67189253 ()), , , header, , , , , , , ))), )
+ ' {"code":0,"message":"操作成功","data":{"msg_id":"50974c-364c983fa6cb","msg_timestamp":1607072537177,"nonce":"xxxx"}}
+返回 (result.未知函数_67189254 ())
+
+
+.子程序 direct_message_delete_reaction, 文本型, , 删除消息的某个回应
+.参数 msg_id, 文本型, , 频道消息的id
+.参数 emoji, 文本型, ,  emoji的id, 可以为GuilEmoji或者Emoji
+.参数 token, 文本型, 可空, 
+
+.局部变量 url, 文本型, , , 
+.局部变量 header, 文本型, , , 
+.局部变量 req, 未知类型0x49013A17, , , 
+.局部变量 result, 未知类型0x49013A18, , , 
+
+赋值 (url, 相加 (“/direct-message/add-reaction”))
+赋值 (header, 相加 (“Authorization: Bot ”, 选择 (等于 (token, “”), , 读配置项 (相加 (取运行目录 (), “\bot_token.ini”), “token”, token, )), #换行符, “Content-type: application/json”))
+req.未知函数_67189279 (“msg_id”, msg_id, )
+req.未知函数_67189279 (“emoji”, emoji, )
+result.未知函数_67189273 (未知函数_67189274 (到文本 (未知函数_67189275 (url, 1, 未知函数_67189276 (req.未知函数_67189277 ()), , , header, , , , , , , ))), )
+ ' {"code":0,"message":"操作成功","data":{"msg_id":"50974c-364c983fa6cb","msg_timestamp":1607072537177,"nonce":"xxxx"}}
+返回 (result.未知函数_67189278 ())
+
+
+.程序集 Api_Gateway, , , 
+
+.子程序 gateway_index, 文本型, , /api/v3/gateway/index
+.参数 token, 文本型, 可空, 
+.参数 compress, 整数型, 可空, 
+
+.局部变量 url, 文本型, , , 
+.局部变量 header, 文本型, , , 
+.局部变量 result, 未知类型0x49013A29, , , 
+
+赋值 (url, 相加 (“/gateway/index”))
+赋值 (header, 相加 (“Authorization: Bot ”, 选择 (等于 (token, “”), , 读配置项 (相加 (取运行目录 (), “\bot_token.ini”), “token”, token, ))))
+.如果真 (是否为空 (compress))
+    赋值 (compress, 1)
+.如果真结束
+赋值 (url, 相加 (url, “?compress=”, 到文本 (compress)))
+result.未知函数_67189290 (未知函数_67189291 (到文本 (未知函数_67189292 (url, 0, , , , header, , , , , , , ))), )
+调试输出 (url, result.未知函数_67189293 ())
+返回 (result.未知函数_67189294 (“data.url”, ))
+ ' {"code": 0,"message": "操作成功","data": {"url": "wss://xxxx"}}
+ ' {"code":0,"message":"操作成功","data":{"url":"wss://ws.kaiheila.cn/gateway?compress=0&token=1234="}
+
+.程序集 Api_user, , , 
+
+.子程序 user_me, 文本型, , 
+.参数 token, 文本型, 可空, 多机器人预留位置 采用文件对应 token=token
+
+.局部变量 url, 文本型, , , 
+.局部变量 header, 文本型, , , 
+.局部变量 result, 未知类型0x49013A37, , , 
+
+赋值 (url, 相加 (“/user/me”))
+赋值 (header, 相加 (“Authorization: Bot ”, 选择 (等于 (token, “”), , 读配置项 (相加 (取运行目录 (), “\bot_token.ini”), “token”, token, )), #换行符, “Content-type: application/json”))
+ ' json.置属性 (“guild_id”, GuildId, )
+ ' 调试输出 (baseUrl, header, json.取数据文本 ())
+result.未知函数_67189304 (未知函数_67189305 (到文本 (未知函数_67189306 (url, 0, , , , header, , , , , , , ))), )
+ ' 调试输出 (, “获取服务器信息”, “kaiheila”)
+ ' 调试输出 (, “返回信息: ” ＋ result.取数据文本 (), “kaiheila”)
+ ' {"code":0,"message":"操作成功","data":{"id":"*****","username":"****","identify_num":"9028","online":true,"os":"Websocket","status":0,"avatar":"https://img.kaiheila.cn/assets/2021-01/OQlgu5UiGJ0e80e8.jpeg/icon","bot":true,"tag_info":{"color":"#34A853","text":"机器人"},"mobile_verified":true,"client_id":"********","mobile_prefix":"86","mobile":"****","privacy_game_activity":0,"privacy_music_activity":0,"enable_desktop_notification":true,"audio_setting":"","auto_exit_audio_channel":false,"invited_count":"0","need_guide":false,"friend_setting":{"all":true},"chat_setting":"1","auth_info":[]}}'
+返回 (result.未知函数_67189307 ())
+
+
+.程序集 Api_asset, , , 
+
+.子程序 asset_create, 文本型, , 
+.参数 token, 文本型, 可空, 
+.参数 本地资源路径, 文本型, , 
+
+.局部变量 url, 文本型, , , 
+.局部变量 uuid, 文本型, , , 
+.局部变量 type, 文本型, , , 
+.局部变量 header, 文本型, , , 
+.局部变量 Playload, 字节集, , , 
+.局部变量 json, 未知类型0x49013A48, , , 
+
+赋值 (url, 相加 (“/asset/create”))
+赋值 (uuid, 未知函数_67189321 (10, ))
+赋值 (type, 未知函数_67189322 (本地资源路径))
+.判断开始 (等于 (type, “.png”))
+    赋值 (type, “image/png”)
+.默认
+    赋值 (type, “image/png”)
+.判断结束
+赋值 (header, 相加 (“Content-Type: multipart/form-data; boundary=--------------------------”, uuid))
+赋值 (header, 相加 (header, #换行符, “Authorization: Bot ”, 选择 (等于 (token, “”), , 读配置项 (相加 (取运行目录 (), “\bot_token.ini”), “token”, token, ))))
+赋值 (Playload, 到字节集 (相加 (“----------------------------”, uuid, #换行符)))
+赋值 (Playload, 相加 (Playload, 到字节集 (相加 (“Content-Disposition: form-data; name=”, #引号, “file”, #引号, “; filename=”, #引号, “temp”, 未知函数_67189323 (本地资源路径, ), #引号, #换行符))))
+赋值 (Playload, 相加 (Playload, 到字节集 (相加 (“Content-Type: ”, type, #换行符))))
+赋值 (Playload, 相加 (Playload, 到字节集 (#换行符)))
+赋值 (Playload, 相加 (Playload, 读入文件 (本地资源路径), 到字节集 (#换行符)))
+赋值 (Playload, 相加 (Playload, 到字节集 (相加 (“----------------------------”, uuid, “--”))))
+ ' 调试输出 (url, header, 到文本 (Playload))
+json.未知函数_67189324 (未知函数_67189325 (到文本 (未知函数_67189326 (url, 1, , , , header, , , Playload, , , , ))), )
+ ' {"code":0,"message":"操作成功","data":{"url":"https://img.kaiheila.cn/assets/2021-01/22/zV8yikTGJf0la0k5.png"}}
+返回 (json.未知函数_67189327 ())
+
+.程序集 Api_guild_role, , , 
+
+.子程序 guild_role_list, 文本型, , 获取服务器角色列表
+.参数 token, 文本型, 可空, 多机器人预留位置 采用文件对应 token=token
+.参数 guild_id, 文本型, , 
+
+.局部变量 url, 文本型, , , 
+.局部变量 header, 文本型, , , 
+.局部变量 result, 未知类型0x49013A87, , , 
+
+赋值 (url, 相加 (g_url, “/guild-role/list”))
+赋值 (url, 相加 (url, “?guild_id=”, guild_id))
+赋值 (header, 相加 (“Authorization: Bot ”, 选择 (等于 (token, “”), , 读配置项 (相加 (取运行目录 (), “\bot_token.ini”), “token”, token, )), #换行符, “Content-type: application/json”))
+result.未知函数_67189385 (未知函数_67189386 (到文本 (未知函数_67189387 (url, 0, , , , header, , , , , , , ))), )
+ ' 调试输出 (, “获取服务器信息”, “kaiheila”)
+ ' 调试输出 (, “返回信息: ” ＋ result.取数据文本 (), “kaiheila”)
+ ' role_id unsigned int 角色的id
+ ' name string 角色的名称
+ ' color unsigned int 角色的色值0x000000 - 0xFFFFFF
+ ' position unsigned int 顺序，值越小载靠前
+ ' hoist unsigned int 只能为0或者1，是否把该角色的用户在用户列表排到前面
+ ' mentionable unsigned int 只能为0或者1，该角色是否可以被提及
+ ' permissions unsigned int 权限,参见权限说明
+ ' {"code":0,"message":"操作成功","data":[{"role_id":5712,"name":"新角色1","color":3066993,"position":1,"hoist":0,"mentionable":0,"permissions":147643914},{"role_id":0,"name":"@全体成员","color":0,"position":999,"hoist":0,"mentionable":0,"permissions":147642888}],}
+返回 (result.未知函数_67189384 ())
+
+
+.子程序 guild_role_create, 文本型, , 创建服务器角色
+.参数 token, 文本型, 可空, 多机器人预留位置 采用文件对应 token=token
+.参数 name, 文本型, 可空, 
+.参数 guild_id, 文本型, , 
+
+.局部变量 url, 文本型, , , 
+.局部变量 header, 文本型, , , 
+.局部变量 json, 未知类型0x49013A87, , , 
+.局部变量 result, 未知类型0x49013A87, , , 
+
+赋值 (url, 相加 (“/guild-role/create”))
+赋值 (header, 相加 (“Authorization: Bot ”, 选择 (等于 (token, “”), , 读配置项 (相加 (取运行目录 (), “\bot_token.ini”), “token”, token, )), #换行符, “Content-type: application/json”))
+.如果真 (不等于 (name, “”))
+    json.未知函数_67189391 (“name”, name, )
+.如果真结束
+json.未知函数_67189391 (“guild_id”, guild_id, )
+result.未知函数_67189385 (未知函数_67189386 (到文本 (未知函数_67189387 (url, 1, 未知函数_67189390 (json.未知函数_67189384 (), , 真), , , header, , , , , , , ))), )
+ ' 调试输出 (, “获取服务器信息”, “kaiheila”)
+ ' 调试输出 (, “返回信息: ” ＋ result.取数据文本 (), “kaiheila”)
+ ' role_id unsigned int 角色的id
+ ' name string 角色的名称
+ ' color unsigned int 角色的色值0x000000 - 0xFFFFFF
+ ' position unsigned int 顺序，值越小载靠前
+ ' hoist unsigned int 只能为0或者1，是否把该角色的用户在用户列表排到前面
+ ' mentionable unsigned int 只能为0或者1，该角色是否可以被提及
+ ' permissions unsigned int 权限,参见权限说明
+ ' {"code":0,"message":"操作成功","data":[{"role_id":5712,"name":"新角色1","color":3066993,"position":1,"hoist":0,"mentionable":0,"permissions":147643914}],}
+返回 (result.未知函数_67189384 ())
+
+
+.子程序 guild_role_update, 文本型, , 更新服务器角色
+.参数 token, 文本型, 可空, 多机器人预留位置 采用文件对应 token=token
+.参数 guild_id, 文本型, , 
+.参数 role_id, 整数型, , 
+.参数 hoist, 整数型, 可空, 
+.参数 mentionable, 整数型, 可空, 
+.参数 permissions, 整数型, 可空, 
+
+.局部变量 url, 文本型, , , 
+.局部变量 header, 文本型, , , 
+.局部变量 result, 未知类型0x49013A87, , , 
+.局部变量 json, 未知类型0x49013A87, , , 
+
+赋值 (url, 相加 (“/guild-role/update”))
+json.未知函数_67189391 (“guild_id”, guild_id, )
+json.未知函数_67189392 (“role_id”, role_id)
+.如果真 (等于 (是否为空 (hoist), 假))
+    json.未知函数_67189392 (“hoist”, 选择 (等于 (hoist, 1), 1, 2), )
+.如果真结束
+.如果真 (等于 (是否为空 (mentionable), 假))
+    json.未知函数_67189392 (“mentionable”, 选择 (等于 (mentionable, 1), 1, 2), )
+.如果真结束
+.如果真 (等于 (是否为空 (permissions), 假))
+    json.未知函数_67189392 (“permissions”, permissions, )
+.如果真结束
+赋值 (header, 相加 (“Authorization: Bot ”, 选择 (等于 (token, “”), , 读配置项 (相加 (取运行目录 (), “\bot_token.ini”), “token”, token, )), #换行符, “Content-type: application/json”))
+result.未知函数_67189385 (未知函数_67189386 (到文本 (未知函数_67189387 (url, 1, 未知函数_67189390 (json.未知函数_67189384 (), 真, ), , , header, , , , , , , ))), )
+ ' 调试输出 (, “获取服务器信息”, “kaiheila”)
+ ' 调试输出 (, “返回信息: ” ＋ result.取数据文本 (), “kaiheila”)
+ ' role_id unsigned int 角色的id
+ ' name string 角色的名称
+ ' color unsigned int 角色的色值0x000000 - 0xFFFFFF
+ ' position unsigned int 顺序，值越小载靠前
+ ' hoist unsigned int 只能为0或者1，是否把该角色的用户在用户列表排到前面
+ ' mentionable unsigned int 只能为0或者1，该角色是否可以被提及
+ ' permissions unsigned int 权限,参见权限说明
+ ' {"code":0,"message":"操作成功","data":[{"role_id":5712,"name":"新角色1","color":3066993,"position":1,"hoist":0,"mentionable":0,"permissions":147643914}],}
+返回 (result.未知函数_67189384 ())
+
+
+.子程序 guild_role_delete, 文本型, , 删除服务器角色
+.参数 token, 文本型, 可空, 多机器人预留位置 采用文件对应 token=token
+.参数 guild_id, 文本型, , 
+.参数 role_id, 整数型, , 
+
+.局部变量 url, 文本型, , , 
+.局部变量 header, 文本型, , , 
+.局部变量 result, 未知类型0x49013A87, , , 
+.局部变量 json, 未知类型0x49013A87, , , 
+
+赋值 (url, 相加 (“/guild-role/delete”))
+赋值 (header, 相加 (“Authorization: Bot ”, 选择 (等于 (token, “”), , 读配置项 (相加 (取运行目录 (), “\bot_token.ini”), “token”, token, )), #换行符, “Content-type: application/json”))
+json.未知函数_67189391 (“guild_id”, guild_id, )
+json.未知函数_67189392 (“role_id”, role_id, )
+result.未知函数_67189385 (未知函数_67189386 (到文本 (未知函数_67189387 (url, 1, 未知函数_67189390 (json.未知函数_67189384 (), 真, ), , , header, , , , , , , ))), )
+ ' 调试输出 (, “获取服务器信息”, “kaiheila”)
+ ' 调试输出 (, “返回信息: ” ＋ result.取数据文本 (), “kaiheila”)
+ ' {"code":0,"message":"操作成功","data":[]}
+返回 (result.未知函数_67189384 ())
+
+
+.子程序 guild_role_grant, 文本型, , 赋予用户角色
+.参数 token, 文本型, 可空, 多机器人预留位置 采用文件对应 token=token
+.参数 guild_id, 文本型, , 
+.参数 user_id, 文本型, , 
+.参数 role_id, 整数型, , 
+
+.局部变量 url, 文本型, , , 
+.局部变量 header, 文本型, , , 
+.局部变量 result, 未知类型0x49013A87, , , 
+.局部变量 json, 未知类型0x49013A87, , , 
+
+赋值 (url, 相加 (“/guild-role/grant”))
+赋值 (header, 相加 (“Authorization: Bot ”, 选择 (等于 (token, “”), , 读配置项 (相加 (取运行目录 (), “\bot_token.ini”), “token”, token, )), #换行符, “Content-type: application/json”))
+json.未知函数_67189391 (“guild_id”, guild_id, )
+json.未知函数_67189391 (“user_id”, user_id, )
+json.未知函数_67189392 (“role_id”, role_id)
+result.未知函数_67189385 (未知函数_67189386 (到文本 (未知函数_67189387 (url, 1, 未知函数_67189390 (json.未知函数_67189384 (), 真, ), , , header, , , , , , , ))), )
+ ' user_id string 用户id
+ ' guild_id string 服务器id
+ ' roles Array 角色id的列表
+ ' 调试输出 (, “获取服务器信息”, “kaiheila”)
+ ' 调试输出 (, “返回信息: ” ＋ result.取数据文本 (), “kaiheila”)
+ ' {"code":0,"message":"操作成功","data":{"user_id":"xxxx","guild_id":"xxxx","roles":[1,2]}}
+返回 (result.未知函数_67189384 ())
+
+
+.子程序 guild_role_revoke, 空白型, , 删除用户角色
+.参数 token, 文本型, 可空, 多机器人预留位置 采用文件对应 token=token
+.参数 guild_id, 文本型, , 
+.参数 role_id, 整数型, , 
+.参数 user_id, 文本型, , 
+
+.局部变量 url, 文本型, , , 
+.局部变量 header, 文本型, , , 
+.局部变量 result, 未知类型0x49013A87, , , 
+.局部变量 json, 未知类型0x49013A87, , , 
+
+赋值 (url, 相加 (“/guild-role/revoke”))
+赋值 (header, 相加 (“Authorization: Bot ”, 选择 (等于 (token, “”), , 读配置项 (相加 (取运行目录 (), “\bot_token.ini”), “token”, token, )), #换行符, “Content-type: application/json”))
+json.未知函数_67189391 (“guild_id”, guild_id, )
+json.未知函数_67189392 (“role_id”, role_id)
+json.未知函数_67189391 (“user_id”, user_id, )
+result.未知函数_67189385 (未知函数_67189386 (到文本 (未知函数_67189387 (url, 1, 未知函数_67189390 (json.未知函数_67189384 (), 真, ), , , header, , , , , , , ))), )
+ ' 调试输出 (, “获取服务器信息”, “kaiheila”)
+ ' 调试输出 (, “返回信息: ” ＋ result.取数据文本 (), “kaiheila”)
+ ' guild_id string 服务器id
+ ' user_id string 角色id
+ ' roles Array 角色id的列表
+ ' {"code":0,"message":"操作成功","data":{"user_id":"xxxx","guild_id":"xxxx","roles":[9]}}
+返回 (result.未知函数_67189384 ())
+
+
+.程序集 Api_intimacy, , , 
+
+.子程序 intimacy_index, 文本型, , 
+.参数 userId, 文本型, , 
+.参数 token, 文本型, 可空, 
+
+.局部变量 url, 文本型, , , 
+.局部变量 header, 文本型, , , 
+.局部变量 json, 未知类型0x49013AA3, , , 
+.局部变量 result, 未知类型0x49013AA3, , , 
+
+赋值 (url, 相加 (“/intimacy/index”))
+赋值 (header, 相加 (“Authorization: Bot ”, 选择 (等于 (token, “”), , 读配置项 (相加 (取运行目录 (), “\bot_token.ini”), “token”, token, )), #换行符, “Content-type: application/json”))
+json.未知函数_67189412 (“user_id”, userId, )
+调试输出 (url, header, json.未知函数_67189417 ())
+result.未知函数_67189413 (未知函数_67189414 (到文本 (未知函数_67189415 (url, 1, 未知函数_67189416 (json.未知函数_67189417 ()), , , header, , , , , , , ))), )
+ ' SystemLog (, “获取用户” ＋ userId ＋ “亲密信息”, “kaiheila”)
+ ' SystemLog (, “返回信息: ” ＋ result.取数据文本 (), “kaiheila”)
+返回 (result.未知函数_67189417 ())
+
+.子程序 intimacy_update, 文本型, , 
+.参数 userId, 文本型, , 
+.参数 score, 整数型, , 
+.参数 social_info, 文本型, , 
+.参数 img_id, 整数型, , 
+.参数 token, 文本型, 可空, 
+
+.局部变量 url, 文本型, , , 
+.局部变量 header, 文本型, , , 
+.局部变量 json, 未知类型0x49013AA3, , , 
+.局部变量 result, 未知类型0x49013AA3, , , 
+
+赋值 (url, 相加 (“/intimacy/update”))
+赋值 (header, 相加 (“Authorization: Bot ”, 选择 (等于 (token, “”), , 读配置项 (相加 (取运行目录 (), “\bot_token.ini”), “token”, token, )), #换行符, “Content-type: application/json”))
+json.未知函数_67189412 (“user_id”, userId, )
+json.未知函数_67189420 (“score”, score)
+json.未知函数_67189412 (“social_info”, social_info, )
+json.未知函数_67189420 (“img_id”, img_id)
+
+ ' 调试输出 (baseUrl, header, json.取数据文本 ())
+result.未知函数_67189413 (未知函数_67189414 (到文本 (未知函数_67189415 (url, 1, 未知函数_67189416 (json.未知函数_67189417 ()), , , header, , , , , , , ))), )
+ ' SystemLog (, “修改” ＋ userId ＋ “亲密度信息”, “kaiheila”)
+ ' SystemLog (, “返回信息: ” ＋ result.取数据文本 (), “kaiheila”)
+返回 (result.未知函数_67189417 ())
+
+
+.程序集 Api_guild_emoji, , , 
+
+.子程序 guild_emoji_index, 文本型, , 获取服务器表情列表
+.参数 token, 文本型, 可空, 多机器人预留位置 采用文件对应 token=token
+.参数 guild_id, 文本型, , 
+
+.局部变量 url, 文本型, , , 
+.局部变量 header, 文本型, , , 
+.局部变量 result, 未知类型0x49013ACE, , , 
+
+赋值 (url, 相加 (“/guild-emoji/index”))
+赋值 (url, 相加 (url, “?guild_id=”, guild_id))
+赋值 (header, 相加 (“Authorization: Bot ”, 选择 (等于 (token, “”), , 读配置项 (相加 (取运行目录 (), “\bot_token.ini”), “token”, token, )), #换行符, “Content-type: application/json”))
+result.未知函数_67189455 (未知函数_67189456 (到文本 (未知函数_67189457 (url, 0, , , , header, , , , , , , ))), )
+ ' name string 表情的名称
+ ' id string 表情的 ID
+ ' user_info object 上传用户，具体参考 用户相关接口(user_me)
+ ' {"code":0,"message":"操作成功","data":[{"name":"ceeb653ely1gm1ayxhrnnj20j60jpwfu","id":"9168644645632553/4c43fcb7f6267d0c80ck","user_info":{"id":"1780328444","username":"用户名","identify_num":"3249","online":true,"os":"Websocket","status":1,"avatar":"https://chuanyuapp.oss-cn-qingdao.aliyuncs.com/assets/bot.png/icon"}},{"name":"ceeb653ely1gm6d2213ycj20go0gogvj","id":"9168644645632553/c74a7a8cda2f310c80c8","user_info":{"id":"1780328444","username":"用户名","identify_num":"3249","online":true,"os":"Websocket","status":1,"avatar":"https://chuanyuapp.oss-cn-qingdao.aliyuncs.com/assets/bot.png/icon"}}]}
+返回 (result.未知函数_67189458 ())
+
+
+.子程序 guild_emoji_create, 文本型, ,  创建服务器表情
+.参数 token, 文本型, 可空, 
+.参数 name, 文本型, , 表情名。长度限制 2 - 32 字符，如果不写，则为随机字符串
+.参数 guild_id, 文本型, , 服务器 ID
+.参数 本地资源路径, 文本型, ,  表情文件。必须为 PNG 类型，大小不能超过 256 KB
+
+.局部变量 url, 文本型, , , 
+.局部变量 uuid, 文本型, , , 
+.局部变量 type, 文本型, , , 
+.局部变量 header, 文本型, , , 
+.局部变量 Playload, 字节集, , , 
+.局部变量 json, 未知类型0x49013ACE, , , 
+
+赋值 (url, 相加 (“/guild-emoji/create”))
+赋值 (uuid, 未知函数_67189461 (10, ))
+赋值 (type, 未知函数_67189462 (本地资源路径))
+.判断开始 (等于 (type, “.png”))
+    赋值 (type, “image/png”)
+.默认
+    赋值 (type, “image/png”)
+.判断结束
+赋值 (header, 相加 (“Content-Type: multipart/form-data; boundary=--------------------------”, uuid))
+赋值 (header, 相加 (header, #换行符, “Authorization: Bot ”, 选择 (等于 (token, “”), , 读配置项 (相加 (取运行目录 (), “\bot_token.ini”), “token”, token, ))))
+赋值 (Playload, 到字节集 (相加 (“----------------------------”, uuid, #换行符)))
+赋值 (Playload, 相加 (Playload, 到字节集 (相加 (“Content-Disposition: form-data; name=”, #引号, “name”, #引号, #换行符))))
+赋值 (Playload, 相加 (Playload, 到字节集 (#换行符)))
+赋值 (Playload, 相加 (Playload, 到字节集 (name)))
+赋值 (Playload, 到字节集 (相加 (“----------------------------”, uuid, #换行符)))
+赋值 (Playload, 相加 (Playload, 到字节集 (相加 (“Content-Disposition: form-data; name=”, #引号, “guild_id”, #引号, #换行符))))
+赋值 (Playload, 相加 (Playload, 到字节集 (#换行符)))
+赋值 (Playload, 相加 (Playload, 到字节集 (guild_id)))
+
+赋值 (Playload, 到字节集 (相加 (“----------------------------”, uuid, #换行符)))
+赋值 (Playload, 相加 (Playload, 到字节集 (相加 (“Content-Disposition: form-data; name=”, #引号, “file”, #引号, “; filename=”, #引号, “temp”, 未知函数_67189463 (本地资源路径, ), #引号, #换行符))))
+赋值 (Playload, 相加 (Playload, 到字节集 (相加 (“Content-Type: ”, type, #换行符))))
+赋值 (Playload, 相加 (Playload, 到字节集 (#换行符)))
+赋值 (Playload, 相加 (Playload, 读入文件 (本地资源路径), 到字节集 (#换行符)))
+赋值 (Playload, 相加 (Playload, 到字节集 (相加 (“----------------------------”, uuid, “--”))))
+ ' 调试输出 (url, header, 到文本 (Playload))
+json.未知函数_67189455 (未知函数_67189456 (到文本 (未知函数_67189457 (url, 1, , , , header, , , Playload, , , , ))), )
+ ' {"code":0,"message":"操作成功","data":{"name":"ceeb653ely1gm1ayxhrnnj20j60jpwfu","id":"1333609240026275/zTpnkSnMZH0c80ck.","user_info":{"id":"1780328444","username":"用户名","identify_num":"3249","online":true,"os":"Websocket","status":1,"avatar":"https://chuanyuapp.oss-cn-qingdao.aliyuncs.com/assets/bot.png/icon"}}}
+返回 (json.未知函数_67189458 ())
+
+
+.子程序 guild_emoji_update, 文本型, ,  更新服务器表情
+.参数 token, 文本型, 可空, 多机器人预留位置 采用文件对应 token=token
+.参数 name, 文本型, , 
+.参数 id, 文本型, , 
+
+.局部变量 url, 文本型, , , 
+.局部变量 header, 文本型, , , 
+.局部变量 result, 未知类型0x49013ACE, , , 
+.局部变量 json, 未知类型0x49013ACE, , , 
+
+赋值 (url, 相加 (“/guild-emoji/update”))
+赋值 (header, 相加 (“Authorization: Bot ”, 选择 (等于 (token, “”), , 读配置项 (相加 (取运行目录 (), “\bot_token.ini”), “token”, token, )), #换行符, “Content-type: application/json”))
+json.未知函数_67189465 (“name”, name, )
+json.未知函数_67189465 (“id”, id, )
+ ' json.置属性数值 (“role_id”, role_id)
+result.未知函数_67189455 (未知函数_67189456 (到文本 (未知函数_67189457 (url, 1, 未知函数_67189464 (json.未知函数_67189458 (), 真, ), , , header, , , , , , , ))), )
+ ' user_id string 用户id
+ ' guild_id string 服务器id
+ ' roles Array 角色id的列表
+ ' 调试输出 (, “获取服务器信息”, “kaiheila”)
+ ' 调试输出 (, “返回信息: ” ＋ result.取数据文本 (), “kaiheila”)
+ ' {"code":0,"message":"操作成功","data":{"user_id":"xxxx","guild_id":"xxxx","roles":[1,2]}}
+返回 (result.未知函数_67189458 ())
+
+
+.子程序 guild_emoji_delete, 文本型, , 删除服务器表情
+.参数 token, 文本型, 可空, 多机器人预留位置 采用文件对应 token=token
+.参数 id, 文本型, , 
+
+.局部变量 url, 文本型, , , 
+.局部变量 header, 文本型, , , 
+.局部变量 result, 未知类型0x49013ACE, , , 
+.局部变量 json, 未知类型0x49013ACE, , , 
+
+赋值 (url, 相加 (“/guild-emoji/delete”))
+赋值 (header, 相加 (“Authorization: Bot ”, 选择 (等于 (token, “”), , 读配置项 (相加 (取运行目录 (), “\bot_token.ini”), “token”, token, )), #换行符, “Content-type: application/json”))
+ ' json.置属性 (“name”, name, )
+json.未知函数_67189465 (“id”, id, )
+ ' json.置属性数值 (“role_id”, role_id)
+result.未知函数_67189455 (未知函数_67189456 (到文本 (未知函数_67189457 (url, 1, 未知函数_67189464 (json.未知函数_67189458 (), 真, ), , , header, , , , , , , ))), )
+ ' user_id string 用户id
+ ' guild_id string 服务器id
+ ' roles Array 角色id的列表
+ ' 调试输出 (, “获取服务器信息”, “kaiheila”)
+ ' 调试输出 (, “返回信息: ” ＋ result.取数据文本 (), “kaiheila”)
+ ' {"code":0,"message":"操作成功","data":{"user_id":"xxxx","guild_id":"xxxx","roles":[1,2]}}
+返回 (result.未知函数_67189458 ())
 
 
 
