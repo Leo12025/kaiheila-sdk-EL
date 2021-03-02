@@ -2,9 +2,11 @@
 ###################
 *.bak
 *.exe
+*.dll
 
 # Debug dir #
 debug/
 
 # Debug dir #
 bot_token.ini
+demo/ZeroOne1助手.e

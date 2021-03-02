@@ -6943,7 +6943,7 @@ data.解析 (编码_utf8到gb2312 (dataContent), )
 .如果真结束
  ' 单独机器人
 加入成员 (g_msgList, data.取数据文本 ())
-赋值 (g_MsgID, data.取属性数值 (“sn”))
+ ' g_MsgID ＝ data.取属性数值 (“sn”)
 connectId.发送数据 (协议头 (redata.取数据文本 ()), )
 connectId.断开客户 ()
 返回 ()
@@ -6951,10 +6951,17 @@ connectId.断开客户 ()
 .子程序 _窗口1_创建完毕, 空白型, , 
 未知支持库函数_0 (&QueueHeart, , )
  ' 下边是启动Ws的选项
+ ' 19730
+ ' 启动线程 (&WsConnet, , )
+未知支持库函数_0 (&LoadCoreFunctionAndPlugins, , )
+
+.子程序 LoadCoreFunctionAndPlugins, 空白型, , 
+日志_输出 (“→”, “主应用启动完成，3秒后开始加载核心函数以及外部插件”)
+
+程序_延时 (3, 1)
  ' 启动线程 (&InitCorefunction, , )
  ' 启动线程 (&PluginsInitialize, , )
 
- ' 启动线程 (&WsConnet, , )
 
 .子程序 数组中查找, 逻辑型, , 
 .参数 数组, 文本型, 数组, 
@@ -21722,7 +21729,14 @@ result.解析 (编码_utf8到gb2312 (到文本 (网页_访问 (url, 1, 编码_UR
     赋值 (channel_type, msgJson.取通用属性 (“channel_type”, )) ' GROUP
     
     
-    .判断开始 (等于 (channel_type, “PERSON”))
+    .判断开始 (等于 (channel_type, “plugin_log”))
+         ' 这是插件发回来的数据，可以直接处理，不需要对外。
+        赋值 (target_id, msgJson.取通用属性 (“pluginid”, ))
+         ' 告知是哪个插件发回来的日志
+        赋值 (content, msgJson.取通用属性 (“content”, ))
+        日志_输出 (“→”, 相加 (“plugin-”, target_id, “: ”, content))
+        
+    .判断 (等于 (channel_type, “PERSON”))
          ' {"type":255,"channel_type":"PERSON","target_id":"414248069","author_id":"1","content":"[系统消息]","msg_id":"01bba042-1b8e-4600-9de2-a6adf84dee1c","msg_timestamp":1611381724543,"nonce":"","extra":{"type":"message_btn_click","body":{"value":"test value","msg_id":"38623f74-94ef-4bc2-8eee-9d29d5a565de","user_id":"2393184238"}}}
     .判断 (等于 (channel_type, “GROUP”)) ' 频道消息
         赋值 (target_id, msgJson.取通用属性 (“target_id”, ))
@@ -22231,6 +22245,7 @@ json.置属性 (“fields”, fields.取数据文本 (), 真)
 
 .子程序 InitCorefunction, 空白型, , 
 重定义数组 (core_function, 假, 0)
+ ' .  注册到系统      功能名称      指令前缀   函数地址
 RegFunctionToCore (“debug助手”, “.debug”, &funcDebug)
 
 .子程序 RegFunctionToCore, 空白型, , 
@@ -22240,10 +22255,11 @@ RegFunctionToCore (“debug助手”, “.debug”, &funcDebug)
 
 .局部变量 item, function, , , 
 
-赋值 (., )
+赋值 (item.name, functionName)
 赋值 (item.prefix, commandPrefix)
 赋值 (item.fundaddr, functionAddr)
 加入成员 (core_function, item)
+日志_输出 (“→”, 相加 (“coreinit-”, functionName, “ 注册前缀 ”, commandPrefix, “ 在地址 ”, 到文本 (取指针地址_子程序指针 (functionAddr))))
 
 .子程序 funcDebug, 逻辑型, , 
 .参数 msgFrom, 整数型, , 0=频道聊天  1=好友私聊
@@ -22271,8 +22287,8 @@ RegFunctionToCore (“debug助手”, “.debug”, &funcDebug)
 
 .计次循环首 (取数组成员数 (core_function), i)
     赋值 (item, core_function [i])
-    .如果真 (等于 (命令_是否捕获 (item.prefix), 真))
-        调用子程序 (item.fundaddr, , JumpBack, , , , , , )
+    .如果真 (等于 (命令_是否捕获 (contant, item.prefix), 真))
+        调用子程序 (item.fundaddr, , JumpBack, msgFrom, msgType, channelId, userId, contant, json)
         .如果 (等于 (JumpBack, 真))
             跳出循环 ()
         .否则
@@ -22329,19 +22345,19 @@ RegFunctionToCore (“debug助手”, “.debug”, &funcDebug)
             到循环尾 ()
         .如果真结束
         .如果真 (DLL命令调用转向 (相加 (取运行目录 (), “\plugin_tmp\”, MODFileList [n]), “info”))
-            未知函数_67187962 (未知函数_167851259 (), “{”, “}”, 插件分割)
+            文本_取中间_批量 (插件信息 (), “{”, “}”, 插件分割)
              ' 分割文本 (插件信息 () ＋ #换行符 ＋ “-----”, “-----” ＋ #换行符, )
             .计次循环首 (取数组成员数 (插件分割), i)
                 赋值 (插件信息, 分割文本 (插件分割 [i], “,”, ))
                 .如果真 (等于 (取数组成员数 (插件信息), 7))
-                    赋值 (MOD函数_临时., 插件信息 [1])
-                    赋值 (MOD函数_临时., 插件信息 [2])
-                    赋值 (MOD函数_临时., 插件信息 [3])
-                    赋值 (MOD函数_临时., 插件信息 [4])
-                    赋值 (MOD函数_临时., 插件信息 [5])
-                    赋值 (MOD函数_临时., 插件信息 [6])
+                    赋值 (MOD函数_临时.插件名, 插件信息 [1])
+                    赋值 (MOD函数_临时.版本, 插件信息 [2])
+                    赋值 (MOD函数_临时.作者, 插件信息 [3])
+                    赋值 (MOD函数_临时.介绍, 插件信息 [4])
+                    赋值 (MOD函数_临时.格式左, 插件信息 [5])
+                    赋值 (MOD函数_临时.调用名, 插件信息 [6])
                     赋值 (MOD函数_临时.功能中显示, 选择 (等于 (插件信息 [7], “true”), 真, 假))
-                    赋值 (MOD函数_临时.,  [n])
+                    赋值 (MOD函数_临时.文件名, MODFileList [n])
                     赋值 (MOD函数_临时.启用状态, 选择 (等于 (读配置项 (相加 (取运行目录 (), “\plugin\set.ini”), “open”, 相加 (MOD函数_临时.插件名, “_”, MODFileList [n]), ), “true”), 真, 假))
                     加入成员 (plugins, MOD函数_临时)
                 .如果真结束
@@ -22394,7 +22410,7 @@ RegFunctionToCore (“debug助手”, “.debug”, &funcDebug)
      ' 过滤
     
     
-    .如果 (命令_是否捕获 (plugin.格式左))
+    .如果 (命令_是否捕获 (contant, plugin.格式左))
         
     .否则
         到循环尾 ()
