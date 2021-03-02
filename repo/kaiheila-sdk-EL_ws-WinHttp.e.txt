@@ -23125,7 +23125,7 @@ QueueExec (选择 (等于 (msgJson.取通用属性 (“channel_type”, ), “GR
 赋值 (url, 相加 (g_url, “/guild/list”))
 赋值 (header, 相加 (“Authorization: Bot ”, 选择 (等于 (token, “”), g_token, 读配置项 (相加 (取运行目录 (), “\bot_token.ini”), “token”, token, )), #换行符, “Content-type: application/json”))
 result.解析 (编码_utf8到gb2312 (到文本 (网页_访问 (url, 0, , , , header, , , , , , , ))), )
-'{"code":0,"message":"操作成功","data":{"items":[{"id":"xxx","name":"test","topic":"","master_id":"xxx","icon":"","invite_enabled":1,"notify_type":2,"region":"beijing","enable_open":0,"open_id":"0","default_channel_id":"xxx","welcome_channel_id":"xxx"}],"meta":{"page":1,"page_total":1,"page_size":100,"total":2},"sort":{"id":1}}}
+ ' {"code":0,"message":"操作成功","data":{"items":[{"id":"xxx","name":"test","topic":"","master_id":"xxx","icon":"","invite_enabled":1,"notify_type":2,"region":"beijing","enable_open":0,"open_id":"0","default_channel_id":"xxx","welcome_channel_id":"xxx"}],"meta":{"page":1,"page_total":1,"page_size":100,"total":2},"sort":{"id":1}}}
 返回 (result.取数据文本 ())
 
 
@@ -23384,7 +23384,7 @@ result.未知函数_67188626 (未知函数_67188627 (到文本 (未知函数_671
 .局部变量 req, 未知类型0x490137A4, , , 
 .局部变量 result, 未知类型0x490137A5, , , 
 
-url ＝ g_url ＋ “/message/delete”
+赋值 (url, 相加 (g_url, “/message/delete”))
 赋值 (header, 相加 (“Authorization: Bot ”, 选择 (等于 (token, “”), g_token, 读配置项 (相加 (取运行目录 (), “\bot_token.ini”), “token”, token, )), #换行符, “Content-type: application/json”))
 req.未知函数_67188653 (“msg_id”, msg_id, )
 result.未知函数_67188646 (未知函数_67188647 (到文本 (未知函数_67188648 (url, 1, 未知函数_67188649 (req.未知函数_67188650 ()), , , header, , , , , , , ))), )
@@ -23419,7 +23419,7 @@ result.未知函数_67188679 (未知函数_67188680 (到文本 (未知函数_671
 .局部变量 req, 未知类型0x490137D4, , , 
 .局部变量 result, 未知类型0x490137D5, , , 
 
-url ＝ g_url ＋ “/message/add-reaction”
+赋值 (url, 相加 (g_url, “/message/add-reaction”))
 赋值 (header, 相加 (“Authorization: Bot ”, 选择 (等于 (token, “”), , 读配置项 (相加 (取运行目录 (), “\bot_token.ini”), “token”, token, )), #换行符, “Content-type: application/json”))
 req.未知函数_67188694 (“msg_id”, msg_id, )
 req.置属性 (“emoji”, emoji, )
@@ -23571,7 +23571,7 @@ result.未知函数_67188859 (未知函数_67188860 (到文本 (未知函数_671
 .局部变量 req, 未知类型0x4901388D, , , 
 .局部变量 result, 未知类型0x4901388E, , , 
 
-url ＝ g_url ＋ “/channel-role/create”
+赋值 (url, 相加 (g_url, “/channel-role/create”))
 赋值 (header, 相加 (“Authorization: Bot ”, 选择 (等于 (token, “”), , 读配置项 (相加 (取运行目录 (), “\bot_token.ini”), “token”, token, )), #换行符, “Content-type: application/json”))
 req.置属性 (“channel_id”, channel_id, )
 .如果真 (等于 (是否为空 (type), 假))
@@ -23641,6 +23641,74 @@ req.未知函数_67188953 (“channel_id”, channel_id, )
 result.未知函数_67188957 (未知函数_67188958 (到文本 (未知函数_67188959 (url, 1, 未知函数_67188960 (req.未知函数_67188961 ()), , , header, , , , , , , ))), )
  ' {"code":0,"message":"操作成功","data":[]}
 返回 (result.未知函数_67188962 ())
+
+
+.程序集 Api_user_chat, , , 
+
+.子程序 user_chat_list, 文本型, ,  获取私信聊天会话列表
+.参数 guild_id, 文本型, , 频道消息的id
+.参数 token, 文本型, 可空, 
+
+.局部变量 url, 文本型, , , 
+.局部变量 header, 文本型, , , 
+.局部变量 result, 未知类型0x49013904, , , 
+
+赋值 (url, 相加 (g_url, “/user-chat/list”))
+ ' url ＝ url ＋ “?guild_id=” ＋ guild_id
+赋值 (header, 相加 (“Authorization: Bot ”, 选择 (等于 (token, “”), , 读配置项 (相加 (取运行目录 (), “\bot_token.ini”), “token”, token, )), #换行符, “Content-type: application/json”))
+result.未知函数_67188997 (未知函数_67188998 (到文本 (未知函数_67188999 (url, 0, , , , header, , , , , , , ))), )
+ ' {"code":0,"message":"操作成功","data":{"items":[{"code":"sderwrw**","last_read_time":1612696873000,"latest_msg_time":1612696873000,"unread_count":0,"target_info":{"id":"415212","username":"工具","online":false,"avatar":"https://***.jpg"},}],"sort":{//参考标准格式},"meta":{//参考标准格式}}}
+返回 (result.未知函数_67189000 ())
+
+
+.子程序 user_chat_view, 文本型, ,  获取私信聊天会话详情
+.参数 chat_code, 文本型, , 私聊会话 Code
+.参数 token, 文本型, 可空, 
+
+.局部变量 url, 文本型, , , 
+.局部变量 header, 文本型, , , 
+.局部变量 result, 未知类型0x4901390B, , , 
+
+赋值 (url, 相加 (g_url, “/user-chat/view”))
+赋值 (url, 相加 (url, “?chat_code=”, chat_code))
+赋值 (header, 相加 (“Authorization: Bot ”, 选择 (等于 (token, “”), , 读配置项 (相加 (取运行目录 (), “\bot_token.ini”), “token”, token, )), #换行符, “Content-type: application/json”))
+result.未知函数_67189004 (未知函数_67189005 (到文本 (未知函数_67189006 (url, 0, , , , header, , , , , , , ))), )
+ ' {"code":0,"message":"操作成功","data":{"code":"5c7ec6d021216c136c9198285c15ed47","last_read_time":1612175653000,"latest_msg_time":1612160693000,"unread_count":0,"is_friend":false,"is_blocked":false,"is_target_blocked":false,"target_info":{"id":"3903536527","username":"夏天1","avatar":"https://chuanyuapp.oss-cn-qingdao.aliyuncs.com/assets/avatar_10.jpg/icon",}}}
+返回 (result.未知函数_67189007 ())
+
+
+.子程序 user_chat_create, 文本型, ,  创建私信聊天会话
+.参数 target_id, 文本型, ,  目标用户 id
+.参数 token, 文本型, 可空, 
+
+.局部变量 url, 文本型, , , 
+.局部变量 header, 文本型, , , 
+.局部变量 req, 未知类型0x49013911, , , 
+.局部变量 result, 未知类型0x49013912, , , 
+
+赋值 (url, 相加 (g_url, “/user-chat/create”))
+赋值 (header, 相加 (“Authorization: Bot ”, 选择 (等于 (token, “”), , 读配置项 (相加 (取运行目录 (), “\bot_token.ini”), “token”, token, )), #换行符, “Content-type: application/json”))
+req.置属性 (“target_id”, target_id, )
+result.未知函数_67189013 (未知函数_67189014 (到文本 (未知函数_67189015 (url, 1, 未知函数_67189016 (req.未知函数_67189017 ()), , , header, , , , , , , ))), )
+ ' {"code":0,"message":"操作成功","data":{"code":"3547b7*****2476dd9d7777f32a","last_read_time":1612697864000,"latest_msg_time":1612168629000,"unread_count":0,"is_friend":false,"is_blocked":false,"is_target_blocked":false,"target_info":{"id":"325***0","username":"工具","online":false,"avatar":"https://**.jpg"}}}
+返回 (result.未知函数_67189018 ())
+
+
+.子程序 user_chat_delete, 文本型, , 删除私信聊天会话
+.参数 chat_code, 文本型, ,  频道id, 如果频道是分组的id,会同步给所有sync=1的子频道
+.参数 token, 文本型, 可空, 
+
+.局部变量 url, 文本型, , , 
+.局部变量 header, 文本型, , , 
+.局部变量 req, 未知类型0x49013925, , , 
+.局部变量 result, 未知类型0x49013926, , , 
+
+赋值 (url, 相加 (g_url, “/user-chat/delete”))
+赋值 (header, 相加 (“Authorization: Bot ”, 选择 (等于 (token, “”), , 读配置项 (相加 (取运行目录 (), “\bot_token.ini”), “token”, token, )), #换行符, “Content-type: application/json”))
+req.置属性 (“chat_code”, chat_code, )
+result.未知函数_67189034 (未知函数_67189035 (到文本 (未知函数_67189036 (url, 1, 未知函数_67189037 (req.未知函数_67189038 ()), , , header, , , , , , , ))), )
+ ' {"code":0,"message":"操作成功","data":[]}
+返回 (result.未知函数_67189039 ())
 
 
 
