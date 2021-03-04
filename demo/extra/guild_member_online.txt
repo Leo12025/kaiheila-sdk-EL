@@ -1,0 +1,1 @@
+{"channel_type":"PERSON","type":255,"target_id":"311364167","author_id":"1","content":"[系统消息]","extra":{"type":"guild_member_online","body":{"user_id":"2553977385","event_time":1614772835529,"guilds":["6277101564729879"]}},"msg_id":"3cd1f28e-92fd-4dcb-a683-a77f1db9a141","msg_timestamp":1614772835582,"nonce":""}

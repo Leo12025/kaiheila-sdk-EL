@@ -1,0 +1,1 @@
+{"channel_type":"GROUP","type":255,"target_id":"6277101564729879","author_id":"1","content":"[系统消息]","extra":{"type":"updated_role","body":{"role_id":132952,"name":"AT我查询消息","color":0,"position":9,"hoist":0,"mentionable":0,"permissions":4097}},"msg_id":"643269bf-3903-4759-b810-305e4e632382","msg_timestamp":1614702965506,"nonce":""}

@@ -1,0 +1,1 @@
+{"channel_type":"GROUP","type":255,"target_id":"3785158050166220","author_id":"1","content":"[系统消息]","extra":{"type":"joined_guild","body":{"user_id":"2718026105","joined_at":1614787303000}},"msg_id":"54c456b6-ca76-4c68-a6e3-8100b14610e2","msg_timestamp":1614787304110,"nonce":""}
